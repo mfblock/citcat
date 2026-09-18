@@ -1,0 +1,826 @@
+{
+  "version": "1.0",
+  "meta": {
+    "name": "Acme Industries — Company Introduction",
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "created": "2026-09-17T00:00:00Z",
+    "modified": "2026-09-17T00:00:00Z"
+  },
+  "scenes": [
+    {
+      "id": "pr-scene-01-title-a1b2c3d4",
+      "name": "Title Slide",
+      "duration_ms": 4000,
+      "background": {
+        "fill": "#0f172a",
+        "gradient": {
+          "gradient_type": "Linear",
+          "stops": [
+            { "offset": 0.0, "color": "#0f172a" },
+            { "offset": 1.0, "color": "#1e293b" }
+          ]
+        },
+        "image": null
+      },
+      "objects": [
+        {
+          "id": "pr-obj-company-name-a1b2c3",
+          "name": "Company Name",
+          "object_type": "Text",
+          "transform": { "x": 360.0, "y": 340.0, "width": 1200.0, "height": 100.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#ffffff", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 64.0, "font_weight": 700, "text_align": "Center", "line_height": 1.2, "border_radius": 0.0 },
+          "content": "Acme Industries",
+          "z_index": 10,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            { "id": "pr-kf-cn-op1", "time_ms": 0, "property": "transform.opacity", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseOut" },
+            { "id": "pr-kf-cn-op2", "time_ms": 600, "property": "transform.opacity", "value": { "type": "Number", "value": 1.0 }, "easing": "EaseOut" }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null
+        },
+        {
+          "id": "pr-obj-tagline-a1b2c3d4e5",
+          "name": "Tagline",
+          "object_type": "Text",
+          "transform": { "x": 560.0, "y": 460.0, "width": 800.0, "height": 50.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#94a3b8", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 28.0, "font_weight": 300, "text_align": "Center", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "Building tomorrow, today",
+          "z_index": 9,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            { "id": "pr-kf-tl-op1", "time_ms": 0, "property": "transform.opacity", "value": { "type": "Number", "value": 0.0 }, "easing": "Linear" },
+            { "id": "pr-kf-tl-op2", "time_ms": 800, "property": "transform.opacity", "value": { "type": "Number", "value": 0.0 }, "easing": "Linear" },
+            { "id": "pr-kf-tl-op3", "time_ms": 1300, "property": "transform.opacity", "value": { "type": "Number", "value": 1.0 }, "easing": "EaseOut" },
+            { "id": "pr-kf-tl-y1", "time_ms": 800, "property": "transform.y", "value": { "type": "Number", "value": 520.0 }, "easing": "EaseOut" },
+            { "id": "pr-kf-tl-y2", "time_ms": 1300, "property": "transform.y", "value": { "type": "Number", "value": 460.0 }, "easing": "EaseOut" }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null
+        },
+        {
+          "id": "pr-obj-year-a1b2c3d4e5f6",
+          "name": "Founded",
+          "object_type": "Text",
+          "transform": { "x": 810.0, "y": 980.0, "width": 300.0, "height": 30.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#475569", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 16.0, "font_weight": 400, "text_align": "Center", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "Founded 2024",
+          "z_index": 5,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "appear_at_ms": 1500
+        },
+        {
+          "id": "pr-obj-accent-line-a1b2c3d4",
+          "name": "Accent Line",
+          "object_type": "Rect",
+          "transform": { "x": 860.0, "y": 540.0, "width": 200.0, "height": 3.0, "rotation": 0.0, "opacity": 0.5 },
+          "style": { "fill": "#3b82f6", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 24.0, "font_weight": 400, "text_align": "Left", "line_height": 1.4, "border_radius": 1.0 },
+          "content": "",
+          "z_index": 6,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "appear_at_ms": 1000
+        }
+      ],
+      "transition_in": null,
+      "transition_out": null,
+      "sort_order": 0,
+      "wait_points": [
+        {
+          "id": "pr-wp-title-anyclick",
+          "time_ms": 2000,
+          "resume_on": { "type": "AnyClick" }
+        }
+      ],
+      "subtitle_track": null
+    },
+    {
+      "id": "pr-scene-02-services-a1b2c3",
+      "name": "What We Do",
+      "duration_ms": 5000,
+      "background": {
+        "fill": "#0f172a",
+        "gradient": {
+          "gradient_type": "Linear",
+          "stops": [
+            { "offset": 0.0, "color": "#1e293b" },
+            { "offset": 1.0, "color": "#0f172a" }
+          ]
+        },
+        "image": null
+      },
+      "objects": [
+        {
+          "id": "pr-obj-wwd-title-a1b2c3d4",
+          "name": "Section Title",
+          "object_type": "Text",
+          "transform": { "x": 660.0, "y": 80.0, "width": 600.0, "height": 60.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#ffffff", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 40.0, "font_weight": 700, "text_align": "Center", "line_height": 1.2, "border_radius": 0.0 },
+          "content": "What We Do",
+          "z_index": 20,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            { "id": "pr-kf-wt-op1", "time_ms": 0, "property": "transform.opacity", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseOut" },
+            { "id": "pr-kf-wt-op2", "time_ms": 400, "property": "transform.opacity", "value": { "type": "Number", "value": 1.0 }, "easing": "EaseOut" }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null
+        },
+        {
+          "id": "pr-obj-card1-bg-a1b2c3d4",
+          "name": "Design Card",
+          "object_type": "Rect",
+          "transform": { "x": 190.0, "y": 280.0, "width": 440.0, "height": 400.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#1e3a5f", "stroke": "#3b82f6", "stroke_width": 2.0, "font_family": "system-ui", "font_size": 24.0, "font_weight": 400, "text_align": "Left", "line_height": 1.4, "border_radius": 16.0 },
+          "content": "",
+          "z_index": 10,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            { "id": "pr-kf-c1-w1", "time_ms": 500, "property": "transform.width", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseOut" },
+            { "id": "pr-kf-c1-w2", "time_ms": 1000, "property": "transform.width", "value": { "type": "Number", "value": 440.0 }, "easing": "EaseOut" },
+            { "id": "pr-kf-c1-h1", "time_ms": 500, "property": "transform.height", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseOut" },
+            { "id": "pr-kf-c1-h2", "time_ms": 1000, "property": "transform.height", "value": { "type": "Number", "value": 400.0 }, "easing": "EaseOut" }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "appear_at_ms": 500
+        },
+        {
+          "id": "pr-obj-card1-title-a1b2c3",
+          "name": "Design Title",
+          "object_type": "Text",
+          "transform": { "x": 290.0, "y": 420.0, "width": 240.0, "height": 50.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#3b82f6", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 32.0, "font_weight": 600, "text_align": "Center", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "Design",
+          "z_index": 12,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "appear_at_ms": 1000
+        },
+        {
+          "id": "pr-obj-card2-bg-a1b2c3d4",
+          "name": "Build Card",
+          "object_type": "Rect",
+          "transform": { "x": 740.0, "y": 280.0, "width": 440.0, "height": 400.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#14532d", "stroke": "#22c55e", "stroke_width": 2.0, "font_family": "system-ui", "font_size": 24.0, "font_weight": 400, "text_align": "Left", "line_height": 1.4, "border_radius": 16.0 },
+          "content": "",
+          "z_index": 10,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            { "id": "pr-kf-c2-w1", "time_ms": 1000, "property": "transform.width", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseOut" },
+            { "id": "pr-kf-c2-w2", "time_ms": 1500, "property": "transform.width", "value": { "type": "Number", "value": 440.0 }, "easing": "EaseOut" },
+            { "id": "pr-kf-c2-h1", "time_ms": 1000, "property": "transform.height", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseOut" },
+            { "id": "pr-kf-c2-h2", "time_ms": 1500, "property": "transform.height", "value": { "type": "Number", "value": 400.0 }, "easing": "EaseOut" }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "appear_at_ms": 1000
+        },
+        {
+          "id": "pr-obj-card2-title-a1b2c3",
+          "name": "Build Title",
+          "object_type": "Text",
+          "transform": { "x": 840.0, "y": 420.0, "width": 240.0, "height": 50.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#22c55e", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 32.0, "font_weight": 600, "text_align": "Center", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "Build",
+          "z_index": 12,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "appear_at_ms": 1500
+        },
+        {
+          "id": "pr-obj-card3-bg-a1b2c3d4",
+          "name": "Deliver Card",
+          "object_type": "Rect",
+          "transform": { "x": 1290.0, "y": 280.0, "width": 440.0, "height": 400.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#3b0764", "stroke": "#a855f7", "stroke_width": 2.0, "font_family": "system-ui", "font_size": 24.0, "font_weight": 400, "text_align": "Left", "line_height": 1.4, "border_radius": 16.0 },
+          "content": "",
+          "z_index": 10,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            { "id": "pr-kf-c3-w1", "time_ms": 1500, "property": "transform.width", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseOut" },
+            { "id": "pr-kf-c3-w2", "time_ms": 2000, "property": "transform.width", "value": { "type": "Number", "value": 440.0 }, "easing": "EaseOut" },
+            { "id": "pr-kf-c3-h1", "time_ms": 1500, "property": "transform.height", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseOut" },
+            { "id": "pr-kf-c3-h2", "time_ms": 2000, "property": "transform.height", "value": { "type": "Number", "value": 400.0 }, "easing": "EaseOut" }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "appear_at_ms": 1500
+        },
+        {
+          "id": "pr-obj-card3-title-a1b2c3",
+          "name": "Deliver Title",
+          "object_type": "Text",
+          "transform": { "x": 1390.0, "y": 420.0, "width": 240.0, "height": 50.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#a855f7", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 32.0, "font_weight": 600, "text_align": "Center", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "Deliver",
+          "z_index": 12,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "appear_at_ms": 2000
+        }
+      ],
+      "transition_in": { "kind": "Crossfade", "duration_ms": 500 },
+      "transition_out": null,
+      "sort_order": 1,
+      "wait_points": [
+        {
+          "id": "pr-wp-services-anyclick",
+          "time_ms": 3000,
+          "resume_on": { "type": "AnyClick" }
+        }
+      ],
+      "subtitle_track": null
+    },
+    {
+      "id": "pr-scene-03-numbers-a1b2c3",
+      "name": "By the Numbers",
+      "duration_ms": 6000,
+      "background": {
+        "fill": "#0f172a",
+        "gradient": null,
+        "image": null
+      },
+      "objects": [
+        {
+          "id": "pr-obj-num-title-a1b2c3d4",
+          "name": "Numbers Title",
+          "object_type": "Text",
+          "transform": { "x": 610.0, "y": 80.0, "width": 700.0, "height": 60.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#ffffff", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 40.0, "font_weight": 700, "text_align": "Center", "line_height": 1.2, "border_radius": 0.0 },
+          "content": "By the Numbers",
+          "z_index": 20,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            { "id": "pr-kf-nt-op1", "time_ms": 0, "property": "transform.opacity", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseOut" },
+            { "id": "pr-kf-nt-op2", "time_ms": 400, "property": "transform.opacity", "value": { "type": "Number", "value": 1.0 }, "easing": "EaseOut" }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null
+        },
+        {
+          "id": "pr-obj-num1-a1b2c3d4e5f6",
+          "name": "Number 150+",
+          "object_type": "Text",
+          "transform": { "x": 190.0, "y": 380.0, "width": 440.0, "height": 100.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#3b82f6", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 72.0, "font_weight": 700, "text_align": "Center", "line_height": 1.2, "border_radius": 0.0 },
+          "content": "150+",
+          "z_index": 15,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            { "id": "pr-kf-n1-w1", "time_ms": 500, "property": "transform.width", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseOut" },
+            { "id": "pr-kf-n1-w2", "time_ms": 1000, "property": "transform.width", "value": { "type": "Number", "value": 440.0 }, "easing": "EaseOut" },
+            { "id": "pr-kf-n1-h1", "time_ms": 500, "property": "transform.height", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseOut" },
+            { "id": "pr-kf-n1-h2", "time_ms": 1000, "property": "transform.height", "value": { "type": "Number", "value": 100.0 }, "easing": "EaseOut" }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "appear_at_ms": 500
+        },
+        {
+          "id": "pr-obj-num1-label-a1b2c3",
+          "name": "Projects Label",
+          "object_type": "Text",
+          "transform": { "x": 290.0, "y": 490.0, "width": 240.0, "height": 30.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#94a3b8", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 20.0, "font_weight": 400, "text_align": "Center", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "Projects",
+          "z_index": 14,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "appear_at_ms": 1000
+        },
+        {
+          "id": "pr-obj-num2-a1b2c3d4e5f6",
+          "name": "Number 98%",
+          "object_type": "Text",
+          "transform": { "x": 740.0, "y": 380.0, "width": 440.0, "height": 100.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#22c55e", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 72.0, "font_weight": 700, "text_align": "Center", "line_height": 1.2, "border_radius": 0.0 },
+          "content": "98%",
+          "z_index": 15,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            { "id": "pr-kf-n2-w1", "time_ms": 1500, "property": "transform.width", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseOut" },
+            { "id": "pr-kf-n2-w2", "time_ms": 2000, "property": "transform.width", "value": { "type": "Number", "value": 440.0 }, "easing": "EaseOut" },
+            { "id": "pr-kf-n2-h1", "time_ms": 1500, "property": "transform.height", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseOut" },
+            { "id": "pr-kf-n2-h2", "time_ms": 2000, "property": "transform.height", "value": { "type": "Number", "value": 100.0 }, "easing": "EaseOut" }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "appear_at_ms": 1500
+        },
+        {
+          "id": "pr-obj-num2-label-a1b2c3",
+          "name": "Satisfaction Label",
+          "object_type": "Text",
+          "transform": { "x": 840.0, "y": 490.0, "width": 240.0, "height": 30.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#94a3b8", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 20.0, "font_weight": 400, "text_align": "Center", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "Satisfaction",
+          "z_index": 14,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "appear_at_ms": 2000
+        },
+        {
+          "id": "pr-obj-num3-a1b2c3d4e5f6",
+          "name": "Number 24/7",
+          "object_type": "Text",
+          "transform": { "x": 1290.0, "y": 380.0, "width": 440.0, "height": 100.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#a855f7", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 72.0, "font_weight": 700, "text_align": "Center", "line_height": 1.2, "border_radius": 0.0 },
+          "content": "24/7",
+          "z_index": 15,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            { "id": "pr-kf-n3-w1", "time_ms": 2500, "property": "transform.width", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseOut" },
+            { "id": "pr-kf-n3-w2", "time_ms": 3000, "property": "transform.width", "value": { "type": "Number", "value": 440.0 }, "easing": "EaseOut" },
+            { "id": "pr-kf-n3-h1", "time_ms": 2500, "property": "transform.height", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseOut" },
+            { "id": "pr-kf-n3-h2", "time_ms": 3000, "property": "transform.height", "value": { "type": "Number", "value": 100.0 }, "easing": "EaseOut" }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "appear_at_ms": 2500
+        },
+        {
+          "id": "pr-obj-num3-label-a1b2c3",
+          "name": "Support Label",
+          "object_type": "Text",
+          "transform": { "x": 1390.0, "y": 490.0, "width": 240.0, "height": 30.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#94a3b8", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 20.0, "font_weight": 400, "text_align": "Center", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "Support",
+          "z_index": 14,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "appear_at_ms": 3000
+        }
+      ],
+      "transition_in": { "kind": "SlideLeft", "duration_ms": 400 },
+      "transition_out": null,
+      "sort_order": 2,
+      "wait_points": [
+        {
+          "id": "pr-wp-numbers-anyclick",
+          "time_ms": 4000,
+          "resume_on": { "type": "AnyClick" }
+        }
+      ],
+      "subtitle_track": null
+    },
+    {
+      "id": "pr-scene-04-team-a1b2c3d4",
+      "name": "Our Team",
+      "duration_ms": 5000,
+      "background": {
+        "fill": "#0f172a",
+        "gradient": {
+          "gradient_type": "Linear",
+          "stops": [
+            { "offset": 0.0, "color": "#0f172a" },
+            { "offset": 1.0, "color": "#1e293b" }
+          ]
+        },
+        "image": null
+      },
+      "objects": [
+        {
+          "id": "pr-obj-team-title-a1b2c3d4",
+          "name": "Team Title",
+          "object_type": "Text",
+          "transform": { "x": 710.0, "y": 80.0, "width": 500.0, "height": 60.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#ffffff", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 40.0, "font_weight": 700, "text_align": "Center", "line_height": 1.2, "border_radius": 0.0 },
+          "content": "Our Team",
+          "z_index": 20,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null
+        },
+        {
+          "id": "pr-obj-team1-avatar-a1b2c3",
+          "name": "Team 1 Avatar",
+          "object_type": "Ellipse",
+          "transform": { "x": 210.0, "y": 320.0, "width": 120.0, "height": 120.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#3b82f6", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 24.0, "font_weight": 400, "text_align": "Left", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "",
+          "z_index": 10,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            { "id": "pr-kf-ta1-y1", "time_ms": 500, "property": "transform.y", "value": { "type": "Number", "value": 500.0 }, "easing": "EaseOut" },
+            { "id": "pr-kf-ta1-y2", "time_ms": 1000, "property": "transform.y", "value": { "type": "Number", "value": 320.0 }, "easing": "EaseOut" }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "appear_at_ms": 500
+        },
+        {
+          "id": "pr-obj-team1-name-a1b2c3d4",
+          "name": "Team 1 Name",
+          "object_type": "Text",
+          "transform": { "x": 160.0, "y": 460.0, "width": 220.0, "height": 30.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#ffffff", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 20.0, "font_weight": 600, "text_align": "Center", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "Alex Chen",
+          "z_index": 11,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "appear_at_ms": 1000
+        },
+        {
+          "id": "pr-obj-team1-role-a1b2c3d4",
+          "name": "Team 1 Role",
+          "object_type": "Text",
+          "transform": { "x": 160.0, "y": 495.0, "width": 220.0, "height": 25.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#94a3b8", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 16.0, "font_weight": 400, "text_align": "Center", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "CEO & Founder",
+          "z_index": 11,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "appear_at_ms": 1000
+        },
+        {
+          "id": "pr-obj-team2-avatar-a1b2c3",
+          "name": "Team 2 Avatar",
+          "object_type": "Ellipse",
+          "transform": { "x": 620.0, "y": 320.0, "width": 120.0, "height": 120.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#22c55e", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 24.0, "font_weight": 400, "text_align": "Left", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "",
+          "z_index": 10,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            { "id": "pr-kf-ta2-y1", "time_ms": 1000, "property": "transform.y", "value": { "type": "Number", "value": 500.0 }, "easing": "EaseOut" },
+            { "id": "pr-kf-ta2-y2", "time_ms": 1500, "property": "transform.y", "value": { "type": "Number", "value": 320.0 }, "easing": "EaseOut" }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "appear_at_ms": 1000
+        },
+        {
+          "id": "pr-obj-team2-name-a1b2c3d4",
+          "name": "Team 2 Name",
+          "object_type": "Text",
+          "transform": { "x": 570.0, "y": 460.0, "width": 220.0, "height": 30.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#ffffff", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 20.0, "font_weight": 600, "text_align": "Center", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "Sam Rivera",
+          "z_index": 11,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "appear_at_ms": 1500
+        },
+        {
+          "id": "pr-obj-team2-role-a1b2c3d4",
+          "name": "Team 2 Role",
+          "object_type": "Text",
+          "transform": { "x": 570.0, "y": 495.0, "width": 220.0, "height": 25.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#94a3b8", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 16.0, "font_weight": 400, "text_align": "Center", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "CTO",
+          "z_index": 11,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "appear_at_ms": 1500
+        },
+        {
+          "id": "pr-obj-team3-avatar-a1b2c3",
+          "name": "Team 3 Avatar",
+          "object_type": "Ellipse",
+          "transform": { "x": 1060.0, "y": 320.0, "width": 120.0, "height": 120.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#a855f7", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 24.0, "font_weight": 400, "text_align": "Left", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "",
+          "z_index": 10,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            { "id": "pr-kf-ta3-y1", "time_ms": 1500, "property": "transform.y", "value": { "type": "Number", "value": 500.0 }, "easing": "EaseOut" },
+            { "id": "pr-kf-ta3-y2", "time_ms": 2000, "property": "transform.y", "value": { "type": "Number", "value": 320.0 }, "easing": "EaseOut" }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "appear_at_ms": 1500
+        },
+        {
+          "id": "pr-obj-team3-name-a1b2c3d4",
+          "name": "Team 3 Name",
+          "object_type": "Text",
+          "transform": { "x": 1010.0, "y": 460.0, "width": 220.0, "height": 30.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#ffffff", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 20.0, "font_weight": 600, "text_align": "Center", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "Jordan Park",
+          "z_index": 11,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "appear_at_ms": 2000
+        },
+        {
+          "id": "pr-obj-team3-role-a1b2c3d4",
+          "name": "Team 3 Role",
+          "object_type": "Text",
+          "transform": { "x": 1010.0, "y": 495.0, "width": 220.0, "height": 25.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#94a3b8", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 16.0, "font_weight": 400, "text_align": "Center", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "Head of Design",
+          "z_index": 11,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "appear_at_ms": 2000
+        },
+        {
+          "id": "pr-obj-team4-avatar-a1b2c3",
+          "name": "Team 4 Avatar",
+          "object_type": "Ellipse",
+          "transform": { "x": 1500.0, "y": 320.0, "width": 120.0, "height": 120.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#f97316", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 24.0, "font_weight": 400, "text_align": "Left", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "",
+          "z_index": 10,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            { "id": "pr-kf-ta4-y1", "time_ms": 2000, "property": "transform.y", "value": { "type": "Number", "value": 500.0 }, "easing": "EaseOut" },
+            { "id": "pr-kf-ta4-y2", "time_ms": 2500, "property": "transform.y", "value": { "type": "Number", "value": 320.0 }, "easing": "EaseOut" }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "appear_at_ms": 2000
+        },
+        {
+          "id": "pr-obj-team4-name-a1b2c3d4",
+          "name": "Team 4 Name",
+          "object_type": "Text",
+          "transform": { "x": 1450.0, "y": 460.0, "width": 220.0, "height": 30.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#ffffff", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 20.0, "font_weight": 600, "text_align": "Center", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "Morgan Blake",
+          "z_index": 11,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "appear_at_ms": 2500
+        },
+        {
+          "id": "pr-obj-team4-role-a1b2c3d4",
+          "name": "Team 4 Role",
+          "object_type": "Text",
+          "transform": { "x": 1450.0, "y": 495.0, "width": 220.0, "height": 25.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#94a3b8", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 16.0, "font_weight": 400, "text_align": "Center", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "VP Engineering",
+          "z_index": 11,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "appear_at_ms": 2500
+        }
+      ],
+      "transition_in": { "kind": "Crossfade", "duration_ms": 500 },
+      "transition_out": null,
+      "sort_order": 3,
+      "wait_points": [
+        {
+          "id": "pr-wp-team-anyclick",
+          "time_ms": 3500,
+          "resume_on": { "type": "AnyClick" }
+        }
+      ],
+      "subtitle_track": null
+    },
+    {
+      "id": "pr-scene-05-contact-a1b2c3",
+      "name": "Contact",
+      "duration_ms": 4000,
+      "background": {
+        "fill": "#0a0a1a",
+        "gradient": {
+          "gradient_type": "Radial",
+          "stops": [
+            { "offset": 0.0, "color": "#1e3a5f" },
+            { "offset": 1.0, "color": "#0a0a1a" }
+          ]
+        },
+        "image": null
+      },
+      "objects": [
+        {
+          "id": "pr-obj-letstalk-a1b2c3d4e5",
+          "name": "Let's Talk",
+          "object_type": "Text",
+          "transform": { "x": 560.0, "y": 280.0, "width": 800.0, "height": 80.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#ffffff", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 56.0, "font_weight": 700, "text_align": "Center", "line_height": 1.2, "border_radius": 0.0 },
+          "content": "Let's Talk",
+          "z_index": 15,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            { "id": "pr-kf-lt-op1", "time_ms": 0, "property": "transform.opacity", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseOut" },
+            { "id": "pr-kf-lt-op2", "time_ms": 600, "property": "transform.opacity", "value": { "type": "Number", "value": 1.0 }, "easing": "EaseOut" }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null
+        },
+        {
+          "id": "pr-obj-email-a1b2c3d4e5f6",
+          "name": "Email",
+          "object_type": "Text",
+          "transform": { "x": 660.0, "y": 430.0, "width": 600.0, "height": 30.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#94a3b8", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 22.0, "font_weight": 400, "text_align": "Center", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "hello@acme-industries.com",
+          "z_index": 12,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "appear_at_ms": 800
+        },
+        {
+          "id": "pr-obj-phone-a1b2c3d4e5f6",
+          "name": "Phone",
+          "object_type": "Text",
+          "transform": { "x": 660.0, "y": 475.0, "width": 600.0, "height": 30.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#94a3b8", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 22.0, "font_weight": 400, "text_align": "Center", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "+1 (555) 012-3456",
+          "z_index": 12,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "appear_at_ms": 1000
+        },
+        {
+          "id": "pr-obj-address-a1b2c3d4e5",
+          "name": "Address",
+          "object_type": "Text",
+          "transform": { "x": 660.0, "y": 520.0, "width": 600.0, "height": 30.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#94a3b8", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 22.0, "font_weight": 400, "text_align": "Center", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "123 Innovation Drive, San Francisco, CA",
+          "z_index": 12,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "appear_at_ms": 1200
+        },
+        {
+          "id": "pr-obj-startover-btn-a1b2c3",
+          "name": "Start Over",
+          "object_type": "Button",
+          "transform": { "x": 810.0, "y": 650.0, "width": 300.0, "height": 56.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#3b82f6", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 20.0, "font_weight": 600, "text_align": "Center", "line_height": 1.4, "border_radius": 12.0 },
+          "content": "Start Over",
+          "z_index": 15,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [
+            {
+              "id": "pr-evt-startover",
+              "trigger": { "type": "Click" },
+              "action": { "type": "GotoScene", "scene_id": "pr-scene-01-title-a1b2c3d4" }
+            }
+          ],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "appear_at_ms": 1500
+        }
+      ],
+      "transition_in": { "kind": "Crossfade", "duration_ms": 600 },
+      "transition_out": null,
+      "sort_order": 4,
+      "wait_points": [],
+      "subtitle_track": null
+    }
+  ],
+  "effects_library": [],
+  "data_source": null,
+  "export_settings": {
+    "format": "Html",
+    "single_file": true,
+    "autoplay": true,
+    "loop_playback": false
+  }
+}

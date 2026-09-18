@@ -1,0 +1,1061 @@
+var CitCatRuntime = (function () {
+  function applyEasing(t, easing) {
+    switch (easing) {
+      case "Linear": return t;
+      case "EaseIn": return t * t * t;
+      case "EaseOut": return 1 - Math.pow(1 - t, 3);
+      case "EaseInOut":
+        return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      default: return t;
+    }
+  }
+
+  function lerpNumber(a, b, t) {
+    return a + (b - a) * t;
+  }
+
+  function parseHex(hex) {
+    hex = hex.replace("#", "");
+    return {
+      r: parseInt(hex.substring(0, 2), 16) || 0,
+      g: parseInt(hex.substring(2, 4), 16) || 0,
+      b: parseInt(hex.substring(4, 6), 16) || 0,
+    };
+  }
+
+  function lerpColor(c1, c2, t) {
+    var a = parseHex(c1);
+    var b = parseHex(c2);
+    var r = Math.round(a.r + (b.r - a.r) * t);
+    var g = Math.round(a.g + (b.g - a.g) * t);
+    var bl = Math.round(a.b + (b.b - a.b) * t);
+    return "#" + ((1 << 24) + (r << 16) + (g << 8) + bl).toString(16).slice(1);
+  }
+
+  function getKeyframeValue(kv) {
+    if (kv && typeof kv === "object" && "type" in kv) {
+      return kv.value;
+    }
+    return kv;
+  }
+
+  function interpolate(keyframes, property, timeMs) {
+    var relevant = [];
+    for (var i = 0; i < keyframes.length; i++) {
+      if (keyframes[i].property === property) {
+        relevant.push(keyframes[i]);
+      }
+    }
+    if (relevant.length === 0) return null;
+
+    relevant.sort(function (a, b) { return a.time_ms - b.time_ms; });
+
+    if (relevant.length === 1) {
+      return getKeyframeValue(relevant[0].value);
+    }
+
+    var first = relevant[0];
+    var last = relevant[relevant.length - 1];
+
+    if (timeMs <= first.time_ms) return getKeyframeValue(first.value);
+    if (timeMs >= last.time_ms) return getKeyframeValue(last.value);
+
+    var before = first;
+    var after = relevant[1];
+    for (var i = 0; i < relevant.length - 1; i++) {
+      if (relevant[i].time_ms <= timeMs && relevant[i + 1].time_ms >= timeMs) {
+        before = relevant[i];
+        after = relevant[i + 1];
+        break;
+      }
+    }
+
+    var duration = after.time_ms - before.time_ms;
+    if (duration === 0) return getKeyframeValue(after.value);
+    var rawT = (timeMs - before.time_ms) / duration;
+    var t = applyEasing(rawT, after.easing);
+
+    var bVal = getKeyframeValue(before.value);
+    var aVal = getKeyframeValue(after.value);
+
+    if (typeof bVal === "number" && typeof aVal === "number") {
+      return lerpNumber(bVal, aVal, t);
+    }
+    if (typeof bVal === "string" && typeof aVal === "string" &&
+        bVal.startsWith("#") && aVal.startsWith("#")) {
+      return lerpColor(bVal, aVal, t);
+    }
+    if (typeof bVal === "boolean") {
+      return rawT < 1.0 ? bVal : aVal;
+    }
+    return bVal;
+  }
+
+  function cubicBezier(p0, p1, p2, p3, t) {
+    var u = 1 - t;
+    return u * u * u * p0 + 3 * u * u * t * p1 + 3 * u * t * t * p2 + t * t * t * p3;
+  }
+
+  function evaluateMotionPath(path, progress) {
+    if (!path || !path.points || path.points.length === 0) return null;
+    if (path.points.length === 1) return { x: path.points[0].x, y: path.points[0].y };
+
+    progress = Math.max(0, Math.min(1, progress));
+    var n = path.points.length - 1;
+    var stepsPerSeg = 20;
+    var segLengths = [];
+    var totalLength = 0;
+
+    for (var i = 0; i < n; i++) {
+      var a = path.points[i];
+      var b = path.points[i + 1];
+      var c1x = a.control_out ? a.control_out.x : a.x;
+      var c1y = a.control_out ? a.control_out.y : a.y;
+      var c2x = b.control_in ? b.control_in.x : b.x;
+      var c2y = b.control_in ? b.control_in.y : b.y;
+      var len = 0, px = a.x, py = a.y;
+      for (var s = 1; s <= stepsPerSeg; s++) {
+        var t = s / stepsPerSeg;
+        var nx = cubicBezier(a.x, c1x, c2x, b.x, t);
+        var ny = cubicBezier(a.y, c1y, c2y, b.y, t);
+        var dx = nx - px, dy = ny - py;
+        len += Math.sqrt(dx * dx + dy * dy);
+        px = nx; py = ny;
+      }
+      segLengths.push(len);
+      totalLength += len;
+    }
+
+    if (totalLength === 0) return { x: path.points[0].x, y: path.points[0].y };
+
+    var targetDist = progress * totalLength;
+    var accumulated = 0;
+    for (var i = 0; i < n; i++) {
+      if (accumulated + segLengths[i] >= targetDist || i === n - 1) {
+        var localT = segLengths[i] > 0 ? Math.max(0, Math.min(1, (targetDist - accumulated) / segLengths[i])) : 0;
+        var a = path.points[i], b = path.points[i + 1];
+        var c1x = a.control_out ? a.control_out.x : a.x;
+        var c1y = a.control_out ? a.control_out.y : a.y;
+        var c2x = b.control_in ? b.control_in.x : b.x;
+        var c2y = b.control_in ? b.control_in.y : b.y;
+        return {
+          x: cubicBezier(a.x, c1x, c2x, b.x, localT),
+          y: cubicBezier(a.y, c1y, c2y, b.y, localT),
+        };
+      }
+      accumulated += segLengths[i];
+    }
+    var last = path.points[n];
+    return { x: last.x, y: last.y };
+  }
+
+  function resolveObjectAtTime(obj, timeMs) {
+    if (obj.appear_at_ms !== null && obj.appear_at_ms !== undefined && timeMs < obj.appear_at_ms) {
+      return { id: obj.id, visible: false, object_type: obj.object_type, z_index: obj.z_index, transform: obj.transform, style: obj.style, events: [], content: "", _typewriter_progress: null };
+    }
+    if (obj.disappear_at_ms !== null && obj.disappear_at_ms !== undefined && timeMs > obj.disappear_at_ms) {
+      return { id: obj.id, visible: false, object_type: obj.object_type, z_index: obj.z_index, transform: obj.transform, style: obj.style, events: [], content: "", _typewriter_progress: null };
+    }
+
+    var resolved = {
+      id: obj.id,
+      name: obj.name,
+      object_type: obj.object_type,
+      content: obj.content,
+      visible: obj.visible,
+      locked: obj.locked,
+      z_index: obj.z_index,
+      events: obj.events,
+      motion_path: obj.motion_path || null,
+      video_trim_start_ms: obj.video_trim_start_ms || 0,
+      video_trim_end_ms: obj.video_trim_end_ms || null,
+      video_muted: obj.video_muted !== false,
+      audio_volume: obj.audio_volume !== undefined ? obj.audio_volume : 1.0,
+      audio_loop: obj.audio_loop || false,
+      text_wrap: obj.text_wrap || false,
+      appear_at_ms: obj.appear_at_ms,
+      disappear_at_ms: obj.disappear_at_ms,
+      transform: {
+        x: obj.transform.x,
+        y: obj.transform.y,
+        width: obj.transform.width,
+        height: obj.transform.height,
+        rotation: obj.transform.rotation,
+        opacity: obj.transform.opacity,
+      },
+      style: {
+        fill: obj.style.fill,
+        stroke: obj.style.stroke,
+        stroke_width: obj.style.stroke_width,
+        font_family: obj.style.font_family,
+        font_size: obj.style.font_size,
+        font_weight: obj.style.font_weight,
+        text_align: obj.style.text_align,
+        line_height: obj.style.line_height,
+        border_radius: obj.style.border_radius,
+      },
+      _typewriter_progress: null,
+    };
+
+    if (!obj.keyframes || obj.keyframes.length === 0) return resolved;
+
+    var props = [
+      "transform.x", "transform.y", "transform.width", "transform.height",
+      "transform.rotation", "transform.opacity",
+      "style.fill", "style.stroke", "style.stroke_width",
+      "style.font_size", "style.border_radius",
+      "visible", "_typewriter_progress", "_path_progress", "audio_volume",
+    ];
+
+    var pathProgress = null;
+    for (var i = 0; i < props.length; i++) {
+      var prop = props[i];
+      var val = interpolate(obj.keyframes, prop, timeMs);
+      if (val === null) continue;
+
+      if (prop === "visible") {
+        resolved.visible = val;
+      } else if (prop === "_typewriter_progress") {
+        resolved._typewriter_progress = val;
+      } else if (prop === "_path_progress") {
+        pathProgress = val;
+      } else if (prop === "audio_volume") {
+        resolved.audio_volume = val;
+      } else {
+        var parts = prop.split(".");
+        if (parts.length === 2) {
+          resolved[parts[0]][parts[1]] = val;
+        }
+      }
+    }
+
+    if (pathProgress !== null && obj.motion_path) {
+      var pos = evaluateMotionPath(obj.motion_path, pathProgress);
+      if (pos) {
+        resolved.transform.x = pos.x - resolved.transform.width / 2;
+        resolved.transform.y = pos.y - resolved.transform.height / 2;
+      }
+    }
+
+    return resolved;
+  }
+
+  // --- Event system ---
+
+  var eventState = {
+    firedTimers: {},
+    hoveredObjectIds: {},
+    runtimeVisibility: {},
+    canvas: null,
+    interactive: false,
+  };
+
+  function initEvents(canvasEl, interactive) {
+    eventState.canvas = canvasEl;
+    eventState.interactive = interactive;
+    if (canvasEl && interactive) {
+      canvasEl.addEventListener("click", onRuntimeClick);
+      canvasEl.addEventListener("mousemove", onRuntimeMouseMove);
+    }
+  }
+
+  function cleanupEvents() {
+    if (eventState.canvas) {
+      eventState.canvas.removeEventListener("click", onRuntimeClick);
+      eventState.canvas.removeEventListener("mousemove", onRuntimeMouseMove);
+    }
+    eventState.firedTimers = {};
+    eventState.hoveredObjectIds = {};
+    eventState.runtimeVisibility = {};
+    eventState.canvas = null;
+    eventState.interactive = false;
+  }
+
+  function resetEventState() {
+    eventState.firedTimers = {};
+    eventState.hoveredObjectIds = {};
+    eventState.runtimeVisibility = {};
+  }
+
+  function onRuntimeClick(e) {
+    if (!state.isPlaying || !state.project) return;
+    var scene = getCurrentScene();
+    if (!scene) return;
+
+    var rect = eventState.canvas.getBoundingClientRect();
+    var mx = e.clientX - rect.left;
+    var my = e.clientY - rect.top;
+
+    var stageCoords = runtimeScreenToStage(mx, my);
+    if (!stageCoords) return;
+
+    var objects = scene.objects.slice().sort(function (a, b) {
+      return b.z_index - a.z_index;
+    });
+
+    for (var i = 0; i < objects.length; i++) {
+      var obj = objects[i];
+      var isVisible = eventState.runtimeVisibility[obj.id] !== undefined
+        ? eventState.runtimeVisibility[obj.id]
+        : obj.visible;
+      if (!isVisible && obj.object_type !== "Hotspot") continue;
+      if (obj.object_type === "Hotspot" && !isVisible) continue;
+
+      var t = obj.transform;
+      if (runtimePointInRect(stageCoords.x, stageCoords.y, t)) {
+        fireEventsForTrigger(obj, "Click");
+        break;
+      }
+    }
+  }
+
+  function onRuntimeMouseMove(e) {
+    if (!state.isPlaying || !state.project) return;
+    var scene = getCurrentScene();
+    if (!scene) return;
+
+    var rect = eventState.canvas.getBoundingClientRect();
+    var mx = e.clientX - rect.left;
+    var my = e.clientY - rect.top;
+
+    var stageCoords = runtimeScreenToStage(mx, my);
+    if (!stageCoords) return;
+
+    for (var i = 0; i < scene.objects.length; i++) {
+      var obj = scene.objects[i];
+      var t = obj.transform;
+      var inside = runtimePointInRect(stageCoords.x, stageCoords.y, t);
+      var wasInside = !!eventState.hoveredObjectIds[obj.id];
+
+      if (inside && !wasInside) {
+        eventState.hoveredObjectIds[obj.id] = true;
+        fireEventsForTrigger(obj, "HoverEnter");
+      } else if (!inside && wasInside) {
+        delete eventState.hoveredObjectIds[obj.id];
+        fireEventsForTrigger(obj, "HoverLeave");
+      }
+    }
+  }
+
+  function runtimeScreenToStage(mx, my) {
+    if (typeof CitCatCanvas !== "undefined" && CitCatCanvas.getPan) {
+      var pan = CitCatCanvas.getPan();
+      var zoom = CitCatCanvas.getZoom();
+      return { x: (mx - pan.x) / zoom, y: (my - pan.y) / zoom };
+    }
+    if (state.project) {
+      var cw = eventState.canvas.width;
+      var ch = eventState.canvas.height;
+      var sw = state.project.meta.width;
+      var sh = state.project.meta.height;
+      var scale = Math.min(cw / sw, ch / sh);
+      var ox = (cw - sw * scale) / 2;
+      var oy = (ch - sh * scale) / 2;
+      return { x: (mx - ox) / scale, y: (my - oy) / scale };
+    }
+    return null;
+  }
+
+  function runtimePointInRect(px, py, t) {
+    return px >= t.x && px <= t.x + t.width && py >= t.y && py <= t.y + t.height;
+  }
+
+  function fireEventsForTrigger(obj, triggerType) {
+    if (!obj.events) return;
+    for (var i = 0; i < obj.events.length; i++) {
+      var ev = obj.events[i];
+      var trigger = ev.trigger;
+      if (trigger.type === triggerType || trigger === triggerType) {
+        executeAction(ev.action);
+      }
+    }
+  }
+
+  function checkTimerTriggers(scene, timeMs) {
+    for (var i = 0; i < scene.objects.length; i++) {
+      var obj = scene.objects[i];
+      if (!obj.events) continue;
+      for (var j = 0; j < obj.events.length; j++) {
+        var ev = obj.events[j];
+        if (ev.trigger.type === "Timer") {
+          var timerKey = obj.id + ":" + ev.id;
+          if (!eventState.firedTimers[timerKey] && timeMs >= ev.trigger.delay_ms) {
+            eventState.firedTimers[timerKey] = true;
+            executeAction(ev.action);
+          }
+        }
+      }
+    }
+  }
+
+  function checkSceneEndTriggers(scene) {
+    for (var i = 0; i < scene.objects.length; i++) {
+      var obj = scene.objects[i];
+      if (!obj.events) continue;
+      for (var j = 0; j < obj.events.length; j++) {
+        var ev = obj.events[j];
+        if (ev.trigger.type === "SceneEnd" || ev.trigger === "SceneEnd") {
+          executeAction(ev.action);
+        }
+      }
+    }
+  }
+
+  function executeAction(action) {
+    if (!action || !state.project) return;
+
+    switch (action.type) {
+      case "GotoScene":
+        var idx = state.project.scenes.findIndex(function (s) {
+          return s.id === action.scene_id;
+        });
+        if (idx >= 0) {
+          resetEventState();
+          resetWaitFired();
+          state.currentSceneIndex = idx;
+          state.currentTimeMs = 0;
+          if (state.onSceneChange) state.onSceneChange(idx);
+        }
+        break;
+
+      case "ToggleVisible":
+        var obj = findObjectById(action.object_id);
+        if (obj) {
+          var current = eventState.runtimeVisibility[obj.id] !== undefined
+            ? eventState.runtimeVisibility[obj.id]
+            : obj.visible;
+          eventState.runtimeVisibility[obj.id] = !current;
+        }
+        break;
+
+      case "PlayAnimation":
+        // In this context, "play" means the object's keyframes animate normally
+        // (they already do during playback, so this is a no-op for now;
+        // per-object pause/play state can be added as a refinement)
+        break;
+
+      case "PauseAnimation":
+        break;
+
+      case "SetProperty":
+        var obj = findObjectById(action.object_id);
+        if (obj && action.property && action.value !== undefined) {
+          var val = getKeyframeValue(action.value);
+          var parts = action.property.split(".");
+          if (parts.length === 2) {
+            if (obj[parts[0]]) obj[parts[0]][parts[1]] = val;
+          } else if (parts.length === 1) {
+            obj[parts[0]] = val;
+          }
+        }
+        break;
+    }
+  }
+
+  function findObjectById(objectId) {
+    var scene = getCurrentScene();
+    if (!scene) return null;
+    for (var i = 0; i < scene.objects.length; i++) {
+      if (scene.objects[i].id === objectId) return scene.objects[i];
+    }
+    return null;
+  }
+
+  function getRuntimeVisibility(objId) {
+    if (eventState.runtimeVisibility[objId] !== undefined) {
+      return eventState.runtimeVisibility[objId];
+    }
+    return null;
+  }
+
+  // --- State ---
+
+  // --- Wait point state ---
+
+  var waitState = {
+    waiting: false,
+    waitPointId: null,
+    firedWaitPoints: {},
+    timerStart: 0,
+    timerDelay: 0,
+    waitClickHandler: null,
+  };
+
+  function resetWaitState() {
+    if (waitState.waitClickHandler && eventState.canvas) {
+      eventState.canvas.removeEventListener("click", waitState.waitClickHandler);
+    }
+    waitState.waiting = false;
+    waitState.waitPointId = null;
+    waitState.firedWaitPoints = {};
+    waitState.timerStart = 0;
+    waitState.timerDelay = 0;
+    waitState.waitClickHandler = null;
+  }
+
+  function resetWaitFired() {
+    if (waitState.waitClickHandler && eventState.canvas) {
+      eventState.canvas.removeEventListener("click", waitState.waitClickHandler);
+    }
+    waitState.waiting = false;
+    waitState.waitPointId = null;
+    waitState.firedWaitPoints = {};
+    waitState.timerStart = 0;
+    waitState.timerDelay = 0;
+    waitState.waitClickHandler = null;
+  }
+
+  function checkWaitPoints(scene, timeMs) {
+    if (!scene.wait_points || scene.wait_points.length === 0) return false;
+    if (waitState.waiting) return true;
+
+    for (var i = 0; i < scene.wait_points.length; i++) {
+      var wp = scene.wait_points[i];
+      if (waitState.firedWaitPoints[wp.id]) continue;
+      if (timeMs >= wp.time_ms) {
+        waitState.waiting = true;
+        waitState.waitPointId = wp.id;
+        waitState.firedWaitPoints[wp.id] = true;
+        state.currentTimeMs = wp.time_ms;
+        startWaitResume(wp.resume_on);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  function startWaitResume(resumeOn) {
+    var type = resumeOn.type || resumeOn;
+
+    if (type === "Timer") {
+      waitState.timerStart = performance.now();
+      waitState.timerDelay = resumeOn.delay_ms;
+      requestAnimationFrame(waitTimerTick);
+    } else if (type === "AnyClick") {
+      installWaitClickHandler(null);
+    } else if (type === "Click") {
+      installWaitClickHandler(resumeOn.object_id);
+    } else if (type === "ClickOrTimer") {
+      waitState.timerStart = performance.now();
+      waitState.timerDelay = resumeOn.delay_ms;
+      installWaitClickHandler(resumeOn.object_id || null);
+      requestAnimationFrame(waitTimerTick);
+    }
+  }
+
+  function installWaitClickHandler(objectId) {
+    var canvas = eventState.canvas;
+    if (!canvas) return;
+
+    waitState.waitClickHandler = function (e) {
+      if (!waitState.waiting) return;
+
+      if (objectId) {
+        var rect = canvas.getBoundingClientRect();
+        var mx = e.clientX - rect.left;
+        var my = e.clientY - rect.top;
+        var stageCoords = runtimeScreenToStage(mx, my);
+        if (!stageCoords) return;
+
+        var scene = getCurrentScene();
+        if (!scene) return;
+        var targetObj = null;
+        for (var i = 0; i < scene.objects.length; i++) {
+          if (scene.objects[i].id === objectId) {
+            targetObj = scene.objects[i];
+            break;
+          }
+        }
+        if (!targetObj) return;
+        if (!runtimePointInRect(stageCoords.x, stageCoords.y, targetObj.transform)) return;
+      }
+
+      resumeFromWait();
+    };
+    canvas.addEventListener("click", waitState.waitClickHandler);
+  }
+
+  function waitTimerTick() {
+    if (!waitState.waiting) return;
+    var elapsed = performance.now() - waitState.timerStart;
+    if (elapsed >= waitState.timerDelay) {
+      resumeFromWait();
+      return;
+    }
+    requestAnimationFrame(waitTimerTick);
+  }
+
+  function resumeFromWait() {
+    if (waitState.waitClickHandler && eventState.canvas) {
+      eventState.canvas.removeEventListener("click", waitState.waitClickHandler);
+    }
+    waitState.waiting = false;
+    waitState.waitPointId = null;
+    waitState.waitClickHandler = null;
+    state.lastFrameTime = performance.now();
+    state.animFrameId = requestAnimationFrame(tick);
+  }
+
+  function isWaiting() {
+    return waitState.waiting;
+  }
+
+  function getWaitingAtMs() {
+    if (waitState.waiting) return state.currentTimeMs;
+    return null;
+  }
+
+  var state = {
+    project: null,
+    currentSceneIndex: 0,
+    currentTimeMs: 0,
+    isPlaying: false,
+    lastFrameTime: 0,
+    animFrameId: null,
+    onTimeUpdate: null,
+    onSceneChange: null,
+    onPlayStateChange: null,
+  };
+
+  function setProject(project) {
+    state.project = project;
+  }
+
+  function getSceneAtIndex(index) {
+    if (!state.project || index < 0 || index >= state.project.scenes.length) return null;
+    return state.project.scenes[index];
+  }
+
+  function getCurrentScene() {
+    return getSceneAtIndex(state.currentSceneIndex);
+  }
+
+  function play() {
+    if (state.isPlaying) return;
+    if (!state.project || state.project.scenes.length === 0) return;
+    state.isPlaying = true;
+    state.lastFrameTime = performance.now();
+    state.animFrameId = requestAnimationFrame(tick);
+    if (state.onPlayStateChange) state.onPlayStateChange(true);
+  }
+
+  function pause() {
+    if (!state.isPlaying) return;
+    state.isPlaying = false;
+    if (state.animFrameId) {
+      cancelAnimationFrame(state.animFrameId);
+      state.animFrameId = null;
+    }
+    if (state.onPlayStateChange) state.onPlayStateChange(false);
+  }
+
+  function stop() {
+    pause();
+    resetEventState();
+    resetWaitFired();
+    state.currentSceneIndex = 0;
+    state.currentTimeMs = 0;
+    if (state.onTimeUpdate) state.onTimeUpdate(0, 0);
+    if (state.onSceneChange) state.onSceneChange(0);
+    if (state.onPlayStateChange) state.onPlayStateChange(false);
+  }
+
+  function seekTo(sceneIndex, timeMs) {
+    if (!state.project) return;
+    sceneIndex = Math.max(0, Math.min(sceneIndex, state.project.scenes.length - 1));
+    var scene = getSceneAtIndex(sceneIndex);
+    if (!scene) return;
+    timeMs = Math.max(0, Math.min(timeMs, scene.duration_ms));
+    var sceneChanged = sceneIndex !== state.currentSceneIndex;
+    state.currentSceneIndex = sceneIndex;
+    state.currentTimeMs = timeMs;
+    if (sceneChanged && state.onSceneChange) state.onSceneChange(sceneIndex);
+    if (state.onTimeUpdate) state.onTimeUpdate(sceneIndex, timeMs);
+  }
+
+  function tick(now) {
+    if (!state.isPlaying) return;
+    if (waitState.waiting) return;
+
+    var elapsed = now - state.lastFrameTime;
+    state.lastFrameTime = now;
+    state.currentTimeMs += elapsed;
+
+    var scene = getCurrentScene();
+    if (!scene) {
+      stop();
+      return;
+    }
+
+    if (checkWaitPoints(scene, state.currentTimeMs)) {
+      if (state.onTimeUpdate) state.onTimeUpdate(state.currentSceneIndex, state.currentTimeMs);
+      return;
+    }
+
+    checkTimerTriggers(scene, state.currentTimeMs);
+
+    if (state.currentTimeMs >= scene.duration_ms) {
+      checkSceneEndTriggers(scene);
+
+      var hasTransition = scene.transition_out && scene.transition_out.kind !== "Cut";
+      var transitionDuration = hasTransition ? scene.transition_out.duration_ms : 0;
+      var overflowTime = state.currentTimeMs - scene.duration_ms;
+
+      if (overflowTime < transitionDuration) {
+        if (state.onTimeUpdate) state.onTimeUpdate(state.currentSceneIndex, state.currentTimeMs);
+        state.animFrameId = requestAnimationFrame(tick);
+        return;
+      }
+
+      resetEventState();
+      resetWaitFired();
+      if (state.currentSceneIndex < state.project.scenes.length - 1) {
+        state.currentSceneIndex++;
+        state.currentTimeMs = 0;
+        if (state.onSceneChange) state.onSceneChange(state.currentSceneIndex);
+      } else {
+        if (state.project.export_settings && state.project.export_settings.loop_playback) {
+          state.currentSceneIndex = 0;
+          state.currentTimeMs = 0;
+          if (state.onSceneChange) state.onSceneChange(0);
+        } else {
+          stop();
+          return;
+        }
+      }
+    }
+
+    if (state.onTimeUpdate) state.onTimeUpdate(state.currentSceneIndex, state.currentTimeMs);
+    state.animFrameId = requestAnimationFrame(tick);
+  }
+
+  function getResolvedScene(sceneIndex, timeMs) {
+    var scene = getSceneAtIndex(sceneIndex);
+    if (!scene) return null;
+    var objects = [];
+    for (var i = 0; i < scene.objects.length; i++) {
+      objects.push(resolveObjectAtTime(scene.objects[i], timeMs));
+    }
+    return {
+      id: scene.id,
+      name: scene.name,
+      duration_ms: scene.duration_ms,
+      background: scene.background,
+      transition_in: scene.transition_in,
+      transition_out: scene.transition_out,
+      objects: objects,
+      sort_order: scene.sort_order,
+    };
+  }
+
+  function getTransitionState() {
+    var scene = getCurrentScene();
+    if (!scene) return null;
+    if (state.currentTimeMs <= scene.duration_ms) return null;
+
+    var hasTransition = scene.transition_out && scene.transition_out.kind !== "Cut";
+    if (!hasTransition) return null;
+
+    var overflowTime = state.currentTimeMs - scene.duration_ms;
+    var transitionDuration = scene.transition_out.duration_ms;
+    if (overflowTime >= transitionDuration) return null;
+
+    var nextIndex = state.currentSceneIndex + 1;
+    if (nextIndex >= state.project.scenes.length) return null;
+
+    return {
+      kind: scene.transition_out.kind,
+      progress: overflowTime / transitionDuration,
+      outgoingScene: getResolvedScene(state.currentSceneIndex, scene.duration_ms),
+      incomingScene: getResolvedScene(nextIndex, 0),
+    };
+  }
+
+  // --- Standalone renderer for export ---
+
+  function renderStandalone(canvasEl, assets) {
+    var ctx = canvasEl.getContext("2d");
+    var imgCache = {};
+    var vidCache = {};
+
+    function loadAssetImage(src) {
+      if (imgCache[src]) return imgCache[src];
+      var img = new Image();
+      if (assets && assets[src]) {
+        img.src = assets[src];
+      } else {
+        img.src = src;
+      }
+      imgCache[src] = img;
+      return img;
+    }
+
+    function loadVideo(src, muted) {
+      if (vidCache[src]) return vidCache[src];
+      var vid = document.createElement("video");
+      vid.muted = muted !== false;
+      vid.playsInline = true;
+      vid.preload = "auto";
+      vid.style.display = "none";
+      if (assets && assets[src]) {
+        vid.src = assets[src];
+      } else {
+        vid.src = src;
+      }
+      document.body.appendChild(vid);
+      vidCache[src] = vid;
+      return vid;
+    }
+
+    var audCache = {};
+    function loadAudio(src, volume, loop) {
+      if (audCache[src]) return audCache[src];
+      var aud = document.createElement("audio");
+      aud.preload = "auto";
+      aud.volume = volume !== undefined ? volume : 1.0;
+      aud.loop = !!loop;
+      if (assets && assets[src]) {
+        aud.src = assets[src];
+      } else {
+        aud.src = src;
+      }
+      audCache[src] = aud;
+      return aud;
+    }
+
+    function roundRect(c, x, y, w, h, r) {
+      r = Math.min(r, w / 2, h / 2);
+      c.beginPath();
+      c.moveTo(x + r, y);
+      c.lineTo(x + w - r, y);
+      c.quadraticCurveTo(x + w, y, x + w, y + r);
+      c.lineTo(x + w, y + h - r);
+      c.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+      c.lineTo(x + r, y + h);
+      c.quadraticCurveTo(x, y + h, x, y + h - r);
+      c.lineTo(x, y + r);
+      c.quadraticCurveTo(x, y, x + r, y);
+      c.closePath();
+    }
+
+    function renderObj(obj) {
+      var t = obj.transform;
+      var s = obj.style;
+      ctx.save();
+      if (t.rotation !== 0) {
+        var cx = t.x + t.width / 2;
+        var cy = t.y + t.height / 2;
+        ctx.translate(cx, cy);
+        ctx.rotate(t.rotation * Math.PI / 180);
+        ctx.translate(-cx, -cy);
+      }
+      ctx.globalAlpha = t.opacity;
+
+      switch (obj.object_type) {
+        case "Text":
+          ctx.font = s.font_weight + " " + s.font_size + "px " + s.font_family;
+          ctx.fillStyle = s.fill;
+          ctx.textBaseline = "top";
+          var align = s.text_align || "Left";
+          ctx.textAlign = align === "Center" ? "center" : align === "Right" ? "right" : "left";
+          var content = obj.content || "";
+          if (obj._typewriter_progress !== null && obj._typewriter_progress !== undefined) {
+            content = content.substring(0, Math.floor(content.length * obj._typewriter_progress));
+          }
+          var lines = content.split("\n");
+          var lh = s.font_size * s.line_height;
+          var tx = t.x;
+          if (align === "Center") tx = t.x + t.width / 2;
+          else if (align === "Right") tx = t.x + t.width;
+          for (var li = 0; li < lines.length; li++) {
+            ctx.fillText(lines[li], tx, t.y + li * lh);
+          }
+          break;
+        case "Rect":
+          var r = s.border_radius || 0;
+          if (r > 0) {
+            roundRect(ctx, t.x, t.y, t.width, t.height, r);
+            if (s.fill && s.fill !== "transparent") { ctx.fillStyle = s.fill; ctx.fill(); }
+            if (s.stroke_width > 0) { ctx.strokeStyle = s.stroke; ctx.lineWidth = s.stroke_width; ctx.stroke(); }
+          } else {
+            if (s.fill && s.fill !== "transparent") { ctx.fillStyle = s.fill; ctx.fillRect(t.x, t.y, t.width, t.height); }
+            if (s.stroke_width > 0) { ctx.strokeStyle = s.stroke; ctx.lineWidth = s.stroke_width; ctx.strokeRect(t.x, t.y, t.width, t.height); }
+          }
+          break;
+        case "Ellipse":
+          ctx.beginPath();
+          ctx.ellipse(t.x + t.width / 2, t.y + t.height / 2, t.width / 2, t.height / 2, 0, 0, Math.PI * 2);
+          if (s.fill && s.fill !== "transparent") { ctx.fillStyle = s.fill; ctx.fill(); }
+          if (s.stroke_width > 0) { ctx.strokeStyle = s.stroke; ctx.lineWidth = s.stroke_width; ctx.stroke(); }
+          break;
+        case "Image":
+          if (obj.content) {
+            var img = loadAssetImage(obj.content);
+            if (img.complete && img.naturalWidth > 0) {
+              ctx.drawImage(img, t.x, t.y, t.width, t.height);
+            }
+          }
+          break;
+        case "Video":
+          if (obj.content) {
+            var muted = obj.video_muted !== false;
+            var vid = loadVideo(obj.content, muted);
+            if (vid.readyState >= 2) {
+              ctx.drawImage(vid, t.x, t.y, t.width, t.height);
+            } else {
+              ctx.fillStyle = "#222";
+              ctx.fillRect(t.x, t.y, t.width, t.height);
+            }
+          }
+          break;
+        case "Button":
+          roundRect(ctx, t.x, t.y, t.width, t.height, s.border_radius || 8);
+          ctx.fillStyle = s.fill; ctx.fill();
+          if (s.stroke_width > 0) { ctx.strokeStyle = s.stroke; ctx.lineWidth = s.stroke_width; ctx.stroke(); }
+          ctx.font = s.font_weight + " " + s.font_size + "px " + s.font_family;
+          ctx.fillStyle = "#ffffff";
+          ctx.textAlign = "center"; ctx.textBaseline = "middle";
+          var btnTxt = obj.content || "";
+          if (obj._typewriter_progress !== null && obj._typewriter_progress !== undefined) {
+            btnTxt = btnTxt.substring(0, Math.floor(btnTxt.length * obj._typewriter_progress));
+          }
+          ctx.fillText(btnTxt, t.x + t.width / 2, t.y + t.height / 2);
+          ctx.textAlign = "left"; ctx.textBaseline = "top";
+          break;
+        case "Hotspot":
+          break;
+      }
+      ctx.globalAlpha = 1;
+      ctx.restore();
+    }
+
+    function renderFrame() {
+      var scene = getCurrentScene();
+      if (!scene) return;
+      ctx.clearRect(0, 0, canvasEl.width, canvasEl.height);
+
+      var sw = state.project.meta.width;
+      var sh = state.project.meta.height;
+      var cw = canvasEl.width;
+      var ch = canvasEl.height;
+      var scale = Math.min(cw / sw, ch / sh);
+      var ox = (cw - sw * scale) / 2;
+      var oy = (ch - sh * scale) / 2;
+
+      ctx.save();
+      ctx.translate(ox, oy);
+      ctx.scale(scale, scale);
+
+      ctx.fillStyle = scene.background.fill;
+      ctx.fillRect(0, 0, sw, sh);
+
+      var resolved = getResolvedScene(state.currentSceneIndex, state.currentTimeMs);
+      if (resolved) {
+        var objects = resolved.objects.slice().sort(function (a, b) { return a.z_index - b.z_index; });
+        for (var i = 0; i < objects.length; i++) {
+          var obj = objects[i];
+          var vis = getRuntimeVisibility(obj.id);
+          if (vis !== null) obj.visible = vis;
+          if (!obj.visible) continue;
+          if (obj.object_type === "Hotspot") continue;
+          if (obj.object_type === "Audio") {
+            if (obj.content && state.isPlaying) {
+              var aud = loadAudio(obj.content, obj.audio_volume, obj.audio_loop);
+              if (aud.paused) aud.play().catch(function(){});
+              aud.volume = obj.audio_volume !== undefined ? obj.audio_volume : 1.0;
+            }
+            continue;
+          }
+          renderObj(obj);
+        }
+      }
+
+      // Render subtitles
+      if (scene.subtitle_track && scene.subtitle_track.entries) {
+        var activeEntry = null;
+        for (var si = 0; si < scene.subtitle_track.entries.length; si++) {
+          var e = scene.subtitle_track.entries[si];
+          if (state.currentTimeMs >= e.start_ms && state.currentTimeMs <= e.end_ms) {
+            activeEntry = e;
+            break;
+          }
+        }
+        if (activeEntry) {
+          var fontSize = 28;
+          var padding = 8;
+          ctx.font = "600 " + fontSize + "px system-ui";
+          ctx.textAlign = "center";
+          ctx.textBaseline = "bottom";
+          var lines = activeEntry.text.split("\n");
+          var totalHeight = lines.length * (fontSize * 1.3) + padding * 2;
+          var subY = sh - 40;
+          ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
+          var maxW = 0;
+          for (var li = 0; li < lines.length; li++) {
+            var w = ctx.measureText(lines[li]).width;
+            if (w > maxW) maxW = w;
+          }
+          ctx.fillRect(sw / 2 - maxW / 2 - padding * 2, subY - totalHeight, maxW + padding * 4, totalHeight + padding);
+          ctx.fillStyle = "#ffffff";
+          for (var li = lines.length - 1; li >= 0; li--) {
+            ctx.fillText(lines[li], sw / 2, subY - (lines.length - 1 - li) * (fontSize * 1.3));
+          }
+          ctx.textAlign = "left";
+          ctx.textBaseline = "top";
+        }
+      }
+
+      ctx.restore();
+    }
+
+    var origOnTimeUpdate = state.onTimeUpdate;
+    state.onTimeUpdate = function (si, ms) {
+      renderFrame();
+      if (origOnTimeUpdate) origOnTimeUpdate(si, ms);
+    };
+
+    state.onPlayStateChange = function (playing) {
+      if (!playing) renderFrame();
+    };
+
+    state.onSceneChange = function () {
+      renderFrame();
+    };
+
+    renderFrame();
+  }
+
+  return {
+    interpolate: interpolate,
+    resolveObjectAtTime: resolveObjectAtTime,
+    evaluateMotionPath: evaluateMotionPath,
+    setProject: setProject,
+    play: play,
+    pause: pause,
+    stop: stop,
+    seekTo: seekTo,
+    getCurrentScene: getCurrentScene,
+    getResolvedScene: getResolvedScene,
+    getTransitionState: getTransitionState,
+    initEvents: initEvents,
+    cleanupEvents: cleanupEvents,
+    getRuntimeVisibility: getRuntimeVisibility,
+    renderStandalone: renderStandalone,
+    isWaiting: isWaiting,
+    getWaitingAtMs: getWaitingAtMs,
+    state: state,
+  };
+})();
+
+if (typeof window !== "undefined" && !window.__TAURI__) {
+  var _engine = CitCatRuntime;
+  window.CitCatRuntime = function (canvas, project, assets) {
+    _engine.setProject(project);
+    _engine.renderStandalone(canvas, assets);
+    _engine.initEvents(canvas, true);
+    this.play = function () { _engine.play(); };
+    this.pause = function () { _engine.pause(); };
+    this.stop = function () { _engine.stop(); };
+    this.seekTo = function (si, ms) { _engine.seekTo(si, ms); };
+  };
+}

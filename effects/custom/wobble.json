@@ -1,0 +1,14 @@
+{
+  "id": "custom-wobble",
+  "name": "Wobble",
+  "category": "Emphasis",
+  "duration_ms": 1000,
+  "applies_to": ["Text", "Rect", "Ellipse", "Image", "Svg", "Button"],
+  "keyframes": [
+    { "id": "w1", "time_ms": 0, "property": "transform.rotation", "value": { "type": "Number", "value": 0.0 }, "easing": "Linear" },
+    { "id": "w2", "time_ms": 250, "property": "transform.rotation", "value": { "type": "Number", "value": 10.0 }, "easing": "EaseInOut" },
+    { "id": "w3", "time_ms": 500, "property": "transform.rotation", "value": { "type": "Number", "value": -10.0 }, "easing": "EaseInOut" },
+    { "id": "w4", "time_ms": 750, "property": "transform.rotation", "value": { "type": "Number", "value": 5.0 }, "easing": "EaseInOut" },
+    { "id": "w5", "time_ms": 1000, "property": "transform.rotation", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseInOut" }
+  ]
+}

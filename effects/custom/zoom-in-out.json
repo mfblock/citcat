@@ -1,0 +1,15 @@
+{
+  "id": "custom-zoom-in-out",
+  "name": "Zoom In+Out",
+  "category": "Emphasis",
+  "duration_ms": 1000,
+  "applies_to": ["Text", "Rect", "Ellipse", "Image", "Svg", "Button"],
+  "keyframes": [
+    { "id": "z1", "time_ms": 0, "property": "transform.width", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseInOut" },
+    { "id": "z2", "time_ms": 500, "property": "transform.width", "value": { "type": "Number", "value": 1.3 }, "easing": "EaseInOut" },
+    { "id": "z3", "time_ms": 1000, "property": "transform.width", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseInOut" },
+    { "id": "z4", "time_ms": 0, "property": "transform.height", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseInOut" },
+    { "id": "z5", "time_ms": 500, "property": "transform.height", "value": { "type": "Number", "value": 1.3 }, "easing": "EaseInOut" },
+    { "id": "z6", "time_ms": 1000, "property": "transform.height", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseInOut" }
+  ]
+}

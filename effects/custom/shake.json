@@ -1,0 +1,17 @@
+{
+  "id": "custom-shake",
+  "name": "Shake",
+  "category": "Emphasis",
+  "duration_ms": 500,
+  "applies_to": ["Text", "Rect", "Ellipse", "Image", "Svg", "Button"],
+  "keyframes": [
+    { "id": "s1", "time_ms": 0, "property": "transform.x", "value": { "type": "Number", "value": 0.0 }, "easing": "Linear" },
+    { "id": "s2", "time_ms": 62, "property": "transform.x", "value": { "type": "Number", "value": -8.0 }, "easing": "Linear" },
+    { "id": "s3", "time_ms": 125, "property": "transform.x", "value": { "type": "Number", "value": 8.0 }, "easing": "Linear" },
+    { "id": "s4", "time_ms": 187, "property": "transform.x", "value": { "type": "Number", "value": -6.0 }, "easing": "Linear" },
+    { "id": "s5", "time_ms": 250, "property": "transform.x", "value": { "type": "Number", "value": 6.0 }, "easing": "Linear" },
+    { "id": "s6", "time_ms": 312, "property": "transform.x", "value": { "type": "Number", "value": -3.0 }, "easing": "Linear" },
+    { "id": "s7", "time_ms": 375, "property": "transform.x", "value": { "type": "Number", "value": 3.0 }, "easing": "Linear" },
+    { "id": "s8", "time_ms": 500, "property": "transform.x", "value": { "type": "Number", "value": 0.0 }, "easing": "Linear" }
+  ]
+}

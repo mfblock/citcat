@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CitCat</title>
+  <link rel="stylesheet" href="css/editor.css" />
+</head>
+<body>
+  <div id="app">
+    <div id="toolbar">
+      <div class="toolbar-group" id="playback-tools">
+        <button id="btn-play" class="toolbar-btn" title="Play (Space)">&#9655;</button>
+        <button id="btn-pause" class="toolbar-btn" title="Pause">&#9646;&#9646;</button>
+        <button id="btn-stop" class="toolbar-btn" title="Stop">&#9632;</button>
+      </div>
+      <div class="toolbar-divider"></div>
+      <div class="toolbar-group" id="object-tools">
+        <button id="tool-select" class="toolbar-btn active" title="Select (V)" data-tool="select">
+          <svg width="16" height="16" viewBox="0 0 16 16"><path d="M2 1l10 6-4 1.5L6.5 13z" fill="currentColor"/></svg>
+        </button>
+        <button id="tool-text" class="toolbar-btn" title="Text (T)" data-tool="text">T</button>
+        <button id="tool-rect" class="toolbar-btn" title="Rectangle (R)" data-tool="rect">
+          <svg width="16" height="16" viewBox="0 0 16 16"><rect x="2" y="3" width="12" height="10" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+        </button>
+        <button id="tool-ellipse" class="toolbar-btn" title="Ellipse (E)" data-tool="ellipse">
+          <svg width="16" height="16" viewBox="0 0 16 16"><ellipse cx="8" cy="8" rx="6" ry="5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+        </button>
+        <button id="tool-image" class="toolbar-btn" title="Image (I)" data-tool="image">
+          <svg width="16" height="16" viewBox="0 0 16 16"><rect x="1" y="2" width="14" height="12" rx="1" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="5" cy="6" r="1.5" fill="currentColor"/><path d="M1 12l4-5 3 3 2-2 5 4" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>
+        </button>
+        <button id="tool-button" class="toolbar-btn" title="Button (B)" data-tool="button">
+          <svg width="16" height="16" viewBox="0 0 16 16"><rect x="1" y="4" width="14" height="8" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+        </button>
+        <button id="tool-hotspot" class="toolbar-btn" title="Hotspot (H)" data-tool="hotspot">
+          <svg width="16" height="16" viewBox="0 0 16 16"><rect x="2" y="3" width="12" height="10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 2"/></svg>
+        </button>
+        <button id="tool-path" class="toolbar-btn" title="Motion Path (P)" data-tool="path">
+          <svg width="16" height="16" viewBox="0 0 16 16"><path d="M2 12 C6 2, 10 2, 14 12" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="2" cy="12" r="2" fill="currentColor"/><circle cx="14" cy="12" r="2" fill="currentColor"/></svg>
+        </button>
+        <button id="tool-video" class="toolbar-btn" title="Video (M)" data-tool="video">
+          <svg width="16" height="16" viewBox="0 0 16 16"><rect x="1" y="3" width="10" height="10" rx="1" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M11 6l4-2v8l-4-2z" fill="currentColor" opacity=".6"/></svg>
+        </button>
+        <button id="tool-audio" class="toolbar-btn" title="Audio (A)" data-tool="audio">
+          <svg width="16" height="16" viewBox="0 0 16 16"><path d="M2 6v4h3l4 3V3L5 6H2z" fill="currentColor"/><path d="M12 4.5a5 5 0 010 7" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M10.5 6a3 3 0 010 4" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>
+        </button>
+        <button id="tool-svg" class="toolbar-btn" title="SVG (S)" data-tool="svg">
+          <svg width="16" height="16" viewBox="0 0 16 16"><path d="M3 2h10a1 1 0 011 1v10a1 1 0 01-1 1H3a1 1 0 01-1-1V3a1 1 0 011-1z" fill="none" stroke="currentColor" stroke-width="1.2"/><text x="4" y="11" font-size="7" font-weight="700" fill="currentColor">SVG</text></svg>
+        </button>
+      </div>
+      <div class="toolbar-divider"></div>
+      <div class="toolbar-group" id="action-tools">
+        <button id="btn-new" class="toolbar-btn" title="New Project (Ctrl+N)">
+          <svg width="16" height="16" viewBox="0 0 16 16"><path d="M3 1h7l3 3v10a1 1 0 01-1 1H3a1 1 0 01-1-1V2a1 1 0 011-1z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M10 1v3h3" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M6 8h4M8 6v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <button id="btn-save" class="toolbar-btn" title="Save (Ctrl+S)">
+          <svg width="16" height="16" viewBox="0 0 16 16"><path d="M2 1h9l3 3v10a1 1 0 01-1 1H2a1 1 0 01-1-1V2a1 1 0 011-1z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M4 1v4h7V1" fill="none" stroke="currentColor" stroke-width="1.2"/><rect x="4" y="9" width="8" height="4" rx=".5" fill="currentColor" opacity=".3"/></svg>
+        </button>
+        <button id="btn-open" class="toolbar-btn" title="Open (Ctrl+O)">
+          <svg width="16" height="16" viewBox="0 0 16 16"><path d="M1 4h5l2 2h7v8H1z" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>
+        </button>
+        <button id="btn-export" class="toolbar-btn" title="Export (Ctrl+E)">
+          <svg width="16" height="16" viewBox="0 0 16 16"><path d="M8 1v9M4 6l4-4 4 4M2 11v3h12v-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button id="btn-preview" class="toolbar-btn" title="Fullscreen Preview (F5)">
+          <svg width="16" height="16" viewBox="0 0 16 16"><path d="M2 2h4v2H4v2H2V2zM10 2h4v4h-2V4h-2V2zM2 10h2v2h2v2H2v-4zM12 12v-2h2v4h-4v-2h2z" fill="currentColor"/></svg>
+        </button>
+        <button id="btn-templates" class="toolbar-btn" title="Templates">
+          <svg width="16" height="16" viewBox="0 0 16 16"><rect x="2" y="1" width="12" height="14" rx="1" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M5 4h6M5 7h6M5 10h3" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg>
+        </button>
+        <button id="btn-subtitles" class="toolbar-btn" title="Subtitles">
+          <svg width="16" height="16" viewBox="0 0 16 16"><rect x="1" y="3" width="14" height="10" rx="1" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M4 9h8M6 12h4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </button>
+        <button id="btn-data" class="toolbar-btn" title="Data Source">
+          <svg width="16" height="16" viewBox="0 0 16 16"><ellipse cx="8" cy="4" rx="6" ry="2.5" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 4v8c0 1.38 2.69 2.5 6 2.5s6-1.12 6-2.5V4" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M2 8c0 1.38 2.69 2.5 6 2.5s6-1.12 6-2.5" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div id="main-area">
+      <div id="canvas-wrapper">
+        <canvas id="stage-canvas"></canvas>
+        <div id="zoom-indicator">100%</div>
+      </div>
+
+      <div id="v-splitter" class="splitter splitter-v"></div>
+      <div id="properties-panel">
+        <div id="props-empty">
+          <p>Select an object to edit its properties</p>
+        </div>
+        <div id="props-content" hidden>
+          <div class="props-header">
+            <input type="text" id="prop-name" class="prop-name-input" />
+          </div>
+
+          <details class="props-section" open>
+            <summary>Transform</summary>
+            <div class="props-grid">
+              <label>X<input type="number" id="prop-x" step="1" /></label>
+              <label>Y<input type="number" id="prop-y" step="1" /></label>
+              <label>W<input type="number" id="prop-w" step="1" min="1" /></label>
+              <label>H<input type="number" id="prop-h" step="1" min="1" /></label>
+              <label>Rot<input type="number" id="prop-rotation" step="1" /></label>
+              <label class="full-width">Opacity
+                <div class="slider-row">
+                  <input type="range" id="prop-opacity-slider" min="0" max="100" />
+                  <input type="number" id="prop-opacity" min="0" max="100" step="1" class="small-input" />
+                </div>
+              </label>
+            </div>
+          </details>
+
+          <details class="props-section" open>
+            <summary>Style</summary>
+            <div class="props-grid">
+              <label>Fill<input type="color" id="prop-fill" /></label>
+              <label>Stroke<input type="color" id="prop-stroke" /></label>
+              <label>Stroke W<input type="number" id="prop-stroke-width" step="0.5" min="0" /></label>
+              <label id="label-border-radius">Radius<input type="number" id="prop-border-radius" step="1" min="0" /></label>
+            </div>
+            <div class="props-grid" id="text-style-props">
+              <label>Font
+                <select id="prop-font-family">
+                  <option value="system-ui">System</option>
+                  <option value="serif">Serif</option>
+                  <option value="sans-serif">Sans-serif</option>
+                  <option value="monospace">Monospace</option>
+                  <option value="Inter">Inter</option>
+                  <option value="Georgia">Georgia</option>
+                  <option value="Arial">Arial</option>
+                </select>
+              </label>
+              <label>Size<input type="number" id="prop-font-size" step="1" min="1" /></label>
+              <label>Weight
+                <select id="prop-font-weight">
+                  <option value="100">Thin</option>
+                  <option value="300">Light</option>
+                  <option value="400">Regular</option>
+                  <option value="500">Medium</option>
+                  <option value="700">Bold</option>
+                  <option value="900">Black</option>
+                </select>
+              </label>
+              <label>Align
+                <div class="align-btns">
+                  <button data-align="Left" class="align-btn active" type="button">L</button>
+                  <button data-align="Center" class="align-btn" type="button">C</button>
+                  <button data-align="Right" class="align-btn" type="button">R</button>
+                </div>
+              </label>
+            </div>
+          </details>
+
+          <details class="props-section" open id="content-section">
+            <summary>Content</summary>
+            <textarea id="prop-content" rows="3"></textarea>
+          </details>
+
+          <details class="props-section" open id="video-section" style="display: none;">
+            <summary>Video</summary>
+            <div style="padding: 8px 10px;">
+              <div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 4px;">File</div>
+              <div style="display: flex; gap: 4px; align-items: center; margin-bottom: 8px;">
+                <span id="video-path-display" style="flex: 1; font-size: 11px; color: var(--text-primary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">(no file)</span>
+                <button id="btn-video-change" type="button" class="small-btn" style="margin: 0;">Change...</button>
+              </div>
+              <div class="props-grid">
+                <label>Trim Start (ms)<input type="number" id="prop-video-trim-start" min="0" step="100" value="0" /></label>
+                <label>Trim End (ms)<input type="number" id="prop-video-trim-end" min="0" step="100" placeholder="auto" /></label>
+              </div>
+              <label style="display: flex; align-items: center; gap: 6px; padding: 4px 10px; font-size: 11px; color: var(--text-secondary); cursor: pointer;">
+                <input type="checkbox" id="prop-video-muted" checked /> Muted
+              </label>
+            </div>
+          </details>
+
+          <details class="props-section" open id="audio-section" style="display: none;">
+            <summary>Audio</summary>
+            <div style="padding: 8px 10px;">
+              <div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 4px;">File</div>
+              <div style="display: flex; gap: 4px; align-items: center; margin-bottom: 8px;">
+                <span id="audio-path-display" style="flex: 1; font-size: 11px; color: var(--text-primary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">(no file)</span>
+                <button id="btn-audio-change" type="button" class="small-btn" style="margin: 0;">Change...</button>
+              </div>
+              <div class="props-grid">
+                <label>Trim Start (ms)<input type="number" id="prop-audio-trim-start" min="0" step="100" value="0" /></label>
+                <label>Trim End (ms)<input type="number" id="prop-audio-trim-end" min="0" step="100" placeholder="auto" /></label>
+              </div>
+              <label class="full-width" style="padding: 4px 10px; font-size: 11px; color: var(--text-secondary);">Volume
+                <div class="slider-row">
+                  <input type="range" id="prop-audio-volume" min="0" max="100" value="100" />
+                  <span id="audio-volume-display" style="min-width: 30px; text-align: right;">100%</span>
+                </div>
+              </label>
+              <label style="display: flex; align-items: center; gap: 6px; padding: 4px 10px; font-size: 11px; color: var(--text-secondary); cursor: pointer;">
+                <input type="checkbox" id="prop-audio-loop" /> Loop
+              </label>
+            </div>
+          </details>
+
+          <details class="props-section" id="lifespan-section">
+            <summary>Lifespan</summary>
+            <div class="props-grid">
+              <label>Appear (ms)<input type="number" id="prop-appear-at" min="0" step="100" placeholder="0" /></label>
+              <label>Disappear (ms)<input type="number" id="prop-disappear-at" min="0" step="100" placeholder="end" /></label>
+            </div>
+          </details>
+
+          <details class="props-section" id="text-wrap-section" style="display: none;">
+            <summary>Text Options</summary>
+            <div style="padding: 8px 10px;">
+              <label style="display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--text-secondary); cursor: pointer;">
+                <input type="checkbox" id="prop-text-wrap" /> Word wrap within object width
+              </label>
+            </div>
+          </details>
+
+          <details class="props-section" id="alignment-section" hidden>
+            <summary>Alignment</summary>
+            <div class="align-tools">
+              <button type="button" onclick="CitCatApp.alignObjects('left')" title="Align Left">&#8676;L</button>
+              <button type="button" onclick="CitCatApp.alignObjects('center-h')" title="Align Center H">&#8596;C</button>
+              <button type="button" onclick="CitCatApp.alignObjects('right')" title="Align Right">R&#8677;</button>
+              <button type="button" onclick="CitCatApp.alignObjects('top')" title="Align Top">&#8673;T</button>
+              <button type="button" onclick="CitCatApp.alignObjects('center-v')" title="Align Center V">&#8597;M</button>
+              <button type="button" onclick="CitCatApp.alignObjects('bottom')" title="Align Bottom">B&#8675;</button>
+              <button type="button" onclick="CitCatApp.alignObjects('distribute-h')" title="Distribute H">&#8660;H</button>
+              <button type="button" onclick="CitCatApp.alignObjects('distribute-v')" title="Distribute V">&#8661;V</button>
+            </div>
+          </details>
+
+          <details class="props-section" open id="events-section">
+            <summary>Events</summary>
+            <div id="events-list" class="events-container"></div>
+            <button id="btn-add-event" type="button" class="small-btn event-add-btn">+ Add Event</button>
+            <div id="event-form" hidden class="event-form">
+              <div class="event-form-row">
+                <label>When
+                  <select id="event-trigger-type">
+                    <option value="Click">Click</option>
+                    <option value="HoverEnter">Hover Enter</option>
+                    <option value="HoverLeave">Hover Leave</option>
+                    <option value="Timer">Timer</option>
+                    <option value="SceneEnd">Scene End</option>
+                  </select>
+                </label>
+                <label id="event-timer-label" hidden>Delay (ms)
+                  <input type="number" id="event-timer-delay" value="1000" min="0" step="100" />
+                </label>
+              </div>
+              <div class="event-form-row">
+                <label>Do
+                  <select id="event-action-type">
+                    <option value="GotoScene">Go to Scene</option>
+                    <option value="ToggleVisible">Toggle Visible</option>
+                    <option value="SetProperty">Set Property</option>
+                  </select>
+                </label>
+              </div>
+              <div class="event-form-row" id="event-target-scene-row">
+                <label>Scene
+                  <select id="event-target-scene"></select>
+                </label>
+              </div>
+              <div class="event-form-row" id="event-target-object-row" hidden>
+                <label>Object
+                  <select id="event-target-object"></select>
+                </label>
+              </div>
+              <div class="event-form-row" id="event-set-prop-row" hidden>
+                <label>Property
+                  <input type="text" id="event-set-property" placeholder="e.g. style.fill" />
+                </label>
+                <label>Value
+                  <input type="text" id="event-set-value" placeholder="e.g. #ff0000" />
+                </label>
+              </div>
+              <div class="event-form-buttons">
+                <button id="event-form-save" type="button" class="small-btn">Save</button>
+                <button id="event-form-cancel" type="button" class="small-btn">Cancel</button>
+              </div>
+            </div>
+          </details>
+
+          <details class="props-section" open id="motion-path-section">
+            <summary>Motion Path</summary>
+            <div style="padding: 8px 10px;">
+              <span id="path-point-count" style="font-size: 11px; color: var(--text-secondary);">No path</span>
+              <div style="margin-top: 6px; display: flex; gap: 4px;">
+                <button id="btn-clear-path" type="button" class="small-btn" style="margin: 0; flex: 1;">Clear Path</button>
+              </div>
+              <div style="margin-top: 4px; font-size: 10px; color: var(--text-muted);">Select Path tool (P) and click on the canvas to add points</div>
+            </div>
+          </details>
+
+          <details class="props-section" id="bindings-section">
+            <summary>Data Bindings</summary>
+            <div id="bindings-list" class="events-container"></div>
+            <div style="padding: 4px 10px 8px;">
+              <div style="display: flex; gap: 4px; margin-bottom: 4px;">
+                <select id="binding-property" style="flex: 1; background: var(--bg-input); border: 1px solid var(--border); border-radius: 4px; color: var(--text-primary); padding: 4px; font-size: 11px;">
+                  <option value="content">Content</option>
+                  <option value="style.fill">Fill Color</option>
+                  <option value="style.stroke">Stroke Color</option>
+                  <option value="visible">Visible</option>
+                </select>
+                <input type="text" id="binding-column" placeholder="Column name" style="flex: 1; background: var(--bg-input); border: 1px solid var(--border); border-radius: 4px; color: var(--text-primary); padding: 4px; font-size: 11px;" />
+              </div>
+              <button id="btn-add-binding" type="button" class="small-btn" style="margin: 0; width: 100%; text-align: center;">+ Bind</button>
+            </div>
+          </details>
+
+          <details class="props-section" id="condition-section">
+            <summary>Visibility Condition</summary>
+            <div style="padding: 8px 10px;">
+              <div style="display: flex; gap: 4px; margin-bottom: 4px;">
+                <input type="text" id="cond-column" placeholder="Column" style="flex: 1; background: var(--bg-input); border: 1px solid var(--border); border-radius: 4px; color: var(--text-primary); padding: 4px; font-size: 11px;" />
+                <select id="cond-operator" style="flex: 1; background: var(--bg-input); border: 1px solid var(--border); border-radius: 4px; color: var(--text-primary); padding: 4px; font-size: 11px;">
+                  <option value="Equals">Equals</option>
+                  <option value="NotEquals">Not Equals</option>
+                  <option value="Empty">Empty</option>
+                  <option value="NotEmpty">Not Empty</option>
+                  <option value="GreaterThan">Greater Than</option>
+                  <option value="LessThan">Less Than</option>
+                  <option value="Contains">Contains</option>
+                </select>
+              </div>
+              <div style="display: flex; gap: 4px; margin-bottom: 6px;">
+                <input type="text" id="cond-value" placeholder="Value" style="flex: 1; background: var(--bg-input); border: 1px solid var(--border); border-radius: 4px; color: var(--text-primary); padding: 4px; font-size: 11px;" />
+              </div>
+              <div style="display: flex; gap: 4px;">
+                <button id="btn-set-condition" type="button" class="small-btn" style="margin: 0; flex: 1; text-align: center;">Set</button>
+                <button id="btn-clear-condition" type="button" class="small-btn" style="margin: 0; flex: 1; text-align: center;">Clear</button>
+              </div>
+            </div>
+          </details>
+
+          <details class="props-section" id="filters-section">
+            <summary>Filters</summary>
+            <div class="props-grid" style="padding: 6px 10px;">
+              <label class="full-width">Blur
+                <div class="slider-row"><input type="range" id="filter-blur" min="0" max="20" step="0.5" value="0" /><span id="filter-blur-val">0</span>px</div>
+              </label>
+              <label class="full-width">Brightness
+                <div class="slider-row"><input type="range" id="filter-brightness" min="0" max="200" step="5" value="100" /><span id="filter-brightness-val">100</span>%</div>
+              </label>
+              <label class="full-width">Contrast
+                <div class="slider-row"><input type="range" id="filter-contrast" min="0" max="200" step="5" value="100" /><span id="filter-contrast-val">100</span>%</div>
+              </label>
+              <label class="full-width">Saturate
+                <div class="slider-row"><input type="range" id="filter-saturate" min="0" max="200" step="5" value="100" /><span id="filter-saturate-val">100</span>%</div>
+              </label>
+              <label class="full-width">Hue Rotate
+                <div class="slider-row"><input type="range" id="filter-hue" min="0" max="360" step="5" value="0" /><span id="filter-hue-val">0</span>&deg;</div>
+              </label>
+              <label class="full-width">Grayscale
+                <div class="slider-row"><input type="range" id="filter-grayscale" min="0" max="100" step="5" value="0" /><span id="filter-grayscale-val">0</span>%</div>
+              </label>
+              <label class="full-width">Sepia
+                <div class="slider-row"><input type="range" id="filter-sepia" min="0" max="100" step="5" value="0" /><span id="filter-sepia-val">0</span>%</div>
+              </label>
+              <label style="font-size: 11px; color: var(--text-secondary); padding: 2px 0;">
+                <input type="checkbox" id="filter-shadow-enable" /> Drop Shadow
+              </label>
+              <div id="filter-shadow-opts" hidden style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px;">
+                <label>X<input type="number" id="filter-shadow-x" value="2" step="1" /></label>
+                <label>Y<input type="number" id="filter-shadow-y" value="2" step="1" /></label>
+                <label>Blur<input type="number" id="filter-shadow-blur" value="4" step="1" min="0" /></label>
+                <label>Color<input type="color" id="filter-shadow-color" value="#000000" /></label>
+              </div>
+            </div>
+          </details>
+
+          <details class="props-section" open>
+            <summary>Z-Order</summary>
+            <div class="z-order-btns">
+              <button id="z-front" type="button">&#8593; Front</button>
+              <button id="z-up" type="button">&#8593; Up</button>
+              <button id="z-down" type="button">&#8595; Down</button>
+              <button id="z-back" type="button">&#8595; Back</button>
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+
+    <div id="h-splitter" class="splitter splitter-h"></div>
+    <div id="bottom-area">
+      <div id="left-bottom-panels">
+        <div id="scenes-panel">
+          <div class="panel-header">Scenes</div>
+          <div id="scene-list"></div>
+          <button id="btn-add-scene" class="small-btn" type="button">+ Add</button>
+        </div>
+        <div id="layers-panel">
+          <div class="panel-header">Layers</div>
+          <div id="layers-list"></div>
+        </div>
+      </div>
+
+      <div id="timeline-panel">
+        <div class="panel-header">Timeline</div>
+        <div id="timeline-content">
+          <p class="placeholder-text">Timeline (Phase 2)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="export-modal" class="modal-overlay" hidden>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Export Project</h3>
+        <button id="export-close" class="modal-close-btn" type="button">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="export-tabs">
+          <button class="export-tab active" data-tab="html">HTML5</button>
+          <button class="export-tab" data-tab="mp4">MP4</button>
+        </div>
+        <div id="export-tab-html" class="export-tab-content">
+          <div class="export-options">
+            <label class="export-checkbox"><input type="checkbox" id="export-single-file" checked /> Single file</label>
+            <label class="export-checkbox"><input type="checkbox" id="export-autoplay" /> Autoplay</label>
+            <label class="export-checkbox"><input type="checkbox" id="export-loop" /> Loop</label>
+            <label class="export-checkbox" id="export-batch-label" hidden><input type="checkbox" id="export-batch" /> Export all data rows (batch)</label>
+          </div>
+          <button id="export-do" class="export-btn" type="button">Export HTML5</button>
+          <div id="export-status" class="export-status" hidden></div>
+        </div>
+        <div id="export-tab-mp4" class="export-tab-content" hidden>
+          <div class="export-options">
+            <label style="font-size: 12px; color: var(--text-secondary); margin-bottom: 4px;">Resolution
+              <select id="mp4-resolution" style="width: 100%; background: var(--bg-input); border: 1px solid var(--border); border-radius: 4px; color: var(--text-primary); padding: 6px; margin-top: 2px;">
+                <option value="1280x720">720p (1280×720)</option>
+                <option value="1920x1080" selected>1080p (1920×1080)</option>
+                <option value="3840x2160">4K (3840×2160)</option>
+              </select>
+            </label>
+            <label style="font-size: 12px; color: var(--text-secondary); margin-bottom: 4px; margin-top: 8px;">Quality
+              <select id="mp4-quality" style="width: 100%; background: var(--bg-input); border: 1px solid var(--border); border-radius: 4px; color: var(--text-primary); padding: 6px; margin-top: 2px;">
+                <option value="23">Standard (smaller file)</option>
+                <option value="18">High (larger file)</option>
+              </select>
+            </label>
+          </div>
+          <button id="export-do-mp4" class="export-btn" type="button" style="margin-top: 12px;">Export MP4</button>
+          <div id="mp4-status" class="export-status" hidden></div>
+          <div id="mp4-ffmpeg-warning" hidden style="margin-top: 8px; padding: 8px; background: rgba(234,179,8,0.15); border-radius: 6px; font-size: 11px; color: #eab308;">ffmpeg not found. Install ffmpeg to enable MP4 export.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="data-modal" class="modal-overlay" hidden>
+    <div class="modal-content" style="width: 600px;">
+      <div class="modal-header">
+        <h3>Data Source</h3>
+        <button id="data-close-btn" class="modal-close-btn" type="button">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="data-connect-section">
+          <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+            <select id="data-source-type" style="width: 120px; background: var(--bg-input); border: 1px solid var(--border); border-radius: 4px; color: var(--text-primary); padding: 6px;">
+              <option value="Sqlite">SQLite</option>
+              <option value="Csv">CSV</option>
+              <option value="Postgres">PostgreSQL</option>
+            </select>
+            <input type="text" id="data-connection" placeholder="File path..." style="flex: 1; background: var(--bg-input); border: 1px solid var(--border); border-radius: 4px; color: var(--text-primary); padding: 6px;" />
+            <button id="data-file-browse" type="button" class="small-btn" style="margin: 0;">Browse</button>
+          </div>
+          <button id="data-connect-btn" type="button" class="export-btn">Connect</button>
+        </div>
+        <div id="data-status" class="export-status" hidden></div>
+        <div id="data-browse-section" hidden>
+          <div style="margin-bottom: 8px;">
+            <label style="font-size: 11px; color: var(--text-secondary);">Table
+              <select id="data-table-select" style="width: 100%; background: var(--bg-input); border: 1px solid var(--border); border-radius: 4px; color: var(--text-primary); padding: 6px; margin-top: 2px;"></select>
+            </label>
+          </div>
+          <div style="overflow-x: auto; max-height: 300px; border: 1px solid var(--border); border-radius: 6px;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 11px;">
+              <thead style="background: var(--bg-toolbar); position: sticky; top: 0;">
+                <tr id="data-columns-header"></tr>
+              </thead>
+              <tbody id="data-rows-body"></tbody>
+            </table>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
+            <div>
+              <button id="data-prev-page" type="button" class="small-btn" style="margin: 0;">◀</button>
+              <span id="data-page-info" style="font-size: 11px; color: var(--text-secondary); margin: 0 8px;">0 of 0</span>
+              <button id="data-next-page" type="button" class="small-btn" style="margin: 0;">▶</button>
+            </div>
+            <div id="data-preview-controls" hidden>
+              <button id="data-preview-prev" type="button" class="small-btn" style="margin: 0;">◀</button>
+              <span id="data-preview-label" style="font-size: 11px; color: var(--accent); margin: 0 8px;">Preview</span>
+              <button id="data-preview-next" type="button" class="small-btn" style="margin: 0;">▶</button>
+            </div>
+          </div>
+        </div>
+        <button id="data-disconnect-btn" type="button" class="small-btn" style="margin-top: 12px; width: 100%; text-align: center; color: var(--danger);" hidden>Disconnect</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="preview-overlay" hidden>
+    <canvas id="preview-canvas"></canvas>
+    <div id="preview-hint">Press Escape to exit</div>
+  </div>
+
+  <div id="drop-overlay" hidden>
+    <div id="drop-message">Drop file to import</div>
+  </div>
+
+  <div id="template-modal" class="modal-overlay" hidden>
+    <div class="modal-content" style="max-width: 420px;">
+      <div class="modal-header">
+        <h3>Templates</h3>
+        <button id="template-close" class="modal-close-btn" type="button">&times;</button>
+      </div>
+      <div style="padding: 16px;">
+        <h4 style="margin-bottom: 8px; color: var(--text-secondary); font-size: 12px;">New from Template</h4>
+        <div id="template-list" style="max-height: 200px; overflow-y: auto; margin-bottom: 16px;"></div>
+        <h4 style="margin-bottom: 8px; color: var(--text-secondary); font-size: 12px;">Save Current as Template</h4>
+        <div style="display: flex; gap: 8px;">
+          <input type="text" id="template-save-name" placeholder="Template name" style="flex:1; background: var(--bg-input); border: 1px solid var(--border); border-radius: 4px; color: var(--text-primary); padding: 6px 8px;" />
+          <button id="template-save-btn" class="small-btn" type="button">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="subtitle-modal" class="modal-overlay" hidden>
+    <div class="modal-content" style="max-width: 400px;">
+      <div class="modal-header">
+        <h3>Subtitles</h3>
+        <button id="subtitle-close" class="modal-close-btn" type="button">&times;</button>
+      </div>
+      <div style="padding: 16px; display: flex; flex-direction: column; gap: 10px;">
+        <button id="subtitle-import-btn" class="small-btn" type="button">Import SRT / VTT</button>
+        <button id="subtitle-export-srt-btn" class="small-btn" type="button">Export SRT</button>
+        <button id="subtitle-export-vtt-btn" class="small-btn" type="button">Export VTT</button>
+        <button id="subtitle-clear-btn" class="small-btn" type="button" style="color: var(--danger);">Clear All Subtitles</button>
+        <div id="subtitle-status" hidden style="color: var(--text-secondary); font-size: 11px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/math.js"></script>
+  <script src="js/canvas.js"></script>
+  <script src="js/canvas-interaction.js"></script>
+  <script src="js/runtime.js"></script>
+  <script src="js/timeline.js"></script>
+  <script src="js/properties.js"></script>
+  <script src="js/toolbar.js"></script>
+  <script src="js/scenes.js"></script>
+  <script src="js/data-panel.js"></script>
+  <script src="js/layers.js"></script>
+  <script src="js/splitters.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/menu.js"></script>
+</body>
+</html>

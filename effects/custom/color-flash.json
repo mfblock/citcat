@@ -1,0 +1,14 @@
+{
+  "id": "custom-color-flash",
+  "name": "Color Flash",
+  "category": "Emphasis",
+  "duration_ms": 1200,
+  "applies_to": ["Text", "Rect", "Ellipse", "Button"],
+  "keyframes": [
+    { "id": "cf1", "time_ms": 0, "property": "style.fill", "value": { "type": "Color", "value": "#3b82f6" }, "easing": "Linear" },
+    { "id": "cf2", "time_ms": 300, "property": "style.fill", "value": { "type": "Color", "value": "#ef4444" }, "easing": "Linear" },
+    { "id": "cf3", "time_ms": 600, "property": "style.fill", "value": { "type": "Color", "value": "#22c55e" }, "easing": "Linear" },
+    { "id": "cf4", "time_ms": 900, "property": "style.fill", "value": { "type": "Color", "value": "#eab308" }, "easing": "Linear" },
+    { "id": "cf5", "time_ms": 1200, "property": "style.fill", "value": { "type": "Color", "value": "#3b82f6" }, "easing": "Linear" }
+  ]
+}

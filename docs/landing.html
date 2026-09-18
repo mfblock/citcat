@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CitCat — Design once. Connect data. Render at scale.</title>
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg-deep: #0a0a12;
+    --bg-card: rgba(255,255,255,0.04);
+    --bg-card-hover: rgba(255,255,255,0.07);
+    --accent: #a78bfa;
+    --accent-bright: #c4b5fd;
+    --accent-deep: #7c3aed;
+    --accent-glow: rgba(167,139,250,0.15);
+    --text: #e8e6f0;
+    --text-dim: #9892a6;
+    --text-muted: #5e576e;
+    --border: rgba(255,255,255,0.08);
+    --radius: 16px;
+    --radius-sm: 10px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg-deep);
+    color: var(--text);
+    line-height: 1.65;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ---- Layout ---- */
+  .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+  section { padding: 100px 0; position: relative; }
+
+  /* ---- Fade-in on scroll ---- */
+  .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ---- Hero ---- */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    padding: 120px 24px 80px;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 30%, rgba(124,58,237,0.18) 0%, transparent 70%),
+                radial-gradient(ellipse 50% 40% at 70% 70%, rgba(167,139,250,0.10) 0%, transparent 60%),
+                var(--bg-deep);
+  }
+
+  .orb {
+    position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.35;
+    animation: float 14s ease-in-out infinite alternate;
+  }
+  .orb-1 { width: 500px; height: 500px; top: -10%; left: -10%; background: var(--accent-deep); animation-delay: 0s; }
+  .orb-2 { width: 350px; height: 350px; bottom: -5%; right: -5%; background: #6d28d9; animation-delay: -4s; animation-duration: 18s; }
+  .orb-3 { width: 200px; height: 200px; top: 40%; left: 60%; background: var(--accent); animation-delay: -8s; animation-duration: 11s; }
+
+  @keyframes float {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(30px, -40px) scale(1.08); }
+  }
+
+  .hero-content { position: relative; z-index: 1; max-width: 780px; }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 16px; border-radius: 100px;
+    background: var(--accent-glow); border: 1px solid rgba(167,139,250,0.2);
+    font-size: 13px; color: var(--accent-bright); font-weight: 500;
+    margin-bottom: 32px; letter-spacing: 0.02em;
+  }
+  .hero-badge svg { flex-shrink: 0; }
+
+  h1 {
+    font-size: clamp(2.4rem, 6vw, 4.2rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin-bottom: 24px;
+    background: linear-gradient(135deg, #fff 30%, var(--accent-bright) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+    color: var(--text-dim);
+    max-width: 600px;
+    margin: 0 auto 40px;
+    line-height: 1.7;
+  }
+
+  .hero-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 28px; border-radius: 12px;
+    font-size: 15px; font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border: none; cursor: pointer;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent-deep), #9333ea);
+    color: #fff;
+    box-shadow: 0 4px 24px rgba(124,58,237,0.35), inset 0 1px 0 rgba(255,255,255,0.1);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(124,58,237,0.45), inset 0 1px 0 rgba(255,255,255,0.1); }
+
+  .btn-ghost {
+    background: var(--bg-card);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-ghost:hover { background: var(--bg-card-hover); border-color: rgba(255,255,255,0.15); }
+
+  .hero-meta {
+    margin-top: 48px; display: flex; gap: 32px; justify-content: center; flex-wrap: wrap;
+    font-size: 13px; color: var(--text-muted);
+  }
+  .hero-meta span { display: flex; align-items: center; gap: 6px; }
+
+  /* ---- Steps ---- */
+  .steps { background: linear-gradient(180deg, var(--bg-deep) 0%, #0d0d1a 100%); }
+  .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+
+  .step-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 40px 32px;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative; overflow: hidden;
+  }
+  .step-card:hover { background: var(--bg-card-hover); border-color: rgba(167,139,250,0.2); transform: translateY(-4px); }
+
+  .step-number {
+    width: 48px; height: 48px; border-radius: 14px;
+    background: linear-gradient(135deg, var(--accent-deep), var(--accent));
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+    font-weight: 800; font-size: 20px; color: #fff;
+  }
+
+  .step-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; letter-spacing: -0.01em; }
+  .step-card p { color: var(--text-dim); font-size: 0.95rem; line-height: 1.6; }
+
+  /* ---- Features ---- */
+  .features { padding-bottom: 40px; }
+
+  .feature-block {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 64px;
+    align-items: center;
+    padding: 60px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .feature-block:last-child { border-bottom: none; }
+  .feature-block.reverse .feature-text { order: 2; }
+  .feature-block.reverse .feature-visual { order: 1; }
+
+  .feature-label {
+    display: inline-block;
+    font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--accent); margin-bottom: 12px;
+  }
+  .feature-text h2 { font-size: 1.8rem; font-weight: 800; margin-bottom: 16px; letter-spacing: -0.02em; line-height: 1.2; }
+  .feature-text p { color: var(--text-dim); font-size: 1rem; line-height: 1.7; margin-bottom: 16px; }
+
+  .feature-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .feature-list li {
+    display: flex; align-items: flex-start; gap: 10px;
+    color: var(--text-dim); font-size: 0.92rem;
+  }
+  .feature-list li::before {
+    content: '';
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent); margin-top: 8px; flex-shrink: 0;
+  }
+
+  .feature-visual {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 40px;
+    display: flex; align-items: center; justify-content: center;
+    min-height: 280px;
+    position: relative; overflow: hidden;
+  }
+
+  /* Visual illustrations */
+  .viz-timeline {
+    width: 100%; display: flex; flex-direction: column; gap: 12px;
+  }
+  .viz-ruler {
+    display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted);
+    border-bottom: 1px solid var(--border); padding-bottom: 6px;
+  }
+  .viz-track {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .viz-track-label { font-size: 11px; color: var(--text-dim); width: 60px; text-align: right; flex-shrink: 0; }
+  .viz-track-bar {
+    flex: 1; height: 24px; border-radius: 4px; position: relative;
+    background: rgba(124,58,237,0.15);
+  }
+  .viz-track-bar.t2 { background: rgba(34,197,94,0.15); }
+  .viz-track-bar.t3 { background: rgba(249,115,22,0.15); }
+  .viz-keyframe {
+    position: absolute; top: 50%; transform: translate(-50%, -50%) rotate(45deg);
+    width: 8px; height: 8px; background: var(--accent); border-radius: 2px;
+  }
+  .viz-playhead {
+    position: absolute; top: -6px; bottom: -6px; width: 2px; background: #ef4444;
+    left: 38%;
+  }
+  .viz-playhead::before {
+    content: ''; position: absolute; top: -4px; left: -4px;
+    width: 10px; height: 10px; background: #ef4444; border-radius: 2px;
+    transform: rotate(45deg);
+  }
+
+  .viz-events {
+    display: flex; flex-direction: column; gap: 16px; width: 100%;
+  }
+  .viz-event-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 16px; border-radius: var(--radius-sm);
+    background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+  }
+  .viz-event-icon {
+    width: 36px; height: 36px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+  }
+  .viz-event-icon.click { background: rgba(124,58,237,0.2); }
+  .viz-event-icon.timer { background: rgba(249,115,22,0.2); }
+  .viz-event-icon.wait { background: rgba(34,197,94,0.2); }
+  .viz-event-text { font-size: 13px; color: var(--text-dim); }
+  .viz-event-text strong { color: var(--text); }
+  .viz-arrow { color: var(--text-muted); font-size: 18px; margin: 0 4px; }
+
+  .viz-data {
+    display: flex; flex-direction: column; gap: 8px; width: 100%; font-size: 13px;
+  }
+  .viz-data-header {
+    display: grid; grid-template-columns: 2fr 3fr 1fr; gap: 8px;
+    padding: 8px 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;
+    font-size: 11px; letter-spacing: 0.06em; border-bottom: 1px solid var(--border);
+  }
+  .viz-data-row {
+    display: grid; grid-template-columns: 2fr 3fr 1fr; gap: 8px;
+    padding: 10px 12px; border-radius: 8px;
+    transition: background 0.2s;
+  }
+  .viz-data-row:hover { background: rgba(255,255,255,0.03); }
+  .viz-data-row.active { background: var(--accent-glow); border: 1px solid rgba(167,139,250,0.2); }
+  .viz-data-row span { color: var(--text-dim); }
+  .viz-data-row.active span { color: var(--text); }
+  .viz-data-row .price { color: #22c55e; font-weight: 600; }
+  .viz-bind-indicator { font-size: 11px; color: var(--accent); }
+
+  /* ---- Interfaces ---- */
+  .interfaces { background: linear-gradient(180deg, var(--bg-deep) 0%, #0d0d1a 100%); }
+  .interfaces h2 { text-align: center; font-size: 2rem; font-weight: 800; margin-bottom: 48px; letter-spacing: -0.02em; }
+  .interfaces-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+
+  .iface-card {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 36px 28px; transition: all 0.3s ease;
+  }
+  .iface-card:hover { background: var(--bg-card-hover); border-color: rgba(167,139,250,0.15); }
+
+  .iface-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 16px; font-size: 20px;
+  }
+  .iface-icon.gui { background: linear-gradient(135deg, var(--accent-deep), var(--accent)); }
+  .iface-icon.cli { background: linear-gradient(135deg, #059669, #34d399); }
+  .iface-icon.mcp { background: linear-gradient(135deg, #d97706, #fbbf24); }
+
+  .iface-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 8px; }
+  .iface-card p { color: var(--text-dim); font-size: 0.92rem; line-height: 1.6; margin-bottom: 16px; }
+
+  pre {
+    background: rgba(0,0,0,0.4);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 16px 20px;
+    overflow-x: auto;
+    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', 'Menlo', monospace;
+    font-size: 12.5px;
+    line-height: 1.7;
+    color: var(--text-dim);
+  }
+  pre .cmd { color: var(--accent-bright); }
+  pre .flag { color: #fbbf24; }
+  pre .str { color: #34d399; }
+  pre .comment { color: var(--text-muted); }
+
+  /* ---- Tech bar ---- */
+  .tech-bar {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 32px 0;
+  }
+  .tech-pills {
+    display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+  }
+  .tech-pill {
+    padding: 8px 20px; border-radius: 100px;
+    background: var(--bg-card); border: 1px solid var(--border);
+    font-size: 13px; font-weight: 500; color: var(--text-dim);
+  }
+
+  /* ---- Open Source ---- */
+  .opensource { text-align: center; }
+  .opensource h2 { font-size: 2rem; font-weight: 800; margin-bottom: 16px; letter-spacing: -0.02em; }
+  .opensource p { color: var(--text-dim); font-size: 1.05rem; max-width: 500px; margin: 0 auto 32px; line-height: 1.7; }
+  .opensource .btn { margin: 0 auto; }
+
+  /* ---- Footer ---- */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 24px;
+    text-align: center;
+    font-size: 13px; color: var(--text-muted);
+  }
+  footer a { color: var(--text-dim); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+
+  /* ---- Responsive ---- */
+  /* ---- Demo ---- */
+  .demo { background: linear-gradient(180deg, var(--bg-deep) 0%, #08081a 50%, var(--bg-deep) 100%); padding: 80px 0 100px; }
+  .demo h2 { text-align: center; font-size: 2rem; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.02em; }
+  .demo .demo-subtitle { text-align: center; color: var(--text-dim); font-size: 1rem; margin-bottom: 40px; }
+  .demo-frame {
+    max-width: 960px; margin: 0 auto;
+    border-radius: var(--radius);
+    border: 1px solid rgba(167,139,250,0.2);
+    background: #000;
+    overflow: hidden;
+    box-shadow: 0 0 60px rgba(124,58,237,0.15), 0 0 120px rgba(124,58,237,0.06);
+    position: relative;
+  }
+  .demo-frame canvas {
+    display: block; width: 100%; height: auto;
+    cursor: pointer;
+  }
+  .demo-controls {
+    display: flex; align-items: center; justify-content: center; gap: 16px;
+    padding: 12px 20px;
+    background: rgba(255,255,255,0.03);
+    border-top: 1px solid var(--border);
+  }
+  .demo-btn {
+    width: 36px; height: 36px; border-radius: 10px;
+    border: 1px solid var(--border); background: var(--bg-card);
+    color: var(--text); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s;
+  }
+  .demo-btn:hover { background: var(--bg-card-hover); border-color: rgba(167,139,250,0.3); }
+  .demo-btn.active { background: var(--accent-deep); border-color: var(--accent); }
+  .demo-scene-info { font-size: 13px; color: var(--text-dim); min-width: 140px; text-align: center; }
+  .demo-hint {
+    text-align: center; margin-top: 16px;
+    font-size: 13px; color: var(--text-muted); font-style: italic;
+  }
+
+  @media (max-width: 840px) {
+    .steps-grid, .interfaces-grid { grid-template-columns: 1fr; }
+    .feature-block { grid-template-columns: 1fr; gap: 32px; }
+    .feature-block.reverse .feature-text { order: 1; }
+    .feature-block.reverse .feature-visual { order: 2; }
+    section { padding: 64px 0; }
+    .hero { padding: 100px 20px 60px; }
+    .demo-frame { margin: 0 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 1l2.2 4.4L15 6.3l-3.5 3.4.8 4.8L8 12.2 3.7 14.5l.8-4.8L1 6.3l4.8-.9L8 1z" fill="currentColor"/></svg>
+      Open source &middot; MIT License
+    </div>
+    <h1>Design once.<br>Connect data.<br>Render at scale.</h1>
+    <p class="hero-sub">
+      A visual timeline editor for animated, interactive content.
+      Bind to a database and batch-render hundreds of HTML5 pages or videos from one template.
+    </p>
+    <div class="hero-buttons">
+      <a href="#" class="btn btn-primary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+        Download for macOS
+      </a>
+      <a href="#" class="btn btn-ghost">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        View on GitHub
+      </a>
+    </div>
+    <div class="hero-meta">
+      <span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        macOS, Windows, Linux
+      </span>
+      <span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        6.3 MB
+      </span>
+      <span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01"/></svg>
+        Tauri v2 + Rust
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== LIVE DEMO ==================== -->
+<section class="demo" id="demo">
+  <div class="container">
+    <h2 class="reveal">See it in action</h2>
+    <p class="demo-subtitle reveal">This is a CitCat project running live in your browser. Click the buttons.</p>
+    <div class="demo-frame reveal">
+      <canvas id="demo-canvas" width="1920" height="1080"></canvas>
+      <div class="demo-controls">
+        <button class="demo-btn" id="demo-play" title="Play / Pause">
+          <svg id="demo-play-icon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M4 2l10 6-10 6z"/></svg>
+          <svg id="demo-pause-icon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" style="display:none"><rect x="3" y="2" width="3.5" height="12"/><rect x="9.5" y="2" width="3.5" height="12"/></svg>
+        </button>
+        <button class="demo-btn" id="demo-stop" title="Stop">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><rect x="2" y="2" width="10" height="10" rx="1"/></svg>
+        </button>
+        <span class="demo-scene-info" id="demo-scene-info">Scene 1 of 5 — Welcome</span>
+      </div>
+    </div>
+    <p class="demo-hint">Built with CitCat, exported as HTML5. Animations, buttons, navigation — all running on Canvas.</p>
+  </div>
+</section>
+
+<!-- ==================== THREE STEPS ==================== -->
+<section class="steps">
+  <div class="container">
+    <div class="steps-grid">
+      <div class="step-card reveal">
+        <div class="step-number">1</div>
+        <h3>Design on a visual timeline</h3>
+        <p>Place objects, animate with keyframes and effects, add interactivity with clicks and buttons. No code.</p>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-number">2</div>
+        <h3>Connect your database</h3>
+        <p>Link to SQLite, CSV, or PostgreSQL. Bind object properties to columns. Preview each row live.</p>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-number">3</div>
+        <h3>Export hundreds of pages</h3>
+        <p>One click: batch-render an HTML5 page or MP4 video per database row. 200 products, 200 outputs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FEATURES ==================== -->
+<section class="features">
+  <div class="container">
+
+    <!-- Feature 1: Animation -->
+    <div class="feature-block reveal">
+      <div class="feature-text">
+        <span class="feature-label">Animation</span>
+        <h2>Animate without writing a line of code</h2>
+        <p>A keyframe tells CitCat where an object should be at a moment in time. Set two, and it fills in the motion. Apply built-in effects for instant polish.</p>
+        <ul class="feature-list">
+          <li>Keyframe animation with four easing curves</li>
+          <li>20+ built-in effects — fade, slide, scale, spin, bounce, typewriter</li>
+          <li>Motion paths — draw a bezier curve, the object follows it</li>
+          <li>Object filters — blur, shadow, brightness, saturation, sepia</li>
+          <li>Custom effects — drop a JSON file into the plugins folder</li>
+        </ul>
+      </div>
+      <div class="feature-visual">
+        <div class="viz-timeline">
+          <div class="viz-ruler"><span>0s</span><span>1s</span><span>2s</span><span>3s</span><span>4s</span><span>5s</span></div>
+          <div class="viz-track">
+            <span class="viz-track-label">Title</span>
+            <div class="viz-track-bar" style="position:relative">
+              <div class="viz-keyframe" style="left:5%"></div>
+              <div class="viz-keyframe" style="left:30%"></div>
+              <div class="viz-keyframe" style="left:85%"></div>
+            </div>
+          </div>
+          <div class="viz-track">
+            <span class="viz-track-label">Image</span>
+            <div class="viz-track-bar t2" style="position:relative">
+              <div class="viz-keyframe" style="left:10%"></div>
+              <div class="viz-keyframe" style="left:60%"></div>
+            </div>
+          </div>
+          <div class="viz-track">
+            <span class="viz-track-label">Button</span>
+            <div class="viz-track-bar t3" style="position:relative">
+              <div class="viz-keyframe" style="left:40%"></div>
+              <div class="viz-keyframe" style="left:95%"></div>
+              <div class="viz-playhead"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature 2: Interactivity -->
+    <div class="feature-block reverse reveal">
+      <div class="feature-text">
+        <span class="feature-label">Interactivity</span>
+        <h2>Make it respond to the viewer</h2>
+        <p>Wire up buttons, navigation, and timed actions with a visual event editor. No JavaScript, no scripting — just pick a trigger and an action.</p>
+        <ul class="feature-list">
+          <li>Click, hover, timer, and scene-end triggers</li>
+          <li>Go to scene, toggle visibility, change properties</li>
+          <li>Wait points — pause the timeline for a button press or timer</li>
+          <li>Buttons with built-in navigation, invisible hotspots</li>
+        </ul>
+      </div>
+      <div class="feature-visual">
+        <div class="viz-events">
+          <div class="viz-event-row">
+            <div class="viz-event-icon click">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2"><path d="M15 15l-2 5L9 9l11 4-5 2z"/><path d="M2 2l7 7"/></svg>
+            </div>
+            <div class="viz-event-text"><strong>Click "Next"</strong> <span class="viz-arrow">&rarr;</span> Go to Scene 2</div>
+          </div>
+          <div class="viz-event-row">
+            <div class="viz-event-icon timer">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            </div>
+            <div class="viz-event-text"><strong>After 3 seconds</strong> <span class="viz-arrow">&rarr;</span> Show "Special Offer"</div>
+          </div>
+          <div class="viz-event-row">
+            <div class="viz-event-icon wait">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+            </div>
+            <div class="viz-event-text"><strong>Wait point</strong> <span class="viz-arrow">&rarr;</span> Pause until click or 5s timeout</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature 3: Data -->
+    <div class="feature-block reveal">
+      <div class="feature-text">
+        <span class="feature-label">The killer feature</span>
+        <h2>Data-powered content at scale</h2>
+        <p>Connect to your product database. Bind text, images, colours, and visibility to columns. Step through rows in the editor. Then export — one page per row.</p>
+        <ul class="feature-list">
+          <li>SQLite, CSV, and PostgreSQL connectors</li>
+          <li>Bind any property — content, fill colour, image path, visibility</li>
+          <li>Conditional visibility: "show only when tier = premium"</li>
+          <li>Live preview: step through rows and see the canvas update</li>
+          <li>Batch export: 200 products &rarr; 200 HTML5 pages or MP4 videos</li>
+        </ul>
+      </div>
+      <div class="feature-visual">
+        <div class="viz-data">
+          <div class="viz-data-header"><span>Product</span><span>Description</span><span>Price</span></div>
+          <div class="viz-data-row"><span>Industrial Washer X1</span><span>Heavy-duty, 120kg capacity</span><span class="price">&euro;24,500</span></div>
+          <div class="viz-data-row active"><span>Tunnel Finisher T3</span><span>Automated steam finishing</span><span class="price">&euro;38,900</span></div>
+          <div class="viz-data-row"><span>Flatwork Folder F2</span><span>4-lane cross-fold system</span><span class="price">&euro;15,200</span></div>
+          <div class="viz-data-row"><span>Sorting Rail SR-8</span><span>8-station garment sorter</span><span class="price">&euro;42,100</span></div>
+          <div style="margin-top:12px; text-align:center;">
+            <span class="viz-bind-indicator">&#128279; content &larr; product_name&ensp;&ensp;&#128279; style.fill &larr; tier_color</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ==================== THREE INTERFACES ==================== -->
+<section class="interfaces">
+  <div class="container">
+    <h2 class="reveal">Three ways to use CitCat</h2>
+    <div class="interfaces-grid">
+      <div class="iface-card reveal">
+        <div class="iface-icon gui">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <h3>Desktop App</h3>
+        <p>The full visual editor. Canvas, timeline, properties, effects, export — everything in a native macOS window.</p>
+      </div>
+      <div class="iface-card reveal">
+        <div class="iface-icon cli">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M4 17l6-5-6-5M12 19h8"/></svg>
+        </div>
+        <h3>Command Line</h3>
+        <p>Script and automate. Create projects, add objects, batch-export from a database — all from the terminal.</p>
+        <pre><span class="cmd">citcat-cli</span> batch product.citcat ./out \
+  <span class="flag">--db</span> <span class="str">products.sqlite</span> \
+  <span class="flag">--name-column</span> <span class="str">slug</span></pre>
+      </div>
+      <div class="iface-card reveal">
+        <div class="iface-icon mcp">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+        </div>
+        <h3>MCP Server</h3>
+        <p>18 tools for AI agents. Create animated projects, bind data, and export — no GUI needed. Your agents drive CitCat directly.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== TECH BAR ==================== -->
+<section class="tech-bar">
+  <div class="container">
+    <div class="tech-pills reveal">
+      <span class="tech-pill">Tauri v2</span>
+      <span class="tech-pill">Rust</span>
+      <span class="tech-pill">6.3 MB</span>
+      <span class="tech-pill">HTML5 Canvas</span>
+      <span class="tech-pill">Vanilla JS</span>
+      <span class="tech-pill">Cross-platform</span>
+      <span class="tech-pill">.citcat = JSON</span>
+      <span class="tech-pill">MIT License</span>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== OPEN SOURCE ==================== -->
+<section class="opensource">
+  <div class="container reveal">
+    <h2>Built for fun.<br>Shared for free.</h2>
+    <p>CitCat is open source under the MIT license. Use it, fork it, extend it. Contributions welcome.</p>
+    <a href="#" class="btn btn-ghost">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+      View on GitHub
+    </a>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer>
+  <div class="container">
+    <p>&copy; 2026 Mirjam Block &middot; <a href="#">MIT License</a> &middot; Made with Rust, curiosity, and too many late nights.</p>
+  </div>
+</footer>
+
+<!-- ==================== SCROLL REVEAL ==================== -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var reveals = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+      reveals.forEach(function(el) { observer.observe(el); });
+    } else {
+      reveals.forEach(function(el) { el.classList.add('visible'); });
+    }
+  });
+</script>
+
+<!-- ==================== LIVE DEMO ENGINE ==================== -->
+<script>
+(function() {
+  // Prevent the standalone constructor from clobbering CitCatRuntime
+  window.__TAURI__ = false;
+})();
+</script>
+<script src="../src/js/runtime.js"></script>
+<script>
+(function() {
+  // Remove the fake __TAURI__ flag
+  delete window.__TAURI__;
+
+  var canvas = document.getElementById('demo-canvas');
+  var playBtn = document.getElementById('demo-play');
+  var stopBtn = document.getElementById('demo-stop');
+  var playIcon = document.getElementById('demo-play-icon');
+  var pauseIcon = document.getElementById('demo-pause-icon');
+  var sceneInfo = document.getElementById('demo-scene-info');
+  var playing = false;
+  var R = CitCatRuntime;
+
+  function updateSceneInfo() {
+    if (!R.state.project) return;
+    var idx = R.state.currentSceneIndex;
+    var scenes = R.state.project.scenes;
+    var name = scenes[idx] ? scenes[idx].name : '';
+    sceneInfo.textContent = 'Scene ' + (idx + 1) + ' of ' + scenes.length + ' — ' + name;
+  }
+
+  function setPlayingUI(isPlaying) {
+    playing = isPlaying;
+    playIcon.style.display = isPlaying ? 'none' : 'block';
+    pauseIcon.style.display = isPlaying ? 'block' : 'none';
+    playBtn.classList.toggle('active', isPlaying);
+  }
+
+  // Load the demo project
+  fetch('../templates/demo-showcase.citcat')
+    .then(function(r) { return r.json(); })
+    .then(function(project) {
+      R.setProject(project);
+      R.renderStandalone(canvas, null);
+      R.initEvents(canvas, true);
+
+      R.state.onTimeUpdate = function(si, ms) { updateSceneInfo(); };
+      R.state.onSceneChange = function(idx) { updateSceneInfo(); };
+      R.state.onPlayStateChange = function(isPlaying) {
+        setPlayingUI(isPlaying);
+        updateSceneInfo();
+      };
+
+      playBtn.addEventListener('click', function() {
+        if (playing) { R.pause(); } else { R.play(); }
+      });
+      stopBtn.addEventListener('click', function() {
+        R.stop();
+        setPlayingUI(false);
+        updateSceneInfo();
+      });
+
+      // Auto-play when demo section scrolls into view
+      if ('IntersectionObserver' in window) {
+        var demoObs = new IntersectionObserver(function(entries) {
+          if (entries[0].isIntersecting && !playing) {
+            R.play();
+            demoObs.disconnect();
+          }
+        }, { threshold: 0.3 });
+        demoObs.observe(document.getElementById('demo'));
+      }
+
+      updateSceneInfo();
+    })
+    .catch(function(err) {
+      sceneInfo.textContent = 'Demo unavailable — ' + err.message;
+    });
+})();
+</script>
+
+</body>
+</html>

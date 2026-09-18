@@ -1,0 +1,425 @@
+{
+  "version": "1.0",
+  "meta": {
+    "name": "Midnight Rain - Lyric Video",
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "created": "2026-09-17T00:00:00Z",
+    "modified": "2026-09-17T00:00:00Z"
+  },
+  "scenes": [
+    {
+      "id": "mv-scene-01-verse-a1b2c3d4",
+      "name": "Verse",
+      "duration_ms": 12000,
+      "background": {
+        "fill": "#0a0014",
+        "gradient": {
+          "gradient_type": "Radial",
+          "stops": [
+            { "offset": 0.0, "color": "#1a0a3e" },
+            { "offset": 1.0, "color": "#0a0014" }
+          ]
+        },
+        "image": null
+      },
+      "objects": [
+        {
+          "id": "mv-obj-songtitle-a1b2c3d4",
+          "name": "Song Title",
+          "object_type": "Text",
+          "transform": { "x": 560.0, "y": 60.0, "width": 800.0, "height": 80.0, "rotation": 0.0, "opacity": 0.6 },
+          "style": { "fill": "#ffffff", "stroke": "#000000", "stroke_width": 0.0, "font_family": "Georgia", "font_size": 48.0, "font_weight": 700, "text_align": "Center", "line_height": 1.2, "border_radius": 0.0 },
+          "content": "Midnight Rain",
+          "z_index": 20,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "filters": {
+            "drop_shadow": { "offset_x": 0.0, "offset_y": 4.0, "blur": 12.0, "color": "#7c3aed" }
+          }
+        },
+        {
+          "id": "mv-obj-particle1-a1b2c3d4",
+          "name": "Particle 1",
+          "object_type": "Ellipse",
+          "transform": { "x": 200.0, "y": 400.0, "width": 30.0, "height": 30.0, "rotation": 0.0, "opacity": 0.3 },
+          "style": { "fill": "#a78bfa", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 24.0, "font_weight": 400, "text_align": "Left", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "",
+          "z_index": 5,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            { "id": "mv-kf-p1-prog1", "time_ms": 0, "property": "_path_progress", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseInOut" },
+            { "id": "mv-kf-p1-prog2", "time_ms": 12000, "property": "_path_progress", "value": { "type": "Number", "value": 1.0 }, "easing": "EaseInOut" }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": {
+            "id": "mv-mp-p1",
+            "points": [
+              { "x": 100.0, "y": 800.0, "control_in": null, "control_out": { "x": 400.0, "y": 200.0 } },
+              { "x": 960.0, "y": 300.0, "control_in": { "x": 600.0, "y": 200.0 }, "control_out": { "x": 1300.0, "y": 400.0 } },
+              { "x": 1800.0, "y": 700.0, "control_in": { "x": 1500.0, "y": 500.0 }, "control_out": null }
+            ]
+          },
+          "filters": { "blur": 3.0 }
+        },
+        {
+          "id": "mv-obj-particle2-a1b2c3d4",
+          "name": "Particle 2",
+          "object_type": "Ellipse",
+          "transform": { "x": 1600.0, "y": 200.0, "width": 20.0, "height": 20.0, "rotation": 0.0, "opacity": 0.25 },
+          "style": { "fill": "#c084fc", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 24.0, "font_weight": 400, "text_align": "Left", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "",
+          "z_index": 5,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            { "id": "mv-kf-p2-prog1", "time_ms": 0, "property": "_path_progress", "value": { "type": "Number", "value": 0.0 }, "easing": "Linear" },
+            { "id": "mv-kf-p2-prog2", "time_ms": 12000, "property": "_path_progress", "value": { "type": "Number", "value": 1.0 }, "easing": "Linear" }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": {
+            "id": "mv-mp-p2",
+            "points": [
+              { "x": 1800.0, "y": 100.0, "control_in": null, "control_out": { "x": 1400.0, "y": 500.0 } },
+              { "x": 800.0, "y": 600.0, "control_in": { "x": 1200.0, "y": 500.0 }, "control_out": { "x": 400.0, "y": 700.0 } },
+              { "x": 100.0, "y": 900.0, "control_in": { "x": 300.0, "y": 800.0 }, "control_out": null }
+            ]
+          },
+          "filters": { "blur": 5.0 }
+        },
+        {
+          "id": "mv-obj-particle3-a1b2c3d4",
+          "name": "Particle 3",
+          "object_type": "Ellipse",
+          "transform": { "x": 960.0, "y": 540.0, "width": 40.0, "height": 40.0, "rotation": 0.0, "opacity": 0.2 },
+          "style": { "fill": "#818cf8", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 24.0, "font_weight": 400, "text_align": "Left", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "",
+          "z_index": 5,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            { "id": "mv-kf-p3-prog1", "time_ms": 0, "property": "_path_progress", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseInOut" },
+            { "id": "mv-kf-p3-prog2", "time_ms": 12000, "property": "_path_progress", "value": { "type": "Number", "value": 1.0 }, "easing": "EaseInOut" }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": {
+            "id": "mv-mp-p3",
+            "points": [
+              { "x": 500.0, "y": 900.0, "control_in": null, "control_out": { "x": 800.0, "y": 300.0 } },
+              { "x": 1400.0, "y": 200.0, "control_in": { "x": 1100.0, "y": 300.0 }, "control_out": null }
+            ]
+          },
+          "filters": { "blur": 4.0 }
+        },
+        {
+          "id": "mv-obj-lyric1-a1b2c3d4e5",
+          "name": "Lyric Line 1",
+          "object_type": "Text",
+          "transform": { "x": 360.0, "y": 440.0, "width": 1200.0, "height": 60.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#e0e0ff", "stroke": "#000000", "stroke_width": 0.0, "font_family": "Georgia", "font_size": 36.0, "font_weight": 400, "text_align": "Center", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "Walking through the neon lights",
+          "z_index": 15,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            { "id": "mv-kf-l1-op1", "time_ms": 0, "property": "transform.opacity", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseOut" },
+            { "id": "mv-kf-l1-op2", "time_ms": 500, "property": "transform.opacity", "value": { "type": "Number", "value": 1.0 }, "easing": "EaseOut" },
+            { "id": "mv-kf-l1-op3", "time_ms": 3500, "property": "transform.opacity", "value": { "type": "Number", "value": 1.0 }, "easing": "EaseIn" },
+            { "id": "mv-kf-l1-op4", "time_ms": 4000, "property": "transform.opacity", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseIn" }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "appear_at_ms": 0,
+          "disappear_at_ms": 4000
+        },
+        {
+          "id": "mv-obj-lyric2-a1b2c3d4e5",
+          "name": "Lyric Line 2",
+          "object_type": "Text",
+          "transform": { "x": 360.0, "y": 440.0, "width": 1200.0, "height": 60.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#e0e0ff", "stroke": "#000000", "stroke_width": 0.0, "font_family": "Georgia", "font_size": 36.0, "font_weight": 400, "text_align": "Center", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "Shadows dance on empty streets",
+          "z_index": 15,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            { "id": "mv-kf-l2-op1", "time_ms": 3500, "property": "transform.opacity", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseOut" },
+            { "id": "mv-kf-l2-op2", "time_ms": 4000, "property": "transform.opacity", "value": { "type": "Number", "value": 1.0 }, "easing": "EaseOut" },
+            { "id": "mv-kf-l2-op3", "time_ms": 7000, "property": "transform.opacity", "value": { "type": "Number", "value": 1.0 }, "easing": "EaseIn" },
+            { "id": "mv-kf-l2-op4", "time_ms": 7500, "property": "transform.opacity", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseIn" }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "appear_at_ms": 3500,
+          "disappear_at_ms": 7500
+        },
+        {
+          "id": "mv-obj-lyric3-a1b2c3d4e5",
+          "name": "Lyric Line 3",
+          "object_type": "Text",
+          "transform": { "x": 360.0, "y": 440.0, "width": 1200.0, "height": 60.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#e0e0ff", "stroke": "#000000", "stroke_width": 0.0, "font_family": "Georgia", "font_size": 36.0, "font_weight": 400, "text_align": "Center", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "Every heartbeat keeps the time",
+          "z_index": 15,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            { "id": "mv-kf-l3-op1", "time_ms": 7000, "property": "transform.opacity", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseOut" },
+            { "id": "mv-kf-l3-op2", "time_ms": 7500, "property": "transform.opacity", "value": { "type": "Number", "value": 1.0 }, "easing": "EaseOut" },
+            { "id": "mv-kf-l3-op3", "time_ms": 10500, "property": "transform.opacity", "value": { "type": "Number", "value": 1.0 }, "easing": "EaseIn" },
+            { "id": "mv-kf-l3-op4", "time_ms": 11000, "property": "transform.opacity", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseIn" }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "appear_at_ms": 7000,
+          "disappear_at_ms": 11000
+        },
+        {
+          "id": "mv-obj-lyric4-a1b2c3d4e5",
+          "name": "Lyric Line 4",
+          "object_type": "Text",
+          "transform": { "x": 460.0, "y": 430.0, "width": 1000.0, "height": 80.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#c084fc", "stroke": "#000000", "stroke_width": 0.0, "font_family": "Georgia", "font_size": 44.0, "font_weight": 700, "text_align": "Center", "line_height": 1.2, "border_radius": 0.0 },
+          "content": "Of this midnight rain",
+          "z_index": 16,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            { "id": "mv-kf-l4-op1", "time_ms": 10500, "property": "transform.opacity", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseOut" },
+            { "id": "mv-kf-l4-op2", "time_ms": 11000, "property": "transform.opacity", "value": { "type": "Number", "value": 1.0 }, "easing": "EaseOut" },
+            { "id": "mv-kf-l4-w1", "time_ms": 10500, "property": "transform.width", "value": { "type": "Number", "value": 800.0 }, "easing": "EaseOut" },
+            { "id": "mv-kf-l4-w2", "time_ms": 11500, "property": "transform.width", "value": { "type": "Number", "value": 1000.0 }, "easing": "EaseOut" },
+            { "id": "mv-kf-l4-h1", "time_ms": 10500, "property": "transform.height", "value": { "type": "Number", "value": 60.0 }, "easing": "EaseOut" },
+            { "id": "mv-kf-l4-h2", "time_ms": 11500, "property": "transform.height", "value": { "type": "Number", "value": 80.0 }, "easing": "EaseOut" }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "appear_at_ms": 10500,
+          "disappear_at_ms": 12000,
+          "filters": {
+            "drop_shadow": { "offset_x": 0.0, "offset_y": 2.0, "blur": 8.0, "color": "#7c3aed" }
+          }
+        },
+        {
+          "id": "mv-obj-audio-a1b2c3d4e5f6",
+          "name": "Background Music",
+          "object_type": "Audio",
+          "transform": { "x": 50.0, "y": 50.0, "width": 100.0, "height": 40.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#666666", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 12.0, "font_weight": 400, "text_align": "Left", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "midnight-rain.mp3",
+          "z_index": 1,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "audio_volume": 0.8,
+          "audio_loop": false
+        }
+      ],
+      "transition_in": null,
+      "transition_out": { "kind": "Crossfade", "duration_ms": 800 },
+      "sort_order": 0,
+      "wait_points": [],
+      "subtitle_track": {
+        "id": "mv-st-verse",
+        "entries": [
+          { "id": "mv-ste-1", "start_ms": 0, "end_ms": 3500, "text": "Walking through the neon lights" },
+          { "id": "mv-ste-2", "start_ms": 3500, "end_ms": 7000, "text": "Shadows dance on empty streets" },
+          { "id": "mv-ste-3", "start_ms": 7000, "end_ms": 10500, "text": "Every heartbeat keeps the time" },
+          { "id": "mv-ste-4", "start_ms": 10500, "end_ms": 12000, "text": "Of this midnight rain" }
+        ]
+      }
+    },
+    {
+      "id": "mv-scene-02-chorus-a1b2c3",
+      "name": "Chorus",
+      "duration_ms": 8000,
+      "background": {
+        "fill": "#050010",
+        "gradient": {
+          "gradient_type": "Linear",
+          "stops": [
+            { "offset": 0.0, "color": "#1a0533" },
+            { "offset": 0.5, "color": "#0d0020" },
+            { "offset": 1.0, "color": "#050010" }
+          ]
+        },
+        "image": null
+      },
+      "objects": [
+        {
+          "id": "mv-obj-chorus-title-a1b2c3",
+          "name": "Chorus Title",
+          "object_type": "Text",
+          "transform": { "x": 260.0, "y": 340.0, "width": 1400.0, "height": 120.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#ffffff", "stroke": "#000000", "stroke_width": 0.0, "font_family": "Georgia", "font_size": 72.0, "font_weight": 700, "text_align": "Center", "line_height": 1.2, "border_radius": 0.0 },
+          "content": "MIDNIGHT RAIN",
+          "z_index": 20,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            { "id": "mv-kf-ct-op1", "time_ms": 0, "property": "transform.opacity", "value": { "type": "Number", "value": 1.0 }, "easing": "EaseInOut" },
+            { "id": "mv-kf-ct-op2", "time_ms": 2000, "property": "transform.opacity", "value": { "type": "Number", "value": 0.5 }, "easing": "EaseInOut" },
+            { "id": "mv-kf-ct-op3", "time_ms": 4000, "property": "transform.opacity", "value": { "type": "Number", "value": 1.0 }, "easing": "EaseInOut" },
+            { "id": "mv-kf-ct-op4", "time_ms": 6000, "property": "transform.opacity", "value": { "type": "Number", "value": 0.5 }, "easing": "EaseInOut" },
+            { "id": "mv-kf-ct-op5", "time_ms": 8000, "property": "transform.opacity", "value": { "type": "Number", "value": 1.0 }, "easing": "EaseInOut" }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "filters": {
+            "drop_shadow": { "offset_x": 0.0, "offset_y": 0.0, "blur": 20.0, "color": "#a78bfa" }
+          }
+        },
+        {
+          "id": "mv-obj-ring1-a1b2c3d4e5",
+          "name": "Ring 1",
+          "object_type": "Ellipse",
+          "transform": { "x": 760.0, "y": 340.0, "width": 400.0, "height": 400.0, "rotation": 0.0, "opacity": 0.15 },
+          "style": { "fill": "rgba(0,0,0,0)", "stroke": "#a78bfa", "stroke_width": 2.0, "font_family": "system-ui", "font_size": 24.0, "font_weight": 400, "text_align": "Left", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "",
+          "z_index": 3,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            { "id": "mv-kf-r1-rot1", "time_ms": 0, "property": "transform.rotation", "value": { "type": "Number", "value": 0.0 }, "easing": "Linear" },
+            { "id": "mv-kf-r1-rot2", "time_ms": 8000, "property": "transform.rotation", "value": { "type": "Number", "value": 180.0 }, "easing": "Linear" }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null
+        },
+        {
+          "id": "mv-obj-ring2-a1b2c3d4e5",
+          "name": "Ring 2",
+          "object_type": "Ellipse",
+          "transform": { "x": 660.0, "y": 240.0, "width": 600.0, "height": 600.0, "rotation": 0.0, "opacity": 0.08 },
+          "style": { "fill": "rgba(0,0,0,0)", "stroke": "#c084fc", "stroke_width": 1.0, "font_family": "system-ui", "font_size": 24.0, "font_weight": 400, "text_align": "Left", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "",
+          "z_index": 2,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            { "id": "mv-kf-r2-rot1", "time_ms": 0, "property": "transform.rotation", "value": { "type": "Number", "value": 0.0 }, "easing": "Linear" },
+            { "id": "mv-kf-r2-rot2", "time_ms": 8000, "property": "transform.rotation", "value": { "type": "Number", "value": -120.0 }, "easing": "Linear" }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null
+        },
+        {
+          "id": "mv-obj-chorus-lyric1-a1b2",
+          "name": "Chorus Lyric 1",
+          "object_type": "Text",
+          "transform": { "x": 460.0, "y": 540.0, "width": 1000.0, "height": 50.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#c4b5fd", "stroke": "#000000", "stroke_width": 0.0, "font_family": "Georgia", "font_size": 30.0, "font_weight": 400, "text_align": "Center", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "Falling down like silver threads",
+          "z_index": 15,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            { "id": "mv-kf-cl1-op1", "time_ms": 0, "property": "transform.opacity", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseOut" },
+            { "id": "mv-kf-cl1-op2", "time_ms": 500, "property": "transform.opacity", "value": { "type": "Number", "value": 1.0 }, "easing": "EaseOut" },
+            { "id": "mv-kf-cl1-op3", "time_ms": 3500, "property": "transform.opacity", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseIn" }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "appear_at_ms": 0,
+          "disappear_at_ms": 4000
+        },
+        {
+          "id": "mv-obj-chorus-lyric2-a1b2",
+          "name": "Chorus Lyric 2",
+          "object_type": "Text",
+          "transform": { "x": 460.0, "y": 540.0, "width": 1000.0, "height": 50.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#c4b5fd", "stroke": "#000000", "stroke_width": 0.0, "font_family": "Georgia", "font_size": 30.0, "font_weight": 400, "text_align": "Center", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "Washing away what was said",
+          "z_index": 15,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            { "id": "mv-kf-cl2-op1", "time_ms": 4000, "property": "transform.opacity", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseOut" },
+            { "id": "mv-kf-cl2-op2", "time_ms": 4500, "property": "transform.opacity", "value": { "type": "Number", "value": 1.0 }, "easing": "EaseOut" },
+            { "id": "mv-kf-cl2-op3", "time_ms": 7500, "property": "transform.opacity", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseIn" }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "appear_at_ms": 4000,
+          "disappear_at_ms": 8000
+        },
+        {
+          "id": "mv-obj-replay-btn-a1b2c3d4",
+          "name": "Replay",
+          "object_type": "Button",
+          "transform": { "x": 830.0, "y": 950.0, "width": 260.0, "height": 50.0, "rotation": 0.0, "opacity": 0.6 },
+          "style": { "fill": "#4a148c", "stroke": "#7c3aed", "stroke_width": 1.0, "font_family": "system-ui", "font_size": 18.0, "font_weight": 500, "text_align": "Center", "line_height": 1.4, "border_radius": 25.0 },
+          "content": "Replay",
+          "z_index": 20,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [
+            {
+              "id": "mv-evt-replay",
+              "trigger": { "type": "Click" },
+              "action": { "type": "GotoScene", "scene_id": "mv-scene-01-verse-a1b2c3d4" }
+            }
+          ],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null
+        }
+      ],
+      "transition_in": { "kind": "Crossfade", "duration_ms": 800 },
+      "transition_out": null,
+      "sort_order": 1,
+      "wait_points": [],
+      "subtitle_track": {
+        "id": "mv-st-chorus",
+        "entries": [
+          { "id": "mv-ste-c1", "start_ms": 0, "end_ms": 3500, "text": "Falling down like silver threads" },
+          { "id": "mv-ste-c2", "start_ms": 4000, "end_ms": 7500, "text": "Washing away what was said" }
+        ]
+      }
+    }
+  ],
+  "effects_library": [],
+  "data_source": null,
+  "export_settings": {
+    "format": "Html",
+    "single_file": true,
+    "autoplay": true,
+    "loop_playback": false
+  }
+}

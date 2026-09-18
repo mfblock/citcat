@@ -1,0 +1,717 @@
+{
+  "version": "1.0",
+  "meta": {
+    "name": "CitCat Feature Showcase",
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "created": "2026-09-17T00:00:00Z",
+    "modified": "2026-09-17T00:00:00Z"
+  },
+  "scenes": [
+    {
+      "id": "scene-01-welcome-aaa-bbb-ccc",
+      "name": "Welcome",
+      "duration_ms": 6000,
+      "background": {
+        "fill": "#0f0c29",
+        "gradient": {
+          "gradient_type": "Linear",
+          "stops": [
+            { "offset": 0.0, "color": "#0f0c29" },
+            { "offset": 0.5, "color": "#302b63" },
+            { "offset": 1.0, "color": "#24243e" }
+          ]
+        },
+        "image": null
+      },
+      "objects": [
+        {
+          "id": "obj-s1-title-aaaa-bbbb-cccc",
+          "name": "Title",
+          "object_type": "Text",
+          "transform": { "x": 560.0, "y": 340.0, "width": 800.0, "height": 120.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 72.0,
+            "font_weight": 700,
+            "text_align": "Center",
+            "line_height": 1.2,
+            "border_radius": 0.0
+          },
+          "content": "CitCat",
+          "z_index": 10,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            { "id": "kf-s1-t-fade1", "time_ms": 0, "property": "transform.opacity", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseOut" },
+            { "id": "kf-s1-t-fade2", "time_ms": 600, "property": "transform.opacity", "value": { "type": "Number", "value": 1.0 }, "easing": "EaseOut" },
+            { "id": "kf-s1-t-float1", "time_ms": 1500, "property": "transform.y", "value": { "type": "Number", "value": 340.0 }, "easing": "EaseInOut" },
+            { "id": "kf-s1-t-float2", "time_ms": 2750, "property": "transform.y", "value": { "type": "Number", "value": 320.0 }, "easing": "EaseInOut" },
+            { "id": "kf-s1-t-float3", "time_ms": 4000, "property": "transform.y", "value": { "type": "Number", "value": 340.0 }, "easing": "EaseInOut" }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "text_wrap": false
+        },
+        {
+          "id": "obj-s1-subtitle-aaa-bbb-ccc",
+          "name": "Subtitle",
+          "object_type": "Text",
+          "transform": { "x": 510.0, "y": 480.0, "width": 900.0, "height": 50.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": {
+            "fill": "#a78bfa",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Center",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "Data-Driven Visual Content Engine",
+          "z_index": 9,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            { "id": "kf-s1-sub-op1", "time_ms": 0, "property": "transform.opacity", "value": { "type": "Number", "value": 0.0 }, "easing": "Linear" },
+            { "id": "kf-s1-sub-op2", "time_ms": 400, "property": "transform.opacity", "value": { "type": "Number", "value": 0.0 }, "easing": "Linear" },
+            { "id": "kf-s1-sub-op3", "time_ms": 900, "property": "transform.opacity", "value": { "type": "Number", "value": 1.0 }, "easing": "EaseOut" },
+            { "id": "kf-s1-sub-y1", "time_ms": 400, "property": "transform.y", "value": { "type": "Number", "value": 540.0 }, "easing": "EaseOut" },
+            { "id": "kf-s1-sub-y2", "time_ms": 900, "property": "transform.y", "value": { "type": "Number", "value": 480.0 }, "easing": "EaseOut" }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "text_wrap": false
+        },
+        {
+          "id": "obj-s1-version-aaa-bbb-cccc",
+          "name": "Version",
+          "object_type": "Text",
+          "transform": { "x": 1800.0, "y": 1040.0, "width": 100.0, "height": 30.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": {
+            "fill": "#666666",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 14.0,
+            "font_weight": 400,
+            "text_align": "Right",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "v0.1.0",
+          "z_index": 5,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "appear_at_ms": 800,
+          "text_wrap": false
+        },
+        {
+          "id": "obj-s1-explore-btn-aaa-bbb",
+          "name": "Explore Button",
+          "object_type": "Button",
+          "transform": { "x": 830.0, "y": 580.0, "width": 260.0, "height": 56.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": {
+            "fill": "#7c3aed",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 22.0,
+            "font_weight": 600,
+            "text_align": "Center",
+            "line_height": 1.4,
+            "border_radius": 12.0
+          },
+          "content": "Explore →",
+          "z_index": 11,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            { "id": "kf-s1-btn-op1", "time_ms": 0, "property": "transform.opacity", "value": { "type": "Number", "value": 0.0 }, "easing": "Linear" },
+            { "id": "kf-s1-btn-op2", "time_ms": 1200, "property": "transform.opacity", "value": { "type": "Number", "value": 0.0 }, "easing": "Linear" },
+            { "id": "kf-s1-btn-op3", "time_ms": 1700, "property": "transform.opacity", "value": { "type": "Number", "value": 1.0 }, "easing": "EaseOut" }
+          ],
+          "events": [
+            {
+              "id": "evt-s1-explore-click",
+              "trigger": { "type": "Click" },
+              "action": { "type": "GotoScene", "scene_id": "scene-02-animation-aaa-bbb" }
+            }
+          ],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null
+        }
+      ],
+      "transition_in": null,
+      "transition_out": null,
+      "sort_order": 0,
+      "wait_points": [
+        {
+          "id": "wp-s1-wait-for-explore",
+          "time_ms": 5500,
+          "resume_on": { "type": "Click", "object_id": "obj-s1-explore-btn-aaa-bbb" }
+        }
+      ],
+      "subtitle_track": null
+    },
+    {
+      "id": "scene-02-animation-aaa-bbb",
+      "name": "Animation",
+      "duration_ms": 10000,
+      "background": {
+        "fill": "#1a1a2e",
+        "gradient": null,
+        "image": null
+      },
+      "objects": [
+        {
+          "id": "obj-s2-title-animation-aaa",
+          "name": "Section Title",
+          "object_type": "Text",
+          "transform": { "x": 80.0, "y": 40.0, "width": 500.0, "height": 60.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#ffffff", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 36.0, "font_weight": 700, "text_align": "Left", "line_height": 1.2, "border_radius": 0.0 },
+          "content": "Keyframe Animation",
+          "z_index": 20,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            { "id": "kf-s2-ttl-op1", "time_ms": 0, "property": "transform.opacity", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseOut" },
+            { "id": "kf-s2-ttl-op2", "time_ms": 400, "property": "transform.opacity", "value": { "type": "Number", "value": 1.0 }, "easing": "EaseOut" }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "text_wrap": false
+        },
+        {
+          "id": "obj-s2-pathrect-aaa-bbb-cc",
+          "name": "Path Rectangle",
+          "object_type": "Rect",
+          "transform": { "x": 160.0, "y": 300.0, "width": 120.0, "height": 80.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#3b82f6", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 24.0, "font_weight": 400, "text_align": "Left", "line_height": 1.4, "border_radius": 8.0 },
+          "content": "",
+          "z_index": 15,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            { "id": "kf-s2-pr-prog1", "time_ms": 0, "property": "_path_progress", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseInOut" },
+            { "id": "kf-s2-pr-prog2", "time_ms": 4000, "property": "_path_progress", "value": { "type": "Number", "value": 1.0 }, "easing": "EaseInOut" }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": {
+            "id": "mp-s2-scurve-aaa-bbb",
+            "points": [
+              { "x": 160.0, "y": 300.0, "control_in": null, "control_out": { "x": 500.0, "y": 150.0 } },
+              { "x": 960.0, "y": 540.0, "control_in": { "x": 620.0, "y": 700.0 }, "control_out": { "x": 1300.0, "y": 380.0 } },
+              { "x": 1640.0, "y": 300.0, "control_in": { "x": 1400.0, "y": 150.0 }, "control_out": null }
+            ]
+          }
+        },
+        {
+          "id": "obj-s2-spinner-aaa-bbb-ccc",
+          "name": "Spinning Ellipse",
+          "object_type": "Ellipse",
+          "transform": { "x": 1500.0, "y": 500.0, "width": 150.0, "height": 150.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#f97316", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 24.0, "font_weight": 400, "text_align": "Left", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "",
+          "z_index": 14,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            { "id": "kf-s2-spin1", "time_ms": 0, "property": "transform.rotation", "value": { "type": "Number", "value": 0.0 }, "easing": "Linear" },
+            { "id": "kf-s2-spin2", "time_ms": 8000, "property": "transform.rotation", "value": { "type": "Number", "value": 720.0 }, "easing": "Linear" }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "filters": { "blur": 2.0 }
+        },
+        {
+          "id": "obj-s2-pulse-text-aaa-bbb",
+          "name": "Pulse Text",
+          "object_type": "Text",
+          "transform": { "x": 800.0, "y": 800.0, "width": 320.0, "height": 60.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#e879f9", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 32.0, "font_weight": 600, "text_align": "Center", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "Pulse Effect",
+          "z_index": 16,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            { "id": "kf-s2-pul1", "time_ms": 0, "property": "transform.opacity", "value": { "type": "Number", "value": 1.0 }, "easing": "EaseInOut" },
+            { "id": "kf-s2-pul2", "time_ms": 1000, "property": "transform.opacity", "value": { "type": "Number", "value": 0.3 }, "easing": "EaseInOut" },
+            { "id": "kf-s2-pul3", "time_ms": 2000, "property": "transform.opacity", "value": { "type": "Number", "value": 1.0 }, "easing": "EaseInOut" },
+            { "id": "kf-s2-pul4", "time_ms": 3000, "property": "transform.opacity", "value": { "type": "Number", "value": 0.3 }, "easing": "EaseInOut" },
+            { "id": "kf-s2-pul5", "time_ms": 4000, "property": "transform.opacity", "value": { "type": "Number", "value": 1.0 }, "easing": "EaseInOut" }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "text_wrap": false,
+          "filters": { "drop_shadow": { "offset_x": 2.0, "offset_y": 2.0, "blur": 4.0, "color": "#000000" } }
+        },
+        {
+          "id": "obj-s2-newbadge-aaa-bbb-cc",
+          "name": "NEW Badge",
+          "object_type": "Text",
+          "transform": { "x": 100.0, "y": 800.0, "width": 120.0, "height": 44.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#22c55e", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 20.0, "font_weight": 700, "text_align": "Center", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "NEW!",
+          "z_index": 17,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "appear_at_ms": 2000,
+          "disappear_at_ms": 6000,
+          "text_wrap": false
+        },
+        {
+          "id": "obj-s2-grayrect-aaa-bbb-cc",
+          "name": "Fade to Grayscale",
+          "object_type": "Rect",
+          "transform": { "x": 400.0, "y": 700.0, "width": 200.0, "height": 100.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#ef4444", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 24.0, "font_weight": 400, "text_align": "Left", "line_height": 1.4, "border_radius": 6.0 },
+          "content": "",
+          "z_index": 13,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            { "id": "kf-s2-gray1", "time_ms": 0, "property": "filters.grayscale", "value": { "type": "Number", "value": 0.0 }, "easing": "Linear" },
+            { "id": "kf-s2-gray2", "time_ms": 5000, "property": "filters.grayscale", "value": { "type": "Number", "value": 1.0 }, "easing": "Linear" }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "filters": {}
+        },
+        {
+          "id": "obj-s2-graylabel-aaa-bbb-c",
+          "name": "Grayscale Label",
+          "object_type": "Text",
+          "transform": { "x": 410.0, "y": 670.0, "width": 180.0, "height": 25.0, "rotation": 0.0, "opacity": 0.7 },
+          "style": { "fill": "#999999", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 13.0, "font_weight": 400, "text_align": "Left", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "Animated grayscale filter",
+          "z_index": 12,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "text_wrap": false
+        },
+        {
+          "id": "obj-s2-next-btn-aaa-bbb-cc",
+          "name": "Next Button",
+          "object_type": "Button",
+          "transform": { "x": 1680.0, "y": 980.0, "width": 180.0, "height": 50.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#3b82f6", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 18.0, "font_weight": 600, "text_align": "Center", "line_height": 1.4, "border_radius": 8.0 },
+          "content": "Next →",
+          "z_index": 20,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [
+            { "id": "evt-s2-next-click", "trigger": { "type": "Click" }, "action": { "type": "GotoScene", "scene_id": "scene-03-interactive-aaa-bb" } }
+          ],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null
+        }
+      ],
+      "transition_in": { "kind": "Crossfade", "duration_ms": 600 },
+      "transition_out": null,
+      "sort_order": 1,
+      "wait_points": [],
+      "subtitle_track": null
+    },
+    {
+      "id": "scene-03-interactive-aaa-bb",
+      "name": "Interactivity",
+      "duration_ms": 12000,
+      "background": { "fill": "#1e293b", "gradient": null, "image": null },
+      "objects": [
+        {
+          "id": "obj-s3-title-interactive-aa",
+          "name": "Section Title",
+          "object_type": "Text",
+          "transform": { "x": 80.0, "y": 40.0, "width": 600.0, "height": 60.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#ffffff", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 32.0, "font_weight": 700, "text_align": "Left", "line_height": 1.2, "border_radius": 0.0 },
+          "content": "Interactive Elements",
+          "z_index": 20,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            { "id": "kf-s3-ttl-x1", "time_ms": 0, "property": "transform.x", "value": { "type": "Number", "value": -600.0 }, "easing": "EaseOut" },
+            { "id": "kf-s3-ttl-x2", "time_ms": 500, "property": "transform.x", "value": { "type": "Number", "value": 80.0 }, "easing": "EaseOut" }
+          ],
+          "events": [], "data_bindings": [], "condition": null, "motion_path": null, "text_wrap": false
+        },
+        {
+          "id": "obj-s3-color-display-aaa-bb",
+          "name": "Color Display",
+          "object_type": "Rect",
+          "transform": { "x": 660.0, "y": 300.0, "width": 600.0, "height": 300.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#666666", "stroke": "#444444", "stroke_width": 2.0, "font_family": "system-ui", "font_size": 24.0, "font_weight": 400, "text_align": "Left", "line_height": 1.4, "border_radius": 16.0 },
+          "content": "", "z_index": 10, "visible": true, "locked": false, "keyframes": [], "events": [], "data_bindings": [], "condition": null, "motion_path": null
+        },
+        {
+          "id": "obj-s3-color-label-aaa-bbb",
+          "name": "Color Label",
+          "object_type": "Text",
+          "transform": { "x": 810.0, "y": 260.0, "width": 300.0, "height": 35.0, "rotation": 0.0, "opacity": 0.7 },
+          "style": { "fill": "#cccccc", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 18.0, "font_weight": 400, "text_align": "Center", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "Click a colour below", "z_index": 11, "visible": true, "locked": false, "keyframes": [], "events": [], "data_bindings": [], "condition": null, "motion_path": null, "text_wrap": false
+        },
+        {
+          "id": "obj-s3-btn-red-aaa-bbb-ccc",
+          "name": "Red Button",
+          "object_type": "Button",
+          "transform": { "x": 660.0, "y": 650.0, "width": 180.0, "height": 56.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#ef4444", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 20.0, "font_weight": 600, "text_align": "Center", "line_height": 1.4, "border_radius": 10.0 },
+          "content": "Red", "z_index": 15, "visible": true, "locked": false, "keyframes": [],
+          "events": [ { "id": "evt-s3-red", "trigger": { "type": "Click" }, "action": { "type": "SetProperty", "object_id": "obj-s3-color-display-aaa-bb", "property": "style.fill", "value": { "type": "Color", "value": "#ef4444" } } } ],
+          "data_bindings": [], "condition": null, "motion_path": null
+        },
+        {
+          "id": "obj-s3-btn-green-aaa-bbb-c",
+          "name": "Green Button",
+          "object_type": "Button",
+          "transform": { "x": 870.0, "y": 650.0, "width": 180.0, "height": 56.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#22c55e", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 20.0, "font_weight": 600, "text_align": "Center", "line_height": 1.4, "border_radius": 10.0 },
+          "content": "Green", "z_index": 15, "visible": true, "locked": false, "keyframes": [],
+          "events": [ { "id": "evt-s3-green", "trigger": { "type": "Click" }, "action": { "type": "SetProperty", "object_id": "obj-s3-color-display-aaa-bb", "property": "style.fill", "value": { "type": "Color", "value": "#22c55e" } } } ],
+          "data_bindings": [], "condition": null, "motion_path": null
+        },
+        {
+          "id": "obj-s3-btn-blue-aaa-bbb-cc",
+          "name": "Blue Button",
+          "object_type": "Button",
+          "transform": { "x": 1080.0, "y": 650.0, "width": 180.0, "height": 56.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#3b82f6", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 20.0, "font_weight": 600, "text_align": "Center", "line_height": 1.4, "border_radius": 10.0 },
+          "content": "Blue", "z_index": 15, "visible": true, "locked": false, "keyframes": [],
+          "events": [ { "id": "evt-s3-blue", "trigger": { "type": "Click" }, "action": { "type": "SetProperty", "object_id": "obj-s3-color-display-aaa-bb", "property": "style.fill", "value": { "type": "Color", "value": "#3b82f6" } } } ],
+          "data_bindings": [], "condition": null, "motion_path": null
+        },
+        {
+          "id": "obj-s3-secret-text-aaa-bbb",
+          "name": "Secret Text",
+          "object_type": "Text",
+          "transform": { "x": 100.0, "y": 900.0, "width": 400.0, "height": 50.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#fbbf24", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 22.0, "font_weight": 600, "text_align": "Left", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "Secret found!", "z_index": 18, "visible": false, "locked": false, "keyframes": [], "events": [], "data_bindings": [], "condition": null, "motion_path": null, "text_wrap": false
+        },
+        {
+          "id": "obj-s3-hotspot-aaa-bbb-ccc",
+          "name": "Secret Hotspot",
+          "object_type": "Hotspot",
+          "transform": { "x": 50.0, "y": 850.0, "width": 200.0, "height": 150.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "transparent", "stroke": "#ff6b6b", "stroke_width": 2.0, "font_family": "system-ui", "font_size": 24.0, "font_weight": 400, "text_align": "Left", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "", "z_index": 19, "visible": true, "locked": false, "keyframes": [],
+          "events": [ { "id": "evt-s3-hs", "trigger": { "type": "Click" }, "action": { "type": "ToggleVisible", "object_id": "obj-s3-secret-text-aaa-bbb" } } ],
+          "data_bindings": [], "condition": null, "motion_path": null
+        },
+        {
+          "id": "obj-s3-timer-text-aaa-bbb-c",
+          "name": "Timer Text",
+          "object_type": "Text",
+          "transform": { "x": 760.0, "y": 780.0, "width": 400.0, "height": 40.0, "rotation": 0.0, "opacity": 0.6 },
+          "style": { "fill": "#94a3b8", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 16.0, "font_weight": 400, "text_align": "Center", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "Click anywhere or wait 5 seconds...", "z_index": 12, "visible": true, "locked": false, "keyframes": [], "events": [], "data_bindings": [], "condition": null, "motion_path": null, "appear_at_ms": 7000, "text_wrap": false
+        },
+        {
+          "id": "obj-s3-next-btn-aaa-bbb-cc",
+          "name": "Next Button",
+          "object_type": "Button",
+          "transform": { "x": 1680.0, "y": 980.0, "width": 180.0, "height": 50.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#3b82f6", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 18.0, "font_weight": 600, "text_align": "Center", "line_height": 1.4, "border_radius": 8.0 },
+          "content": "Next →", "z_index": 20, "visible": true, "locked": false, "keyframes": [],
+          "events": [ { "id": "evt-s3-next", "trigger": { "type": "Click" }, "action": { "type": "GotoScene", "scene_id": "scene-04-richmedia-aaa-bbb" } } ],
+          "data_bindings": [], "condition": null, "motion_path": null
+        }
+      ],
+      "transition_in": { "kind": "SlideLeft", "duration_ms": 400 },
+      "transition_out": null,
+      "sort_order": 2,
+      "wait_points": [
+        { "id": "wp-s3-click-or-timer", "time_ms": 7000, "resume_on": { "type": "ClickOrTimer", "object_id": null, "delay_ms": 5000 } }
+      ],
+      "subtitle_track": null
+    },
+    {
+      "id": "scene-04-richmedia-aaa-bbb",
+      "name": "Rich Media",
+      "duration_ms": 8000,
+      "background": {
+        "fill": "#0a0a1a",
+        "gradient": { "gradient_type": "Radial", "stops": [ { "offset": 0.0, "color": "#1e3a5f" }, { "offset": 1.0, "color": "#0a0a1a" } ] },
+        "image": null
+      },
+      "objects": [
+        {
+          "id": "obj-s4-title-richmedia-aaa",
+          "name": "Section Title",
+          "object_type": "Text",
+          "transform": { "x": 660.0, "y": 30.0, "width": 600.0, "height": 60.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#ffffff", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 36.0, "font_weight": 700, "text_align": "Center", "line_height": 1.2, "border_radius": 0.0 },
+          "content": "Rich Media", "z_index": 20, "visible": true, "locked": false,
+          "keyframes": [
+            { "id": "kf-s4-ttl1", "time_ms": 0, "property": "transform.opacity", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseOut" },
+            { "id": "kf-s4-ttl2", "time_ms": 500, "property": "transform.opacity", "value": { "type": "Number", "value": 1.0 }, "easing": "EaseOut" }
+          ],
+          "events": [], "data_bindings": [], "condition": null, "motion_path": null, "text_wrap": false
+        },
+        {
+          "id": "obj-s4-wrapped-text-aaa-bb",
+          "name": "Wrapped Text",
+          "object_type": "Text",
+          "transform": { "x": 660.0, "y": 130.0, "width": 600.0, "height": 200.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#e0e0e0", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 18.0, "font_weight": 400, "text_align": "Left", "line_height": 1.6, "border_radius": 0.0 },
+          "content": "CitCat supports multi-line text with automatic word wrapping. This paragraph demonstrates how longer text content flows naturally within the bounds of an object, making it perfect for product descriptions, captions, and informational content.",
+          "z_index": 15, "visible": true, "locked": false, "keyframes": [], "events": [], "data_bindings": [], "condition": null, "motion_path": null, "text_wrap": true
+        },
+        {
+          "id": "obj-s4-audio-music-aaa-bbb",
+          "name": "Background Music",
+          "object_type": "Audio",
+          "transform": { "x": 80.0, "y": 200.0, "width": 200.0, "height": 50.0, "rotation": 0.0, "opacity": 0.6 },
+          "style": { "fill": "#22c55e", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 24.0, "font_weight": 400, "text_align": "Left", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "background-music.mp3", "z_index": 5, "visible": true, "locked": false, "keyframes": [], "events": [], "data_bindings": [], "condition": null, "motion_path": null,
+          "audio_volume": 0.8, "audio_loop": true
+        },
+        {
+          "id": "obj-s4-fblur", "name": "Filter: Blur", "object_type": "Rect",
+          "transform": { "x": 160.0, "y": 550.0, "width": 140.0, "height": 100.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#3b82f6", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 24.0, "font_weight": 400, "text_align": "Left", "line_height": 1.4, "border_radius": 8.0 },
+          "content": "", "z_index": 12, "visible": true, "locked": false, "keyframes": [], "events": [], "data_bindings": [], "condition": null, "motion_path": null, "filters": { "blur": 3.0 }
+        },
+        {
+          "id": "obj-s4-lblur", "name": "Blur Label", "object_type": "Text",
+          "transform": { "x": 175.0, "y": 515.0, "width": 110.0, "height": 30.0, "rotation": 0.0, "opacity": 0.7 },
+          "style": { "fill": "#cccccc", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 14.0, "font_weight": 400, "text_align": "Center", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "Blur", "z_index": 13, "visible": true, "locked": false, "keyframes": [], "events": [], "data_bindings": [], "condition": null, "motion_path": null, "text_wrap": false
+        },
+        {
+          "id": "obj-s4-fbright", "name": "Filter: Bright", "object_type": "Rect",
+          "transform": { "x": 360.0, "y": 550.0, "width": 140.0, "height": 100.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#3b82f6", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 24.0, "font_weight": 400, "text_align": "Left", "line_height": 1.4, "border_radius": 8.0 },
+          "content": "", "z_index": 12, "visible": true, "locked": false, "keyframes": [], "events": [], "data_bindings": [], "condition": null, "motion_path": null, "filters": { "brightness": 1.5 }
+        },
+        {
+          "id": "obj-s4-lbright", "name": "Bright Label", "object_type": "Text",
+          "transform": { "x": 375.0, "y": 515.0, "width": 110.0, "height": 30.0, "rotation": 0.0, "opacity": 0.7 },
+          "style": { "fill": "#cccccc", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 14.0, "font_weight": 400, "text_align": "Center", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "Bright", "z_index": 13, "visible": true, "locked": false, "keyframes": [], "events": [], "data_bindings": [], "condition": null, "motion_path": null, "text_wrap": false
+        },
+        {
+          "id": "obj-s4-fsepia", "name": "Filter: Sepia", "object_type": "Rect",
+          "transform": { "x": 560.0, "y": 550.0, "width": 140.0, "height": 100.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#3b82f6", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 24.0, "font_weight": 400, "text_align": "Left", "line_height": 1.4, "border_radius": 8.0 },
+          "content": "", "z_index": 12, "visible": true, "locked": false, "keyframes": [], "events": [], "data_bindings": [], "condition": null, "motion_path": null, "filters": { "sepia": 1.0 }
+        },
+        {
+          "id": "obj-s4-lsepia", "name": "Sepia Label", "object_type": "Text",
+          "transform": { "x": 575.0, "y": 515.0, "width": 110.0, "height": 30.0, "rotation": 0.0, "opacity": 0.7 },
+          "style": { "fill": "#cccccc", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 14.0, "font_weight": 400, "text_align": "Center", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "Sepia", "z_index": 13, "visible": true, "locked": false, "keyframes": [], "events": [], "data_bindings": [], "condition": null, "motion_path": null, "text_wrap": false
+        },
+        {
+          "id": "obj-s4-fhue", "name": "Filter: Hue", "object_type": "Rect",
+          "transform": { "x": 760.0, "y": 550.0, "width": 140.0, "height": 100.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#3b82f6", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 24.0, "font_weight": 400, "text_align": "Left", "line_height": 1.4, "border_radius": 8.0 },
+          "content": "", "z_index": 12, "visible": true, "locked": false, "keyframes": [], "events": [], "data_bindings": [], "condition": null, "motion_path": null, "filters": { "hue_rotate": 90.0 }
+        },
+        {
+          "id": "obj-s4-lhue", "name": "Hue Label", "object_type": "Text",
+          "transform": { "x": 775.0, "y": 515.0, "width": 110.0, "height": 30.0, "rotation": 0.0, "opacity": 0.7 },
+          "style": { "fill": "#cccccc", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 14.0, "font_weight": 400, "text_align": "Center", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "Hue Shift", "z_index": 13, "visible": true, "locked": false, "keyframes": [], "events": [], "data_bindings": [], "condition": null, "motion_path": null, "text_wrap": false
+        },
+        {
+          "id": "obj-s4-next-btn-aaa-bbb-cc",
+          "name": "Next Button",
+          "object_type": "Button",
+          "transform": { "x": 1680.0, "y": 980.0, "width": 180.0, "height": 50.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#3b82f6", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 18.0, "font_weight": 600, "text_align": "Center", "line_height": 1.4, "border_radius": 8.0 },
+          "content": "Next →", "z_index": 20, "visible": true, "locked": false, "keyframes": [],
+          "events": [ { "id": "evt-s4-next", "trigger": { "type": "Click" }, "action": { "type": "GotoScene", "scene_id": "scene-05-datadriven-aaa-bb" } } ],
+          "data_bindings": [], "condition": null, "motion_path": null
+        }
+      ],
+      "transition_in": { "kind": "Crossfade", "duration_ms": 500 },
+      "transition_out": null,
+      "sort_order": 3,
+      "wait_points": [],
+      "subtitle_track": {
+        "id": "sub-s4-track",
+        "entries": [
+          { "id": "sub-s4-e1", "start_ms": 0, "end_ms": 3000, "text": "Welcome to the Rich Media showcase" },
+          { "id": "sub-s4-e2", "start_ms": 3000, "end_ms": 5500, "text": "Featuring text wrapping, audio, and filters" },
+          { "id": "sub-s4-e3", "start_ms": 5500, "end_ms": 8000, "text": "All rendered on HTML5 Canvas" }
+        ]
+      }
+    },
+    {
+      "id": "scene-05-datadriven-aaa-bb",
+      "name": "Data-Driven",
+      "duration_ms": 8000,
+      "background": {
+        "fill": "#0f172a",
+        "gradient": { "gradient_type": "Linear", "stops": [ { "offset": 0.0, "color": "#0f172a" }, { "offset": 1.0, "color": "#1e293b" } ] },
+        "image": null
+      },
+      "objects": [
+        {
+          "id": "obj-s5-title-data-aaa",
+          "name": "Section Title",
+          "object_type": "Text",
+          "transform": { "x": 510.0, "y": 30.0, "width": 900.0, "height": 60.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#ffffff", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 36.0, "font_weight": 700, "text_align": "Center", "line_height": 1.2, "border_radius": 0.0 },
+          "content": "Database-Powered Content", "z_index": 20, "visible": true, "locked": false,
+          "keyframes": [
+            { "id": "kf-s5-ttl1", "time_ms": 0, "property": "transform.opacity", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseOut" },
+            { "id": "kf-s5-ttl2", "time_ms": 500, "property": "transform.opacity", "value": { "type": "Number", "value": 1.0 }, "easing": "EaseOut" }
+          ],
+          "events": [], "data_bindings": [], "condition": null, "motion_path": null, "text_wrap": false
+        },
+        {
+          "id": "obj-s5-card-frame",
+          "name": "Card Frame",
+          "object_type": "Rect",
+          "transform": { "x": 560.0, "y": 150.0, "width": 800.0, "height": 400.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#1e293b", "stroke": "#444444", "stroke_width": 2.0, "font_family": "system-ui", "font_size": 24.0, "font_weight": 400, "text_align": "Left", "line_height": 1.4, "border_radius": 12.0 },
+          "content": "", "z_index": 10, "visible": true, "locked": false, "keyframes": [], "events": [], "data_bindings": [], "condition": null, "motion_path": null
+        },
+        {
+          "id": "obj-s5-prodname",
+          "name": "Product Name",
+          "object_type": "Text",
+          "transform": { "x": 610.0, "y": 190.0, "width": 500.0, "height": 50.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#ffffff", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 28.0, "font_weight": 700, "text_align": "Left", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "{{product_name}}", "z_index": 15, "visible": true, "locked": false, "keyframes": [], "events": [],
+          "data_bindings": [ { "id": "db-s5-name", "property": "content", "column": "product_name", "transform": { "type": "None" } } ],
+          "condition": null, "motion_path": null, "text_wrap": false
+        },
+        {
+          "id": "obj-s5-desc",
+          "name": "Description",
+          "object_type": "Text",
+          "transform": { "x": 610.0, "y": 260.0, "width": 500.0, "height": 150.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#cccccc", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 16.0, "font_weight": 400, "text_align": "Left", "line_height": 1.6, "border_radius": 0.0 },
+          "content": "{{description}}", "z_index": 14, "visible": true, "locked": false, "keyframes": [], "events": [],
+          "data_bindings": [ { "id": "db-s5-desc", "property": "content", "column": "description", "transform": { "type": "None" } } ],
+          "condition": null, "motion_path": null, "text_wrap": true
+        },
+        {
+          "id": "obj-s5-price",
+          "name": "Price",
+          "object_type": "Text",
+          "transform": { "x": 1160.0, "y": 190.0, "width": 160.0, "height": 50.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#22c55e", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 24.0, "font_weight": 700, "text_align": "Right", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "{{price}}", "z_index": 15, "visible": true, "locked": false, "keyframes": [], "events": [],
+          "data_bindings": [ { "id": "db-s5-price", "property": "content", "column": "price", "transform": { "type": "FormatCurrency", "symbol": "€", "decimals": 2 } } ],
+          "condition": null, "motion_path": null, "text_wrap": false
+        },
+        {
+          "id": "obj-s5-premium",
+          "name": "Premium Badge",
+          "object_type": "Text",
+          "transform": { "x": 1160.0, "y": 260.0, "width": 160.0, "height": 30.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#fbbf24", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 14.0, "font_weight": 600, "text_align": "Right", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "PREMIUM", "z_index": 16, "visible": true, "locked": false, "keyframes": [], "events": [], "data_bindings": [],
+          "condition": { "column": "tier", "operator": "Equals", "value": "premium" },
+          "motion_path": null, "text_wrap": false
+        },
+        {
+          "id": "obj-s5-condlabel",
+          "name": "Condition Label",
+          "object_type": "Text",
+          "transform": { "x": 610.0, "y": 565.0, "width": 450.0, "height": 25.0, "rotation": 0.0, "opacity": 0.5 },
+          "style": { "fill": "#666666", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 13.0, "font_weight": 400, "text_align": "Left", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "Shown when: tier = premium (conditional visibility)", "z_index": 11, "visible": true, "locked": false, "keyframes": [], "events": [], "data_bindings": [], "condition": null, "motion_path": null, "text_wrap": false
+        },
+        {
+          "id": "obj-s5-stack1", "name": "Stack 1", "object_type": "Rect",
+          "transform": { "x": 610.0, "y": 640.0, "width": 300.0, "height": 160.0, "rotation": 0.0, "opacity": 0.25 },
+          "style": { "fill": "transparent", "stroke": "#555555", "stroke_width": 1.5, "font_family": "system-ui", "font_size": 24.0, "font_weight": 400, "text_align": "Left", "line_height": 1.4, "border_radius": 8.0 },
+          "content": "", "z_index": 8, "visible": true, "locked": false, "keyframes": [], "events": [], "data_bindings": [], "condition": null, "motion_path": null
+        },
+        {
+          "id": "obj-s5-stack2", "name": "Stack 2", "object_type": "Rect",
+          "transform": { "x": 620.0, "y": 650.0, "width": 300.0, "height": 160.0, "rotation": 0.0, "opacity": 0.5 },
+          "style": { "fill": "transparent", "stroke": "#555555", "stroke_width": 1.5, "font_family": "system-ui", "font_size": 24.0, "font_weight": 400, "text_align": "Left", "line_height": 1.4, "border_radius": 8.0 },
+          "content": "", "z_index": 9, "visible": true, "locked": false, "keyframes": [], "events": [], "data_bindings": [], "condition": null, "motion_path": null
+        },
+        {
+          "id": "obj-s5-stack3", "name": "Stack 3", "object_type": "Rect",
+          "transform": { "x": 630.0, "y": 660.0, "width": 300.0, "height": 160.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "transparent", "stroke": "#888888", "stroke_width": 2.0, "font_family": "system-ui", "font_size": 24.0, "font_weight": 400, "text_align": "Left", "line_height": 1.4, "border_radius": 8.0 },
+          "content": "", "z_index": 10, "visible": true, "locked": false, "keyframes": [], "events": [], "data_bindings": [], "condition": null, "motion_path": null
+        },
+        {
+          "id": "obj-s5-stacklbl", "name": "Stack Label", "object_type": "Text",
+          "transform": { "x": 650.0, "y": 700.0, "width": 260.0, "height": 40.0, "rotation": 0.0, "opacity": 0.6 },
+          "style": { "fill": "#888888", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 14.0, "font_weight": 400, "text_align": "Center", "line_height": 1.4, "border_radius": 0.0 },
+          "content": "200 pages from 200 rows", "z_index": 11, "visible": true, "locked": false, "keyframes": [], "events": [], "data_bindings": [], "condition": null, "motion_path": null, "text_wrap": false
+        },
+        {
+          "id": "obj-s5-explain",
+          "name": "Explanation",
+          "object_type": "Text",
+          "transform": { "x": 1000.0, "y": 650.0, "width": 500.0, "height": 120.0, "rotation": 0.0, "opacity": 0.7 },
+          "style": { "fill": "#999999", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 16.0, "font_weight": 400, "text_align": "Left", "line_height": 1.6, "border_radius": 0.0 },
+          "content": "Connect to SQLite, CSV, or PostgreSQL. Bind fields to objects. Export hundreds of pages in one click.",
+          "z_index": 11, "visible": true, "locked": false, "keyframes": [], "events": [], "data_bindings": [], "condition": null, "motion_path": null, "text_wrap": true
+        },
+        {
+          "id": "obj-s5-back-btn",
+          "name": "Back to Start",
+          "object_type": "Button",
+          "transform": { "x": 810.0, "y": 880.0, "width": 300.0, "height": 56.0, "rotation": 0.0, "opacity": 1.0 },
+          "style": { "fill": "#7c3aed", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 20.0, "font_weight": 600, "text_align": "Center", "line_height": 1.4, "border_radius": 12.0 },
+          "content": "← Back to Start", "z_index": 20, "visible": true, "locked": false, "keyframes": [],
+          "events": [ { "id": "evt-s5-back", "trigger": { "type": "Click" }, "action": { "type": "GotoScene", "scene_id": "scene-01-welcome-aaa-bbb-ccc" } } ],
+          "data_bindings": [], "condition": null, "motion_path": null
+        }
+      ],
+      "transition_in": { "kind": "WipeRight", "duration_ms": 500 },
+      "transition_out": null,
+      "sort_order": 4,
+      "wait_points": [],
+      "subtitle_track": null
+    }
+  ],
+  "effects_library": [],
+  "data_source": null,
+  "export_settings": {
+    "format": "Html",
+    "single_file": true,
+    "autoplay": false,
+    "loop_playback": false
+  }
+}
