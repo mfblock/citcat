@@ -4,11 +4,26 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CitCat — Design once. Connect data. Render at scale.</title>
+<meta name="description" content="CitCat is an open-source visual timeline editor for animated, interactive content. Bind to a database and batch-render hundreds of HTML5 pages from one template. macOS, Windows, Linux.">
+<link rel="canonical" href="https://citcat.mirjam-block.eu/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://citcat.mirjam-block.eu/">
+<meta property="og:title" content="CitCat — Design once. Connect data. Render at scale.">
+<meta property="og:description" content="Open-source visual timeline editor for animated, interactive content. Bind to a database and batch-render at scale.">
+<meta name="twitter:card" content="summary">
+
+<!-- Analytics — Umami (self-hosted). Website ID is a public tracking identifier, not a secret.
+     Instance + credentials: pass show mirkat/landuwasco/umami/app-username
+     Website ID also filed at: pass show citcat/umami-website-id -->
+<script defer src="https://umami.mirjam-block.eu/script.js" data-website-id="a5f833a1-b279-49b7-b649-bb4c61b5c222"></script>
+
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
   :root {
     --bg-deep: #0a0a12;
+    --bg-alt: #0d0d1a;
+    --bg-void: #08081a;
     --bg-card: rgba(255,255,255,0.04);
     --bg-card-hover: rgba(255,255,255,0.07);
     --accent: #a78bfa;
@@ -17,7 +32,7 @@
     --accent-glow: rgba(167,139,250,0.15);
     --text: #e8e6f0;
     --text-dim: #9892a6;
-    --text-muted: #5e576e;
+    --text-muted: #8983a0;
     --border: rgba(255,255,255,0.08);
     --radius: 16px;
     --radius-sm: 10px;
@@ -32,6 +47,13 @@
     line-height: 1.65;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
+  }
+
+  /* ---- Accessible focus state (keyboard nav) ---- */
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--accent-bright);
+    outline-offset: 3px;
+    border-radius: 6px;
   }
 
   /* ---- Layout ---- */
@@ -126,7 +148,7 @@
     color: var(--text);
     border: 1px solid var(--border);
   }
-  .btn-ghost:hover { background: var(--bg-card-hover); border-color: rgba(255,255,255,0.15); }
+  .btn-ghost:hover { background: var(--bg-card-hover); border-color: rgba(255,255,255,0.15); transform: translateY(-2px); }
 
   .hero-meta {
     margin-top: 48px; display: flex; gap: 32px; justify-content: center; flex-wrap: wrap;
@@ -135,7 +157,7 @@
   .hero-meta span { display: flex; align-items: center; gap: 6px; }
 
   /* ---- Steps ---- */
-  .steps { background: linear-gradient(180deg, var(--bg-deep) 0%, #0d0d1a 100%); }
+  .steps { background: linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-alt) 100%); }
   .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 
   .step-card {
@@ -271,11 +293,13 @@
   .viz-data-row.active { background: var(--accent-glow); border: 1px solid rgba(167,139,250,0.2); }
   .viz-data-row span { color: var(--text-dim); }
   .viz-data-row.active span { color: var(--text); }
+  .viz-data-header span:last-child,
+  .viz-data-row span:last-child { text-align: right; }
   .viz-data-row .price { color: #22c55e; font-weight: 600; }
   .viz-bind-indicator { font-size: 11px; color: var(--accent); }
 
   /* ---- Interfaces ---- */
-  .interfaces { background: linear-gradient(180deg, var(--bg-deep) 0%, #0d0d1a 100%); }
+  .interfaces { background: linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-alt) 100%); }
   .interfaces h2 { text-align: center; font-size: 2rem; font-weight: 800; margin-bottom: 48px; letter-spacing: -0.02em; }
   .interfaces-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 
@@ -326,7 +350,22 @@
     padding: 8px 20px; border-radius: 100px;
     background: var(--bg-card); border: 1px solid var(--border);
     font-size: 13px; font-weight: 500; color: var(--text-dim);
+    letter-spacing: 0.01em;
   }
+
+  /* ---- Download ---- */
+  .download { text-align: center; background: linear-gradient(180deg, var(--bg-alt) 0%, var(--bg-deep) 100%); }
+  .download h2 { font-size: 2rem; font-weight: 800; margin-bottom: 16px; letter-spacing: -0.02em; }
+  .download > .container > p { color: var(--text-dim); font-size: 1.05rem; max-width: 560px; margin: 0 auto 32px; line-height: 1.7; }
+  .dl-grid { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
+  .dl-note { font-size: 13px; color: var(--text-muted); margin-top: 8px; }
+  .dl-note a { color: var(--accent); }
+  .dl-status {
+    display: inline-block; margin-bottom: 24px; padding: 10px 18px;
+    border-radius: var(--radius-sm); border: 1px solid rgba(167,139,250,0.2);
+    background: var(--accent-glow); color: var(--accent-bright); font-size: 13px;
+  }
+  .dl-status[hidden] { display: none; }
 
   /* ---- Open Source ---- */
   .opensource { text-align: center; }
@@ -344,9 +383,8 @@
   footer a { color: var(--text-dim); text-decoration: none; }
   footer a:hover { color: var(--accent); }
 
-  /* ---- Responsive ---- */
   /* ---- Demo ---- */
-  .demo { background: linear-gradient(180deg, var(--bg-deep) 0%, #08081a 50%, var(--bg-deep) 100%); padding: 80px 0 100px; }
+  .demo { background: linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-void) 50%, var(--bg-deep) 100%); padding: 80px 0 100px; }
   .demo h2 { text-align: center; font-size: 2rem; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.02em; }
   .demo .demo-subtitle { text-align: center; color: var(--text-dim); font-size: 1rem; margin-bottom: 40px; }
   .demo-frame {
@@ -383,6 +421,7 @@
     font-size: 13px; color: var(--text-muted); font-style: italic;
   }
 
+  /* ---- Responsive ---- */
   @media (max-width: 840px) {
     .steps-grid, .interfaces-grid { grid-template-columns: 1fr; }
     .feature-block { grid-template-columns: 1fr; gap: 32px; }
@@ -414,11 +453,11 @@
       Bind to a database and batch-render hundreds of HTML5 pages or videos from one template.
     </p>
     <div class="hero-buttons">
-      <a href="#" class="btn btn-primary">
+      <a href="#download" class="btn btn-primary" id="hero-download">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-        Download for macOS
+        <span id="hero-download-label">Download</span>
       </a>
-      <a href="#" class="btn btn-ghost">
+      <a href="https://github.com/mfblock/citcat" class="btn btn-ghost" rel="noopener">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
         View on GitHub
       </a>
@@ -650,12 +689,51 @@
   </div>
 </section>
 
+<!-- ==================== DOWNLOAD ==================== -->
+<section class="download" id="download">
+  <div class="container reveal">
+    <h2>Get CitCat</h2>
+    <p>Free and open source. Pick your platform — or grab the source and build it yourself.</p>
+
+    <div class="dl-status" id="dl-status" hidden></div>
+
+    <div class="dl-grid">
+      <a class="btn btn-primary" id="dl-macos-arm" href="https://github.com/mfblock/citcat/releases" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16.365 1.43c0 1.14-.42 2.2-1.12 3.02-.85.99-2.24 1.76-3.4 1.67-.14-1.1.4-2.26 1.07-3.02.77-.88 2.1-1.55 3.45-1.67zM20.6 17.02c-.55 1.27-.82 1.84-1.53 2.96-.99 1.57-2.39 3.53-4.12 3.54-1.54.02-1.93-1-4.02-.99-2.09.01-2.52 1.01-4.06.99-1.73-.02-3.05-1.78-4.04-3.35-2.77-4.4-3.06-9.56-1.35-12.3 1.21-1.95 3.13-3.09 4.93-3.09 1.84 0 2.99 1.01 4.51 1.01 1.47 0 2.37-1.01 4.49-1.01 1.61 0 3.31.88 4.53 2.39-3.98 2.18-3.33 7.86.66 9.85z"/></svg>
+        macOS (Apple Silicon)
+      </a>
+      <a class="btn btn-ghost" id="dl-macos-intel" href="https://github.com/mfblock/citcat/releases" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16.365 1.43c0 1.14-.42 2.2-1.12 3.02-.85.99-2.24 1.76-3.4 1.67-.14-1.1.4-2.26 1.07-3.02.77-.88 2.1-1.55 3.45-1.67zM20.6 17.02c-.55 1.27-.82 1.84-1.53 2.96-.99 1.57-2.39 3.53-4.12 3.54-1.54.02-1.93-1-4.02-.99-2.09.01-2.52 1.01-4.06.99-1.73-.02-3.05-1.78-4.04-3.35-2.77-4.4-3.06-9.56-1.35-12.3 1.21-1.95 3.13-3.09 4.93-3.09 1.84 0 2.99 1.01 4.51 1.01 1.47 0 2.37-1.01 4.49-1.01 1.61 0 3.31.88 4.53 2.39-3.98 2.18-3.33 7.86.66 9.85z"/></svg>
+        macOS (Intel)
+      </a>
+      <a class="btn btn-ghost" id="dl-windows" href="https://github.com/mfblock/citcat/releases" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg>
+        Windows (.msi)
+      </a>
+      <a class="btn btn-ghost" id="dl-linux-appimage" href="https://github.com/mfblock/citcat/releases" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2a5 5 0 00-5 5c0 2-1 3.5-2 5s-1 4 1 5 4 1 6 1 4 0 6-1 2-3.5 1-5-2-3-2-5a5 5 0 00-5-5z"/><path d="M10 8h.01M14 8h.01"/></svg>
+        Linux (.AppImage)
+      </a>
+      <a class="btn btn-ghost" id="dl-linux-deb" href="https://github.com/mfblock/citcat/releases" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
+        Linux (.deb)
+      </a>
+    </div>
+
+    <p class="dl-note">
+      Unsigned builds — macOS: right-click &rarr; Open on first launch.
+      All downloads come from <a href="https://github.com/mfblock/citcat/releases" rel="noopener">GitHub Releases</a>.
+      <a href="manual.html">Read the manual</a>.
+    </p>
+  </div>
+</section>
+
 <!-- ==================== OPEN SOURCE ==================== -->
 <section class="opensource">
   <div class="container reveal">
     <h2>Built for fun.<br>Shared for free.</h2>
     <p>CitCat is open source under the MIT license. Use it, fork it, extend it. Contributions welcome.</p>
-    <a href="#" class="btn btn-ghost">
+    <a href="https://github.com/mfblock/citcat" class="btn btn-ghost" rel="noopener">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
       View on GitHub
     </a>
@@ -665,7 +743,7 @@
 <!-- ==================== FOOTER ==================== -->
 <footer>
   <div class="container">
-    <p>&copy; 2026 Mirjam Block &middot; <a href="#">MIT License</a> &middot; Made with Rust, curiosity, and too many late nights.</p>
+    <p>&copy; 2026 Mirjam Block &middot; <a href="https://github.com/mfblock/citcat/blob/main/LICENSE" rel="noopener">MIT License</a> &middot; <a href="manual.html">Manual</a> &middot; Made with Rust, curiosity, and too many late nights.</p>
   </div>
 </footer>
 
@@ -689,14 +767,128 @@
   });
 </script>
 
+<!-- ==================== DOWNLOAD LINKS ====================
+     Buttons ship pointing at the Releases page (always valid). On load we ask the
+     GitHub API for the latest release and, if it has assets, rewire each button to
+     the exact file. Chosen over hardcoded /releases/latest/download/<name> URLs so
+     the page never serves a 404 when a filename or version changes. -->
+<script>
+(function() {
+  var REPO = 'mfblock/citcat';
+  var RELEASES = 'https://github.com/' + REPO + '/releases';
+
+  var targets = [
+    { id: 'dl-macos-arm',      match: function(n) { return /aarch64.*\.dmg$|\.dmg$/i.test(n) && /aarch64|arm64/i.test(n); } },
+    { id: 'dl-macos-intel',    match: function(n) { return /\.dmg$/i.test(n) && /x64|x86_64|intel/i.test(n); } },
+    { id: 'dl-windows',        match: function(n) { return /\.msi$/i.test(n) || /\.exe$/i.test(n); } },
+    { id: 'dl-linux-appimage', match: function(n) { return /\.appimage$/i.test(n); } },
+    { id: 'dl-linux-deb',      match: function(n) { return /\.deb$/i.test(n); } }
+  ];
+
+  function detectPlatform() {
+    // userAgent only. navigator.platform reports the HOST os and would send a
+    // Linux visitor to the macOS build. Order matters too: a macOS UA never
+    // contains "linux"/"x11", so Linux must be tested before mac.
+    var p = (navigator.userAgent || '').toLowerCase();
+    if (p.indexOf('windows') !== -1 || p.indexOf('win64') !== -1 || p.indexOf('win32') !== -1) return 'dl-windows';
+    if (p.indexOf('android') !== -1) return null;          // no desktop build
+    if (p.indexOf('iphone') !== -1 || p.indexOf('ipad') !== -1) return null;
+    if (p.indexOf('linux') !== -1 || p.indexOf('x11') !== -1) return 'dl-linux-appimage';
+    if (p.indexOf('macintosh') !== -1 || p.indexOf('mac os') !== -1) return 'dl-macos-arm';
+    return null;
+  }
+
+  function labelFor(id) {
+    if (id === 'dl-windows') return 'Download for Windows';
+    if (id === 'dl-linux-appimage') return 'Download for Linux';
+    if (id === 'dl-macos-arm') return 'Download for macOS';
+    return 'Download';
+  }
+
+  function fmtSize(bytes) {
+    if (!bytes) return '';
+    return ' (' + (bytes / 1048576).toFixed(1) + ' MB)';
+  }
+
+  var hero = document.getElementById('hero-download');
+  var heroLabel = document.getElementById('hero-download-label');
+  var status = document.getElementById('dl-status');
+
+  // Baseline: hero points at the download section, label matches the visitor's OS.
+  var mine = detectPlatform();
+  if (mine && heroLabel) heroLabel.textContent = labelFor(mine);
+
+  fetch('https://api.github.com/repos/' + REPO + '/releases/latest', {
+    headers: { 'Accept': 'application/vnd.github+json' }
+  })
+    .then(function(r) { return r.ok ? r.json() : Promise.reject(new Error('no release')); })
+    .then(function(rel) {
+      var assets = rel.assets || [];
+      if (!assets.length) return Promise.reject(new Error('no assets'));
+
+      var resolved = {};
+      targets.forEach(function(t) {
+        var el = document.getElementById(t.id);
+        if (!el) return;
+        var hit = null;
+        for (var i = 0; i < assets.length; i++) {
+          if (t.match(assets[i].name)) { hit = assets[i]; break; }
+        }
+        if (hit) {
+          el.href = hit.browser_download_url;
+          el.setAttribute('download', '');
+          resolved[t.id] = hit;
+          var note = el.querySelector('.dl-size');
+          if (!note) {
+            note = document.createElement('span');
+            note.className = 'dl-size';
+            note.style.opacity = '0.6';
+            el.appendChild(note);
+          }
+          note.textContent = fmtSize(hit.size);
+        } else {
+          el.href = RELEASES;
+        }
+      });
+
+      if (status) {
+        status.hidden = false;
+        status.textContent = 'Latest release: ' + (rel.tag_name || '') +
+          ' — published ' + new Date(rel.published_at).toLocaleDateString();
+      }
+
+      if (hero && mine && resolved[mine]) {
+        hero.href = resolved[mine].browser_download_url;
+        hero.setAttribute('download', '');
+      }
+    })
+    .catch(function() {
+      // No published release yet (or the API is rate-limited): every button falls
+      // back to the Releases page, which is where the build will appear.
+      targets.forEach(function(t) {
+        var el = document.getElementById(t.id);
+        if (el) el.href = RELEASES;
+      });
+      if (status) {
+        status.hidden = false;
+        status.innerHTML = 'Binaries are still building. Grab the source or watch ' +
+          '<a href="' + RELEASES + '" rel="noopener" style="color:inherit;text-decoration:underline">GitHub Releases</a>.';
+      }
+    });
+})();
+</script>
+
 <!-- ==================== LIVE DEMO ENGINE ==================== -->
 <script>
 (function() {
-  // Prevent the standalone constructor from clobbering CitCatRuntime
-  window.__TAURI__ = false;
+  // runtime.js ends with `if (!window.__TAURI__) { window.CitCatRuntime = <constructor> }`,
+  // which replaces the engine object with a standalone constructor. This page drives the
+  // engine API directly, so the flag must be TRUTHY to skip that block. (It was `false`,
+  // which satisfied `!window.__TAURI__` and clobbered the engine — the demo never ran.)
+  window.__TAURI__ = { __citcatMarketingShim: true };
 })();
 </script>
-<script src="../src/js/runtime.js"></script>
+<script src="runtime.js?v=dev"></script>
 <script>
 (function() {
   // Remove the fake __TAURI__ flag
@@ -709,7 +901,12 @@
   var pauseIcon = document.getElementById('demo-pause-icon');
   var sceneInfo = document.getElementById('demo-scene-info');
   var playing = false;
-  var R = CitCatRuntime;
+  var R = window.CitCatRuntime;
+
+  if (!R || typeof R.setProject !== 'function') {
+    sceneInfo.textContent = 'Demo unavailable — runtime engine did not load';
+    return;
+  }
 
   function updateSceneInfo() {
     if (!R.state.project) return;
@@ -727,7 +924,7 @@
   }
 
   // Load the demo project
-  fetch('../templates/demo-showcase.citcat')
+  fetch('demo-showcase.json?v=dev')
     .then(function(r) { return r.json(); })
     .then(function(project) {
       R.setProject(project);
