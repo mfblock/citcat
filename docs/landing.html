@@ -931,9 +931,20 @@
       R.renderStandalone(canvas, null);
       R.initEvents(canvas, true);
 
-      R.state.onTimeUpdate = function(si, ms) { updateSceneInfo(); };
-      R.state.onSceneChange = function(idx) { updateSceneInfo(); };
+      // Chain our UI callbacks AFTER renderStandalone's render callbacks
+      var origTimeUpdate = R.state.onTimeUpdate;
+      var origSceneChange = R.state.onSceneChange;
+      var origPlayState = R.state.onPlayStateChange;
+      R.state.onTimeUpdate = function(si, ms) {
+        if (origTimeUpdate) origTimeUpdate(si, ms);
+        updateSceneInfo();
+      };
+      R.state.onSceneChange = function(idx) {
+        if (origSceneChange) origSceneChange(idx);
+        updateSceneInfo();
+      };
       R.state.onPlayStateChange = function(isPlaying) {
+        if (origPlayState) origPlayState(isPlaying);
         setPlayingUI(isPlaying);
         updateSceneInfo();
       };
