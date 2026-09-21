@@ -372,3 +372,78 @@ Create a JSON file in `effects/custom/`:
 ```
 
 Effects are automatically picked up when the FX dropdown opens.
+
+---
+
+## Embedding
+
+Embed CitCat projects in any web page. Three methods.
+
+### Web Component (`<citcat-player>`)
+
+Add one script tag and one custom element:
+
+```html
+<script src="https://citcat.mirjam-block.eu/embed.js"></script>
+<citcat-player src="https://example.com/my-project.citcat" autoplay controls></citcat-player>
+```
+
+**Attributes:**
+
+| Attribute | Description |
+|-----------|-------------|
+| `src` | URL to the `.citcat` project file |
+| `autoplay` | Start playing immediately |
+| `loop` | Loop when finished |
+| `controls` | Show play/pause, scene info, and CitCat watermark on hover |
+| `muted` | Mute audio objects |
+| `width` | Explicit width in pixels (optional) |
+| `height` | Explicit height in pixels (optional) |
+
+Without `width`/`height`, the player fills its container width and calculates height from the project's aspect ratio.
+
+**Public API** (for scripting):
+
+```javascript
+var player = document.querySelector('citcat-player');
+player.play();
+player.pause();
+player.stop();
+player.isPlaying;    // boolean
+player.currentScene; // scene index
+player.sceneCount;   // total scenes
+```
+
+### Inline JSON
+
+For self-contained embeds without a separate file:
+
+```html
+<script src="https://citcat.mirjam-block.eu/embed.js"></script>
+<citcat-player autoplay controls>
+  <script type="application/json">
+    { "version": "1.0", "meta": { ... }, "scenes": [...] }
+  </script>
+</citcat-player>
+```
+
+### iframe
+
+Host-your-own or use the CitCat player page:
+
+```html
+<iframe src="https://citcat.mirjam-block.eu/player.html?src=https://example.com/project.citcat"
+        width="960" height="540" frameborder="0" allowfullscreen></iframe>
+```
+
+Query parameters: `src` (required), `autoplay` (true/false), `loop` (true/false), `controls` (true/false), `muted` (true/false).
+
+### Sizing tips
+
+- The player scales the project to fit its container while maintaining aspect ratio.
+- For responsive layouts, set the container width and let the player auto-size height.
+- The canvas renders at the project's native resolution (e.g. 1920×1080) regardless of display size — it stays crisp.
+
+### Getting the embed code
+
+In CitCat, go to Export (Ctrl+E) and switch to the **Embed** tab. Copy the web component or iframe snippet. Replace `YOUR_URL` with where you hosted the `.citcat` file.

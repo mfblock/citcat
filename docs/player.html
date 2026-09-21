@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CitCat Player</title>
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; background: #000; overflow: hidden; }
+  citcat-player { width: 100%; height: 100%; }
+</style>
+</head>
+<body>
+<script src="embed.js"></script>
+<script>
+(function () {
+  var params = new URLSearchParams(window.location.search);
+  var src = params.get("src");
+  if (!src) {
+    document.body.innerHTML = '<p style="color:#888;font:14px system-ui;text-align:center;padding:40px;">No project specified. Add ?src=URL to the URL.</p>';
+    return;
+  }
+  var player = document.createElement("citcat-player");
+  player.setAttribute("src", src);
+  if (params.get("autoplay") !== "false") player.setAttribute("autoplay", "");
+  if (params.get("loop") === "true") player.setAttribute("loop", "");
+  if (params.get("controls") !== "false") player.setAttribute("controls", "");
+  if (params.get("muted") === "true") player.setAttribute("muted", "");
+  document.body.appendChild(player);
+  document.title = "CitCat Player";
+  // Update title when project loads
+  var check = setInterval(function () {
+    if (player._engine && player._engine.project) {
+      document.title = player._engine.project.meta.name + " — CitCat";
+      clearInterval(check);
+    }
+  }, 200);
+})();
+</script>
+</body>
+</html>

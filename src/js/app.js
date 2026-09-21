@@ -1495,8 +1495,21 @@ var CitCatApp = (function () {
     ctx.restore();
   }
 
+  function updateEmbedCode() {
+    var url = "YOUR_URL/project.citcat";
+    var comp = document.getElementById("embed-code-component");
+    var ifr = document.getElementById("embed-code-iframe");
+    if (comp) {
+      comp.value = '<script src="https://citcat.mirjam-block.eu/embed.js"><\/script>\n<citcat-player src="' + url + '" autoplay controls></citcat-player>';
+    }
+    if (ifr) {
+      ifr.value = '<iframe src="https://citcat.mirjam-block.eu/player.html?src=' + encodeURIComponent(url) + '" width="960" height="540" frameborder="0" allowfullscreen></iframe>';
+    }
+  }
+
   function showExportDialog() {
     document.getElementById("export-modal").hidden = false;
+    updateEmbedCode();
   }
 
   function hideExportDialog() {

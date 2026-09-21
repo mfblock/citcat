@@ -417,6 +417,7 @@
         <div class="export-tabs">
           <button class="export-tab active" data-tab="html">HTML5</button>
           <button class="export-tab" data-tab="mp4">MP4</button>
+          <button class="export-tab" data-tab="embed">Embed</button>
         </div>
         <div id="export-tab-html" class="export-tab-content">
           <div class="export-options">
@@ -427,6 +428,20 @@
           </div>
           <button id="export-do" class="export-btn" type="button">Export HTML5</button>
           <div id="export-status" class="export-status" hidden></div>
+        </div>
+        <div id="export-tab-embed" class="export-tab-content" hidden>
+          <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px;">Embed this project in any web page. Host the .citcat file and use one of these snippets:</p>
+          <div style="margin-bottom: 12px;">
+            <label style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">Web Component</label>
+            <textarea id="embed-code-component" readonly rows="3" style="width: 100%; background: var(--bg-input); border: 1px solid var(--border); border-radius: 4px; color: var(--text-primary); padding: 8px; font-size: 11px; font-family: monospace; resize: none; margin-top: 4px;"></textarea>
+            <button type="button" class="small-btn" onclick="navigator.clipboard.writeText(document.getElementById('embed-code-component').value)" style="margin-top: 4px;">Copy</button>
+          </div>
+          <div style="margin-bottom: 12px;">
+            <label style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">iframe</label>
+            <textarea id="embed-code-iframe" readonly rows="2" style="width: 100%; background: var(--bg-input); border: 1px solid var(--border); border-radius: 4px; color: var(--text-primary); padding: 8px; font-size: 11px; font-family: monospace; resize: none; margin-top: 4px;"></textarea>
+            <button type="button" class="small-btn" onclick="navigator.clipboard.writeText(document.getElementById('embed-code-iframe').value)" style="margin-top: 4px;">Copy</button>
+          </div>
+          <p style="font-size: 11px; color: var(--text-muted); line-height: 1.5;">Upload your .citcat file to a web server, then replace <code>YOUR_URL</code> in the snippets above with the actual URL.</p>
         </div>
         <div id="export-tab-mp4" class="export-tab-content" hidden>
           <div class="export-options">

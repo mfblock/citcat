@@ -23,6 +23,10 @@ cp "$ROOT/templates/demo-showcase.citcat"    "$OUT/demo-showcase.json"
 cp "$OUT/runtime.js"          "$ROOT/docs/runtime.js"
 cp "$OUT/demo-showcase.json"  "$ROOT/docs/demo-showcase.json"
 
+# ---- Embed player and standalone player page ----
+cp "$ROOT/docs/embed.js"      "$OUT/embed.js"
+cp "$ROOT/docs/player.html"   "$OUT/player.html"
+
 # ---- Cache busting: content hash per asset ----
 V_RUNTIME="$(shasum -a 256 "$OUT/runtime.js"        | cut -c1-10)"
 V_DEMO="$(shasum -a 256 "$OUT/demo-showcase.json"   | cut -c1-10)"
@@ -50,6 +54,12 @@ cat > "$OUT/_headers" <<'HEADERS'
 
 /demo-showcase.json
   Cache-Control: public, max-age=31536000, immutable
+
+/embed.js
+  Cache-Control: public, max-age=86400
+
+/player.html
+  Cache-Control: public, max-age=0, must-revalidate
 HEADERS
 
 echo "built $OUT"
