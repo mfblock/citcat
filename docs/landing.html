@@ -961,11 +961,11 @@
       // Auto-play when demo section scrolls into view
       if ('IntersectionObserver' in window) {
         var demoObs = new IntersectionObserver(function(entries) {
-          if (entries[0].isIntersecting && !playing) {
+          if (entries[0].isIntersecting && !R.state.isPlaying) {
             R.play();
             demoObs.disconnect();
           }
-        }, { threshold: 0.3 });
+        }, { threshold: 0.15 });
         demoObs.observe(document.getElementById('demo'));
       }
 
