@@ -392,6 +392,14 @@
           this.sceneIndex = idx;
           this.timeMs = 0;
           if (this.onSceneChange) this.onSceneChange(idx);
+          // A wait point halts the rAF chain; clearing the flag above is not enough
+          // because the handler that would reschedule it was just removed.
+          if (this.playing) {
+            var self = this;
+            if (this._afId) cancelAnimationFrame(this._afId);
+            this._lastFrame = performance.now();
+            this._afId = requestAnimationFrame(function (n) { self._tick(n); });
+          }
         }
         break;
       case "ToggleVisible":

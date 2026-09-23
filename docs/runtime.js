@@ -343,7 +343,10 @@ var CitCatRuntime = (function () {
       var zoom = CitCatCanvas.getZoom();
       return { x: (mx - pan.x) / zoom, y: (my - pan.y) / zoom };
     }
-    if (state.project) {
+    if (state.project && eventState.canvas) {
+      var rect = eventState.canvas.getBoundingClientRect();
+      var canvasPixelX = mx * (eventState.canvas.width / rect.width);
+      var canvasPixelY = my * (eventState.canvas.height / rect.height);
       var cw = eventState.canvas.width;
       var ch = eventState.canvas.height;
       var sw = state.project.meta.width;
@@ -351,7 +354,7 @@ var CitCatRuntime = (function () {
       var scale = Math.min(cw / sw, ch / sh);
       var ox = (cw - sw * scale) / 2;
       var oy = (ch - sh * scale) / 2;
-      return { x: (mx - ox) / scale, y: (my - oy) / scale };
+      return { x: (canvasPixelX - ox) / scale, y: (canvasPixelY - oy) / scale };
     }
     return null;
   }
@@ -415,6 +418,13 @@ var CitCatRuntime = (function () {
           state.currentSceneIndex = idx;
           state.currentTimeMs = 0;
           if (state.onSceneChange) state.onSceneChange(idx);
+          // A wait point halts the rAF chain; resetWaitFired() clears the flag but
+          // the handler that would have rescheduled it was just removed. Restart here.
+          if (state.isPlaying) {
+            if (state.animFrameId) cancelAnimationFrame(state.animFrameId);
+            state.lastFrameTime = performance.now();
+            state.animFrameId = requestAnimationFrame(tick);
+          }
         }
         break;
 

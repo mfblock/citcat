@@ -418,6 +418,13 @@ var CitCatRuntime = (function () {
           state.currentSceneIndex = idx;
           state.currentTimeMs = 0;
           if (state.onSceneChange) state.onSceneChange(idx);
+          // A wait point halts the rAF chain; resetWaitFired() clears the flag but
+          // the handler that would have rescheduled it was just removed. Restart here.
+          if (state.isPlaying) {
+            if (state.animFrameId) cancelAnimationFrame(state.animFrameId);
+            state.lastFrameTime = performance.now();
+            state.animFrameId = requestAnimationFrame(tick);
+          }
         }
         break;
 
