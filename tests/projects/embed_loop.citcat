@@ -1,0 +1,111 @@
+{
+  "version": "1.0",
+  "meta": {
+    "name": "Embed loop",
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "created": "2026-09-25T00:00:00Z",
+    "modified": "2026-09-25T00:00:00Z"
+  },
+  "scenes": [
+    {
+      "id": "584c4e02-ca57-4005-add0-3e2bc901eabc",
+      "name": "One",
+      "duration_ms": 500,
+      "background": {
+        "fill": "#000010"
+      },
+      "objects": [
+        {
+          "id": "3e3fc323-745e-4627-9664-7251d09a5289",
+          "name": "A",
+          "object_type": "Rect",
+          "transform": {
+            "x": 100.0,
+            "y": 100.0,
+            "width": 400.0,
+            "height": 400.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ff0000",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        }
+      ],
+      "transition_in": null,
+      "transition_out": null,
+      "sort_order": 0,
+      "wait_points": []
+    },
+    {
+      "id": "1b2601f4-2d4f-474b-99b7-bd1ad50b2e79",
+      "name": "Two",
+      "duration_ms": 500,
+      "background": {
+        "fill": "#001000"
+      },
+      "objects": [
+        {
+          "id": "eccfaee7-1cfd-4744-ada1-83888c358c56",
+          "name": "B",
+          "object_type": "Rect",
+          "transform": {
+            "x": 100.0,
+            "y": 100.0,
+            "width": 400.0,
+            "height": 400.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#0000ff",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        }
+      ],
+      "transition_in": null,
+      "transition_out": null,
+      "sort_order": 1,
+      "wait_points": []
+    }
+  ],
+  "effects_library": [],
+  "data_source": null,
+  "export_settings": {
+    "format": "Html",
+    "single_file": true,
+    "autoplay": false,
+    "loop_playback": false
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "version": "1.0",
+  "meta": {
+    "name": "Embed crossfade",
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "created": "2026-09-25T00:00:00Z",
+    "modified": "2026-09-25T00:00:00Z"
+  },
+  "scenes": [
+    {
+      "id": "5292f071-ac5a-441c-aaa1-2e8c7ed2a4ed",
+      "name": "Red",
+      "duration_ms": 400,
+      "background": {
+        "fill": "#ff0000"
+      },
+      "objects": [],
+      "transition_in": null,
+      "transition_out": {
+        "kind": "Crossfade",
+        "duration_ms": 1200
+      },
+      "sort_order": 0,
+      "wait_points": []
+    },
+    {
+      "id": "2c931f81-2362-4e4f-8497-f9103edf25db",
+      "name": "Blue",
+      "duration_ms": 3000,
+      "background": {
+        "fill": "#0000ff"
+      },
+      "objects": [],
+      "transition_in": null,
+      "transition_out": null,
+      "sort_order": 1,
+      "wait_points": []
+    }
+  ],
+  "effects_library": [],
+  "data_source": null,
+  "export_settings": {
+    "format": "Html",
+    "single_file": true,
+    "autoplay": false,
+    "loop_playback": false
+  }
+}

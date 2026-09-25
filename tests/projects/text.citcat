@@ -1,0 +1,420 @@
+{
+  "version": "1.0",
+  "meta": {
+    "name": "Text tests",
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "created": "2026-09-25T00:00:00Z",
+    "modified": "2026-09-25T00:00:00Z"
+  },
+  "scenes": [
+    {
+      "id": "d816f128-479c-4548-95fd-98c8805073d2",
+      "name": "Text",
+      "duration_ms": 2000,
+      "background": {
+        "fill": "#000000"
+      },
+      "objects": [
+        {
+          "id": "66660f12-4c07-4d19-a242-e7bfc2d1edac",
+          "name": "MultiLine",
+          "object_type": "Text",
+          "transform": {
+            "x": 100.0,
+            "y": 60.0,
+            "width": 600.0,
+            "height": 140.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 40.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.5,
+            "border_radius": 0.0
+          },
+          "content": "LINE ONE\nLINE TWO",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        },
+        {
+          "id": "4849ca99-3764-497a-a58b-efa0d354cf4a",
+          "name": "FontGrow",
+          "object_type": "Text",
+          "transform": {
+            "x": 1400.0,
+            "y": 60.0,
+            "width": 500.0,
+            "height": 160.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 20.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "MMMM",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "271ed123-4f1f-4920-9599-a3f309257979",
+              "time_ms": 0,
+              "property": "style.font_size",
+              "value": {
+                "type": "Number",
+                "value": 20.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "5add7213-858b-4330-ad98-75a89c9fa5b3",
+              "time_ms": 1000,
+              "property": "style.font_size",
+              "value": {
+                "type": "Number",
+                "value": 100.0
+              },
+              "easing": "Linear"
+            }
+          ],
+          "events": [],
+          "data_bindings": []
+        },
+        {
+          "id": "25603ae2-5c9e-421e-9900-348ea6443f2c",
+          "name": "Typewriter",
+          "object_type": "Text",
+          "transform": {
+            "x": 100.0,
+            "y": 230.0,
+            "width": 900.0,
+            "height": 70.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 48.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "ABCDEFGHIJ",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "9227340a-a1be-49e2-8790-3d891a7f1bf9",
+              "time_ms": 0,
+              "property": "_typewriter_progress",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "7a7df1e2-3324-4cec-99a5-a864513809ec",
+              "time_ms": 1000,
+              "property": "_typewriter_progress",
+              "value": {
+                "type": "Number",
+                "value": 1.0
+              },
+              "easing": "Linear"
+            }
+          ],
+          "events": [],
+          "data_bindings": []
+        },
+        {
+          "id": "0607d1b5-15c1-4741-a4ad-f7fb9bfd3dd5",
+          "name": "EmptyText",
+          "object_type": "Text",
+          "transform": {
+            "x": 1400.0,
+            "y": 250.0,
+            "width": 300.0,
+            "height": 70.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 40.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        },
+        {
+          "id": "44538968-2d78-4661-8247-b70b21c3488e",
+          "name": "WrapOn",
+          "object_type": "Text",
+          "transform": {
+            "x": 100.0,
+            "y": 340.0,
+            "width": 300.0,
+            "height": 260.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 30.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "The quick brown fox jumps over the lazy dog again and again",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "text_wrap": true
+        },
+        {
+          "id": "55d23353-1c52-43a7-9150-a313e8d35999",
+          "name": "WrapOff",
+          "object_type": "Text",
+          "transform": {
+            "x": 1100.0,
+            "y": 340.0,
+            "width": 300.0,
+            "height": 260.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 30.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "The quick brown fox jumps over the lazy dog again and again",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "text_wrap": false
+        },
+        {
+          "id": "7ba398c2-2d98-489d-a83e-2c77136516b9",
+          "name": "TightLines",
+          "object_type": "Text",
+          "transform": {
+            "x": 100.0,
+            "y": 650.0,
+            "width": 400.0,
+            "height": 150.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 30.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.0,
+            "border_radius": 0.0
+          },
+          "content": "AAA\nBBB",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        },
+        {
+          "id": "96e3c310-d890-460b-9a90-7e85c0ce36b3",
+          "name": "LooseLines",
+          "object_type": "Text",
+          "transform": {
+            "x": 900.0,
+            "y": 650.0,
+            "width": 400.0,
+            "height": 220.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 30.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 3.0,
+            "border_radius": 0.0
+          },
+          "content": "AAA\nBBB",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        },
+        {
+          "id": "8603aec3-4a8a-4300-af6c-09721e0cfa93",
+          "name": "AlignLeft",
+          "object_type": "Text",
+          "transform": {
+            "x": 100.0,
+            "y": 900.0,
+            "width": 600.0,
+            "height": 80.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 48.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "ABC",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        },
+        {
+          "id": "9eda11a8-fdf8-49a4-865d-e7eba8ec8bd3",
+          "name": "AlignCenter",
+          "object_type": "Text",
+          "transform": {
+            "x": 800.0,
+            "y": 900.0,
+            "width": 600.0,
+            "height": 80.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 48.0,
+            "font_weight": 400,
+            "text_align": "Center",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "ABC",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        },
+        {
+          "id": "44c01817-bd15-4fec-838a-586c9413cc33",
+          "name": "AlignRight",
+          "object_type": "Text",
+          "transform": {
+            "x": 1450.0,
+            "y": 900.0,
+            "width": 400.0,
+            "height": 80.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 48.0,
+            "font_weight": 400,
+            "text_align": "Right",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "ABC",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        }
+      ],
+      "transition_in": null,
+      "transition_out": null,
+      "sort_order": 0,
+      "wait_points": []
+    }
+  ],
+  "effects_library": [],
+  "data_source": null,
+  "export_settings": {
+    "format": "Html",
+    "single_file": true,
+    "autoplay": false,
+    "loop_playback": false
+  }
+}

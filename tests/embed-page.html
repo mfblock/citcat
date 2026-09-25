@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>CitCat embed harness</title>
+<style>
+  html,body { margin:0; background:#111; }
+  #mounts { display:flex; flex-direction:column; gap:20px; padding:0; }
+</style>
+</head>
+<body>
+<div id="mounts"></div>
+<script>
+  window.__errors = [];
+  window.addEventListener('error', e => window.__errors.push(String(e.message)));
+  window.addEventListener('unhandledrejection', e => window.__errors.push('rejection: ' + e.reason));
+</script>
+<!-- The generated embed player. No __TAURI__ shim needed: the generated file
+     wraps the engine in a factory that shadows `window` itself. -->
+<script src="embed.js"></script>
+<script>
+  const mounts = document.getElementById('mounts');
+
+  function el(id) { return document.getElementById(id); }
+  function shadowCanvas(id) {
+    const p = el(id);
+    return p && p.shadowRoot ? p.shadowRoot.querySelector('canvas') : null;
+  }
+
+  /**
+   * Mount a <citcat-player>.
+   *   opts = { id, project?, src?, attrs?: {name: value|true}, timeoutMs? }
+   * Resolves when the player reports citcat-load, or on timeout (so failure
+   * cases can still be asserted on rather than hanging the suite).
+   */
+  window.__mount = function (opts) {
+    return new Promise(resolve => {
+      const p = document.createElement('citcat-player');
+      p.id = opts.id;
+
+      const attrs = opts.attrs || {};
+      for (const k in attrs) {
+        if (attrs[k] === true) p.setAttribute(k, '');
+        else p.setAttribute(k, String(attrs[k]));
+      }
+      if (opts.src) p.setAttribute('src', opts.src);
+
+      if (opts.project) {
+        const s = document.createElement('script');
+        s.type = 'application/json';
+        s.textContent = JSON.stringify(opts.project);
+        p.appendChild(s);
+      }
+
+      let done = false;
+      const finish = ok => { if (!done) { done = true; resolve(ok); } };
+      p.addEventListener('citcat-load', () => finish(true));
+      p.addEventListener('citcat-error', () => finish(false));
+      setTimeout(() => finish(false), opts.timeoutMs || 4000);
+
+      mounts.appendChild(p);
+    });
+  };
+
+  window.__unmountAll = function () {
+    mounts.innerHTML = '';
+  };
+
+  window.__embedState = function (id) {
+    const p = el(id);
+    if (!p) return null;
+    const st = p.engine.state;
+    return {
+      scene: p.currentScene,
+      sceneCount: p.sceneCount,
+      sceneName: st.project ? st.project.scenes[st.currentSceneIndex].name : null,
+      time: st.currentTimeMs,
+      playing: p.isPlaying,
+      waiting: p.engine.isWaiting()
+    };
+  };
+
+  window.__embedSample = function (id, x, y) {
+    const c = shadowCanvas(id);
+    if (!c) return null;
+    const d = c.getContext('2d').getImageData(Math.round(x), Math.round(y), 1, 1).data;
+    return { r: d[0], g: d[1], b: d[2], a: d[3] };
+  };
+
+  window.__embedCanvasSize = function (id) {
+    const c = shadowCanvas(id);
+    if (!c) return null;
+    const b = c.getBoundingClientRect();
+    return { w: c.width, h: c.height, cssW: Math.round(b.width), cssH: Math.round(b.height) };
+  };
+
+  /** Stage coords -> viewport coords, for driving real mouse clicks. */
+  window.__embedStageToClient = function (id, sx, sy) {
+    const c = shadowCanvas(id);
+    const b = c.getBoundingClientRect();
+    return { x: b.left + sx * (b.width / c.width), y: b.top + sy * (b.height / c.height) };
+  };
+
+  window.__embedSeek = function (id, sceneIndex, timeMs) {
+    el(id).seekTo(sceneIndex, timeMs);
+  };
+  window.__embedPlay  = function (id) { el(id).play(); };
+  window.__embedPause = function (id) { el(id).pause(); };
+  window.__embedStop  = function (id) { el(id).stop(); };
+
+  window.__hasControls = function (id) {
+    const p = el(id);
+    return !!(p && p.shadowRoot && p.shadowRoot.querySelector('.controls'));
+  };
+  window.__sceneInfoText = function (id) {
+    const p = el(id);
+    const n = p && p.shadowRoot ? p.shadowRoot.querySelector('.scene-info') : null;
+    return n ? n.textContent : null;
+  };
+  window.__clickControl = function (id, sel) {
+    const p = el(id);
+    const b = p.shadowRoot.querySelector(sel);
+    if (b) b.click();
+    return !!b;
+  };
+
+  window.__engineIsShared = function (idA, idB) {
+    return el(idA).engine === el(idB).engine;
+  };
+</script>
+</body>
+</html>

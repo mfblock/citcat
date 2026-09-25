@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>CitCat test harness</title>
+<style>html,body{margin:0;background:#111}canvas{display:block}</style>
+</head>
+<body>
+<canvas id="stage" width="1920" height="1080" style="width:960px;height:540px"></canvas>
+<script>
+  // runtime.js ends with a block that replaces CitCatRuntime with a standalone
+  // constructor when __TAURI__ is absent. Keep the module API by faking the flag.
+  window.__TAURI__ = { __harness: true };
+</script>
+<script src="runtime.js"></script>
+<script>
+  delete window.__TAURI__;
+  window.__ready = false;
+  window.__errors = [];
+  window.addEventListener('error', e => window.__errors.push(String(e.message)));
+
+  window.__load = function (project) {
+    const R = window.CitCatRuntime;
+    const canvas = document.getElementById('stage');
+    canvas.width = project.meta.width;
+    canvas.height = project.meta.height;
+    canvas.style.width = (project.meta.width / 2) + 'px';
+    canvas.style.height = (project.meta.height / 2) + 'px';
+    R.stop();
+    R.setProject(project);
+    R.renderStandalone(canvas, null);
+    R.initEvents(canvas, true);
+    window.__ready = true;
+    return true;
+  };
+
+  // Resolve every object in a scene at a given time, without touching playback.
+  window.__resolveAt = function (sceneIndex, timeMs) {
+    const R = window.CitCatRuntime;
+    const sc = R.state.project.scenes[sceneIndex];
+    return sc.objects.map(o => {
+      const r = R.resolveObjectAtTime(o, timeMs);
+      return {
+        id: r.id, name: r.name, type: r.object_type,
+        visible: r.visible,
+        x: r.transform.x, y: r.transform.y,
+        w: r.transform.width, h: r.transform.height,
+        rotation: r.transform.rotation, opacity: r.transform.opacity,
+        fill: r.style.fill, stroke: r.style.stroke,
+        strokeWidth: r.style.stroke_width,
+        fontSize: r.style.font_size,
+        content: r.content,
+        filters: r.filters || null,
+        typewriter: r._typewriter_progress === undefined ? null : r._typewriter_progress
+      };
+    });
+  };
+
+  window.__state = function () {
+    const R = window.CitCatRuntime;
+    if (!R.state.project) return null;
+    return {
+      scene: R.state.currentSceneIndex,
+      sceneName: R.state.project.scenes[R.state.currentSceneIndex].name,
+      time: R.state.currentTimeMs,
+      playing: R.state.isPlaying,
+      waiting: R.isWaiting(),
+      sceneCount: R.state.project.scenes.length
+    };
+  };
+
+  // Map stage coordinates to viewport coordinates, so tests can click objects.
+  window.__stageToClient = function (sx, sy) {
+    const c = document.getElementById('stage');
+    const b = c.getBoundingClientRect();
+    const scale = Math.min(c.width / c.width, c.height / c.height); // canvas == stage here
+    const cssX = sx * (b.width / c.width);
+    const cssY = sy * (b.height / c.height);
+    return { x: b.left + cssX, y: b.top + cssY };
+  };
+
+  window.__sample = function (sx, sy) {
+    const c = document.getElementById('stage');
+    const d = c.getContext('2d').getImageData(Math.round(sx), Math.round(sy), 1, 1).data;
+    return { r: d[0], g: d[1], b: d[2], a: d[3] };
+  };
+</script>
+</body>
+</html>

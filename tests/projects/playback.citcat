@@ -1,0 +1,156 @@
+{
+  "version": "1.0",
+  "meta": {
+    "name": "Playback tests",
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "created": "2026-09-25T00:00:00Z",
+    "modified": "2026-09-25T00:00:00Z"
+  },
+  "scenes": [
+    {
+      "id": "d3a3fe1f-a20a-4cc1-b32e-dacbdab98216",
+      "name": "Long",
+      "duration_ms": 60000,
+      "background": {
+        "fill": "#000000"
+      },
+      "objects": [
+        {
+          "id": "1407c7e1-4fab-45b4-80e1-9305e34d99b3",
+          "name": "S0",
+          "object_type": "Rect",
+          "transform": {
+            "x": 100.0,
+            "y": 100.0,
+            "width": 300.0,
+            "height": 300.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ff0000",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        }
+      ],
+      "transition_in": null,
+      "transition_out": null,
+      "sort_order": 0,
+      "wait_points": []
+    },
+    {
+      "id": "6fd7056a-0971-48a9-b145-8f5cdec0ea98",
+      "name": "Short",
+      "duration_ms": 600,
+      "background": {
+        "fill": "#001100"
+      },
+      "objects": [
+        {
+          "id": "5caa1bf1-2da6-4d5a-a2d4-bcfb5eec3c40",
+          "name": "S1",
+          "object_type": "Rect",
+          "transform": {
+            "x": 100.0,
+            "y": 100.0,
+            "width": 300.0,
+            "height": 300.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#00ff00",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        }
+      ],
+      "transition_in": null,
+      "transition_out": null,
+      "sort_order": 0,
+      "wait_points": []
+    },
+    {
+      "id": "d484c573-65ed-4521-a669-cd5ad71c98dc",
+      "name": "Last",
+      "duration_ms": 600,
+      "background": {
+        "fill": "#000022"
+      },
+      "objects": [
+        {
+          "id": "e8b2fce7-7b28-4518-9e12-778b8657cd77",
+          "name": "S2",
+          "object_type": "Rect",
+          "transform": {
+            "x": 100.0,
+            "y": 100.0,
+            "width": 300.0,
+            "height": 300.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#0000ff",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        }
+      ],
+      "transition_in": null,
+      "transition_out": null,
+      "sort_order": 0,
+      "wait_points": []
+    }
+  ],
+  "effects_library": [],
+  "data_source": null,
+  "export_settings": {
+    "format": "Html",
+    "single_file": true,
+    "autoplay": false,
+    "loop_playback": false
+  }
+}

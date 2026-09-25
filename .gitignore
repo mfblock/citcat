@@ -25,3 +25,9 @@ dist-ssr
 
 # Built marketing site (scripts/build-site.sh)
 site/
+
+# Test harness copies the engine in at run time (scripts/build-site.sh owns the real ones)
+tests/runtime.js
+tests/embed.js
+__pycache__/
+*.pyc

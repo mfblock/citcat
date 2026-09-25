@@ -1,0 +1,138 @@
+{
+  "version": "1.0",
+  "meta": {
+    "name": "Embed hit testing",
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "created": "2026-09-25T00:00:00Z",
+    "modified": "2026-09-25T00:00:00Z"
+  },
+  "scenes": [
+    {
+      "id": "6655301f-e438-468f-a0c3-00a4c1b71786",
+      "name": "Frozen",
+      "duration_ms": 6000,
+      "background": {
+        "fill": "#101018"
+      },
+      "objects": [
+        {
+          "id": "b24b4f0d-6df7-42ee-9722-ce8d12c48fd5",
+          "name": "Target",
+          "object_type": "Rect",
+          "transform": {
+            "x": 200.0,
+            "y": 700.0,
+            "width": 300.0,
+            "height": 200.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#22c55e",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 1,
+          "visible": false,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        },
+        {
+          "id": "de66fb68-cb9c-45e3-99b6-11bc85680787",
+          "name": "Mover",
+          "object_type": "Rect",
+          "transform": {
+            "x": 100.0,
+            "y": 200.0,
+            "width": 200.0,
+            "height": 200.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ef4444",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 2,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "d0da668d-1c4f-4838-a51d-cb3e0f504962",
+              "time_ms": 0,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 100.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "b92a5d2d-a6c5-4dfa-a722-03c3f135751f",
+              "time_ms": 2000,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1500.0
+              },
+              "easing": "Linear"
+            }
+          ],
+          "events": [
+            {
+              "id": "30e250f6-bb89-44d9-9094-b595d49fdbb7",
+              "trigger": {
+                "type": "Click"
+              },
+              "action": {
+                "type": "ToggleVisible",
+                "object_id": "b24b4f0d-6df7-42ee-9722-ce8d12c48fd5"
+              }
+            }
+          ],
+          "data_bindings": []
+        }
+      ],
+      "transition_in": null,
+      "transition_out": null,
+      "sort_order": 0,
+      "wait_points": [
+        {
+          "id": "582664c5-9827-4555-bdcd-deeef708c8d5",
+          "time_ms": 2000,
+          "resume_on": {
+            "type": "Timer",
+            "delay_ms": 600000
+          }
+        }
+      ]
+    }
+  ],
+  "effects_library": [],
+  "data_source": null,
+  "export_settings": {
+    "format": "Html",
+    "single_file": true,
+    "autoplay": false,
+    "loop_playback": false
+  }
+}

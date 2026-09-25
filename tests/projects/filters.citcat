@@ -1,0 +1,606 @@
+{
+  "version": "1.0",
+  "meta": {
+    "name": "Filter tests",
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "created": "2026-09-25T00:00:00Z",
+    "modified": "2026-09-25T00:00:00Z"
+  },
+  "scenes": [
+    {
+      "id": "d005e4f4-bcd2-47ba-a7e9-708bc541b2b5",
+      "name": "Filters",
+      "duration_ms": 2000,
+      "background": {
+        "fill": "#000000"
+      },
+      "objects": [
+        {
+          "id": "ef9a1f85-f581-4c6a-a83d-d0603e62c9e5",
+          "name": "NoFilter",
+          "object_type": "Rect",
+          "transform": {
+            "x": 100.0,
+            "y": 100.0,
+            "width": 200.0,
+            "height": 200.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ff0000",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        },
+        {
+          "id": "e5c8e273-65dd-4ccd-b556-401424cc98cb",
+          "name": "Grayscale",
+          "object_type": "Rect",
+          "transform": {
+            "x": 400.0,
+            "y": 100.0,
+            "width": 200.0,
+            "height": 200.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ff0000",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "filters": {
+            "blur": null,
+            "drop_shadow": null,
+            "brightness": null,
+            "contrast": null,
+            "saturate": null,
+            "hue_rotate": null,
+            "grayscale": 1.0,
+            "sepia": null
+          }
+        },
+        {
+          "id": "c149446c-e7fb-4d01-bb3d-ffbf9fde515d",
+          "name": "Brightness0",
+          "object_type": "Rect",
+          "transform": {
+            "x": 700.0,
+            "y": 100.0,
+            "width": 200.0,
+            "height": 200.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ff0000",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "filters": {
+            "blur": null,
+            "drop_shadow": null,
+            "brightness": 0.0,
+            "contrast": null,
+            "saturate": null,
+            "hue_rotate": null,
+            "grayscale": null,
+            "sepia": null
+          }
+        },
+        {
+          "id": "048f506a-4c7e-4e66-a7be-093957a151dc",
+          "name": "Sepia",
+          "object_type": "Rect",
+          "transform": {
+            "x": 1000.0,
+            "y": 100.0,
+            "width": 200.0,
+            "height": 200.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ff0000",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "filters": {
+            "blur": null,
+            "drop_shadow": null,
+            "brightness": null,
+            "contrast": null,
+            "saturate": null,
+            "hue_rotate": null,
+            "grayscale": null,
+            "sepia": 1.0
+          }
+        },
+        {
+          "id": "164882b1-3317-4fcb-8edd-2ad501906607",
+          "name": "HueRotate",
+          "object_type": "Rect",
+          "transform": {
+            "x": 1300.0,
+            "y": 100.0,
+            "width": 200.0,
+            "height": 200.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ff0000",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "filters": {
+            "blur": null,
+            "drop_shadow": null,
+            "brightness": null,
+            "contrast": null,
+            "saturate": null,
+            "hue_rotate": 120.0,
+            "grayscale": null,
+            "sepia": null
+          }
+        },
+        {
+          "id": "3f1d2523-2de8-4748-9495-6dd379996664",
+          "name": "Saturate0",
+          "object_type": "Rect",
+          "transform": {
+            "x": 1600.0,
+            "y": 100.0,
+            "width": 200.0,
+            "height": 200.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ff0000",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "filters": {
+            "blur": null,
+            "drop_shadow": null,
+            "brightness": null,
+            "contrast": null,
+            "saturate": 0.0,
+            "hue_rotate": null,
+            "grayscale": null,
+            "sepia": null
+          }
+        },
+        {
+          "id": "6be65f18-fd87-42e7-a124-fa73594b8b6c",
+          "name": "Contrast",
+          "object_type": "Rect",
+          "transform": {
+            "x": 100.0,
+            "y": 400.0,
+            "width": 200.0,
+            "height": 200.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#808080",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "filters": {
+            "blur": null,
+            "drop_shadow": null,
+            "brightness": null,
+            "contrast": 3.0,
+            "saturate": null,
+            "hue_rotate": null,
+            "grayscale": null,
+            "sepia": null
+          }
+        },
+        {
+          "id": "b0cb29ab-e359-496b-9870-7581a9c2ae10",
+          "name": "Blurred",
+          "object_type": "Rect",
+          "transform": {
+            "x": 500.0,
+            "y": 400.0,
+            "width": 200.0,
+            "height": 200.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ff0000",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "filters": {
+            "blur": 20.0,
+            "drop_shadow": null,
+            "brightness": null,
+            "contrast": null,
+            "saturate": null,
+            "hue_rotate": null,
+            "grayscale": null,
+            "sepia": null
+          }
+        },
+        {
+          "id": "e4f90591-35dd-422c-a5ba-9c93e92c6e03",
+          "name": "Shadowed",
+          "object_type": "Rect",
+          "transform": {
+            "x": 900.0,
+            "y": 400.0,
+            "width": 200.0,
+            "height": 200.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ff0000",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "filters": {
+            "blur": null,
+            "drop_shadow": {
+              "offset_x": 30.0,
+              "offset_y": 30.0,
+              "blur": 5.0,
+              "color": "#00ff00"
+            },
+            "brightness": null,
+            "contrast": null,
+            "saturate": null,
+            "hue_rotate": null,
+            "grayscale": null,
+            "sepia": null
+          }
+        },
+        {
+          "id": "11aac7e8-76dc-47fa-905b-2ddd5b669340",
+          "name": "Stacked",
+          "object_type": "Rect",
+          "transform": {
+            "x": 1300.0,
+            "y": 400.0,
+            "width": 200.0,
+            "height": 200.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ff0000",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "filters": {
+            "blur": 2.0,
+            "drop_shadow": null,
+            "brightness": 0.5,
+            "contrast": null,
+            "saturate": null,
+            "hue_rotate": null,
+            "grayscale": 1.0,
+            "sepia": null
+          }
+        },
+        {
+          "id": "e8e2ba86-2c58-4a3a-a448-c90f54ac2a28",
+          "name": "NullFilters",
+          "object_type": "Rect",
+          "transform": {
+            "x": 1600.0,
+            "y": 400.0,
+            "width": 200.0,
+            "height": 200.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ff0000",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "filters": null
+        },
+        {
+          "id": "655e041a-0c1b-4822-bd23-cd05f66ff3dc",
+          "name": "LeakSource",
+          "object_type": "Rect",
+          "transform": {
+            "x": 100.0,
+            "y": 750.0,
+            "width": 200.0,
+            "height": 200.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ff0000",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "filters": {
+            "blur": null,
+            "drop_shadow": null,
+            "brightness": 0.2,
+            "contrast": null,
+            "saturate": null,
+            "hue_rotate": null,
+            "grayscale": 1.0,
+            "sepia": null
+          }
+        },
+        {
+          "id": "11524158-2a9c-4003-9909-525456a6b82c",
+          "name": "LeakVictim",
+          "object_type": "Rect",
+          "transform": {
+            "x": 400.0,
+            "y": 750.0,
+            "width": 200.0,
+            "height": 200.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ff0000",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 1,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        },
+        {
+          "id": "42551c25-295e-4e6d-86f5-0395ba955fed",
+          "name": "BlurAnimated",
+          "object_type": "Rect",
+          "transform": {
+            "x": 800.0,
+            "y": 750.0,
+            "width": 200.0,
+            "height": 200.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ff0000",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "6b423fdd-a5e8-4227-86cc-1e4557829c17",
+              "time_ms": 0,
+              "property": "filters.blur",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "8930259a-ac1e-4e1c-a948-f90fc21f9ac9",
+              "time_ms": 1000,
+              "property": "filters.blur",
+              "value": {
+                "type": "Number",
+                "value": 10.0
+              },
+              "easing": "Linear"
+            }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "filters": {
+            "blur": 0.0,
+            "drop_shadow": null,
+            "brightness": null,
+            "contrast": null,
+            "saturate": null,
+            "hue_rotate": null,
+            "grayscale": null,
+            "sepia": null
+          }
+        }
+      ],
+      "transition_in": null,
+      "transition_out": null,
+      "sort_order": 0,
+      "wait_points": []
+    }
+  ],
+  "effects_library": [],
+  "data_source": null,
+  "export_settings": {
+    "format": "Html",
+    "single_file": true,
+    "autoplay": false,
+    "loop_playback": false
+  }
+}

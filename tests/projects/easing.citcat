@@ -1,0 +1,243 @@
+{
+  "version": "1.0",
+  "meta": {
+    "name": "Easing tests",
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "created": "2026-09-25T00:00:00Z",
+    "modified": "2026-09-25T00:00:00Z"
+  },
+  "scenes": [
+    {
+      "id": "9eda36c6-a952-4e42-971f-aa7e67751f0a",
+      "name": "Easing",
+      "duration_ms": 1500,
+      "background": {
+        "fill": "#101018"
+      },
+      "objects": [
+        {
+          "id": "3ccddf48-b0d7-4fb6-805d-933327e4cbfe",
+          "name": "Linear",
+          "object_type": "Rect",
+          "transform": {
+            "x": 0.0,
+            "y": 100.0,
+            "width": 80.0,
+            "height": 80.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#3b82f6",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "ead489c2-9768-4a96-9988-d4f1c820b66d",
+              "time_ms": 0,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "d8447e09-0a4f-4f32-a496-96611b52b1fe",
+              "time_ms": 1000,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1000.0
+              },
+              "easing": "Linear"
+            }
+          ],
+          "events": [],
+          "data_bindings": []
+        },
+        {
+          "id": "50138b95-3f7f-45dd-b13b-7d7e93d2e980",
+          "name": "EaseIn",
+          "object_type": "Rect",
+          "transform": {
+            "x": 0.0,
+            "y": 250.0,
+            "width": 80.0,
+            "height": 80.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#3b82f6",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "6f42a3f7-2fe1-45ed-b910-ee4f10b2d940",
+              "time_ms": 0,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "EaseIn"
+            },
+            {
+              "id": "995aa87d-84d5-4f5c-980d-a49e0f544e2e",
+              "time_ms": 1000,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1000.0
+              },
+              "easing": "EaseIn"
+            }
+          ],
+          "events": [],
+          "data_bindings": []
+        },
+        {
+          "id": "bcbff40e-7d22-4b54-811f-781c6fa7015f",
+          "name": "EaseOut",
+          "object_type": "Rect",
+          "transform": {
+            "x": 0.0,
+            "y": 400.0,
+            "width": 80.0,
+            "height": 80.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#3b82f6",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "0f8e9b19-fbd4-446e-88ee-6ecca4f6604b",
+              "time_ms": 0,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "80cf335b-6de1-4b3f-a716-0fa2f0abf159",
+              "time_ms": 1000,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1000.0
+              },
+              "easing": "EaseOut"
+            }
+          ],
+          "events": [],
+          "data_bindings": []
+        },
+        {
+          "id": "a287b538-6c86-4b8b-9be0-d934ce9ea800",
+          "name": "EaseInOut",
+          "object_type": "Rect",
+          "transform": {
+            "x": 0.0,
+            "y": 550.0,
+            "width": 80.0,
+            "height": 80.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#3b82f6",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "ddb89c9a-62e6-4a87-aeaf-19f30bb0960a",
+              "time_ms": 0,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "EaseInOut"
+            },
+            {
+              "id": "ebcf382e-dce8-4d2a-8d14-c65c75446881",
+              "time_ms": 1000,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1000.0
+              },
+              "easing": "EaseInOut"
+            }
+          ],
+          "events": [],
+          "data_bindings": []
+        }
+      ],
+      "transition_in": null,
+      "transition_out": null,
+      "sort_order": 0,
+      "wait_points": []
+    }
+  ],
+  "effects_library": [],
+  "data_source": null,
+  "export_settings": {
+    "format": "Html",
+    "single_file": true,
+    "autoplay": false,
+    "loop_playback": false
+  }
+}

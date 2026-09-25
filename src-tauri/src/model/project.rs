@@ -152,4 +152,129 @@ mod tests {
         assert!(project.find_scene(&scene_id).is_ok());
         assert!(project.find_scene("nonexistent").is_err());
     }
+
+    /// Recursively collect the `value` payload of every keyframe in a document.
+    fn collect_keyframe_values(v: &serde_json::Value, out: &mut Vec<serde_json::Value>) {
+        match v {
+            serde_json::Value::Object(map) => {
+                if map.contains_key("property")
+                    && map.contains_key("value")
+                    && map.contains_key("easing")
+                {
+                    out.push(map["value"].clone());
+                }
+                for (_, child) in map {
+                    collect_keyframe_values(child, out);
+                }
+            }
+            serde_json::Value::Array(items) => {
+                for item in items {
+                    collect_keyframe_values(item, out);
+                }
+            }
+            _ => {}
+        }
+    }
+
+    fn shipped_project_files() -> Vec<&'static str> {
+        vec![
+            "templates/demo-showcase.citcat",
+            "examples/product-catalogue/product-showcase.citcat",
+            "examples/interactive-training/safety-training.citcat",
+            "examples/music-video/lyric-video.citcat",
+            "examples/presentation/company-intro.citcat",
+        ]
+    }
+
+    #[test]
+    fn test_shipped_project_keyframes_still_deserialise() {
+        // Direct backward-compatibility check for adding KeyframeValue::Offset
+        // and ::Scale: every keyframe value in every shipped project must still
+        // parse. Adding enum variants is only safe if this holds.
+        use crate::model::KeyframeValue;
+        let root = std::path::Path::new("..");
+        let mut total = 0;
+        for rel in shipped_project_files() {
+            let path = root.join(rel);
+            if !path.exists() {
+                continue;
+            }
+            let raw: serde_json::Value =
+                serde_json::from_str(&std::fs::read_to_string(&path).unwrap())
+                    .unwrap_or_else(|e| panic!("{} is not valid JSON: {}", rel, e));
+            let mut values = Vec::new();
+            collect_keyframe_values(&raw, &mut values);
+            for v in &values {
+                let parsed: Result<KeyframeValue, _> = serde_json::from_value(v.clone());
+                assert!(
+                    parsed.is_ok(),
+                    "{}: keyframe value {} no longer parses: {:?}",
+                    rel,
+                    v,
+                    parsed.err()
+                );
+            }
+            total += values.len();
+        }
+        assert!(total > 100, "expected many keyframes to check, only saw {}", total);
+    }
+
+    #[test]
+    fn test_shipped_projects_load_as_projects() {
+        // Any shipped project that will not load is a user-visible bug. One
+        // known failure is a pre-existing BindTransform wire-format mismatch in
+        // a hand-authored example; this test allows that exact cause and
+        // nothing else, so a regression from the keyframe work cannot hide.
+        let root = std::path::Path::new("..");
+        let mut broken = Vec::new();
+        for rel in shipped_project_files() {
+            let path = root.join(rel);
+            if !path.exists() {
+                continue;
+            }
+            let content = std::fs::read_to_string(&path).unwrap();
+            match serde_json::from_str::<Project>(&content) {
+                Ok(p) => assert!(!p.scenes.is_empty(), "{} has no scenes", rel),
+                Err(e) => {
+                    let msg = e.to_string();
+                    assert!(
+                        msg.contains("BindTransform"),
+                        "{} failed to load for an unexpected reason: {}",
+                        rel,
+                        msg
+                    );
+                    broken.push((rel, msg));
+                }
+            }
+        }
+        for (rel, msg) in &broken {
+            eprintln!("KNOWN BROKEN (pre-existing, unrelated to keyframes): {} -- {}", rel, msg);
+        }
+    }
+
+    #[test]
+    fn test_bind_transform_wire_format_matches_the_editor() {
+        // properties.js sends { type: "None" }, so that is the authoritative
+        // form. A bare "None" string is what the broken example file uses.
+        // Pinning both directions makes the failure above attributable.
+        use crate::model::BindTransform;
+        let tagged: Result<BindTransform, _> = serde_json::from_str(r#"{"type":"None"}"#);
+        assert!(tagged.is_ok(), "editor payload must parse: {:?}", tagged.err());
+        let bare: Result<BindTransform, _> = serde_json::from_str(r#""None""#);
+        assert!(
+            bare.is_err(),
+            "a bare string must not parse; example files using it are the ones at fault"
+        );
+    }
+
+    #[test]
+    fn test_bundled_demo_is_the_one_the_app_embeds() {
+        // state.rs embeds this file with include_str!; if it stops parsing the
+        // app panics at startup, so pin it explicitly.
+        let content = include_str!("../../../templates/demo-showcase.citcat");
+        let project: Project =
+            serde_json::from_str(content).expect("bundled demo must deserialise");
+        assert!(!project.scenes.is_empty());
+    }
+
 }

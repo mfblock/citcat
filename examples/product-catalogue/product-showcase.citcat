@@ -18,8 +18,14 @@
         "gradient": {
           "gradient_type": "Linear",
           "stops": [
-            { "offset": 0.0, "color": "#0a0a1a" },
-            { "offset": 1.0, "color": "#1a1a2e" }
+            {
+              "offset": 0.0,
+              "color": "#0a0a1a"
+            },
+            {
+              "offset": 1.0,
+              "color": "#1a1a2e"
+            }
           ]
         },
         "image": null
@@ -29,19 +35,61 @@
           "id": "pc-obj-product-name-a1b2c3",
           "name": "Product Name",
           "object_type": "Text",
-          "transform": { "x": 120.0, "y": 80.0, "width": 1200.0, "height": 80.0, "rotation": 0.0, "opacity": 1.0 },
-          "style": { "fill": "#ffffff", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 56.0, "font_weight": 700, "text_align": "Left", "line_height": 1.2, "border_radius": 0.0 },
+          "transform": {
+            "x": 120.0,
+            "y": 80.0,
+            "width": 1200.0,
+            "height": 80.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 56.0,
+            "font_weight": 700,
+            "text_align": "Left",
+            "line_height": 1.2,
+            "border_radius": 0.0
+          },
           "content": "{{product_name}}",
           "z_index": 10,
           "visible": true,
           "locked": false,
           "keyframes": [
-            { "id": "pc-kf-pn-op1", "time_ms": 0, "property": "transform.opacity", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseOut" },
-            { "id": "pc-kf-pn-op2", "time_ms": 500, "property": "transform.opacity", "value": { "type": "Number", "value": 1.0 }, "easing": "EaseOut" }
+            {
+              "id": "pc-kf-pn-op1",
+              "time_ms": 0,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "pc-kf-pn-op2",
+              "time_ms": 500,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 1.0
+              },
+              "easing": "EaseOut"
+            }
           ],
           "events": [],
           "data_bindings": [
-            { "id": "pc-db-pn-1", "property": "content", "column": "product_name", "transform": "None" }
+            {
+              "id": "pc-db-pn-1",
+              "property": "content",
+              "column": "product_name",
+              "transform": {
+                "type": "None"
+              }
+            }
           ],
           "condition": null,
           "motion_path": null,
@@ -51,22 +99,91 @@
           "id": "pc-obj-category-a1b2c3d4",
           "name": "Category",
           "object_type": "Text",
-          "transform": { "x": 120.0, "y": 170.0, "width": 600.0, "height": 40.0, "rotation": 0.0, "opacity": 1.0 },
-          "style": { "fill": "#a78bfa", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 22.0, "font_weight": 400, "text_align": "Left", "line_height": 1.4, "border_radius": 0.0 },
+          "transform": {
+            "x": 120.0,
+            "y": 170.0,
+            "width": 600.0,
+            "height": 40.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#a78bfa",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 22.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
           "content": "{{category}}",
           "z_index": 9,
           "visible": true,
           "locked": false,
           "keyframes": [
-            { "id": "pc-kf-cat-op1", "time_ms": 0, "property": "transform.opacity", "value": { "type": "Number", "value": 0.0 }, "easing": "Linear" },
-            { "id": "pc-kf-cat-op2", "time_ms": 300, "property": "transform.opacity", "value": { "type": "Number", "value": 0.0 }, "easing": "Linear" },
-            { "id": "pc-kf-cat-op3", "time_ms": 700, "property": "transform.opacity", "value": { "type": "Number", "value": 1.0 }, "easing": "EaseOut" },
-            { "id": "pc-kf-cat-x1", "time_ms": 300, "property": "transform.x", "value": { "type": "Number", "value": 20.0 }, "easing": "EaseOut" },
-            { "id": "pc-kf-cat-x2", "time_ms": 700, "property": "transform.x", "value": { "type": "Number", "value": 120.0 }, "easing": "EaseOut" }
+            {
+              "id": "pc-kf-cat-op1",
+              "time_ms": 0,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "pc-kf-cat-op2",
+              "time_ms": 300,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "pc-kf-cat-op3",
+              "time_ms": 700,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 1.0
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "pc-kf-cat-x1",
+              "time_ms": 300,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 20.0
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "pc-kf-cat-x2",
+              "time_ms": 700,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 120.0
+              },
+              "easing": "EaseOut"
+            }
           ],
           "events": [],
           "data_bindings": [
-            { "id": "pc-db-cat-1", "property": "content", "column": "category", "transform": "Uppercase" }
+            {
+              "id": "pc-db-cat-1",
+              "property": "content",
+              "column": "category",
+              "transform": {
+                "type": "Uppercase"
+              }
+            }
           ],
           "condition": null,
           "motion_path": null,
@@ -76,20 +193,71 @@
           "id": "pc-obj-desc-a1b2c3d4e5",
           "name": "Description",
           "object_type": "Text",
-          "transform": { "x": 120.0, "y": 260.0, "width": 900.0, "height": 200.0, "rotation": 0.0, "opacity": 1.0 },
-          "style": { "fill": "#cccccc", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 20.0, "font_weight": 400, "text_align": "Left", "line_height": 1.6, "border_radius": 0.0 },
+          "transform": {
+            "x": 120.0,
+            "y": 260.0,
+            "width": 900.0,
+            "height": 200.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#cccccc",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 20.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.6,
+            "border_radius": 0.0
+          },
           "content": "{{description}}",
           "z_index": 8,
           "visible": true,
           "locked": false,
           "keyframes": [
-            { "id": "pc-kf-desc-op1", "time_ms": 0, "property": "transform.opacity", "value": { "type": "Number", "value": 0.0 }, "easing": "Linear" },
-            { "id": "pc-kf-desc-op2", "time_ms": 600, "property": "transform.opacity", "value": { "type": "Number", "value": 0.0 }, "easing": "Linear" },
-            { "id": "pc-kf-desc-op3", "time_ms": 1100, "property": "transform.opacity", "value": { "type": "Number", "value": 1.0 }, "easing": "EaseOut" }
+            {
+              "id": "pc-kf-desc-op1",
+              "time_ms": 0,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "pc-kf-desc-op2",
+              "time_ms": 600,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "pc-kf-desc-op3",
+              "time_ms": 1100,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 1.0
+              },
+              "easing": "EaseOut"
+            }
           ],
           "events": [],
           "data_bindings": [
-            { "id": "pc-db-desc-1", "property": "content", "column": "description", "transform": "None" }
+            {
+              "id": "pc-db-desc-1",
+              "property": "content",
+              "column": "description",
+              "transform": {
+                "type": "None"
+              }
+            }
           ],
           "condition": null,
           "motion_path": null,
@@ -99,26 +267,131 @@
           "id": "pc-obj-price-a1b2c3d4e5",
           "name": "Price",
           "object_type": "Text",
-          "transform": { "x": 1350.0, "y": 120.0, "width": 450.0, "height": 80.0, "rotation": 0.0, "opacity": 1.0 },
-          "style": { "fill": "#22c55e", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 48.0, "font_weight": 700, "text_align": "Right", "line_height": 1.2, "border_radius": 0.0 },
+          "transform": {
+            "x": 1350.0,
+            "y": 120.0,
+            "width": 450.0,
+            "height": 80.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#22c55e",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 48.0,
+            "font_weight": 700,
+            "text_align": "Right",
+            "line_height": 1.2,
+            "border_radius": 0.0
+          },
           "content": "{{price}}",
           "z_index": 11,
           "visible": true,
           "locked": false,
           "keyframes": [
-            { "id": "pc-kf-pr-w1", "time_ms": 0, "property": "transform.width", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseOut" },
-            { "id": "pc-kf-pr-w2", "time_ms": 800, "property": "transform.width", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseOut" },
-            { "id": "pc-kf-pr-w3", "time_ms": 1300, "property": "transform.width", "value": { "type": "Number", "value": 450.0 }, "easing": "EaseOut" },
-            { "id": "pc-kf-pr-h1", "time_ms": 0, "property": "transform.height", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseOut" },
-            { "id": "pc-kf-pr-h2", "time_ms": 800, "property": "transform.height", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseOut" },
-            { "id": "pc-kf-pr-h3", "time_ms": 1300, "property": "transform.height", "value": { "type": "Number", "value": 80.0 }, "easing": "EaseOut" },
-            { "id": "pc-kf-pr-op1", "time_ms": 0, "property": "transform.opacity", "value": { "type": "Number", "value": 0.0 }, "easing": "Linear" },
-            { "id": "pc-kf-pr-op2", "time_ms": 800, "property": "transform.opacity", "value": { "type": "Number", "value": 0.0 }, "easing": "Linear" },
-            { "id": "pc-kf-pr-op3", "time_ms": 1300, "property": "transform.opacity", "value": { "type": "Number", "value": 1.0 }, "easing": "EaseOut" }
+            {
+              "id": "pc-kf-pr-w1",
+              "time_ms": 0,
+              "property": "transform.width",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "pc-kf-pr-w2",
+              "time_ms": 800,
+              "property": "transform.width",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "pc-kf-pr-w3",
+              "time_ms": 1300,
+              "property": "transform.width",
+              "value": {
+                "type": "Number",
+                "value": 450.0
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "pc-kf-pr-h1",
+              "time_ms": 0,
+              "property": "transform.height",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "pc-kf-pr-h2",
+              "time_ms": 800,
+              "property": "transform.height",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "pc-kf-pr-h3",
+              "time_ms": 1300,
+              "property": "transform.height",
+              "value": {
+                "type": "Number",
+                "value": 80.0
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "pc-kf-pr-op1",
+              "time_ms": 0,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "pc-kf-pr-op2",
+              "time_ms": 800,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "pc-kf-pr-op3",
+              "time_ms": 1300,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 1.0
+              },
+              "easing": "EaseOut"
+            }
           ],
           "events": [],
           "data_bindings": [
-            { "id": "pc-db-pr-1", "property": "content", "column": "price", "transform": "None" }
+            {
+              "id": "pc-db-pr-1",
+              "property": "content",
+              "column": "price",
+              "transform": {
+                "type": "None"
+              }
+            }
           ],
           "condition": null,
           "motion_path": null,
@@ -128,8 +401,25 @@
           "id": "pc-obj-divider-a1b2c3d4",
           "name": "Divider",
           "object_type": "Rect",
-          "transform": { "x": 120.0, "y": 230.0, "width": 200.0, "height": 3.0, "rotation": 0.0, "opacity": 0.5 },
-          "style": { "fill": "#7c3aed", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 24.0, "font_weight": 400, "text_align": "Left", "line_height": 1.4, "border_radius": 1.0 },
+          "transform": {
+            "x": 120.0,
+            "y": 230.0,
+            "width": 200.0,
+            "height": 3.0,
+            "rotation": 0.0,
+            "opacity": 0.5
+          },
+          "style": {
+            "fill": "#7c3aed",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 1.0
+          },
           "content": "",
           "z_index": 7,
           "visible": true,
@@ -144,22 +434,71 @@
           "id": "pc-obj-details-btn-a1b2c3",
           "name": "Details Button",
           "object_type": "Button",
-          "transform": { "x": 120.0, "y": 520.0, "width": 240.0, "height": 56.0, "rotation": 0.0, "opacity": 1.0 },
-          "style": { "fill": "#7c3aed", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 20.0, "font_weight": 600, "text_align": "Center", "line_height": 1.4, "border_radius": 12.0 },
-          "content": "Details →",
+          "transform": {
+            "x": 120.0,
+            "y": 520.0,
+            "width": 240.0,
+            "height": 56.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#7c3aed",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 20.0,
+            "font_weight": 600,
+            "text_align": "Center",
+            "line_height": 1.4,
+            "border_radius": 12.0
+          },
+          "content": "Details \u2192",
           "z_index": 12,
           "visible": true,
           "locked": false,
           "keyframes": [
-            { "id": "pc-kf-dbtn-op1", "time_ms": 0, "property": "transform.opacity", "value": { "type": "Number", "value": 0.0 }, "easing": "Linear" },
-            { "id": "pc-kf-dbtn-op2", "time_ms": 1500, "property": "transform.opacity", "value": { "type": "Number", "value": 0.0 }, "easing": "Linear" },
-            { "id": "pc-kf-dbtn-op3", "time_ms": 2000, "property": "transform.opacity", "value": { "type": "Number", "value": 1.0 }, "easing": "EaseOut" }
+            {
+              "id": "pc-kf-dbtn-op1",
+              "time_ms": 0,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "pc-kf-dbtn-op2",
+              "time_ms": 1500,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "pc-kf-dbtn-op3",
+              "time_ms": 2000,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 1.0
+              },
+              "easing": "EaseOut"
+            }
           ],
           "events": [
             {
               "id": "pc-evt-details-click",
-              "trigger": { "type": "Click" },
-              "action": { "type": "GotoScene", "scene_id": "pc-scene-02-specs-a1b2c3" }
+              "trigger": {
+                "type": "Click"
+              },
+              "action": {
+                "type": "GotoScene",
+                "scene_id": "pc-scene-02-specs-a1b2c3"
+              }
             }
           ],
           "data_bindings": [],
@@ -174,7 +513,10 @@
         {
           "id": "pc-wp-hero-wait-btn",
           "time_ms": 5500,
-          "resume_on": { "type": "Click", "object_id": "pc-obj-details-btn-a1b2c3" }
+          "resume_on": {
+            "type": "Click",
+            "object_id": "pc-obj-details-btn-a1b2c3"
+          }
         }
       ],
       "subtitle_track": null
@@ -193,15 +535,50 @@
           "id": "pc-obj-specs-title-a1b2c3",
           "name": "Specs Title",
           "object_type": "Text",
-          "transform": { "x": 120.0, "y": 60.0, "width": 600.0, "height": 60.0, "rotation": 0.0, "opacity": 1.0 },
-          "style": { "fill": "#ffffff", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 40.0, "font_weight": 700, "text_align": "Left", "line_height": 1.2, "border_radius": 0.0 },
+          "transform": {
+            "x": 120.0,
+            "y": 60.0,
+            "width": 600.0,
+            "height": 60.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 40.0,
+            "font_weight": 700,
+            "text_align": "Left",
+            "line_height": 1.2,
+            "border_radius": 0.0
+          },
           "content": "Technical Specs",
           "z_index": 20,
           "visible": true,
           "locked": false,
           "keyframes": [
-            { "id": "pc-kf-st-op1", "time_ms": 0, "property": "transform.opacity", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseOut" },
-            { "id": "pc-kf-st-op2", "time_ms": 400, "property": "transform.opacity", "value": { "type": "Number", "value": 1.0 }, "easing": "EaseOut" }
+            {
+              "id": "pc-kf-st-op1",
+              "time_ms": 0,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "pc-kf-st-op2",
+              "time_ms": 400,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 1.0
+              },
+              "easing": "EaseOut"
+            }
           ],
           "events": [],
           "data_bindings": [],
@@ -213,8 +590,25 @@
           "id": "pc-obj-row-bg1-a1b2c3d4",
           "name": "Row 1 Background",
           "object_type": "Rect",
-          "transform": { "x": 120.0, "y": 180.0, "width": 900.0, "height": 70.0, "rotation": 0.0, "opacity": 1.0 },
-          "style": { "fill": "#1e293b", "stroke": "#334155", "stroke_width": 1.0, "font_family": "system-ui", "font_size": 24.0, "font_weight": 400, "text_align": "Left", "line_height": 1.4, "border_radius": 8.0 },
+          "transform": {
+            "x": 120.0,
+            "y": 180.0,
+            "width": 900.0,
+            "height": 70.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#1e293b",
+            "stroke": "#334155",
+            "stroke_width": 1.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 8.0
+          },
           "content": "",
           "z_index": 10,
           "visible": true,
@@ -230,8 +624,25 @@
           "id": "pc-obj-row-label1-a1b2c3",
           "name": "Weight Label",
           "object_type": "Text",
-          "transform": { "x": 140.0, "y": 195.0, "width": 200.0, "height": 40.0, "rotation": 0.0, "opacity": 1.0 },
-          "style": { "fill": "#94a3b8", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 18.0, "font_weight": 600, "text_align": "Left", "line_height": 1.4, "border_radius": 0.0 },
+          "transform": {
+            "x": 140.0,
+            "y": 195.0,
+            "width": 200.0,
+            "height": 40.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#94a3b8",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 18.0,
+            "font_weight": 600,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
           "content": "Weight",
           "z_index": 11,
           "visible": true,
@@ -247,8 +658,25 @@
           "id": "pc-obj-row-val1-a1b2c3d4",
           "name": "Weight Value",
           "object_type": "Text",
-          "transform": { "x": 500.0, "y": 195.0, "width": 500.0, "height": 40.0, "rotation": 0.0, "opacity": 1.0 },
-          "style": { "fill": "#ffffff", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 18.0, "font_weight": 400, "text_align": "Left", "line_height": 1.4, "border_radius": 0.0 },
+          "transform": {
+            "x": 500.0,
+            "y": 195.0,
+            "width": 500.0,
+            "height": 40.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 18.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
           "content": "{{weight}}",
           "z_index": 12,
           "visible": true,
@@ -256,7 +684,14 @@
           "keyframes": [],
           "events": [],
           "data_bindings": [
-            { "id": "pc-db-wt-1", "property": "content", "column": "weight", "transform": "None" }
+            {
+              "id": "pc-db-wt-1",
+              "property": "content",
+              "column": "weight",
+              "transform": {
+                "type": "None"
+              }
+            }
           ],
           "condition": null,
           "motion_path": null,
@@ -266,8 +701,25 @@
           "id": "pc-obj-row-bg2-a1b2c3d4",
           "name": "Row 2 Background",
           "object_type": "Rect",
-          "transform": { "x": 120.0, "y": 270.0, "width": 900.0, "height": 70.0, "rotation": 0.0, "opacity": 1.0 },
-          "style": { "fill": "#1e293b", "stroke": "#334155", "stroke_width": 1.0, "font_family": "system-ui", "font_size": 24.0, "font_weight": 400, "text_align": "Left", "line_height": 1.4, "border_radius": 8.0 },
+          "transform": {
+            "x": 120.0,
+            "y": 270.0,
+            "width": 900.0,
+            "height": 70.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#1e293b",
+            "stroke": "#334155",
+            "stroke_width": 1.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 8.0
+          },
           "content": "",
           "z_index": 10,
           "visible": true,
@@ -283,8 +735,25 @@
           "id": "pc-obj-row-label2-a1b2c3",
           "name": "Dimensions Label",
           "object_type": "Text",
-          "transform": { "x": 140.0, "y": 285.0, "width": 200.0, "height": 40.0, "rotation": 0.0, "opacity": 1.0 },
-          "style": { "fill": "#94a3b8", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 18.0, "font_weight": 600, "text_align": "Left", "line_height": 1.4, "border_radius": 0.0 },
+          "transform": {
+            "x": 140.0,
+            "y": 285.0,
+            "width": 200.0,
+            "height": 40.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#94a3b8",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 18.0,
+            "font_weight": 600,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
           "content": "Dimensions",
           "z_index": 11,
           "visible": true,
@@ -300,8 +769,25 @@
           "id": "pc-obj-row-val2-a1b2c3d4",
           "name": "Dimensions Value",
           "object_type": "Text",
-          "transform": { "x": 500.0, "y": 285.0, "width": 500.0, "height": 40.0, "rotation": 0.0, "opacity": 1.0 },
-          "style": { "fill": "#ffffff", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 18.0, "font_weight": 400, "text_align": "Left", "line_height": 1.4, "border_radius": 0.0 },
+          "transform": {
+            "x": 500.0,
+            "y": 285.0,
+            "width": 500.0,
+            "height": 40.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 18.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
           "content": "{{dimensions}}",
           "z_index": 12,
           "visible": true,
@@ -309,7 +795,14 @@
           "keyframes": [],
           "events": [],
           "data_bindings": [
-            { "id": "pc-db-dim-1", "property": "content", "column": "dimensions", "transform": "None" }
+            {
+              "id": "pc-db-dim-1",
+              "property": "content",
+              "column": "dimensions",
+              "transform": {
+                "type": "None"
+              }
+            }
           ],
           "condition": null,
           "motion_path": null,
@@ -319,8 +812,25 @@
           "id": "pc-obj-row-bg3-a1b2c3d4",
           "name": "Row 3 Background",
           "object_type": "Rect",
-          "transform": { "x": 120.0, "y": 360.0, "width": 900.0, "height": 70.0, "rotation": 0.0, "opacity": 1.0 },
-          "style": { "fill": "#1e293b", "stroke": "#334155", "stroke_width": 1.0, "font_family": "system-ui", "font_size": 24.0, "font_weight": 400, "text_align": "Left", "line_height": 1.4, "border_radius": 8.0 },
+          "transform": {
+            "x": 120.0,
+            "y": 360.0,
+            "width": 900.0,
+            "height": 70.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#1e293b",
+            "stroke": "#334155",
+            "stroke_width": 1.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 8.0
+          },
           "content": "",
           "z_index": 10,
           "visible": true,
@@ -336,8 +846,25 @@
           "id": "pc-obj-row-label3-a1b2c3",
           "name": "Material Label",
           "object_type": "Text",
-          "transform": { "x": 140.0, "y": 375.0, "width": 200.0, "height": 40.0, "rotation": 0.0, "opacity": 1.0 },
-          "style": { "fill": "#94a3b8", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 18.0, "font_weight": 600, "text_align": "Left", "line_height": 1.4, "border_radius": 0.0 },
+          "transform": {
+            "x": 140.0,
+            "y": 375.0,
+            "width": 200.0,
+            "height": 40.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#94a3b8",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 18.0,
+            "font_weight": 600,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
           "content": "Material",
           "z_index": 11,
           "visible": true,
@@ -353,8 +880,25 @@
           "id": "pc-obj-row-val3-a1b2c3d4",
           "name": "Material Value",
           "object_type": "Text",
-          "transform": { "x": 500.0, "y": 375.0, "width": 500.0, "height": 40.0, "rotation": 0.0, "opacity": 1.0 },
-          "style": { "fill": "#ffffff", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 18.0, "font_weight": 400, "text_align": "Left", "line_height": 1.4, "border_radius": 0.0 },
+          "transform": {
+            "x": 500.0,
+            "y": 375.0,
+            "width": 500.0,
+            "height": 40.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 18.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
           "content": "{{material}}",
           "z_index": 12,
           "visible": true,
@@ -362,7 +906,14 @@
           "keyframes": [],
           "events": [],
           "data_bindings": [
-            { "id": "pc-db-mat-1", "property": "content", "column": "material", "transform": "None" }
+            {
+              "id": "pc-db-mat-1",
+              "property": "content",
+              "column": "material",
+              "transform": {
+                "type": "None"
+              }
+            }
           ],
           "condition": null,
           "motion_path": null,
@@ -372,8 +923,25 @@
           "id": "pc-obj-row-bg4-a1b2c3d4",
           "name": "Row 4 Background",
           "object_type": "Rect",
-          "transform": { "x": 120.0, "y": 450.0, "width": 900.0, "height": 70.0, "rotation": 0.0, "opacity": 1.0 },
-          "style": { "fill": "#1e293b", "stroke": "#334155", "stroke_width": 1.0, "font_family": "system-ui", "font_size": 24.0, "font_weight": 400, "text_align": "Left", "line_height": 1.4, "border_radius": 8.0 },
+          "transform": {
+            "x": 120.0,
+            "y": 450.0,
+            "width": 900.0,
+            "height": 70.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#1e293b",
+            "stroke": "#334155",
+            "stroke_width": 1.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 8.0
+          },
           "content": "",
           "z_index": 10,
           "visible": true,
@@ -389,8 +957,25 @@
           "id": "pc-obj-row-label4-a1b2c3",
           "name": "Color Label",
           "object_type": "Text",
-          "transform": { "x": 140.0, "y": 465.0, "width": 200.0, "height": 40.0, "rotation": 0.0, "opacity": 1.0 },
-          "style": { "fill": "#94a3b8", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 18.0, "font_weight": 600, "text_align": "Left", "line_height": 1.4, "border_radius": 0.0 },
+          "transform": {
+            "x": 140.0,
+            "y": 465.0,
+            "width": 200.0,
+            "height": 40.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#94a3b8",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 18.0,
+            "font_weight": 600,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
           "content": "Color",
           "z_index": 11,
           "visible": true,
@@ -406,8 +991,25 @@
           "id": "pc-obj-row-val4-a1b2c3d4",
           "name": "Color Value",
           "object_type": "Text",
-          "transform": { "x": 500.0, "y": 465.0, "width": 500.0, "height": 40.0, "rotation": 0.0, "opacity": 1.0 },
-          "style": { "fill": "#ffffff", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 18.0, "font_weight": 400, "text_align": "Left", "line_height": 1.4, "border_radius": 0.0 },
+          "transform": {
+            "x": 500.0,
+            "y": 465.0,
+            "width": 500.0,
+            "height": 40.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 18.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
           "content": "{{color}}",
           "z_index": 12,
           "visible": true,
@@ -415,7 +1017,14 @@
           "keyframes": [],
           "events": [],
           "data_bindings": [
-            { "id": "pc-db-col-1", "property": "content", "column": "color", "transform": "None" }
+            {
+              "id": "pc-db-col-1",
+              "property": "content",
+              "column": "color",
+              "transform": {
+                "type": "None"
+              }
+            }
           ],
           "condition": null,
           "motion_path": null,
@@ -425,9 +1034,26 @@
           "id": "pc-obj-back-btn-a1b2c3d4",
           "name": "Back Button",
           "object_type": "Button",
-          "transform": { "x": 120.0, "y": 600.0, "width": 180.0, "height": 50.0, "rotation": 0.0, "opacity": 1.0 },
-          "style": { "fill": "#374151", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 18.0, "font_weight": 500, "text_align": "Center", "line_height": 1.4, "border_radius": 10.0 },
-          "content": "← Back",
+          "transform": {
+            "x": 120.0,
+            "y": 600.0,
+            "width": 180.0,
+            "height": 50.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#374151",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 18.0,
+            "font_weight": 500,
+            "text_align": "Center",
+            "line_height": 1.4,
+            "border_radius": 10.0
+          },
+          "content": "\u2190 Back",
           "z_index": 15,
           "visible": true,
           "locked": false,
@@ -435,8 +1061,13 @@
           "events": [
             {
               "id": "pc-evt-back-click",
-              "trigger": { "type": "Click" },
-              "action": { "type": "GotoScene", "scene_id": "pc-scene-01-hero-a1b2c3d4" }
+              "trigger": {
+                "type": "Click"
+              },
+              "action": {
+                "type": "GotoScene",
+                "scene_id": "pc-scene-01-hero-a1b2c3d4"
+              }
             }
           ],
           "data_bindings": [],
@@ -447,9 +1078,26 @@
           "id": "pc-obj-order-btn-a1b2c3d4",
           "name": "Order Button",
           "object_type": "Button",
-          "transform": { "x": 340.0, "y": 600.0, "width": 200.0, "height": 50.0, "rotation": 0.0, "opacity": 1.0 },
-          "style": { "fill": "#7c3aed", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 18.0, "font_weight": 600, "text_align": "Center", "line_height": 1.4, "border_radius": 10.0 },
-          "content": "Order →",
+          "transform": {
+            "x": 340.0,
+            "y": 600.0,
+            "width": 200.0,
+            "height": 50.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#7c3aed",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 18.0,
+            "font_weight": 600,
+            "text_align": "Center",
+            "line_height": 1.4,
+            "border_radius": 10.0
+          },
+          "content": "Order \u2192",
           "z_index": 15,
           "visible": true,
           "locked": false,
@@ -457,8 +1105,13 @@
           "events": [
             {
               "id": "pc-evt-order-click",
-              "trigger": { "type": "Click" },
-              "action": { "type": "GotoScene", "scene_id": "pc-scene-03-cta-a1b2c3d4" }
+              "trigger": {
+                "type": "Click"
+              },
+              "action": {
+                "type": "GotoScene",
+                "scene_id": "pc-scene-03-cta-a1b2c3d4"
+              }
             }
           ],
           "data_bindings": [],
@@ -466,7 +1119,10 @@
           "motion_path": null
         }
       ],
-      "transition_in": { "kind": "SlideLeft", "duration_ms": 400 },
+      "transition_in": {
+        "kind": "SlideLeft",
+        "duration_ms": 400
+      },
       "transition_out": null,
       "sort_order": 1,
       "wait_points": [],
@@ -481,8 +1137,14 @@
         "gradient": {
           "gradient_type": "Radial",
           "stops": [
-            { "offset": 0.0, "color": "#1e3a5f" },
-            { "offset": 1.0, "color": "#0a0a1a" }
+            {
+              "offset": 0.0,
+              "color": "#1e3a5f"
+            },
+            {
+              "offset": 1.0,
+              "color": "#0a0a1a"
+            }
           ]
         },
         "image": null
@@ -492,18 +1154,80 @@
           "id": "pc-obj-ordernow-a1b2c3d4",
           "name": "Order Now",
           "object_type": "Text",
-          "transform": { "x": 510.0, "y": 300.0, "width": 900.0, "height": 100.0, "rotation": 0.0, "opacity": 1.0 },
-          "style": { "fill": "#ffffff", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 64.0, "font_weight": 700, "text_align": "Center", "line_height": 1.2, "border_radius": 0.0 },
+          "transform": {
+            "x": 510.0,
+            "y": 300.0,
+            "width": 900.0,
+            "height": 100.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 64.0,
+            "font_weight": 700,
+            "text_align": "Center",
+            "line_height": 1.2,
+            "border_radius": 0.0
+          },
           "content": "Order Now",
           "z_index": 10,
           "visible": true,
           "locked": false,
           "keyframes": [
-            { "id": "pc-kf-on-op1", "time_ms": 0, "property": "transform.opacity", "value": { "type": "Number", "value": 1.0 }, "easing": "EaseInOut" },
-            { "id": "pc-kf-on-op2", "time_ms": 1000, "property": "transform.opacity", "value": { "type": "Number", "value": 0.6 }, "easing": "EaseInOut" },
-            { "id": "pc-kf-on-op3", "time_ms": 2000, "property": "transform.opacity", "value": { "type": "Number", "value": 1.0 }, "easing": "EaseInOut" },
-            { "id": "pc-kf-on-op4", "time_ms": 3000, "property": "transform.opacity", "value": { "type": "Number", "value": 0.6 }, "easing": "EaseInOut" },
-            { "id": "pc-kf-on-op5", "time_ms": 4000, "property": "transform.opacity", "value": { "type": "Number", "value": 1.0 }, "easing": "EaseInOut" }
+            {
+              "id": "pc-kf-on-op1",
+              "time_ms": 0,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 1.0
+              },
+              "easing": "EaseInOut"
+            },
+            {
+              "id": "pc-kf-on-op2",
+              "time_ms": 1000,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.6
+              },
+              "easing": "EaseInOut"
+            },
+            {
+              "id": "pc-kf-on-op3",
+              "time_ms": 2000,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 1.0
+              },
+              "easing": "EaseInOut"
+            },
+            {
+              "id": "pc-kf-on-op4",
+              "time_ms": 3000,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.6
+              },
+              "easing": "EaseInOut"
+            },
+            {
+              "id": "pc-kf-on-op5",
+              "time_ms": 4000,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 1.0
+              },
+              "easing": "EaseInOut"
+            }
           ],
           "events": [],
           "data_bindings": [],
@@ -515,8 +1239,25 @@
           "id": "pc-obj-cta-prodname-a1b2c3",
           "name": "CTA Product Name",
           "object_type": "Text",
-          "transform": { "x": 510.0, "y": 420.0, "width": 900.0, "height": 50.0, "rotation": 0.0, "opacity": 1.0 },
-          "style": { "fill": "#a78bfa", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 28.0, "font_weight": 500, "text_align": "Center", "line_height": 1.4, "border_radius": 0.0 },
+          "transform": {
+            "x": 510.0,
+            "y": 420.0,
+            "width": 900.0,
+            "height": 50.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#a78bfa",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 28.0,
+            "font_weight": 500,
+            "text_align": "Center",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
           "content": "{{product_name}}",
           "z_index": 9,
           "visible": true,
@@ -524,7 +1265,14 @@
           "keyframes": [],
           "events": [],
           "data_bindings": [
-            { "id": "pc-db-cta-pn-1", "property": "content", "column": "product_name", "transform": "None" }
+            {
+              "id": "pc-db-cta-pn-1",
+              "property": "content",
+              "column": "product_name",
+              "transform": {
+                "type": "None"
+              }
+            }
           ],
           "condition": null,
           "motion_path": null,
@@ -534,8 +1282,25 @@
           "id": "pc-obj-cta-price-a1b2c3d4",
           "name": "CTA Price",
           "object_type": "Text",
-          "transform": { "x": 510.0, "y": 490.0, "width": 900.0, "height": 50.0, "rotation": 0.0, "opacity": 1.0 },
-          "style": { "fill": "#22c55e", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 24.0, "font_weight": 600, "text_align": "Center", "line_height": 1.4, "border_radius": 0.0 },
+          "transform": {
+            "x": 510.0,
+            "y": 490.0,
+            "width": 900.0,
+            "height": 50.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#22c55e",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 600,
+            "text_align": "Center",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
           "content": "Starting at {{price}}",
           "z_index": 8,
           "visible": true,
@@ -543,7 +1308,14 @@
           "keyframes": [],
           "events": [],
           "data_bindings": [
-            { "id": "pc-db-cta-pr-1", "property": "content", "column": "price", "transform": "None" }
+            {
+              "id": "pc-db-cta-pr-1",
+              "property": "content",
+              "column": "price",
+              "transform": {
+                "type": "None"
+              }
+            }
           ],
           "condition": null,
           "motion_path": null,
@@ -553,8 +1325,25 @@
           "id": "pc-obj-contact-btn-a1b2c3",
           "name": "Contact Button",
           "object_type": "Button",
-          "transform": { "x": 810.0, "y": 580.0, "width": 300.0, "height": 56.0, "rotation": 0.0, "opacity": 1.0 },
-          "style": { "fill": "#22c55e", "stroke": "#000000", "stroke_width": 0.0, "font_family": "system-ui", "font_size": 22.0, "font_weight": 600, "text_align": "Center", "line_height": 1.4, "border_radius": 12.0 },
+          "transform": {
+            "x": 810.0,
+            "y": 580.0,
+            "width": 300.0,
+            "height": 56.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#22c55e",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 22.0,
+            "font_weight": 600,
+            "text_align": "Center",
+            "line_height": 1.4,
+            "border_radius": 12.0
+          },
           "content": "Contact Us",
           "z_index": 11,
           "visible": true,
@@ -566,7 +1355,10 @@
           "motion_path": null
         }
       ],
-      "transition_in": { "kind": "Crossfade", "duration_ms": 500 },
+      "transition_in": {
+        "kind": "Crossfade",
+        "duration_ms": 500
+      },
       "transition_out": null,
       "sort_order": 2,
       "wait_points": [],

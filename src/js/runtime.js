@@ -91,9 +91,76 @@ var CitCatRuntime = (function () {
     return bVal;
   }
 
+  function buildFilterString(filters) {
+    if (!filters) return "none";
+    var parts = [];
+    if (filters.blur) parts.push("blur(" + filters.blur + "px)");
+    if (filters.brightness !== null && filters.brightness !== undefined) parts.push("brightness(" + filters.brightness + ")");
+    if (filters.contrast !== null && filters.contrast !== undefined) parts.push("contrast(" + filters.contrast + ")");
+    if (filters.saturate !== null && filters.saturate !== undefined) parts.push("saturate(" + filters.saturate + ")");
+    if (filters.hue_rotate) parts.push("hue-rotate(" + filters.hue_rotate + "deg)");
+    if (filters.grayscale) parts.push("grayscale(" + filters.grayscale + ")");
+    if (filters.sepia) parts.push("sepia(" + filters.sepia + ")");
+    if (filters.drop_shadow) {
+      var ds = filters.drop_shadow;
+      parts.push("drop-shadow(" + ds.offset_x + "px " + ds.offset_y + "px " + ds.blur + "px " + ds.color + ")");
+    }
+    return parts.length > 0 ? parts.join(" ") : "none";
+  }
+
   function cubicBezier(p0, p1, p2, p3, t) {
     var u = 1 - t;
     return u * u * u * p0 + 3 * u * u * t * p1 + 3 * u * t * t * p2 + t * t * t * p3;
+  }
+
+  // Samples per segment for the arc-length table. A Bezier's curve parameter is
+  // not proportional to distance travelled, so walking t linearly makes an object
+  // crawl at the ends and race through the middle. We sample the curve, build a
+  // cumulative distance table, then invert it to find the t for a given distance.
+  var PATH_SAMPLES_PER_SEGMENT = 64;
+
+  function segmentControls(a, b) {
+    return {
+      c1x: a.control_out ? a.control_out.x : a.x,
+      c1y: a.control_out ? a.control_out.y : a.y,
+      c2x: b.control_in ? b.control_in.x : b.x,
+      c2y: b.control_in ? b.control_in.y : b.y,
+    };
+  }
+
+  // For one segment: the sampled t values and the cumulative distance at each.
+  function buildSegmentTable(a, b) {
+    var c = segmentControls(a, b);
+    var ts = [0];
+    var dists = [0];
+    var px = a.x, py = a.y, acc = 0;
+    for (var s = 1; s <= PATH_SAMPLES_PER_SEGMENT; s++) {
+      var t = s / PATH_SAMPLES_PER_SEGMENT;
+      var nx = cubicBezier(a.x, c.c1x, c.c2x, b.x, t);
+      var ny = cubicBezier(a.y, c.c1y, c.c2y, b.y, t);
+      var dx = nx - px, dy = ny - py;
+      acc += Math.sqrt(dx * dx + dy * dy);
+      ts.push(t);
+      dists.push(acc);
+      px = nx; py = ny;
+    }
+    return { ts: ts, dists: dists, length: acc, ctrl: c };
+  }
+
+  // Invert the table: distance along the segment -> curve parameter t.
+  function tForDistance(table, dist) {
+    var dists = table.dists;
+    if (dist <= 0) return 0;
+    if (dist >= table.length) return 1;
+
+    var lo = 0, hi = dists.length - 1;
+    while (lo + 1 < hi) {
+      var mid = (lo + hi) >> 1;
+      if (dists[mid] <= dist) lo = mid; else hi = mid;
+    }
+    var span = dists[hi] - dists[lo];
+    var frac = span > 0 ? (dist - dists[lo]) / span : 0;
+    return table.ts[lo] + (table.ts[hi] - table.ts[lo]) * frac;
   }
 
   function evaluateMotionPath(path, progress) {
@@ -102,28 +169,13 @@ var CitCatRuntime = (function () {
 
     progress = Math.max(0, Math.min(1, progress));
     var n = path.points.length - 1;
-    var stepsPerSeg = 20;
-    var segLengths = [];
+    var tables = [];
     var totalLength = 0;
 
     for (var i = 0; i < n; i++) {
-      var a = path.points[i];
-      var b = path.points[i + 1];
-      var c1x = a.control_out ? a.control_out.x : a.x;
-      var c1y = a.control_out ? a.control_out.y : a.y;
-      var c2x = b.control_in ? b.control_in.x : b.x;
-      var c2y = b.control_in ? b.control_in.y : b.y;
-      var len = 0, px = a.x, py = a.y;
-      for (var s = 1; s <= stepsPerSeg; s++) {
-        var t = s / stepsPerSeg;
-        var nx = cubicBezier(a.x, c1x, c2x, b.x, t);
-        var ny = cubicBezier(a.y, c1y, c2y, b.y, t);
-        var dx = nx - px, dy = ny - py;
-        len += Math.sqrt(dx * dx + dy * dy);
-        px = nx; py = ny;
-      }
-      segLengths.push(len);
-      totalLength += len;
+      var table = buildSegmentTable(path.points[i], path.points[i + 1]);
+      tables.push(table);
+      totalLength += table.length;
     }
 
     if (totalLength === 0) return { x: path.points[0].x, y: path.points[0].y };
@@ -131,31 +183,39 @@ var CitCatRuntime = (function () {
     var targetDist = progress * totalLength;
     var accumulated = 0;
     for (var i = 0; i < n; i++) {
-      if (accumulated + segLengths[i] >= targetDist || i === n - 1) {
-        var localT = segLengths[i] > 0 ? Math.max(0, Math.min(1, (targetDist - accumulated) / segLengths[i])) : 0;
+      var table = tables[i];
+      if (accumulated + table.length >= targetDist || i === n - 1) {
+        var localT = tForDistance(table, targetDist - accumulated);
         var a = path.points[i], b = path.points[i + 1];
-        var c1x = a.control_out ? a.control_out.x : a.x;
-        var c1y = a.control_out ? a.control_out.y : a.y;
-        var c2x = b.control_in ? b.control_in.x : b.x;
-        var c2y = b.control_in ? b.control_in.y : b.y;
+        var c = table.ctrl;
         return {
-          x: cubicBezier(a.x, c1x, c2x, b.x, localT),
-          y: cubicBezier(a.y, c1y, c2y, b.y, localT),
+          x: cubicBezier(a.x, c.c1x, c.c2x, b.x, localT),
+          y: cubicBezier(a.y, c.c1y, c.c2y, b.y, localT),
         };
       }
-      accumulated += segLengths[i];
+      accumulated += table.length;
     }
     var last = path.points[n];
     return { x: last.x, y: last.y };
   }
 
+  function cloneFilters(filters) {
+    if (!filters) return null;
+    var out = {};
+    for (var k in filters) {
+      if (!Object.prototype.hasOwnProperty.call(filters, k)) continue;
+      var v = filters[k];
+      // drop_shadow is the only nested object; copy it so resolving never
+      // writes back into the source project.
+      out[k] = (v && typeof v === "object") ? Object.assign({}, v) : v;
+    }
+    return out;
+  }
+
   function resolveObjectAtTime(obj, timeMs) {
-    if (obj.appear_at_ms !== null && obj.appear_at_ms !== undefined && timeMs < obj.appear_at_ms) {
-      return { id: obj.id, visible: false, object_type: obj.object_type, z_index: obj.z_index, transform: obj.transform, style: obj.style, events: [], content: "", _typewriter_progress: null };
-    }
-    if (obj.disappear_at_ms !== null && obj.disappear_at_ms !== undefined && timeMs > obj.disappear_at_ms) {
-      return { id: obj.id, visible: false, object_type: obj.object_type, z_index: obj.z_index, transform: obj.transform, style: obj.style, events: [], content: "", _typewriter_progress: null };
-    }
+    var hiddenByLifespan =
+      (obj.appear_at_ms !== null && obj.appear_at_ms !== undefined && timeMs < obj.appear_at_ms) ||
+      (obj.disappear_at_ms !== null && obj.disappear_at_ms !== undefined && timeMs > obj.disappear_at_ms);
 
     var resolved = {
       id: obj.id,
@@ -175,6 +235,7 @@ var CitCatRuntime = (function () {
       text_wrap: obj.text_wrap || false,
       appear_at_ms: obj.appear_at_ms,
       disappear_at_ms: obj.disappear_at_ms,
+      filters: cloneFilters(obj.filters),
       transform: {
         x: obj.transform.x,
         y: obj.transform.y,
@@ -197,6 +258,13 @@ var CitCatRuntime = (function () {
       _typewriter_progress: null,
     };
 
+    // Lifespan gates visibility but must still return a fully-formed object, so
+    // name-keyed lookups and hit testing can still see it.
+    if (hiddenByLifespan) {
+      resolved.visible = false;
+      return resolved;
+    }
+
     if (!obj.keyframes || obj.keyframes.length === 0) return resolved;
 
     var props = [
@@ -204,6 +272,9 @@ var CitCatRuntime = (function () {
       "transform.rotation", "transform.opacity",
       "style.fill", "style.stroke", "style.stroke_width",
       "style.font_size", "style.border_radius",
+      "filters.blur", "filters.brightness", "filters.contrast",
+      "filters.saturate", "filters.hue_rotate", "filters.grayscale",
+      "filters.sepia",
       "visible", "_typewriter_progress", "_path_progress", "audio_volume",
     ];
 
@@ -224,6 +295,9 @@ var CitCatRuntime = (function () {
       } else {
         var parts = prop.split(".");
         if (parts.length === 2) {
+          // A filter keyframe on an object that declares no filters still has
+          // to land somewhere.
+          if (!resolved[parts[0]]) resolved[parts[0]] = {};
           resolved[parts[0]][parts[1]] = val;
         }
       }
@@ -244,6 +318,7 @@ var CitCatRuntime = (function () {
 
   var eventState = {
     firedTimers: {},
+    firedSceneEnds: {},
     hoveredObjectIds: {},
     runtimeVisibility: {},
     canvas: null,
@@ -265,6 +340,7 @@ var CitCatRuntime = (function () {
       eventState.canvas.removeEventListener("mousemove", onRuntimeMouseMove);
     }
     eventState.firedTimers = {};
+    eventState.firedSceneEnds = {};
     eventState.hoveredObjectIds = {};
     eventState.runtimeVisibility = {};
     eventState.canvas = null;
@@ -273,36 +349,65 @@ var CitCatRuntime = (function () {
 
   function resetEventState() {
     eventState.firedTimers = {};
+    eventState.firedSceneEnds = {};
     eventState.hoveredObjectIds = {};
     eventState.runtimeVisibility = {};
   }
 
+  // Hit testing has to see the objects as they are actually drawn: lifespan
+  // applied, visible keyframes applied, transforms interpolated. Resolving the
+  // whole scene per mousemove would be wasteful, so memoise on scene+time —
+  // every pointer event between two frames shares one resolve.
+  var hitCache = { sceneIndex: -1, timeMs: -1, objects: null };
+
+  function resolvedObjectsForHitTest() {
+    var scene = getCurrentScene();
+    if (!scene) return [];
+    if (hitCache.objects &&
+        hitCache.sceneIndex === state.currentSceneIndex &&
+        hitCache.timeMs === state.currentTimeMs) {
+      return hitCache.objects;
+    }
+    var out = [];
+    for (var i = 0; i < scene.objects.length; i++) {
+      out.push(resolveObjectAtTime(scene.objects[i], state.currentTimeMs));
+    }
+    hitCache.sceneIndex = state.currentSceneIndex;
+    hitCache.timeMs = state.currentTimeMs;
+    hitCache.objects = out;
+    return out;
+  }
+
+  function isHitVisible(obj) {
+    return eventState.runtimeVisibility[obj.id] !== undefined
+      ? eventState.runtimeVisibility[obj.id]
+      : obj.visible;
+  }
+
+  function pointerStageCoords(e) {
+    if (!eventState.canvas) return null;
+    var rect = eventState.canvas.getBoundingClientRect();
+    return runtimeScreenToStage(e.clientX - rect.left, e.clientY - rect.top);
+  }
+
   function onRuntimeClick(e) {
     if (!state.isPlaying || !state.project) return;
-    var scene = getCurrentScene();
-    if (!scene) return;
+    if (!getCurrentScene()) return;
 
-    var rect = eventState.canvas.getBoundingClientRect();
-    var mx = e.clientX - rect.left;
-    var my = e.clientY - rect.top;
-
-    var stageCoords = runtimeScreenToStage(mx, my);
+    var stageCoords = pointerStageCoords(e);
     if (!stageCoords) return;
 
-    var objects = scene.objects.slice().sort(function (a, b) {
+    var objects = resolvedObjectsForHitTest().slice().sort(function (a, b) {
       return b.z_index - a.z_index;
     });
 
     for (var i = 0; i < objects.length; i++) {
       var obj = objects[i];
-      var isVisible = eventState.runtimeVisibility[obj.id] !== undefined
-        ? eventState.runtimeVisibility[obj.id]
-        : obj.visible;
-      if (!isVisible && obj.object_type !== "Hotspot") continue;
-      if (obj.object_type === "Hotspot" && !isVisible) continue;
+      // A Hotspot is invisible on screen but still clickable; everything else
+      // must be visible to receive the click.
+      if (!isHitVisible(obj)) continue;
 
-      var t = obj.transform;
-      if (runtimePointInRect(stageCoords.x, stageCoords.y, t)) {
+      if (runtimePointInRect(stageCoords.x, stageCoords.y, obj.transform)) {
         fireEventsForTrigger(obj, "Click");
         break;
       }
@@ -311,20 +416,16 @@ var CitCatRuntime = (function () {
 
   function onRuntimeMouseMove(e) {
     if (!state.isPlaying || !state.project) return;
-    var scene = getCurrentScene();
-    if (!scene) return;
+    if (!getCurrentScene()) return;
 
-    var rect = eventState.canvas.getBoundingClientRect();
-    var mx = e.clientX - rect.left;
-    var my = e.clientY - rect.top;
-
-    var stageCoords = runtimeScreenToStage(mx, my);
+    var stageCoords = pointerStageCoords(e);
     if (!stageCoords) return;
 
-    for (var i = 0; i < scene.objects.length; i++) {
-      var obj = scene.objects[i];
-      var t = obj.transform;
-      var inside = runtimePointInRect(stageCoords.x, stageCoords.y, t);
+    var objects = resolvedObjectsForHitTest();
+    for (var i = 0; i < objects.length; i++) {
+      var obj = objects[i];
+      var inside = isHitVisible(obj) &&
+        runtimePointInRect(stageCoords.x, stageCoords.y, obj.transform);
       var wasInside = !!eventState.hoveredObjectIds[obj.id];
 
       if (inside && !wasInside) {
@@ -398,7 +499,13 @@ var CitCatRuntime = (function () {
       for (var j = 0; j < obj.events.length; j++) {
         var ev = obj.events[j];
         if (ev.trigger.type === "SceneEnd" || ev.trigger === "SceneEnd") {
-          executeAction(ev.action);
+          // tick() re-enters this block every frame while a transition holds,
+          // so gate it the same way timer triggers are gated.
+          var endKey = obj.id + ":" + ev.id;
+          if (!eventState.firedSceneEnds[endKey]) {
+            eventState.firedSceneEnds[endKey] = true;
+            executeAction(ev.action);
+          }
         }
       }
     }
@@ -561,18 +668,17 @@ var CitCatRuntime = (function () {
       if (!waitState.waiting) return;
 
       if (objectId) {
-        var rect = canvas.getBoundingClientRect();
-        var mx = e.clientX - rect.left;
-        var my = e.clientY - rect.top;
-        var stageCoords = runtimeScreenToStage(mx, my);
+        var stageCoords = pointerStageCoords(e);
         if (!stageCoords) return;
+        if (!getCurrentScene()) return;
 
-        var scene = getCurrentScene();
-        if (!scene) return;
+        // Match against the resolved object, so the target is hit where it is
+        // drawn rather than where it was authored.
+        var objects = resolvedObjectsForHitTest();
         var targetObj = null;
-        for (var i = 0; i < scene.objects.length; i++) {
-          if (scene.objects[i].id === objectId) {
-            targetObj = scene.objects[i];
+        for (var i = 0; i < objects.length; i++) {
+          if (objects[i].id === objectId) {
+            targetObj = objects[i];
             break;
           }
         }
@@ -787,16 +893,34 @@ var CitCatRuntime = (function () {
     var ctx = canvasEl.getContext("2d");
     var imgCache = {};
     var vidCache = {};
+    var svgCache = {};
 
+    // Images decode asynchronously. While playing, the next frame picks them up
+    // on its own, but a paused first frame would stay blank forever without a
+    // repaint when the decode lands.
     function loadAssetImage(src) {
       if (imgCache[src]) return imgCache[src];
       var img = new Image();
+      img.onload = function () { renderFrame(); };
       if (assets && assets[src]) {
         img.src = assets[src];
       } else {
         img.src = src;
       }
       imgCache[src] = img;
+      return img;
+    }
+
+    // An Svg object carries its markup inline rather than a path, so it is keyed
+    // on the object and re-encoded when that markup changes.
+    function loadSvgImage(obj) {
+      var key = obj.id + ":" + obj.content.length;
+      if (svgCache[key]) return svgCache[key];
+      var img = new Image();
+      img.onload = function () { renderFrame(); };
+      img.src = "data:image/svg+xml;base64," +
+        btoa(unescape(encodeURIComponent(obj.content)));
+      svgCache[key] = img;
       return img;
     }
 
@@ -848,6 +972,30 @@ var CitCatRuntime = (function () {
       c.closePath();
     }
 
+    // Multiplied into every object's own opacity, so a whole scene can be
+    // faded as one layer during a crossfade.
+    var layerAlpha = 1;
+
+    function wrapText(text, maxWidth) {
+      var paragraphs = text.split("\n");
+      var result = [];
+      for (var p = 0; p < paragraphs.length; p++) {
+        var words = paragraphs[p].split(" ");
+        var line = "";
+        for (var w = 0; w < words.length; w++) {
+          var test = line ? line + " " + words[w] : words[w];
+          if (ctx.measureText(test).width > maxWidth && line) {
+            result.push(line);
+            line = words[w];
+          } else {
+            line = test;
+          }
+        }
+        result.push(line);
+      }
+      return result;
+    }
+
     function renderObj(obj) {
       var t = obj.transform;
       var s = obj.style;
@@ -859,7 +1007,11 @@ var CitCatRuntime = (function () {
         ctx.rotate(t.rotation * Math.PI / 180);
         ctx.translate(-cx, -cy);
       }
-      ctx.globalAlpha = t.opacity;
+      ctx.globalAlpha = t.opacity * layerAlpha;
+
+      if (obj.filters) {
+        ctx.filter = buildFilterString(obj.filters);
+      }
 
       switch (obj.object_type) {
         case "Text":
@@ -872,7 +1024,7 @@ var CitCatRuntime = (function () {
           if (obj._typewriter_progress !== null && obj._typewriter_progress !== undefined) {
             content = content.substring(0, Math.floor(content.length * obj._typewriter_progress));
           }
-          var lines = content.split("\n");
+          var lines = obj.text_wrap ? wrapText(content, t.width) : content.split("\n");
           var lh = s.font_size * s.line_height;
           var tx = t.x;
           if (align === "Center") tx = t.x + t.width / 2;
@@ -932,11 +1084,144 @@ var CitCatRuntime = (function () {
           ctx.fillText(btnTxt, t.x + t.width / 2, t.y + t.height / 2);
           ctx.textAlign = "left"; ctx.textBaseline = "top";
           break;
+        case "Svg":
+          if (obj.content) {
+            var svgImg = loadSvgImage(obj);
+            if (svgImg.complete && svgImg.naturalWidth > 0) {
+              ctx.drawImage(svgImg, t.x, t.y, t.width, t.height);
+            }
+          }
+          break;
         case "Hotspot":
           break;
       }
+      if (obj.filters) {
+        ctx.filter = "none";
+      }
       ctx.globalAlpha = 1;
       ctx.restore();
+    }
+
+    // A scene background is an image, or a gradient, or a flat colour, in that
+    // order of precedence. Anything but the flat colour used to be dropped here,
+    // so gradient backgrounds rendered flat in every export.
+    function paintBackground(bg, sw, sh) {
+      if (bg.image) {
+        var img = loadAssetImage(bg.image);
+        if (img.complete && img.naturalWidth > 0) {
+          ctx.drawImage(img, 0, 0, sw, sh);
+          return;
+        }
+      }
+      if (bg.gradient && bg.gradient.stops && bg.gradient.stops.length >= 2) {
+        var grad;
+        if (bg.gradient.gradient_type === "Radial") {
+          grad = ctx.createRadialGradient(
+            sw / 2, sh / 2, 0,
+            sw / 2, sh / 2, Math.max(sw, sh) / 2
+          );
+        } else {
+          grad = ctx.createLinearGradient(0, 0, 0, sh);
+        }
+        for (var i = 0; i < bg.gradient.stops.length; i++) {
+          grad.addColorStop(bg.gradient.stops[i].offset, bg.gradient.stops[i].color);
+        }
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, sw, sh);
+        return;
+      }
+      ctx.fillStyle = bg.fill || "#ffffff";
+      ctx.fillRect(0, 0, sw, sh);
+    }
+
+    // Paint one resolved scene into the current transform: background, then
+    // objects in z order.
+    function paintScene(resolved, bg, sw, sh) {
+      if (bg) {
+        ctx.save();
+        ctx.globalAlpha = layerAlpha;
+        paintBackground(bg, sw, sh);
+        ctx.restore();
+      }
+      if (!resolved) return;
+
+      var objects = resolved.objects.slice().sort(function (a, b) { return a.z_index - b.z_index; });
+      for (var i = 0; i < objects.length; i++) {
+        var obj = objects[i];
+        var vis = getRuntimeVisibility(obj.id);
+        if (vis !== null) obj.visible = vis;
+        if (!obj.visible) continue;
+        if (obj.object_type === "Hotspot") continue;
+        if (obj.object_type === "Audio") {
+          if (obj.content && state.isPlaying) {
+            var aud = loadAudio(obj.content, obj.audio_volume, obj.audio_loop);
+            if (aud.paused) aud.play().catch(function(){});
+            aud.volume = obj.audio_volume !== undefined ? obj.audio_volume : 1.0;
+          }
+          continue;
+        }
+        renderObj(obj);
+      }
+    }
+
+    function sceneBg(resolved) {
+      return resolved && resolved.background ? resolved.background : null;
+    }
+
+    // Composite the outgoing and incoming scenes according to the transition
+    // kind. Without this every transition looks like a Cut.
+    function paintTransition(trans, sw, sh) {
+      var p = trans.progress;
+      var out = trans.outgoingScene;
+      var inc = trans.incomingScene;
+      var outBg = sceneBg(out);
+      var incBg = sceneBg(inc);
+
+      switch (trans.kind) {
+        case "Crossfade":
+          paintScene(out, outBg, sw, sh);
+          layerAlpha = p;
+          paintScene(inc, incBg, sw, sh);
+          layerAlpha = 1;
+          break;
+
+        case "WipeLeft":
+          paintScene(out, outBg, sw, sh);
+          ctx.save();
+          ctx.beginPath();
+          ctx.rect(0, 0, sw * p, sh);
+          ctx.clip();
+          paintScene(inc, incBg, sw, sh);
+          ctx.restore();
+          break;
+
+        case "WipeRight":
+          paintScene(out, outBg, sw, sh);
+          ctx.save();
+          ctx.beginPath();
+          ctx.rect(sw * (1 - p), 0, sw * p, sh);
+          ctx.clip();
+          paintScene(inc, incBg, sw, sh);
+          ctx.restore();
+          break;
+
+        case "SlideLeft":
+          ctx.save(); ctx.translate(-sw * p, 0);
+          paintScene(out, outBg, sw, sh); ctx.restore();
+          ctx.save(); ctx.translate(sw * (1 - p), 0);
+          paintScene(inc, incBg, sw, sh); ctx.restore();
+          break;
+
+        case "SlideRight":
+          ctx.save(); ctx.translate(sw * p, 0);
+          paintScene(out, outBg, sw, sh); ctx.restore();
+          ctx.save(); ctx.translate(-sw * (1 - p), 0);
+          paintScene(inc, incBg, sw, sh); ctx.restore();
+          break;
+
+        default:
+          paintScene(out, outBg, sw, sh);
+      }
     }
 
     function renderFrame() {
@@ -956,28 +1241,14 @@ var CitCatRuntime = (function () {
       ctx.translate(ox, oy);
       ctx.scale(scale, scale);
 
-      ctx.fillStyle = scene.background.fill;
-      ctx.fillRect(0, 0, sw, sh);
-
-      var resolved = getResolvedScene(state.currentSceneIndex, state.currentTimeMs);
-      if (resolved) {
-        var objects = resolved.objects.slice().sort(function (a, b) { return a.z_index - b.z_index; });
-        for (var i = 0; i < objects.length; i++) {
-          var obj = objects[i];
-          var vis = getRuntimeVisibility(obj.id);
-          if (vis !== null) obj.visible = vis;
-          if (!obj.visible) continue;
-          if (obj.object_type === "Hotspot") continue;
-          if (obj.object_type === "Audio") {
-            if (obj.content && state.isPlaying) {
-              var aud = loadAudio(obj.content, obj.audio_volume, obj.audio_loop);
-              if (aud.paused) aud.play().catch(function(){});
-              aud.volume = obj.audio_volume !== undefined ? obj.audio_volume : 1.0;
-            }
-            continue;
-          }
-          renderObj(obj);
-        }
+      var trans = getTransitionState();
+      if (trans) {
+        paintTransition(trans, sw, sh);
+      } else {
+        paintScene(
+          getResolvedScene(state.currentSceneIndex, state.currentTimeMs),
+          scene.background, sw, sh
+        );
       }
 
       // Render subtitles

@@ -1,0 +1,357 @@
+{
+  "version": "1.0",
+  "meta": {
+    "name": "Transition tests",
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "created": "2026-09-25T00:00:00Z",
+    "modified": "2026-09-25T00:00:00Z"
+  },
+  "scenes": [
+    {
+      "id": "562080fe-3f30-4351-adec-80387a08ca33",
+      "name": "Cut",
+      "duration_ms": 500,
+      "background": {
+        "fill": "#202020"
+      },
+      "objects": [
+        {
+          "id": "465e4472-1383-49a0-bab3-4613d92f611e",
+          "name": "Label",
+          "object_type": "Text",
+          "transform": {
+            "x": 800.0,
+            "y": 500.0,
+            "width": 400.0,
+            "height": 100.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 40.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "Cut",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        }
+      ],
+      "transition_in": null,
+      "transition_out": {
+        "kind": "Cut",
+        "duration_ms": 400
+      },
+      "sort_order": 0,
+      "wait_points": []
+    },
+    {
+      "id": "e1a81c37-f933-4acf-8a35-58bcf608faf8",
+      "name": "Crossfade",
+      "duration_ms": 500,
+      "background": {
+        "fill": "#ff0000"
+      },
+      "objects": [
+        {
+          "id": "eb5de366-a68f-4906-a6f9-bc12146b4c84",
+          "name": "Label",
+          "object_type": "Text",
+          "transform": {
+            "x": 800.0,
+            "y": 500.0,
+            "width": 400.0,
+            "height": 100.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 40.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "Crossfade",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        }
+      ],
+      "transition_in": {
+        "kind": "Crossfade",
+        "duration_ms": 400
+      },
+      "transition_out": {
+        "kind": "Crossfade",
+        "duration_ms": 700
+      },
+      "sort_order": 1,
+      "wait_points": []
+    },
+    {
+      "id": "a445cb21-507e-4b2b-9b22-4f7e1b98a4f6",
+      "name": "WipeLeft",
+      "duration_ms": 400,
+      "background": {
+        "fill": "#0000ff"
+      },
+      "objects": [
+        {
+          "id": "256b64b5-88d8-49c2-83bf-6f2c2a3f9289",
+          "name": "Label",
+          "object_type": "Text",
+          "transform": {
+            "x": 800.0,
+            "y": 500.0,
+            "width": 400.0,
+            "height": 100.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 40.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "WipeLeft",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        }
+      ],
+      "transition_in": null,
+      "transition_out": {
+        "kind": "WipeLeft",
+        "duration_ms": 500
+      },
+      "sort_order": 2,
+      "wait_points": []
+    },
+    {
+      "id": "54a4f612-bef5-43f8-9bcf-2c2f946e3c2a",
+      "name": "WipeRight",
+      "duration_ms": 400,
+      "background": {
+        "fill": "#00ff00"
+      },
+      "objects": [
+        {
+          "id": "7f2ad4f4-3bbf-4a5c-bbf7-68d93cb94647",
+          "name": "Label",
+          "object_type": "Text",
+          "transform": {
+            "x": 800.0,
+            "y": 500.0,
+            "width": 400.0,
+            "height": 100.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 40.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "WipeRight",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        }
+      ],
+      "transition_in": null,
+      "transition_out": {
+        "kind": "WipeRight",
+        "duration_ms": 500
+      },
+      "sort_order": 3,
+      "wait_points": []
+    },
+    {
+      "id": "958878fc-937c-49a9-84fe-ac4f36d0cb74",
+      "name": "SlideLeft",
+      "duration_ms": 400,
+      "background": {
+        "fill": "#ffff00"
+      },
+      "objects": [
+        {
+          "id": "0f7a808c-763e-4a71-9e80-2da99be23dbd",
+          "name": "Label",
+          "object_type": "Text",
+          "transform": {
+            "x": 800.0,
+            "y": 500.0,
+            "width": 400.0,
+            "height": 100.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 40.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "SlideLeft",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        }
+      ],
+      "transition_in": null,
+      "transition_out": {
+        "kind": "SlideLeft",
+        "duration_ms": 500
+      },
+      "sort_order": 4,
+      "wait_points": []
+    },
+    {
+      "id": "554a4682-c4b3-4fd1-82bc-27b296ae4942",
+      "name": "SlideRight",
+      "duration_ms": 400,
+      "background": {
+        "fill": "#ff00ff"
+      },
+      "objects": [
+        {
+          "id": "769b51fa-4929-47a1-8534-6a2e5a68beb7",
+          "name": "Label",
+          "object_type": "Text",
+          "transform": {
+            "x": 800.0,
+            "y": 500.0,
+            "width": 400.0,
+            "height": 100.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 40.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "SlideRight",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        }
+      ],
+      "transition_in": null,
+      "transition_out": {
+        "kind": "SlideRight",
+        "duration_ms": 500
+      },
+      "sort_order": 5,
+      "wait_points": []
+    },
+    {
+      "id": "a8b25a33-58c6-4b53-9ff3-79f5dcd9fe4f",
+      "name": "Last",
+      "duration_ms": 600,
+      "background": {
+        "fill": "#00ffff"
+      },
+      "objects": [
+        {
+          "id": "f3da806c-50c4-41fa-8985-78d8cf77c1bb",
+          "name": "Label",
+          "object_type": "Text",
+          "transform": {
+            "x": 800.0,
+            "y": 500.0,
+            "width": 400.0,
+            "height": 100.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 40.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "Last",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        }
+      ],
+      "transition_in": null,
+      "transition_out": null,
+      "sort_order": 6,
+      "wait_points": []
+    }
+  ],
+  "effects_library": [],
+  "data_source": null,
+  "export_settings": {
+    "format": "Html",
+    "single_file": true,
+    "autoplay": false,
+    "loop_playback": false
+  }
+}

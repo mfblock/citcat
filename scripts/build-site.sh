@@ -23,7 +23,11 @@ cp "$ROOT/templates/demo-showcase.citcat"    "$OUT/demo-showcase.json"
 cp "$OUT/runtime.js"          "$ROOT/docs/runtime.js"
 cp "$OUT/demo-showcase.json"  "$ROOT/docs/demo-showcase.json"
 
-# ---- Embed player and standalone player page ----
+# ---- Embed player ----
+# docs/embed.js is generated, never hand-written: it is the engine verbatim plus
+# the <citcat-player> wrapper, so the embed player cannot drift away from the
+# HTML5 export the way the old hand-copied engine did.
+python3 "$ROOT/scripts/build-embed.py"
 cp "$ROOT/docs/embed.js"      "$OUT/embed.js"
 cp "$ROOT/docs/player.html"   "$OUT/player.html"
 

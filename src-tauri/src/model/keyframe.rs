@@ -10,12 +10,27 @@ pub struct Keyframe {
     pub easing: Easing,
 }
 
+/// A keyframe's value.
+///
+/// `Number`, `Color` and `Bool` are concrete values and are what ever reaches
+/// the playback runtime.
+///
+/// `Offset` and `Scale` are **effect-template only**. They let a preset say
+/// "8px left of wherever this object is" or "1.3x its natural size" without
+/// knowing the object in advance. `effect_apply` resolves them against the
+/// target object's transform and writes plain `Number`s onto the object, so
+/// the JS runtime never encounters them. They are not meaningful in a saved
+/// `.citcat` project and `interpolate` does not blend them.
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(tag = "type", content = "value")]
 pub enum KeyframeValue {
     Number(f64),
     Color(String),
     Bool(bool),
+    /// Added to the object's current value for this property.
+    Offset(f64),
+    /// Multiplied by the object's current value for this property.
+    Scale(f64),
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]

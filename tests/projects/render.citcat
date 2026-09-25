@@ -1,0 +1,200 @@
+{
+  "version": "1.0",
+  "meta": {
+    "name": "Render tests",
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "created": "2026-09-25T00:00:00Z",
+    "modified": "2026-09-25T00:00:00Z"
+  },
+  "scenes": [
+    {
+      "id": "c43ff081-3dec-4ad0-915b-6ac68a080c56",
+      "name": "FlatFill",
+      "duration_ms": 3000,
+      "background": {
+        "fill": "#ff0000",
+        "gradient": null,
+        "image": null
+      },
+      "objects": [
+        {
+          "id": "ed61b650-7767-4fc1-9382-c894d40d1ad0",
+          "name": "Marker",
+          "object_type": "Rect",
+          "transform": {
+            "x": 100.0,
+            "y": 100.0,
+            "width": 200.0,
+            "height": 200.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#0000ff",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        }
+      ],
+      "transition_in": null,
+      "transition_out": null,
+      "sort_order": 0,
+      "wait_points": []
+    },
+    {
+      "id": "a6e4c7a7-3600-4421-a9d1-54e5485a77c3",
+      "name": "LinearGradient",
+      "duration_ms": 3000,
+      "background": {
+        "fill": "#ff0000",
+        "gradient": {
+          "gradient_type": "Linear",
+          "stops": [
+            {
+              "offset": 0.0,
+              "color": "#000000"
+            },
+            {
+              "offset": 1.0,
+              "color": "#ffffff"
+            }
+          ]
+        },
+        "image": null
+      },
+      "objects": [],
+      "transition_in": null,
+      "transition_out": null,
+      "sort_order": 0,
+      "wait_points": []
+    },
+    {
+      "id": "4b07f97e-cf2e-453a-a538-cf2d9ee8a8ec",
+      "name": "RadialGradient",
+      "duration_ms": 3000,
+      "background": {
+        "fill": "#ff0000",
+        "gradient": {
+          "gradient_type": "Radial",
+          "stops": [
+            {
+              "offset": 0.0,
+              "color": "#ffffff"
+            },
+            {
+              "offset": 1.0,
+              "color": "#000000"
+            }
+          ]
+        },
+        "image": null
+      },
+      "objects": [],
+      "transition_in": null,
+      "transition_out": null,
+      "sort_order": 0,
+      "wait_points": []
+    },
+    {
+      "id": "dd72108e-c6f0-42d8-a05e-95590bb7ea31",
+      "name": "SvgObject",
+      "duration_ms": 3000,
+      "background": {
+        "fill": "#000000",
+        "gradient": null,
+        "image": null
+      },
+      "objects": [
+        {
+          "id": "f5572cc3-cdbb-436f-b6a9-0a5d47dfbeb6",
+          "name": "Logo",
+          "object_type": "Svg",
+          "transform": {
+            "x": 400.0,
+            "y": 300.0,
+            "width": 400.0,
+            "height": 400.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#3b82f6",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 10 10\"><rect width=\"10\" height=\"10\" fill=\"#00ff00\"/></svg>",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        },
+        {
+          "id": "320dd399-2ea7-415c-884e-dfeb7cdd2023",
+          "name": "EmptySvg",
+          "object_type": "Svg",
+          "transform": {
+            "x": 1200.0,
+            "y": 300.0,
+            "width": 200.0,
+            "height": 200.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#3b82f6",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        }
+      ],
+      "transition_in": null,
+      "transition_out": null,
+      "sort_order": 0,
+      "wait_points": []
+    }
+  ],
+  "effects_library": [],
+  "data_source": null,
+  "export_settings": {
+    "format": "Html",
+    "single_file": true,
+    "autoplay": false,
+    "loop_playback": false
+  }
+}

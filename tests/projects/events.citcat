@@ -1,0 +1,1397 @@
+{
+  "version": "1.0",
+  "meta": {
+    "name": "Event tests",
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "created": "2026-09-25T00:00:00Z",
+    "modified": "2026-09-25T00:00:00Z"
+  },
+  "scenes": [
+    {
+      "id": "18dc2e3e-e14b-4c41-9322-9d9b48ec4f74",
+      "name": "Events",
+      "duration_ms": 4000,
+      "background": {
+        "fill": "#101018"
+      },
+      "objects": [
+        {
+          "id": "2db30ede-67d4-4f11-9686-72c78d6f4ddc",
+          "name": "NavButton",
+          "object_type": "Rect",
+          "transform": {
+            "x": 160.0,
+            "y": 140.0,
+            "width": 200.0,
+            "height": 100.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#3b82f6",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [
+            {
+              "id": "785f0cf9-309d-47ce-9bf1-e5e718705e8f",
+              "trigger": {
+                "type": "Click"
+              },
+              "action": {
+                "type": "GotoScene",
+                "scene_id": "cb1e05fe-69f3-4c6c-95ac-4b7d91c5af24"
+              }
+            }
+          ],
+          "data_bindings": []
+        },
+        {
+          "id": "52e90b1c-d4b5-46d2-8349-30aa308538ad",
+          "name": "HiddenTarget",
+          "object_type": "Rect",
+          "transform": {
+            "x": 400.0,
+            "y": 100.0,
+            "width": 200.0,
+            "height": 100.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#22c55e",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": false,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        },
+        {
+          "id": "ab0e2c38-23df-456c-8420-681ec5c6fa65",
+          "name": "ToggleBtn",
+          "object_type": "Rect",
+          "transform": {
+            "x": 700.0,
+            "y": 100.0,
+            "width": 200.0,
+            "height": 100.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#3b82f6",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [
+            {
+              "id": "207d9b3e-d6e1-4139-b506-c600ec784300",
+              "trigger": {
+                "type": "Click"
+              },
+              "action": {
+                "type": "ToggleVisible",
+                "object_id": "52e90b1c-d4b5-46d2-8349-30aa308538ad"
+              }
+            }
+          ],
+          "data_bindings": []
+        },
+        {
+          "id": "a28e95ce-c39c-4e15-8a35-2631d1737850",
+          "name": "ColourTarget",
+          "object_type": "Rect",
+          "transform": {
+            "x": 1000.0,
+            "y": 100.0,
+            "width": 200.0,
+            "height": 100.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#111111",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        },
+        {
+          "id": "05cdde35-647d-4ff9-82cd-171a252fbba4",
+          "name": "ColourBtn",
+          "object_type": "Rect",
+          "transform": {
+            "x": 1300.0,
+            "y": 100.0,
+            "width": 200.0,
+            "height": 100.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#3b82f6",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [
+            {
+              "id": "77ac1732-99d8-416e-b069-da1b9684d938",
+              "trigger": {
+                "type": "Click"
+              },
+              "action": {
+                "type": "SetProperty",
+                "object_id": "a28e95ce-c39c-4e15-8a35-2631d1737850",
+                "property": "style.fill",
+                "value": {
+                  "type": "Color",
+                  "value": "#ff0000"
+                }
+              }
+            }
+          ],
+          "data_bindings": []
+        },
+        {
+          "id": "3f6559bc-7e1c-4a4d-a514-414406a6517a",
+          "name": "HoverZone",
+          "object_type": "Rect",
+          "transform": {
+            "x": 100.0,
+            "y": 300.0,
+            "width": 300.0,
+            "height": 200.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#3b82f6",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [
+            {
+              "id": "66963953-983b-4fc1-964b-e061fcb8063b",
+              "trigger": {
+                "type": "HoverEnter"
+              },
+              "action": {
+                "type": "SetProperty",
+                "object_id": "054b15fd-ee3d-4707-968a-03a2f1dda839",
+                "property": "style.fill",
+                "value": {
+                  "type": "Color",
+                  "value": "#00ff00"
+                }
+              }
+            },
+            {
+              "id": "d09d5caa-430d-419a-b6b2-5d7bd414ed23",
+              "trigger": {
+                "type": "HoverEnter"
+              },
+              "action": {
+                "type": "ToggleVisible",
+                "object_id": "05e9375f-330f-44b3-97be-cde9e8e07fc3"
+              }
+            },
+            {
+              "id": "53235af0-0804-46b1-bcb0-c38358e228d5",
+              "trigger": {
+                "type": "HoverLeave"
+              },
+              "action": {
+                "type": "SetProperty",
+                "object_id": "d467ef6e-f965-4c7b-ba62-c9804921ad6c",
+                "property": "style.fill",
+                "value": {
+                  "type": "Color",
+                  "value": "#0000ff"
+                }
+              }
+            }
+          ],
+          "data_bindings": []
+        },
+        {
+          "id": "054b15fd-ee3d-4707-968a-03a2f1dda839",
+          "name": "HoverEnterFlag",
+          "object_type": "Rect",
+          "transform": {
+            "x": 500.0,
+            "y": 300.0,
+            "width": 100.0,
+            "height": 100.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#111111",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        },
+        {
+          "id": "d467ef6e-f965-4c7b-ba62-c9804921ad6c",
+          "name": "HoverLeaveFlag",
+          "object_type": "Rect",
+          "transform": {
+            "x": 650.0,
+            "y": 300.0,
+            "width": 100.0,
+            "height": 100.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#111111",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        },
+        {
+          "id": "05e9375f-330f-44b3-97be-cde9e8e07fc3",
+          "name": "HoverToggleTarget",
+          "object_type": "Rect",
+          "transform": {
+            "x": 800.0,
+            "y": 300.0,
+            "width": 100.0,
+            "height": 100.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#22c55e",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": false,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        },
+        {
+          "id": "384d5807-e846-46c3-beec-0dbe23ac8112",
+          "name": "CornerTL",
+          "object_type": "Rect",
+          "transform": {
+            "x": 0.0,
+            "y": 0.0,
+            "width": 120.0,
+            "height": 120.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#3b82f6",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [
+            {
+              "id": "98d83676-7ceb-45d7-8b58-1e5407cc8cd7",
+              "trigger": {
+                "type": "Click"
+              },
+              "action": {
+                "type": "SetProperty",
+                "object_id": "2619eeeb-fd8d-422e-b41d-3c0fb8ff0d4f",
+                "property": "style.fill",
+                "value": {
+                  "type": "Color",
+                  "value": "#00ff00"
+                }
+              }
+            }
+          ],
+          "data_bindings": []
+        },
+        {
+          "id": "527c66b4-2273-456f-a045-eb70e21c3f50",
+          "name": "CornerTR",
+          "object_type": "Rect",
+          "transform": {
+            "x": 1800.0,
+            "y": 0.0,
+            "width": 120.0,
+            "height": 120.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#3b82f6",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [
+            {
+              "id": "e5c72f63-d951-4ea1-b8bb-87b830b0b6f8",
+              "trigger": {
+                "type": "Click"
+              },
+              "action": {
+                "type": "SetProperty",
+                "object_id": "cde413cc-9bba-4877-8d18-990e37209549",
+                "property": "style.fill",
+                "value": {
+                  "type": "Color",
+                  "value": "#00ff00"
+                }
+              }
+            }
+          ],
+          "data_bindings": []
+        },
+        {
+          "id": "c9bd2b6d-b6bf-4fd5-ab23-b5459fcc0630",
+          "name": "CornerBL",
+          "object_type": "Rect",
+          "transform": {
+            "x": 0.0,
+            "y": 960.0,
+            "width": 120.0,
+            "height": 120.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#3b82f6",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [
+            {
+              "id": "f516124a-2219-4a10-bfbd-9b3da7a81768",
+              "trigger": {
+                "type": "Click"
+              },
+              "action": {
+                "type": "SetProperty",
+                "object_id": "149b8324-6d64-42c5-8c52-b6e94a88b913",
+                "property": "style.fill",
+                "value": {
+                  "type": "Color",
+                  "value": "#00ff00"
+                }
+              }
+            }
+          ],
+          "data_bindings": []
+        },
+        {
+          "id": "99b50094-7b4b-4658-b175-9f1727c2780e",
+          "name": "CornerBR",
+          "object_type": "Rect",
+          "transform": {
+            "x": 1800.0,
+            "y": 960.0,
+            "width": 120.0,
+            "height": 120.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#3b82f6",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [
+            {
+              "id": "6f21344d-0eaf-4432-9273-c67b8294691c",
+              "trigger": {
+                "type": "Click"
+              },
+              "action": {
+                "type": "SetProperty",
+                "object_id": "2101441e-a1a1-4528-a240-dd0e7e65d939",
+                "property": "style.fill",
+                "value": {
+                  "type": "Color",
+                  "value": "#00ff00"
+                }
+              }
+            }
+          ],
+          "data_bindings": []
+        },
+        {
+          "id": "2619eeeb-fd8d-422e-b41d-3c0fb8ff0d4f",
+          "name": "ResTL",
+          "object_type": "Rect",
+          "transform": {
+            "x": 1400.0,
+            "y": 300.0,
+            "width": 60.0,
+            "height": 60.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#111111",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        },
+        {
+          "id": "cde413cc-9bba-4877-8d18-990e37209549",
+          "name": "ResTR",
+          "object_type": "Rect",
+          "transform": {
+            "x": 1480.0,
+            "y": 300.0,
+            "width": 60.0,
+            "height": 60.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#111111",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        },
+        {
+          "id": "149b8324-6d64-42c5-8c52-b6e94a88b913",
+          "name": "ResBL",
+          "object_type": "Rect",
+          "transform": {
+            "x": 1560.0,
+            "y": 300.0,
+            "width": 60.0,
+            "height": 60.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#111111",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        },
+        {
+          "id": "2101441e-a1a1-4528-a240-dd0e7e65d939",
+          "name": "ResBR",
+          "object_type": "Rect",
+          "transform": {
+            "x": 1640.0,
+            "y": 300.0,
+            "width": 60.0,
+            "height": 60.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#111111",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        },
+        {
+          "id": "15c2ff1a-06e7-4a0b-8823-75ea1002c6f4",
+          "name": "BottomOverlap",
+          "object_type": "Rect",
+          "transform": {
+            "x": 100.0,
+            "y": 620.0,
+            "width": 300.0,
+            "height": 160.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#7f1d1d",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 1,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [
+            {
+              "id": "11e966b8-8eb3-4209-8513-32f7fd3d2e52",
+              "trigger": {
+                "type": "Click"
+              },
+              "action": {
+                "type": "SetProperty",
+                "object_id": "05bed055-a7a8-4a23-8355-873b855f8e47",
+                "property": "style.fill",
+                "value": {
+                  "type": "Color",
+                  "value": "#ff0000"
+                }
+              }
+            }
+          ],
+          "data_bindings": []
+        },
+        {
+          "id": "b1664104-a24f-4aea-8aa4-b36f8706883f",
+          "name": "TopOverlap",
+          "object_type": "Rect",
+          "transform": {
+            "x": 100.0,
+            "y": 620.0,
+            "width": 300.0,
+            "height": 160.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#166534",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 5,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [
+            {
+              "id": "72bd40d0-87e5-4485-95ff-60171686c96c",
+              "trigger": {
+                "type": "Click"
+              },
+              "action": {
+                "type": "SetProperty",
+                "object_id": "05bed055-a7a8-4a23-8355-873b855f8e47",
+                "property": "style.fill",
+                "value": {
+                  "type": "Color",
+                  "value": "#00ff00"
+                }
+              }
+            }
+          ],
+          "data_bindings": []
+        },
+        {
+          "id": "05bed055-a7a8-4a23-8355-873b855f8e47",
+          "name": "ZResult",
+          "object_type": "Rect",
+          "transform": {
+            "x": 450.0,
+            "y": 620.0,
+            "width": 100.0,
+            "height": 100.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#111111",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        },
+        {
+          "id": "785b21ed-e06f-4720-a251-012081eb302c",
+          "name": "VisibleHotspot",
+          "object_type": "Hotspot",
+          "transform": {
+            "x": 600.0,
+            "y": 620.0,
+            "width": 200.0,
+            "height": 160.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#3b82f6",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [
+            {
+              "id": "c25bff41-c00f-4ea7-8a02-6819860fd703",
+              "trigger": {
+                "type": "Click"
+              },
+              "action": {
+                "type": "SetProperty",
+                "object_id": "fdbafb29-22e5-42d9-a2a7-1f4df112a07a",
+                "property": "style.fill",
+                "value": {
+                  "type": "Color",
+                  "value": "#00ff00"
+                }
+              }
+            }
+          ],
+          "data_bindings": []
+        },
+        {
+          "id": "fdbafb29-22e5-42d9-a2a7-1f4df112a07a",
+          "name": "HotspotResult",
+          "object_type": "Rect",
+          "transform": {
+            "x": 850.0,
+            "y": 620.0,
+            "width": 100.0,
+            "height": 100.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#111111",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        },
+        {
+          "id": "bd2604ba-27a9-4cba-bdd5-a15c00308652",
+          "name": "InvisibleBtn",
+          "object_type": "Rect",
+          "transform": {
+            "x": 1000.0,
+            "y": 620.0,
+            "width": 200.0,
+            "height": 160.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#3b82f6",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": false,
+          "locked": false,
+          "keyframes": [],
+          "events": [
+            {
+              "id": "98688cd1-64d9-4617-8061-e5eb984a367a",
+              "trigger": {
+                "type": "Click"
+              },
+              "action": {
+                "type": "SetProperty",
+                "object_id": "bbaacf03-ff43-4b30-b889-48846188e20f",
+                "property": "style.fill",
+                "value": {
+                  "type": "Color",
+                  "value": "#ff0000"
+                }
+              }
+            }
+          ],
+          "data_bindings": []
+        },
+        {
+          "id": "bbaacf03-ff43-4b30-b889-48846188e20f",
+          "name": "InvisibleResult",
+          "object_type": "Rect",
+          "transform": {
+            "x": 1250.0,
+            "y": 620.0,
+            "width": 100.0,
+            "height": 100.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#111111",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        },
+        {
+          "id": "8ff18c85-bff6-40de-98d4-374164a0cb44",
+          "name": "TimerSource",
+          "object_type": "Rect",
+          "transform": {
+            "x": 1450.0,
+            "y": 620.0,
+            "width": 100.0,
+            "height": 100.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#3b82f6",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [
+            {
+              "id": "9aa41a58-1b4e-4143-ab4f-b3a823d2fc8d",
+              "trigger": {
+                "type": "Timer",
+                "delay_ms": 600
+              },
+              "action": {
+                "type": "SetProperty",
+                "object_id": "3cf5f180-1566-4412-9663-690d9546e07d",
+                "property": "style.fill",
+                "value": {
+                  "type": "Color",
+                  "value": "#00ff00"
+                }
+              }
+            }
+          ],
+          "data_bindings": []
+        },
+        {
+          "id": "3cf5f180-1566-4412-9663-690d9546e07d",
+          "name": "TimerFlag",
+          "object_type": "Rect",
+          "transform": {
+            "x": 1600.0,
+            "y": 620.0,
+            "width": 100.0,
+            "height": 100.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#111111",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        },
+        {
+          "id": "8ffb11b9-fa02-4acd-af00-14b9dafe3b11",
+          "name": "TimerToggleSrc",
+          "object_type": "Rect",
+          "transform": {
+            "x": 1450.0,
+            "y": 800.0,
+            "width": 100.0,
+            "height": 100.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#3b82f6",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [
+            {
+              "id": "b7532b7c-08b9-4ca5-9b2e-a0f1e5b9cc08",
+              "trigger": {
+                "type": "Timer",
+                "delay_ms": 600
+              },
+              "action": {
+                "type": "ToggleVisible",
+                "object_id": "7a5d8e32-1c4d-4659-8868-9a9ab6d1aa22"
+              }
+            }
+          ],
+          "data_bindings": []
+        },
+        {
+          "id": "7a5d8e32-1c4d-4659-8868-9a9ab6d1aa22",
+          "name": "TimerToggleTarget",
+          "object_type": "Rect",
+          "transform": {
+            "x": 1600.0,
+            "y": 800.0,
+            "width": 100.0,
+            "height": 100.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#22c55e",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": false,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        }
+      ],
+      "transition_in": null,
+      "transition_out": null,
+      "sort_order": 0,
+      "wait_points": []
+    },
+    {
+      "id": "cb1e05fe-69f3-4c6c-95ac-4b7d91c5af24",
+      "name": "Target",
+      "duration_ms": 3000,
+      "background": {
+        "fill": "#101018"
+      },
+      "objects": [
+        {
+          "id": "0751266d-23da-4f69-a3b3-303f2ee680fd",
+          "name": "BLabel",
+          "object_type": "Text",
+          "transform": {
+            "x": 100.0,
+            "y": 100.0,
+            "width": 800.0,
+            "height": 100.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 48.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "Scene B",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        }
+      ],
+      "transition_in": null,
+      "transition_out": null,
+      "sort_order": 1,
+      "wait_points": []
+    },
+    {
+      "id": "11bcbff2-9b73-4cac-962d-5fb1fffe003f",
+      "name": "SceneEnd",
+      "duration_ms": 500,
+      "background": {
+        "fill": "#101018"
+      },
+      "objects": [
+        {
+          "id": "6f3cfcc3-4b72-4559-92fd-b31090616e08",
+          "name": "EndToggleSrc",
+          "object_type": "Rect",
+          "transform": {
+            "x": 100.0,
+            "y": 100.0,
+            "width": 100.0,
+            "height": 100.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#3b82f6",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [
+            {
+              "id": "d373545e-673c-4b88-9ca0-49691cea80b6",
+              "trigger": {
+                "type": "SceneEnd"
+              },
+              "action": {
+                "type": "ToggleVisible",
+                "object_id": "6458900f-4f41-4d9b-acd2-6e97f3fc2c90"
+              }
+            }
+          ],
+          "data_bindings": []
+        },
+        {
+          "id": "6458900f-4f41-4d9b-acd2-6e97f3fc2c90",
+          "name": "EndToggleTarget",
+          "object_type": "Rect",
+          "transform": {
+            "x": 300.0,
+            "y": 100.0,
+            "width": 100.0,
+            "height": 100.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#22c55e",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": false,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        },
+        {
+          "id": "9cb295ed-8884-41c3-9155-619fce30188e",
+          "name": "EndFlagSrc",
+          "object_type": "Rect",
+          "transform": {
+            "x": 500.0,
+            "y": 100.0,
+            "width": 100.0,
+            "height": 100.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#3b82f6",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [
+            {
+              "id": "6b603173-e404-428f-b689-f544d27c613a",
+              "trigger": {
+                "type": "SceneEnd"
+              },
+              "action": {
+                "type": "SetProperty",
+                "object_id": "ea5b1aeb-c252-4212-8588-26cd784aa939",
+                "property": "style.fill",
+                "value": {
+                  "type": "Color",
+                  "value": "#00ff00"
+                }
+              }
+            }
+          ],
+          "data_bindings": []
+        },
+        {
+          "id": "ea5b1aeb-c252-4212-8588-26cd784aa939",
+          "name": "EndFlag",
+          "object_type": "Rect",
+          "transform": {
+            "x": 700.0,
+            "y": 100.0,
+            "width": 100.0,
+            "height": 100.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#111111",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        }
+      ],
+      "transition_in": null,
+      "transition_out": {
+        "kind": "Crossfade",
+        "duration_ms": 600
+      },
+      "sort_order": 2,
+      "wait_points": []
+    },
+    {
+      "id": "c37f46b4-385b-4a94-93ff-0c9e3dcb8d03",
+      "name": "After",
+      "duration_ms": 2000,
+      "background": {
+        "fill": "#101018"
+      },
+      "objects": [
+        {
+          "id": "ed48c285-c0ca-4678-80c6-7847e7dc1aad",
+          "name": "DLabel",
+          "object_type": "Text",
+          "transform": {
+            "x": 100.0,
+            "y": 100.0,
+            "width": 800.0,
+            "height": 100.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 48.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "Scene D",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        }
+      ],
+      "transition_in": null,
+      "transition_out": null,
+      "sort_order": 3,
+      "wait_points": []
+    }
+  ],
+  "effects_library": [],
+  "data_source": null,
+  "export_settings": {
+    "format": "Html",
+    "single_file": true,
+    "autoplay": false,
+    "loop_playback": false
+  }
+}

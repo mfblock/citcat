@@ -3,14 +3,84 @@
   "name": "Swing",
   "category": "Motion",
   "duration_ms": 1500,
-  "applies_to": ["Text", "Rect", "Ellipse", "Image", "Svg", "Button"],
+  "applies_to": [
+    "Text",
+    "Rect",
+    "Ellipse",
+    "Image",
+    "Svg",
+    "Button"
+  ],
   "keyframes": [
-    { "id": "sw1", "time_ms": 0, "property": "transform.rotation", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseInOut" },
-    { "id": "sw2", "time_ms": 250, "property": "transform.rotation", "value": { "type": "Number", "value": 15.0 }, "easing": "EaseInOut" },
-    { "id": "sw3", "time_ms": 500, "property": "transform.rotation", "value": { "type": "Number", "value": -12.0 }, "easing": "EaseInOut" },
-    { "id": "sw4", "time_ms": 750, "property": "transform.rotation", "value": { "type": "Number", "value": 8.0 }, "easing": "EaseInOut" },
-    { "id": "sw5", "time_ms": 1000, "property": "transform.rotation", "value": { "type": "Number", "value": -5.0 }, "easing": "EaseInOut" },
-    { "id": "sw6", "time_ms": 1250, "property": "transform.rotation", "value": { "type": "Number", "value": 2.0 }, "easing": "EaseInOut" },
-    { "id": "sw7", "time_ms": 1500, "property": "transform.rotation", "value": { "type": "Number", "value": 0.0 }, "easing": "EaseInOut" }
+    {
+      "id": "sw1",
+      "time_ms": 0,
+      "property": "transform.rotation",
+      "value": {
+        "type": "Offset",
+        "value": 0.0
+      },
+      "easing": "EaseInOut"
+    },
+    {
+      "id": "sw2",
+      "time_ms": 250,
+      "property": "transform.rotation",
+      "value": {
+        "type": "Offset",
+        "value": 15.0
+      },
+      "easing": "EaseInOut"
+    },
+    {
+      "id": "sw3",
+      "time_ms": 500,
+      "property": "transform.rotation",
+      "value": {
+        "type": "Offset",
+        "value": -12.0
+      },
+      "easing": "EaseInOut"
+    },
+    {
+      "id": "sw4",
+      "time_ms": 750,
+      "property": "transform.rotation",
+      "value": {
+        "type": "Offset",
+        "value": 8.0
+      },
+      "easing": "EaseInOut"
+    },
+    {
+      "id": "sw5",
+      "time_ms": 1000,
+      "property": "transform.rotation",
+      "value": {
+        "type": "Offset",
+        "value": -5.0
+      },
+      "easing": "EaseInOut"
+    },
+    {
+      "id": "sw6",
+      "time_ms": 1250,
+      "property": "transform.rotation",
+      "value": {
+        "type": "Offset",
+        "value": 2.0
+      },
+      "easing": "EaseInOut"
+    },
+    {
+      "id": "sw7",
+      "time_ms": 1500,
+      "property": "transform.rotation",
+      "value": {
+        "type": "Offset",
+        "value": 0.0
+      },
+      "easing": "EaseInOut"
+    }
   ]
 }

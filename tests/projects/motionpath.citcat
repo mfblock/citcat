@@ -1,0 +1,423 @@
+{
+  "version": "1.0",
+  "meta": {
+    "name": "Motion path tests",
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "created": "2026-09-25T00:00:00Z",
+    "modified": "2026-09-25T00:00:00Z"
+  },
+  "scenes": [
+    {
+      "id": "a594f0a4-579f-4a97-b432-f20a6cd07015",
+      "name": "MotionPath",
+      "duration_ms": 1500,
+      "background": {
+        "fill": "#101018"
+      },
+      "objects": [
+        {
+          "id": "922b35ba-6cf0-4e70-930f-a15fa3d89be9",
+          "name": "StraightPath",
+          "object_type": "Rect",
+          "transform": {
+            "x": 0.0,
+            "y": 0.0,
+            "width": 100.0,
+            "height": 100.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#3b82f6",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "dd20d017-cc0c-40f4-b421-cbdf715e0e0f",
+              "time_ms": 0,
+              "property": "_path_progress",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "6e9c7c34-c2ce-42b1-9921-c6b89b7e1273",
+              "time_ms": 1000,
+              "property": "_path_progress",
+              "value": {
+                "type": "Number",
+                "value": 1.0
+              },
+              "easing": "Linear"
+            }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "motion_path": {
+            "id": "ce140532-6e8a-4378-bf97-df7a25acc3bb",
+            "points": [
+              {
+                "x": 100.0,
+                "y": 100.0,
+                "control_in": null,
+                "control_out": null
+              },
+              {
+                "x": 900.0,
+                "y": 100.0,
+                "control_in": null,
+                "control_out": null
+              }
+            ]
+          }
+        },
+        {
+          "id": "2ae090f2-3841-490f-a6bf-816163db2fe7",
+          "name": "DiagonalPath",
+          "object_type": "Rect",
+          "transform": {
+            "x": 0.0,
+            "y": 0.0,
+            "width": 60.0,
+            "height": 60.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#3b82f6",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "2df60a26-dfaf-4695-9e42-28fa71f0789c",
+              "time_ms": 0,
+              "property": "_path_progress",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "86c2f118-f098-4751-b8bd-9a4388564c76",
+              "time_ms": 1000,
+              "property": "_path_progress",
+              "value": {
+                "type": "Number",
+                "value": 1.0
+              },
+              "easing": "Linear"
+            }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "motion_path": {
+            "id": "adbc860d-d266-4d8c-af6f-255cfacfe008",
+            "points": [
+              {
+                "x": 0.0,
+                "y": 0.0,
+                "control_in": null,
+                "control_out": null
+              },
+              {
+                "x": 1000.0,
+                "y": 500.0,
+                "control_in": null,
+                "control_out": null
+              }
+            ]
+          }
+        },
+        {
+          "id": "9b2ead8b-377d-4844-9ac3-55338231b975",
+          "name": "CurvedPath",
+          "object_type": "Rect",
+          "transform": {
+            "x": 0.0,
+            "y": 0.0,
+            "width": 80.0,
+            "height": 80.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#3b82f6",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "f2905d98-c394-4229-a629-ac9af68235e9",
+              "time_ms": 0,
+              "property": "_path_progress",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "cca64ba6-175f-4b92-8cc5-9905f8f7b956",
+              "time_ms": 1000,
+              "property": "_path_progress",
+              "value": {
+                "type": "Number",
+                "value": 1.0
+              },
+              "easing": "Linear"
+            }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "motion_path": {
+            "id": "94983636-bdf2-4028-b985-10117b92ea57",
+            "points": [
+              {
+                "x": 200.0,
+                "y": 800.0,
+                "control_in": null,
+                "control_out": {
+                  "x": 200.0,
+                  "y": 200.0
+                }
+              },
+              {
+                "x": 960.0,
+                "y": 200.0,
+                "control_in": {
+                  "x": 600.0,
+                  "y": 200.0
+                },
+                "control_out": {
+                  "x": 1320.0,
+                  "y": 200.0
+                }
+              },
+              {
+                "x": 1720.0,
+                "y": 800.0,
+                "control_in": {
+                  "x": 1720.0,
+                  "y": 200.0
+                },
+                "control_out": null
+              }
+            ]
+          }
+        },
+        {
+          "id": "53f06231-6a48-4c9b-9d52-9a1c604db1d7",
+          "name": "PathNoProgress",
+          "object_type": "Rect",
+          "transform": {
+            "x": 700.0,
+            "y": 900.0,
+            "width": 50.0,
+            "height": 50.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#3b82f6",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "motion_path": {
+            "id": "8d48478a-d9f8-414d-8c1c-8e8a79f20467",
+            "points": [
+              {
+                "x": 100.0,
+                "y": 100.0,
+                "control_in": null,
+                "control_out": null
+              },
+              {
+                "x": 900.0,
+                "y": 900.0,
+                "control_in": null,
+                "control_out": null
+              }
+            ]
+          }
+        },
+        {
+          "id": "ef960c52-df3f-4c99-94b3-564ae4e5accf",
+          "name": "ProgressNoPath",
+          "object_type": "Rect",
+          "transform": {
+            "x": 300.0,
+            "y": 900.0,
+            "width": 50.0,
+            "height": 50.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#3b82f6",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "f86f7581-ce64-4a54-8a39-2c047147ec56",
+              "time_ms": 0,
+              "property": "_path_progress",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "4aa33dec-bc6e-4a8f-8506-740298533a2d",
+              "time_ms": 1000,
+              "property": "_path_progress",
+              "value": {
+                "type": "Number",
+                "value": 1.0
+              },
+              "easing": "Linear"
+            }
+          ],
+          "events": [],
+          "data_bindings": []
+        },
+        {
+          "id": "5058d290-05a6-4f62-8143-a0d6e28f8c1d",
+          "name": "SinglePointPath",
+          "object_type": "Rect",
+          "transform": {
+            "x": 0.0,
+            "y": 0.0,
+            "width": 40.0,
+            "height": 40.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#3b82f6",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "ef908327-8910-421c-a78c-e3046f79904f",
+              "time_ms": 0,
+              "property": "_path_progress",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "f5570d08-1e14-4257-b093-0293174bff8d",
+              "time_ms": 1000,
+              "property": "_path_progress",
+              "value": {
+                "type": "Number",
+                "value": 1.0
+              },
+              "easing": "Linear"
+            }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "motion_path": {
+            "id": "7b5fe716-c826-43fe-ad75-faa31df5aa3e",
+            "points": [
+              {
+                "x": 500.0,
+                "y": 500.0,
+                "control_in": null,
+                "control_out": null
+              }
+            ]
+          }
+        }
+      ],
+      "transition_in": null,
+      "transition_out": null,
+      "sort_order": 0,
+      "wait_points": []
+    }
+  ],
+  "effects_library": [],
+  "data_source": null,
+  "export_settings": {
+    "format": "Html",
+    "single_file": true,
+    "autoplay": false,
+    "loop_playback": false
+  }
+}
