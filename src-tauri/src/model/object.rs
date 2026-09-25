@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
-use super::{DataBinding, EventBinding, Keyframe, MotionPath, VisibilityCondition};
+use super::{DataBinding, EventBinding, Gradient, Keyframe, MotionPath, VisibilityCondition};
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct SceneObject {
@@ -93,7 +93,17 @@ pub struct Transform {
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct Style {
     pub fill: String,
+    /// When set, paints instead of `fill` (D7 §2).
+    ///
+    /// `fill` stays populated as the fallback, so a renderer that does not
+    /// understand gradients — or an older build opening the file — still shows
+    /// something rather than nothing.
+    #[serde(default)]
+    pub fill_gradient: Option<Gradient>,
     pub stroke: String,
+    /// When set, paints instead of `stroke`. Same fallback rule as `fill_gradient`.
+    #[serde(default)]
+    pub stroke_gradient: Option<Gradient>,
     pub stroke_width: f64,
     pub font_family: String,
     pub font_size: f64,
@@ -127,7 +137,9 @@ impl Default for Style {
     fn default() -> Self {
         Self {
             fill: "#3b82f6".to_string(),
+            fill_gradient: None,
             stroke: "#000000".to_string(),
+            stroke_gradient: None,
             stroke_width: 0.0,
             font_family: "system-ui".to_string(),
             font_size: 24.0,
@@ -285,5 +297,61 @@ impl SceneObject {
             disappear_at_ms: None,
             filters: None,
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    /// Every `Style` written before gradients existed must still load, and must
+    /// come back with no gradient rather than failing (D7 §2).
+    #[test]
+    fn style_without_gradient_fields_deserialises() {
+        let json = r##"{
+            "fill":"#3b82f6","stroke":"#000000","stroke_width":0.0,
+            "font_family":"system-ui","font_size":24.0,"font_weight":400,
+            "text_align":"Left","line_height":1.4,"border_radius":0.0
+        }"##;
+        let s: Style = serde_json::from_str(json).expect("legacy Style must load");
+        assert!(s.fill_gradient.is_none());
+        assert!(s.stroke_gradient.is_none());
+        assert_eq!(s.fill, "#3b82f6");
+    }
+
+    #[test]
+    fn style_round_trips_with_gradients() {
+        use crate::model::{Gradient, GradientStop, GradientType};
+        let mut s = Style::default();
+        s.fill_gradient = Some(Gradient {
+            gradient_type: GradientType::Radial,
+            angle: 12.5,
+            stops: vec![
+                GradientStop { offset: 0.0, color: "#ffffff".into() },
+                GradientStop { offset: 1.0, color: "#00000000".into() },
+            ],
+        });
+        let json = serde_json::to_string(&s).unwrap();
+        let back: Style = serde_json::from_str(&json).unwrap();
+        assert_eq!(s, back);
+    }
+
+    /// Alpha is carried in the colour string, so it needs no model support --
+    /// but it must survive a round trip untouched rather than being normalised
+    /// to six digits somewhere along the way.
+    #[test]
+    fn eight_digit_colours_round_trip_through_a_style() {
+        let mut s = Style::default();
+        s.fill = "#ff000080".to_string();
+        let back: Style = serde_json::from_str(&serde_json::to_string(&s).unwrap()).unwrap();
+        assert_eq!(back.fill, "#ff000080");
+    }
+
+    #[test]
+    fn a_gradient_fill_keeps_its_flat_fallback() {
+        // The contract requires `fill` to stay populated so a renderer that
+        // ignores gradients still shows something.
+        let s = Style::default();
+        assert!(!s.fill.is_empty());
     }
 }

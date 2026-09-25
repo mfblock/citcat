@@ -29,8 +29,13 @@ SUITES = [
     "filters",
     "text",
     "playback",
+    "media",
+    "mediasync",
     "render",
+    "gradients",
     "embed",
+    "painteditor",
+    "coverage",
 ]
 
 GREEN, RED, DIM, YELLOW, RESET = "\033[32m", "\033[31m", "\033[2m", "\033[33m", "\033[0m"

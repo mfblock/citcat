@@ -1,0 +1,239 @@
+{
+  "version": "1.0",
+  "meta": {
+    "name": "Media sync + wipes",
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "created": "2026-09-25T00:00:00Z",
+    "modified": "2026-09-25T00:00:00Z"
+  },
+  "scenes": [
+    {
+      "id": "edd0e12d-7ea2-4fb5-baea-2d014f67d67b",
+      "name": "TrimOut",
+      "duration_ms": 4000,
+      "background": {
+        "fill": "#101010",
+        "gradient": null,
+        "image": null
+      },
+      "objects": [
+        {
+          "id": "4009f45e-7bed-41b3-931b-7acf48b8345d",
+          "name": "Capped",
+          "object_type": "Video",
+          "transform": {
+            "x": 200.0,
+            "y": 200.0,
+            "width": 400.0,
+            "height": 400.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#3b82f6",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0,
+            "fill_gradient": null,
+            "stroke_gradient": null
+          },
+          "content": "assets/clip.mp4",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "video_muted": true,
+          "video_trim_start_ms": 0,
+          "video_trim_end_ms": 1000
+        }
+      ],
+      "transition_in": null,
+      "transition_out": null,
+      "sort_order": 0,
+      "wait_points": []
+    },
+    {
+      "id": "5f1cf4bc-9a75-4a92-bbd9-f198b0699069",
+      "name": "AudioLife",
+      "duration_ms": 2000,
+      "background": {
+        "fill": "#101010",
+        "gradient": null,
+        "image": null
+      },
+      "objects": [
+        {
+          "id": "2b28c25a-3550-447f-aabd-ce532e59cf70",
+          "name": "Loop",
+          "object_type": "Audio",
+          "transform": {
+            "x": 200.0,
+            "y": 200.0,
+            "width": 300.0,
+            "height": 100.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#3b82f6",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0,
+            "fill_gradient": null,
+            "stroke_gradient": null
+          },
+          "content": "assets/tone.wav",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "audio_volume": 0.4,
+          "audio_loop": true
+        }
+      ],
+      "transition_in": null,
+      "transition_out": null,
+      "sort_order": 0,
+      "wait_points": []
+    },
+    {
+      "id": "d0d87f8f-376e-4fe1-9f9f-b9bab2d40205",
+      "name": "GifOnly",
+      "duration_ms": 4000,
+      "background": {
+        "fill": "#101010",
+        "gradient": null,
+        "image": null
+      },
+      "objects": [
+        {
+          "id": "751a5ba6-f08d-4bca-8cd1-9c297cbc598d",
+          "name": "Anim",
+          "object_type": "Image",
+          "transform": {
+            "x": 600.0,
+            "y": 300.0,
+            "width": 400.0,
+            "height": 400.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#3b82f6",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0,
+            "fill_gradient": null,
+            "stroke_gradient": null
+          },
+          "content": "assets/anim.gif",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        }
+      ],
+      "transition_in": null,
+      "transition_out": null,
+      "sort_order": 0,
+      "wait_points": []
+    },
+    {
+      "id": "2ac70a71-78eb-45e5-b798-88b8fecabea7",
+      "name": "UpA",
+      "duration_ms": 700,
+      "background": {
+        "fill": "#ff0000",
+        "gradient": null,
+        "image": null
+      },
+      "objects": [],
+      "transition_in": null,
+      "transition_out": null,
+      "sort_order": 0,
+      "wait_points": []
+    },
+    {
+      "id": "ded49e7a-4e09-4dbf-8309-7b653d2468b0",
+      "name": "UpB",
+      "duration_ms": 2500,
+      "background": {
+        "fill": "#00ff00",
+        "gradient": null,
+        "image": null
+      },
+      "objects": [],
+      "transition_in": {
+        "kind": "WipeUp",
+        "duration_ms": 1200
+      },
+      "transition_out": null,
+      "sort_order": 0,
+      "wait_points": []
+    },
+    {
+      "id": "27ff1a24-a64b-4c05-9223-e236560d955b",
+      "name": "DownA",
+      "duration_ms": 700,
+      "background": {
+        "fill": "#0000ff",
+        "gradient": null,
+        "image": null
+      },
+      "objects": [],
+      "transition_in": null,
+      "transition_out": null,
+      "sort_order": 0,
+      "wait_points": []
+    },
+    {
+      "id": "1db5e895-8c17-444b-8d6b-97700d25ebbe",
+      "name": "DownB",
+      "duration_ms": 2500,
+      "background": {
+        "fill": "#ffff00",
+        "gradient": null,
+        "image": null
+      },
+      "objects": [],
+      "transition_in": {
+        "kind": "WipeDown",
+        "duration_ms": 1200
+      },
+      "transition_out": null,
+      "sort_order": 0,
+      "wait_points": []
+    }
+  ],
+  "effects_library": [],
+  "data_source": null,
+  "export_settings": {
+    "format": "Html",
+    "single_file": true,
+    "autoplay": false,
+    "loop_playback": false
+  }
+}

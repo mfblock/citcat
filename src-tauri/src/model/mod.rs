@@ -1,6 +1,7 @@
 pub mod project;
 pub mod scene;
 pub mod object;
+pub mod color;
 pub mod keyframe;
 pub mod event;
 pub mod binding;
@@ -12,6 +13,7 @@ pub mod subtitle;
 pub use project::*;
 pub use scene::*;
 pub use object::*;
+pub use color::*;
 pub use keyframe::*;
 pub use event::*;
 pub use binding::*;

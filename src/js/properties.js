@@ -1,12 +1,15 @@
 var CitCatProperties = (function () {
   var currentObj = null;
   var updating = false;
+  var fillPaint = null;
+  var strokePaint = null;
+  var bgPaint = null;
 
   function init() {
     var fields = [
       "prop-x", "prop-y", "prop-w", "prop-h", "prop-rotation",
       "prop-opacity", "prop-opacity-slider",
-      "prop-fill", "prop-stroke", "prop-stroke-width", "prop-border-radius",
+      "prop-stroke-width", "prop-border-radius",
       "prop-font-family", "prop-font-size", "prop-font-weight",
     ];
 
@@ -52,6 +55,7 @@ var CitCatProperties = (function () {
     });
 
     initEventUI();
+    initPaintUI();
 
     var videoChangeBtn = document.getElementById("btn-video-change");
     if (videoChangeBtn) {
@@ -243,10 +247,106 @@ var CitCatProperties = (function () {
         onFilterChange();
       });
     }
-    ["filter-shadow-x", "filter-shadow-y", "filter-shadow-blur", "filter-shadow-color"].forEach(function (id) {
+    ["filter-shadow-x", "filter-shadow-y", "filter-shadow-blur",
+     "filter-shadow-color", "filter-shadow-alpha"].forEach(function (id) {
       var el = document.getElementById(id);
       if (el) el.addEventListener("input", onFilterChange);
     });
+  }
+
+  function initPaintUI() {
+    var fillHost = document.getElementById("fill-paint");
+    if (fillHost) {
+      fillPaint = CitCatPaintEditor.create(fillHost, {
+        label: "Fill",
+        onChange: function (paint) {
+          if (!currentObj || updating) return;
+          var s = currentObj.style;
+          s.fill = paint.color;
+          s.fill_gradient = paint.gradient;   // null, not absent -- matches Rust
+          CitCatApp.updateObjectStyle(s);
+        },
+      });
+    }
+
+    var strokeHost = document.getElementById("stroke-paint");
+    if (strokeHost) {
+      strokePaint = CitCatPaintEditor.create(strokeHost, {
+        label: "Stroke",
+        allowNone: true,
+        onChange: function (paint) {
+          if (!currentObj || updating) return;
+          var s = currentObj.style;
+          s.stroke = paint.color;
+          s.stroke_gradient = paint.gradient;
+          CitCatApp.updateObjectStyle(s);
+        },
+      });
+    }
+
+    var bgHost = document.getElementById("bg-paint");
+    if (bgHost) {
+      bgPaint = CitCatPaintEditor.create(bgHost, {
+        label: "Background",
+        onChange: function (paint) {
+          if (updating) return;
+          var scene = CitCatApp.getActiveScene();
+          if (!scene) return;
+          CitCatApp.updateSceneBackground({
+            fill: paint.color,
+            gradient: paint.gradient,
+            image: scene.background ? scene.background.image || null : null,
+          });
+        },
+      });
+    }
+
+    var bgImageBtn = document.getElementById("btn-bg-image");
+    if (bgImageBtn) {
+      bgImageBtn.addEventListener("click", function () {
+        window.__TAURI__.core.invoke("dialog_open_image").then(function (path) {
+          if (!path) return;
+          var scene = CitCatApp.getActiveScene();
+          if (!scene) return;
+          var bg = scene.background || {};
+          CitCatApp.updateSceneBackground({
+            fill: bg.fill || "#ffffff",
+            gradient: bg.gradient || null,
+            image: path,
+          });
+          showSceneBackground();
+        });
+      });
+    }
+
+    var bgImageClear = document.getElementById("btn-bg-image-clear");
+    if (bgImageClear) {
+      bgImageClear.addEventListener("click", function () {
+        var scene = CitCatApp.getActiveScene();
+        if (!scene) return;
+        var bg = scene.background || {};
+        CitCatApp.updateSceneBackground({
+          fill: bg.fill || "#ffffff",
+          gradient: bg.gradient || null,
+          image: null,
+        });
+        showSceneBackground();
+      });
+    }
+  }
+
+  // Shown in place of the old "select an object" empty state: with nothing
+  // selected the scene itself is the thing you are editing.
+  function showSceneBackground() {
+    var scene = CitCatApp.getActiveScene();
+    var pathEl = document.getElementById("bg-image-path");
+    if (!scene || !bgPaint) return;
+
+    updating = true;
+    var bg = scene.background || { fill: "#ffffff" };
+    bgPaint.set(bg.fill || "#ffffff", bg.gradient || null);
+    if (pathEl) pathEl.textContent = bg.image || "(none)";
+    updating = false;
   }
 
   var editingEventId = null;
@@ -494,9 +594,13 @@ var CitCatProperties = (function () {
       rotation: rot, opacity: opacityVal / 100,
     });
 
+    // Fill, stroke and both gradients are owned by the paint editors; carry
+    // them through untouched so this handler cannot clobber them.
     CitCatApp.updateObjectStyle({
-      fill: document.getElementById("prop-fill").value,
-      stroke: document.getElementById("prop-stroke").value,
+      fill: s.fill,
+      fill_gradient: s.fill_gradient || null,
+      stroke: s.stroke,
+      stroke_gradient: s.stroke_gradient || null,
       stroke_width: parseFloat(document.getElementById("prop-stroke-width").value) || 0,
       border_radius: parseFloat(document.getElementById("prop-border-radius").value) || 0,
       font_family: document.getElementById("prop-font-family").value,
@@ -546,7 +650,10 @@ var CitCatProperties = (function () {
         offset_x: parseFloat(document.getElementById("filter-shadow-x").value) || 0,
         offset_y: parseFloat(document.getElementById("filter-shadow-y").value) || 0,
         blur: parseFloat(document.getElementById("filter-shadow-blur").value) || 0,
-        color: document.getElementById("filter-shadow-color").value || "#000000",
+        color: CitCatPaintEditor.joinColor(
+          document.getElementById("filter-shadow-color").value || "#000000",
+          parseInt(document.getElementById("filter-shadow-alpha").value, 10)
+        ),
       };
     }
     CitCatApp.updateObjectFilters(filters);
@@ -576,7 +683,9 @@ var CitCatProperties = (function () {
       document.getElementById("filter-shadow-x").value = f.drop_shadow.offset_x || 0;
       document.getElementById("filter-shadow-y").value = f.drop_shadow.offset_y || 0;
       document.getElementById("filter-shadow-blur").value = f.drop_shadow.blur || 0;
-      document.getElementById("filter-shadow-color").value = f.drop_shadow.color || "#000000";
+      var sc = CitCatPaintEditor.splitColor(f.drop_shadow.color || "#000000");
+      document.getElementById("filter-shadow-color").value = sc.hex;
+      document.getElementById("filter-shadow-alpha").value = sc.alpha;
     }
   }
 
@@ -599,8 +708,8 @@ var CitCatProperties = (function () {
     document.getElementById("prop-opacity").value = Math.round(t.opacity * 100);
     document.getElementById("prop-opacity-slider").value = Math.round(t.opacity * 100);
 
-    document.getElementById("prop-fill").value = toHex(s.fill);
-    document.getElementById("prop-stroke").value = toHex(s.stroke);
+    if (fillPaint) fillPaint.set(s.fill, s.fill_gradient);
+    if (strokePaint) strokePaint.set(s.stroke, s.stroke_gradient);
     document.getElementById("prop-stroke-width").value = s.stroke_width;
     document.getElementById("prop-border-radius").value = s.border_radius;
 
@@ -764,20 +873,13 @@ var CitCatProperties = (function () {
     currentObj = null;
     document.getElementById("props-empty").hidden = false;
     document.getElementById("props-content").hidden = true;
-  }
-
-  function toHex(color) {
-    if (!color || color === "transparent") return "#000000";
-    if (color.startsWith("#") && color.length === 7) return color;
-    if (color.startsWith("#") && color.length === 4) {
-      return "#" + color[1] + color[1] + color[2] + color[2] + color[3] + color[3];
-    }
-    return color;
+    showSceneBackground();
   }
 
   return {
     init: init,
     show: show,
     hide: hide,
+    showSceneBackground: showSceneBackground,
   };
 })();

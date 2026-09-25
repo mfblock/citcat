@@ -30,22 +30,180 @@ var CitCatRuntime = (function () {
     return a + (b - a) * t;
   }
 
-  function parseHex(hex) {
-    hex = hex.replace("#", "");
+  function clamp01(v) {
+    if (typeof v !== "number" || isNaN(v)) return 1;
+    return v < 0 ? 0 : (v > 1 ? 1 : v);
+  }
+
+  // Colour maths, alpha-aware. Mirrors src-tauri/src/model/color.rs -- the two
+  // must agree, because Rust interpolates colours for exports while this runs in
+  // the browser. See D7 section 1.
+  //
+  // Accepts #rgb, #rrggbb and #rrggbbaa. Returns null for anything else,
+  // including the CSS keyword "transparent" that Hotspot uses as its default
+  // fill: the old parser ran parseInt on it, got NaN, and fell back to 0, so
+  // interpolating a hotspot's fill silently faded it through black.
+  function parseColor(s) {
+    if (typeof s !== "string") return null;
+    var hex = s.trim().replace(/^#/, "");
+    if (!/^[0-9a-fA-F]+$/.test(hex)) return null;
+
+    function byte(i) { return parseInt(hex.substring(i, i + 2), 16); }
+    // "f" -> "ff": shorthand nibbles double, they are not zero-padded.
+    function nibble(i) { return parseInt(hex.substring(i, i + 1), 16) * 17; }
+
+    if (hex.length === 3) return { r: nibble(0), g: nibble(1), b: nibble(2), a: 255 };
+    if (hex.length === 6) return { r: byte(0), g: byte(2), b: byte(4), a: 255 };
+    if (hex.length === 8) return { r: byte(0), g: byte(2), b: byte(4), a: byte(6) };
+    return null;
+  }
+
+  function hex2(n) {
+    var s = n.toString(16);
+    return s.length === 1 ? "0" + s : s;
+  }
+
+  // Six digits when fully opaque, eight otherwise. The opaque case matters: it
+  // keeps every existing project emitting byte-identical colours.
+  function formatColor(c) {
+    var base = "#" + hex2(c.r) + hex2(c.g) + hex2(c.b);
+    return c.a === 255 ? base : base + hex2(c.a);
+  }
+
+  function lerpChannel(a, b, t) {
+    var v = Math.round(a + (b - a) * t);
+    return v < 0 ? 0 : (v > 255 ? 255 : v);
+  }
+
+  // Holds c1 when either side is not a hex colour. Together with interpolate()
+  // returning the last keyframe's value at or past its time, that reads as a
+  // snap at the later keyframe rather than a fade through black.
+  function lerpColor(c1, c2, t) {
+    var a = parseColor(c1);
+    var b = parseColor(c2);
+    if (!a || !b) return c1;
+    return formatColor({
+      r: lerpChannel(a.r, b.r, t),
+      g: lerpChannel(a.g, b.g, t),
+      b: lerpChannel(a.b, b.b, t),
+      a: lerpChannel(a.a, b.a, t),
+    });
+  }
+
+  // --- Gradients (D7 sections 2-4) ---
+  // These mirror Gradient::is_paintable and Gradient::paintable_stops in
+  // src-tauri/src/model/scene.rs.
+
+  function isGradientValue(v) {
+    return !!v && typeof v === "object" && Array.isArray(v.stops);
+  }
+
+  // A gradient needs two stops to paint anything; with fewer, callers fall back
+  // to the flat colour.
+  function isPaintableGradient(g) {
+    return isGradientValue(g) && g.stops.length >= 2;
+  }
+
+  // Sorted by offset and clamped to 0..1. Both are safety, not cosmetics:
+  // addColorStop throws outside 0..1, and out-of-order stops are undefined.
+  function paintableStops(g) {
+    return g.stops
+      .map(function (s) {
+        var o = typeof s.offset === "number" ? s.offset : 0;
+        return { offset: o < 0 ? 0 : (o > 1 ? 1 : o), color: s.color };
+      })
+      .sort(function (a, b) { return a.offset - b.offset; });
+  }
+
+  function cloneGradient(g) {
+    if (!isGradientValue(g)) return null;
     return {
-      r: parseInt(hex.substring(0, 2), 16) || 0,
-      g: parseInt(hex.substring(2, 4), 16) || 0,
-      b: parseInt(hex.substring(4, 6), 16) || 0,
+      gradient_type: g.gradient_type,
+      angle: typeof g.angle === "number" ? g.angle : 0,
+      stops: g.stops.map(function (s) {
+        return { offset: s.offset, color: s.color };
+      }),
     };
   }
 
-  function lerpColor(c1, c2, t) {
-    var a = parseHex(c1);
-    var b = parseHex(c2);
-    var r = Math.round(a.r + (b.r - a.r) * t);
-    var g = Math.round(a.g + (b.g - a.g) * t);
-    var bl = Math.round(a.b + (b.b - a.b) * t);
-    return "#" + ((1 << 24) + (r << 16) + (g << 8) + bl).toString(16).slice(1);
+  // Build a canvas gradient spanning the box {x,y,w,h}.
+  //
+  // Angle is degrees clockwise with 0 = top to bottom (D7 section 3). Screen y
+  // grows downward, so the direction vector for angle t is (-sin t, cos t): at
+  // 0 that is (0,1), straight down, reproducing the top-to-bottom sweep both
+  // renderers hardcoded before this field existed.
+  //
+  // The line is centred on the box and extended by the rectangle's support
+  // along that direction, so the ramp spans the whole box at any angle instead
+  // of running out at the corners.
+  //
+  // Takes ctx rather than closing over one, because canvas.js (the editor's
+  // separate renderer) shares this. Duplicating it is how the Svg and
+  // gradient-background gaps happened.
+  function buildCanvasGradient(ctx, grad, box) {
+    var stops = paintableStops(grad);
+    var cx = box.x + box.w / 2;
+    var cy = box.y + box.h / 2;
+    var g;
+
+    if (grad.gradient_type === "Radial") {
+      g = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.max(box.w, box.h) / 2);
+    } else {
+      var rad = (typeof grad.angle === "number" ? grad.angle : 0) * Math.PI / 180;
+      var dx = -Math.sin(rad);
+      var dy = Math.cos(rad);
+      var half = (Math.abs(dx) * box.w + Math.abs(dy) * box.h) / 2;
+      g = ctx.createLinearGradient(
+        cx - dx * half, cy - dy * half,
+        cx + dx * half, cy + dy * half
+      );
+    }
+
+    for (var i = 0; i < stops.length; i++) {
+      g.addColorStop(stops[i].offset, stops[i].color);
+    }
+    return g;
+  }
+
+  // A gradient wins over the flat colour when it can paint; otherwise the flat
+  // colour stands, so a half-built gradient still shows something. Returns null
+  // when there is nothing to paint at all.
+  function gradientFillStyle(ctx, s, box) {
+    if (isPaintableGradient(s.fill_gradient)) return buildCanvasGradient(ctx, s.fill_gradient, box);
+    if (s.fill && s.fill !== "transparent") return s.fill;
+    return null;
+  }
+
+  function gradientStrokeStyle(ctx, s, box) {
+    if (isPaintableGradient(s.stroke_gradient)) return buildCanvasGradient(ctx, s.stroke_gradient, box);
+    return s.stroke;
+  }
+
+  function boxOf(t) {
+    return { x: t.x, y: t.y, w: t.width, h: t.height };
+  }
+
+  // Stop-by-stop, but only when both sides agree on type and stop count.
+  // Resampling a 3-stop gradient onto a 5-stop one has no single right answer,
+  // so mismatches hold the earlier value, which reads as a snap at the later
+  // keyframe.
+  function lerpGradient(g1, g2, t) {
+    if (g1.gradient_type !== g2.gradient_type || g1.stops.length !== g2.stops.length) {
+      return cloneGradient(g1);
+    }
+    var a1 = typeof g1.angle === "number" ? g1.angle : 0;
+    var a2 = typeof g2.angle === "number" ? g2.angle : 0;
+    return {
+      gradient_type: g1.gradient_type,
+      angle: a1 + (a2 - a1) * t,
+      stops: g1.stops.map(function (s1, i) {
+        var s2 = g2.stops[i];
+        return {
+          offset: s1.offset + (s2.offset - s1.offset) * t,
+          color: lerpColor(s1.color, s2.color, t),
+        };
+      }),
+    };
   }
 
   function getKeyframeValue(kv) {
@@ -100,6 +258,12 @@ var CitCatRuntime = (function () {
     if (typeof bVal === "string" && typeof aVal === "string" &&
         bVal.startsWith("#") && aVal.startsWith("#")) {
       return lerpColor(bVal, aVal, t);
+    }
+    // Gradient is a runtime value kind, unlike Offset/Scale which Rust resolves
+    // away before a project reaches us. getKeyframeValue strips the {type,value}
+    // wrapper, so a gradient arrives here as a bare object.
+    if (isGradientValue(bVal) && isGradientValue(aVal)) {
+      return lerpGradient(bVal, aVal, t);
     }
     if (typeof bVal === "boolean") {
       return rawT < 1.0 ? bVal : aVal;
@@ -262,7 +426,11 @@ var CitCatRuntime = (function () {
       },
       style: {
         fill: obj.style.fill,
+        // Rust serialises these as null rather than omitting them, matching how
+        // Background.gradient already behaves. null and absent mean the same.
+        fill_gradient: cloneGradient(obj.style.fill_gradient),
         stroke: obj.style.stroke,
+        stroke_gradient: cloneGradient(obj.style.stroke_gradient),
         stroke_width: obj.style.stroke_width,
         font_family: obj.style.font_family,
         font_size: obj.style.font_size,
@@ -287,6 +455,7 @@ var CitCatRuntime = (function () {
       "transform.x", "transform.y", "transform.width", "transform.height",
       "transform.rotation", "transform.opacity",
       "style.fill", "style.stroke", "style.stroke_width",
+      "style.fill_gradient", "style.stroke_gradient",
       "style.font_size", "style.border_radius",
       "filters.blur", "filters.brightness", "filters.contrast",
       "filters.saturate", "filters.hue_rotate", "filters.grayscale",
@@ -314,7 +483,12 @@ var CitCatRuntime = (function () {
           // A filter keyframe on an object that declares no filters still has
           // to land somewhere.
           if (!resolved[parts[0]]) resolved[parts[0]] = {};
-          resolved[parts[0]][parts[1]] = val;
+          // At or past a keyframe's own time, interpolate returns that
+          // keyframe's value by reference. For a scalar that is harmless; for a
+          // gradient it would hand the caller the source project's object and
+          // let a mutation write straight back into it.
+          resolved[parts[0]][parts[1]] =
+            isGradientValue(val) ? cloneGradient(val) : val;
         }
       }
     }
@@ -749,7 +923,33 @@ var CitCatRuntime = (function () {
     onPlayStateChange: null,
   };
 
+  // <video> and <audio> elements live inside the renderStandalone closure, but
+  // pause/stop/setProject are module level. A renderer registers here so those
+  // can reach its elements -- without this, nothing ever calls pause() on a
+  // track and a looping sound outlives the project that started it.
+  var mediaHooks = [];
+
+  function registerMediaHooks(hooks) {
+    mediaHooks.push(hooks);
+    return function () {
+      var i = mediaHooks.indexOf(hooks);
+      if (i >= 0) mediaHooks.splice(i, 1);
+    };
+  }
+
+  function notifyMedia(name) {
+    for (var i = 0; i < mediaHooks.length; i++) {
+      var fn = mediaHooks[i][name];
+      if (fn) {
+        try { fn(); } catch (e) { /* one bad element must not stall playback */ }
+      }
+    }
+  }
+
   function setProject(project) {
+    // Elements belong to the old project; releasing them here stops a track
+    // from playing on over the top of whatever is loaded next.
+    notifyMedia("onDispose");
     state.project = project;
   }
 
@@ -778,6 +978,7 @@ var CitCatRuntime = (function () {
       cancelAnimationFrame(state.animFrameId);
       state.animFrameId = null;
     }
+    notifyMedia("onPause");
     if (state.onPlayStateChange) state.onPlayStateChange(false);
   }
 
@@ -787,6 +988,9 @@ var CitCatRuntime = (function () {
     resetWaitFired();
     state.currentSceneIndex = 0;
     state.currentTimeMs = 0;
+    // Rewind as well as pause: stop() returns the timeline to the start, so a
+    // replay must restart its audio rather than resume it mid-track.
+    notifyMedia("onStop");
     if (state.onTimeUpdate) state.onTimeUpdate(0, 0);
     if (state.onSceneChange) state.onSceneChange(0);
     if (state.onPlayStateChange) state.onPlayStateChange(false);
@@ -829,8 +1033,8 @@ var CitCatRuntime = (function () {
     if (state.currentTimeMs >= scene.duration_ms) {
       checkSceneEndTriggers(scene);
 
-      var hasTransition = scene.transition_out && scene.transition_out.kind !== "Cut";
-      var transitionDuration = hasTransition ? scene.transition_out.duration_ms : 0;
+      var boundary = getBoundaryTransition(state.currentSceneIndex);
+      var transitionDuration = boundary ? boundary.duration_ms : 0;
       var overflowTime = state.currentTimeMs - scene.duration_ms;
 
       if (overflowTime < transitionDuration) {
@@ -880,26 +1084,63 @@ var CitCatRuntime = (function () {
     };
   }
 
+  // Which scene follows this one, honouring loop_playback. -1 when playback ends.
+  function getNextSceneIndex(sceneIndex) {
+    if (!state.project) return -1;
+    if (sceneIndex < state.project.scenes.length - 1) return sceneIndex + 1;
+    if (state.project.export_settings && state.project.export_settings.loop_playback) {
+      return 0;
+    }
+    return -1;
+  }
+
+  // The transition that governs the boundary leaving sceneIndex.
+  //
+  // The incoming scene's transition_in wins; the outgoing scene's transition_out
+  // is the fallback. An author building scene B decides how B enters without
+  // having to edit scene A. Setting transition_in to Cut is meaningful: it means
+  // "enter hard", and deliberately does not inherit A's transition_out.
+  //
+  // Returns null for a cut, or when there is no scene to transition into --
+  // the last scene of a non-looping project has nothing to blend towards, so it
+  // ends at duration_ms with no hold.
+  function getBoundaryTransition(sceneIndex) {
+    var nextIndex = getNextSceneIndex(sceneIndex);
+    if (nextIndex < 0) return null;
+
+    var outgoing = getSceneAtIndex(sceneIndex);
+    var incoming = getSceneAtIndex(nextIndex);
+    if (!outgoing || !incoming) return null;
+
+    var chosen = incoming.transition_in || outgoing.transition_out || null;
+    if (!chosen || chosen.kind === "Cut") return null;
+    if (!chosen.duration_ms || chosen.duration_ms <= 0) return null;
+
+    return {
+      kind: chosen.kind,
+      duration_ms: chosen.duration_ms,
+      nextIndex: nextIndex,
+      source: incoming.transition_in ? "transition_in" : "transition_out",
+    };
+  }
+
   function getTransitionState() {
     var scene = getCurrentScene();
     if (!scene) return null;
     if (state.currentTimeMs <= scene.duration_ms) return null;
 
-    var hasTransition = scene.transition_out && scene.transition_out.kind !== "Cut";
-    if (!hasTransition) return null;
+    var boundary = getBoundaryTransition(state.currentSceneIndex);
+    if (!boundary) return null;
 
     var overflowTime = state.currentTimeMs - scene.duration_ms;
-    var transitionDuration = scene.transition_out.duration_ms;
-    if (overflowTime >= transitionDuration) return null;
-
-    var nextIndex = state.currentSceneIndex + 1;
-    if (nextIndex >= state.project.scenes.length) return null;
+    if (overflowTime >= boundary.duration_ms) return null;
 
     return {
-      kind: scene.transition_out.kind,
-      progress: overflowTime / transitionDuration,
+      kind: boundary.kind,
+      source: boundary.source,
+      progress: overflowTime / boundary.duration_ms,
       outgoingScene: getResolvedScene(state.currentSceneIndex, scene.duration_ms),
-      incomingScene: getResolvedScene(nextIndex, 0),
+      incomingScene: getResolvedScene(boundary.nextIndex, 0),
     };
   }
 
@@ -940,38 +1181,192 @@ var CitCatRuntime = (function () {
       return img;
     }
 
-    function loadVideo(src, muted) {
-      if (vidCache[src]) return vidCache[src];
-      var vid = document.createElement("video");
-      vid.muted = muted !== false;
-      vid.playsInline = true;
-      vid.preload = "auto";
-      vid.style.display = "none";
-      if (assets && assets[src]) {
-        vid.src = assets[src];
-      } else {
-        vid.src = src;
-      }
-      document.body.appendChild(vid);
-      vidCache[src] = vid;
-      return vid;
+    function sourceFor(src) {
+      return (assets && assets[src]) ? assets[src] : src;
     }
 
-    var audCache = {};
-    function loadAudio(src, volume, loop) {
-      if (audCache[src]) return audCache[src];
-      var aud = document.createElement("audio");
-      aud.preload = "auto";
-      aud.volume = volume !== undefined ? volume : 1.0;
-      aud.loop = !!loop;
-      if (assets && assets[src]) {
-        aud.src = assets[src];
-      } else {
-        aud.src = src;
-      }
-      audCache[src] = aud;
-      return aud;
+    // Keyed on the object, not the source URL. Trim is a per-object property,
+    // so two objects reusing one clip need two elements with two playheads --
+    // a URL-keyed cache silently gave them one, and one trim.
+    function loadVideo(obj) {
+      var v = vidCache[obj.id];
+      if (v) return v;
+      v = document.createElement("video");
+      v.muted = obj.video_muted !== false;
+      v.playsInline = true;
+      v.preload = "auto";
+      v.style.display = "none";
+      // A paused scene paints once and never again, so without these the
+      // placeholder would stand until something else moved the timeline.
+      v.addEventListener("loadeddata", renderFrame);
+      v.addEventListener("seeked", renderFrame);
+      v.src = sourceFor(obj.content);
+      document.body.appendChild(v);
+      vidCache[obj.id] = v;
+      return v;
     }
+
+    // Where the clip should be, in its own timebase, for a given scene time.
+    function videoTargetSeconds(obj, sceneTimeMs) {
+      var startMs = obj.video_trim_start_ms || 0;
+      var target = startMs + Math.max(0, sceneTimeMs);
+      if (obj.video_trim_end_ms != null && target > obj.video_trim_end_ms) {
+        target = obj.video_trim_end_ms;      // hold the last frame in range
+      }
+      return target / 1000;
+    }
+
+    // Chromium reports seekable [[0,0]] when the server does not honour HTTP
+    // Range, and then silently ignores every currentTime assignment. Detect it
+    // so playback can be driven instead of scrubbed, rather than freezing on
+    // frame 0 with no explanation.
+    function canSeek(v) {
+      return v.seekable && v.seekable.length > 0 && v.seekable.end(v.seekable.length - 1) > 0;
+    }
+
+    var VIDEO_DRIFT_S = 0.15;
+
+    function syncVideo(obj, v, sceneTimeMs) {
+      if (v.readyState < 1) return;
+      var want = videoTargetSeconds(obj, sceneTimeMs);
+      var past = obj.video_trim_end_ms != null &&
+                 (obj.video_trim_end_ms - (obj.video_trim_start_ms || 0)) < sceneTimeMs;
+
+      if (!state.isPlaying || past) {
+        if (!v.paused) v.pause();
+        if (canSeek(v) && Math.abs(v.currentTime - want) > 0.01) v.currentTime = want;
+        return;
+      }
+      // Playing: let the decoder carry the frames and only correct real drift.
+      // Assigning currentTime every frame makes it stutter.
+      if (canSeek(v) && Math.abs(v.currentTime - want) > VIDEO_DRIFT_S) v.currentTime = want;
+      if (v.paused) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+    }
+
+    // --- animated GIF ---------------------------------------------------
+    // An <img> that is not composited on screen does not advance its frames,
+    // and drawImage copies whatever frame it is showing -- so a GIF drawn to a
+    // canvas is frozen on frame 0. Decoding the frames ourselves is the only
+    // way to animate one. ImageDecoder is Chromium-only today; elsewhere this
+    // degrades to the static first frame, which is the old behaviour.
+    var GIF_FRAME_CAP = 300;
+    var gifCache = {};
+
+    function isGif(src) {
+      return /\.gif(\?|#|$)/i.test(src) || /^data:image\/gif[;,]/i.test(src);
+    }
+
+    function loadGif(src) {
+      var g = gifCache[src];
+      if (g) return g;
+      g = { frames: null, totalMs: 0, failed: false };
+      gifCache[src] = g;
+
+      if (typeof ImageDecoder === "undefined") {
+        g.failed = true;               // fall back to the <img> still
+        return g;
+      }
+
+      fetch(sourceFor(src))
+        .then(function (r) { return r.arrayBuffer(); })
+        .then(function (buf) {
+          var dec = new ImageDecoder({ data: buf, type: "image/gif" });
+          return dec.tracks.ready.then(function () {
+            var track = dec.tracks.selectedTrack;
+            var count = Math.min(track.frameCount, GIF_FRAME_CAP);
+            if (!track.animated || count < 2) throw new Error("not animated");
+            var frames = [];
+            var chain = Promise.resolve();
+            for (var i = 0; i < count; i++) {
+              (function (idx) {
+                chain = chain.then(function () {
+                  return dec.decode({ frameIndex: idx }).then(function (res) {
+                    var img = res.image;
+                    // A VideoFrame holds decoder memory until closed; an
+                    // ImageBitmap is a plain drawable we can keep.
+                    var durMs = (img.duration || 100000) / 1000;
+                    return createImageBitmap(img).then(function (bmp) {
+                      img.close();
+                      frames.push({ bmp: bmp, durMs: durMs });
+                    });
+                  });
+                });
+              })(i);
+            }
+            return chain.then(function () {
+              g.frames = frames;
+              g.totalMs = frames.reduce(function (a, f) { return a + f.durMs; }, 0);
+              renderFrame();
+            });
+          });
+        })
+        .catch(function () { g.failed = true; });
+
+      return g;
+    }
+
+    function gifFrameAt(g, timeMs) {
+      if (!g.frames || !g.frames.length || g.totalMs <= 0) return null;
+      var t = timeMs % g.totalMs;          // GIFs loop by default
+      for (var i = 0; i < g.frames.length; i++) {
+        if (t < g.frames[i].durMs) return g.frames[i].bmp;
+        t -= g.frames[i].durMs;
+      }
+      return g.frames[g.frames.length - 1].bmp;
+    }
+
+    // --- audio ----------------------------------------------------------
+    var audCache = {};
+    function loadAudio(obj) {
+      var a = audCache[obj.id];
+      if (a) return a;
+      a = document.createElement("audio");
+      a.preload = "auto";
+      a.volume = obj.audio_volume !== undefined && obj.audio_volume !== null
+        ? clamp01(obj.audio_volume) : 1.0;
+      a.loop = !!obj.audio_loop;
+      a.style.display = "none";
+      a.src = sourceFor(obj.content);
+      // Attached like video: an element only the closure can reach cannot be
+      // inspected, paused from outside, or released.
+      document.body.appendChild(a);
+      audCache[obj.id] = a;
+      return a;
+    }
+
+    function eachMedia(fn) {
+      var k;
+      for (k in vidCache) if (vidCache.hasOwnProperty(k)) fn(vidCache[k]);
+      for (k in audCache) if (audCache.hasOwnProperty(k)) fn(audCache[k]);
+    }
+
+    var unregisterMedia = registerMediaHooks({
+      onPause: function () {
+        eachMedia(function (el) { if (!el.paused) el.pause(); });
+      },
+      onStop: function () {
+        eachMedia(function (el) {
+          if (!el.paused) el.pause();
+          try { el.currentTime = 0; } catch (e) { /* not seekable */ }
+        });
+      },
+      onDispose: function () {
+        eachMedia(function (el) {
+          if (!el.paused) el.pause();
+          el.removeAttribute("src");
+          if (el.parentNode) el.parentNode.removeChild(el);
+        });
+        vidCache = {};
+        audCache = {};
+        for (var k in gifCache) {
+          if (gifCache.hasOwnProperty(k) && gifCache[k].frames) {
+            gifCache[k].frames.forEach(function (f) { f.bmp.close(); });
+          }
+        }
+        gifCache = {};
+        unregisterMedia();
+      },
+    });
 
     function roundRect(c, x, y, w, h, r) {
       r = Math.min(r, w / 2, h / 2);
@@ -991,6 +1386,21 @@ var CitCatRuntime = (function () {
     // Multiplied into every object's own opacity, so a whole scene can be
     // faded as one layer during a crossfade.
     var layerAlpha = 1;
+
+    function makeGradient(grad, box) {
+      return buildCanvasGradient(ctx, grad, box);
+    }
+
+    // A gradient wins over the flat colour when it can paint; otherwise the
+    // flat colour stands, so an unfinished gradient still shows something.
+    // Returns null when there is nothing to paint at all.
+    function fillPaint(s, box) {
+      return gradientFillStyle(ctx, s, box);
+    }
+
+    function strokePaint(s, box) {
+      return gradientStrokeStyle(ctx, s, box);
+    }
 
     function wrapText(text, maxWidth) {
       var paragraphs = text.split("\n");
@@ -1023,7 +1433,12 @@ var CitCatRuntime = (function () {
         ctx.rotate(t.rotation * Math.PI / 180);
         ctx.translate(-cx, -cy);
       }
-      ctx.globalAlpha = t.opacity * layerAlpha;
+      // Canvas *ignores* an out-of-range globalAlpha rather than clamping it,
+      // silently keeping whatever the previous object left behind. Nothing
+      // upstream constrains opacity -- not the model, not the effect resolver --
+      // so a hand-authored keyframe or a plugin offset can land outside 0..1.
+      // Clamp here, the last point where it can still be caught.
+      ctx.globalAlpha = clamp01(t.opacity) * layerAlpha;
 
       if (obj.filters) {
         ctx.filter = buildFilterString(obj.filters);
@@ -1032,7 +1447,7 @@ var CitCatRuntime = (function () {
       switch (obj.object_type) {
         case "Text":
           ctx.font = s.font_weight + " " + s.font_size + "px " + s.font_family;
-          ctx.fillStyle = s.fill;
+          ctx.fillStyle = fillPaint(s, boxOf(t)) || s.fill;
           ctx.textBaseline = "top";
           var align = s.text_align || "Left";
           ctx.textAlign = align === "Center" ? "center" : align === "Right" ? "right" : "left";
@@ -1051,33 +1466,48 @@ var CitCatRuntime = (function () {
           break;
         case "Rect":
           var r = s.border_radius || 0;
+          var rectBox = boxOf(t);
+          var rectFill = fillPaint(s, rectBox);
           if (r > 0) {
             roundRect(ctx, t.x, t.y, t.width, t.height, r);
-            if (s.fill && s.fill !== "transparent") { ctx.fillStyle = s.fill; ctx.fill(); }
-            if (s.stroke_width > 0) { ctx.strokeStyle = s.stroke; ctx.lineWidth = s.stroke_width; ctx.stroke(); }
+            if (rectFill) { ctx.fillStyle = rectFill; ctx.fill(); }
+            if (s.stroke_width > 0) { ctx.strokeStyle = strokePaint(s, rectBox); ctx.lineWidth = s.stroke_width; ctx.stroke(); }
           } else {
-            if (s.fill && s.fill !== "transparent") { ctx.fillStyle = s.fill; ctx.fillRect(t.x, t.y, t.width, t.height); }
-            if (s.stroke_width > 0) { ctx.strokeStyle = s.stroke; ctx.lineWidth = s.stroke_width; ctx.strokeRect(t.x, t.y, t.width, t.height); }
+            if (rectFill) { ctx.fillStyle = rectFill; ctx.fillRect(t.x, t.y, t.width, t.height); }
+            if (s.stroke_width > 0) { ctx.strokeStyle = strokePaint(s, rectBox); ctx.lineWidth = s.stroke_width; ctx.strokeRect(t.x, t.y, t.width, t.height); }
           }
           break;
         case "Ellipse":
+          var ellBox = boxOf(t);
+          var ellFill = fillPaint(s, ellBox);
           ctx.beginPath();
           ctx.ellipse(t.x + t.width / 2, t.y + t.height / 2, t.width / 2, t.height / 2, 0, 0, Math.PI * 2);
-          if (s.fill && s.fill !== "transparent") { ctx.fillStyle = s.fill; ctx.fill(); }
-          if (s.stroke_width > 0) { ctx.strokeStyle = s.stroke; ctx.lineWidth = s.stroke_width; ctx.stroke(); }
+          if (ellFill) { ctx.fillStyle = ellFill; ctx.fill(); }
+          if (s.stroke_width > 0) { ctx.strokeStyle = strokePaint(s, ellBox); ctx.lineWidth = s.stroke_width; ctx.stroke(); }
           break;
         case "Image":
           if (obj.content) {
-            var img = loadAssetImage(obj.content);
-            if (img.complete && img.naturalWidth > 0) {
-              ctx.drawImage(img, t.x, t.y, t.width, t.height);
+            // An animated GIF is drawn from decoded frames; everything else,
+            // including a GIF we could not decode, falls back to the <img>.
+            var frame = null;
+            if (isGif(obj.content)) {
+              var g = loadGif(obj.content);
+              if (!g.failed) frame = gifFrameAt(g, state.currentTimeMs);
+            }
+            if (frame) {
+              ctx.drawImage(frame, t.x, t.y, t.width, t.height);
+            } else {
+              var img = loadAssetImage(obj.content);
+              if (img.complete && img.naturalWidth > 0) {
+                ctx.drawImage(img, t.x, t.y, t.width, t.height);
+              }
             }
           }
           break;
         case "Video":
           if (obj.content) {
-            var muted = obj.video_muted !== false;
-            var vid = loadVideo(obj.content, muted);
+            var vid = loadVideo(obj);
+            syncVideo(obj, vid, state.currentTimeMs);
             if (vid.readyState >= 2) {
               ctx.drawImage(vid, t.x, t.y, t.width, t.height);
             } else {
@@ -1087,9 +1517,10 @@ var CitCatRuntime = (function () {
           }
           break;
         case "Button":
+          var btnBox = boxOf(t);
           roundRect(ctx, t.x, t.y, t.width, t.height, s.border_radius || 8);
-          ctx.fillStyle = s.fill; ctx.fill();
-          if (s.stroke_width > 0) { ctx.strokeStyle = s.stroke; ctx.lineWidth = s.stroke_width; ctx.stroke(); }
+          ctx.fillStyle = fillPaint(s, btnBox) || s.fill; ctx.fill();
+          if (s.stroke_width > 0) { ctx.strokeStyle = strokePaint(s, btnBox); ctx.lineWidth = s.stroke_width; ctx.stroke(); }
           ctx.font = s.font_weight + " " + s.font_size + "px " + s.font_family;
           ctx.fillStyle = "#ffffff";
           ctx.textAlign = "center"; ctx.textBaseline = "middle";
@@ -1129,20 +1560,10 @@ var CitCatRuntime = (function () {
           return;
         }
       }
-      if (bg.gradient && bg.gradient.stops && bg.gradient.stops.length >= 2) {
-        var grad;
-        if (bg.gradient.gradient_type === "Radial") {
-          grad = ctx.createRadialGradient(
-            sw / 2, sh / 2, 0,
-            sw / 2, sh / 2, Math.max(sw, sh) / 2
-          );
-        } else {
-          grad = ctx.createLinearGradient(0, 0, 0, sh);
-        }
-        for (var i = 0; i < bg.gradient.stops.length; i++) {
-          grad.addColorStop(bg.gradient.stops[i].offset, bg.gradient.stops[i].color);
-        }
-        ctx.fillStyle = grad;
+      if (isPaintableGradient(bg.gradient)) {
+        // Same builder as object gradients, so a background honours angle and
+        // clamps its stops identically. The box is the whole stage.
+        ctx.fillStyle = makeGradient(bg.gradient, { x: 0, y: 0, w: sw, h: sh });
         ctx.fillRect(0, 0, sw, sh);
         return;
       }
@@ -1169,10 +1590,19 @@ var CitCatRuntime = (function () {
         if (!obj.visible) continue;
         if (obj.object_type === "Hotspot") continue;
         if (obj.object_type === "Audio") {
-          if (obj.content && state.isPlaying) {
-            var aud = loadAudio(obj.content, obj.audio_volume, obj.audio_loop);
-            if (aud.paused) aud.play().catch(function(){});
-            aud.volume = obj.audio_volume !== undefined ? obj.audio_volume : 1.0;
+          if (obj.content) {
+            // Created even while paused, so volume and loop keyframes settle
+            // and the element exists to be paused. Pausing itself is driven by
+            // the media hooks, not from here -- this branch only runs while
+            // playing, which is exactly when a pause must not be missed.
+            var aud = loadAudio(obj);
+            aud.loop = !!obj.audio_loop;
+            aud.volume = obj.audio_volume !== undefined && obj.audio_volume !== null
+              ? clamp01(obj.audio_volume) : 1.0;
+            if (state.isPlaying && aud.paused) {
+              var ap = aud.play();
+              if (ap && ap.catch) ap.catch(function () {});
+            }
           }
           continue;
         }
@@ -1216,6 +1646,28 @@ var CitCatRuntime = (function () {
           ctx.save();
           ctx.beginPath();
           ctx.rect(sw * (1 - p), 0, sw * p, sh);
+          ctx.clip();
+          paintScene(inc, incBg, sw, sh);
+          ctx.restore();
+          break;
+
+        // Anchored the way WipeLeft/WipeRight are: the named edge is where the
+        // incoming scene appears, and the boundary travels away from it.
+        case "WipeUp":
+          paintScene(out, outBg, sw, sh);
+          ctx.save();
+          ctx.beginPath();
+          ctx.rect(0, 0, sw, sh * p);
+          ctx.clip();
+          paintScene(inc, incBg, sw, sh);
+          ctx.restore();
+          break;
+
+        case "WipeDown":
+          paintScene(out, outBg, sw, sh);
+          ctx.save();
+          ctx.beginPath();
+          ctx.rect(0, sh * (1 - p), sw, sh * p);
           ctx.clip();
           paintScene(inc, incBg, sw, sh);
           ctx.restore();
@@ -1334,6 +1786,8 @@ var CitCatRuntime = (function () {
     getCurrentScene: getCurrentScene,
     getResolvedScene: getResolvedScene,
     getTransitionState: getTransitionState,
+    getBoundaryTransition: getBoundaryTransition,
+    getNextSceneIndex: getNextSceneIndex,
     initEvents: initEvents,
     cleanupEvents: cleanupEvents,
     getRuntimeVisibility: getRuntimeVisibility,
@@ -1341,6 +1795,17 @@ var CitCatRuntime = (function () {
     isWaiting: isWaiting,
     getWaitingAtMs: getWaitingAtMs,
     state: state,
+    // Shared with src/js/canvas.js, the editor's separate renderer, so the two
+    // cannot disagree about colours or gradient geometry.
+    parseColor: parseColor,
+    formatColor: formatColor,
+    lerpColor: lerpColor,
+    isPaintableGradient: isPaintableGradient,
+    paintableStops: paintableStops,
+    buildCanvasGradient: buildCanvasGradient,
+    gradientFillStyle: gradientFillStyle,
+    gradientStrokeStyle: gradientStrokeStyle,
+    boxOf: boxOf,
   };
 })();
 

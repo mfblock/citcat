@@ -1,0 +1,391 @@
+{
+  "version": "1.0",
+  "meta": {
+    "name": "Coverage probe",
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "created": "2026-09-25T00:00:00Z",
+    "modified": "2026-09-25T00:00:00Z"
+  },
+  "scenes": [
+    {
+      "id": "d76d65bf-d7cf-4eb1-ba28-5713933004cc",
+      "name": "Probe",
+      "duration_ms": 3000,
+      "background": {
+        "fill": "#101018",
+        "gradient": null,
+        "image": null
+      },
+      "objects": [
+        {
+          "id": "8aa5444c-66c3-4a8f-ac14-2c9ae9a22e7d",
+          "name": "Moving",
+          "object_type": "Rect",
+          "transform": {
+            "x": 100.0,
+            "y": 100.0,
+            "width": 200.0,
+            "height": 200.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ff0000",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 40.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 1,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "83b1cfc5-d481-4fc7-bb51-b7b4469cc820",
+              "time_ms": 0,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 100.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "b1134b4f-db14-4ed5-b116-40e7de04b713",
+              "time_ms": 2000,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1400.0
+              },
+              "easing": "Linear"
+            }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null
+        },
+        {
+          "id": "a961a0a2-7b45-4340-8659-bfbb5ddf40cf",
+          "name": "Under",
+          "object_type": "Rect",
+          "transform": {
+            "x": 600.0,
+            "y": 600.0,
+            "width": 300.0,
+            "height": 300.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#00ff00",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 40.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 1,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null
+        },
+        {
+          "id": "7e16d966-d545-4c8a-a3ff-2f325080d4a3",
+          "name": "Over",
+          "object_type": "Rect",
+          "transform": {
+            "x": 700.0,
+            "y": 700.0,
+            "width": 300.0,
+            "height": 300.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#0000ff",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 40.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 2,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null
+        },
+        {
+          "id": "23c5b89a-7fc8-4a98-ac23-6ce9f68b7e56",
+          "name": "Label",
+          "object_type": "Text",
+          "transform": {
+            "x": 100.0,
+            "y": 500.0,
+            "width": 700.0,
+            "height": 200.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 48.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "coverage probe",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null
+        },
+        {
+          "id": "eb1cf903-c768-4ff8-9da4-5e8e8aaa3a46",
+          "name": "Blurred",
+          "object_type": "Ellipse",
+          "transform": {
+            "x": 1400.0,
+            "y": 700.0,
+            "width": 240.0,
+            "height": 240.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ffff00",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 40.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 1,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "filters": {
+            "blur": 6.0
+          }
+        },
+        {
+          "id": "4f1a411a-406e-40b2-b4a4-ec4ad24de8c0",
+          "name": "Pathed",
+          "object_type": "Rect",
+          "transform": {
+            "x": 0.0,
+            "y": 0.0,
+            "width": 120.0,
+            "height": 120.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#ff00ff",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 40.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 3,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "4802311a-6f00-4911-aa0e-c1ee58a6c74d",
+              "time_ms": 0,
+              "property": "_path_progress",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "88d431ce-48ff-46c6-8aa0-a20614f3fcf4",
+              "time_ms": 2000,
+              "property": "_path_progress",
+              "value": {
+                "type": "Number",
+                "value": 1.0
+              },
+              "easing": "Linear"
+            }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": {
+            "id": "cdc84711-aec4-4b50-bcdd-dcde3ad9c74a",
+            "points": [
+              {
+                "x": 200.0,
+                "y": 900.0,
+                "control_in": null,
+                "control_out": null
+              },
+              {
+                "x": 1700.0,
+                "y": 900.0,
+                "control_in": null,
+                "control_out": null
+              }
+            ]
+          }
+        },
+        {
+          "id": "4ff0343a-a648-455e-9efa-724483f526d1",
+          "name": "Goto",
+          "object_type": "Button",
+          "transform": {
+            "x": 1500.0,
+            "y": 100.0,
+            "width": 300.0,
+            "height": 120.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#7c3aed",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 32.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "go",
+          "z_index": 4,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [
+            {
+              "id": "ef4a030a-6370-41f2-bd1a-b985f485cc94",
+              "trigger": {
+                "type": "Click"
+              },
+              "action": {
+                "type": "GotoScene",
+                "scene_id": "f43e71f9-36f3-4759-92a5-12315ac1e471"
+              }
+            }
+          ],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null
+        }
+      ],
+      "transition_in": null,
+      "transition_out": null,
+      "sort_order": 0,
+      "wait_points": [],
+      "subtitle_track": null
+    },
+    {
+      "id": "f43e71f9-36f3-4759-92a5-12315ac1e471",
+      "name": "Second",
+      "duration_ms": 3000,
+      "background": {
+        "fill": "#802020",
+        "gradient": null,
+        "image": null
+      },
+      "objects": [
+        {
+          "id": "13704f17-4163-436d-b00c-20f97bb3c4e2",
+          "name": "Marker",
+          "object_type": "Rect",
+          "transform": {
+            "x": 800.0,
+            "y": 400.0,
+            "width": 400.0,
+            "height": 400.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#00ffff",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 40.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null
+        }
+      ],
+      "transition_in": null,
+      "transition_out": null,
+      "sort_order": 1,
+      "wait_points": [],
+      "subtitle_track": null
+    }
+  ],
+  "effects_library": [],
+  "data_source": null,
+  "export_settings": {
+    "format": "Html",
+    "single_file": true,
+    "autoplay": false,
+    "loop_playback": false
+  }
+}

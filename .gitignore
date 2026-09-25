@@ -29,5 +29,6 @@ site/
 # Test harness copies the engine in at run time (scripts/build-site.sh owns the real ones)
 tests/runtime.js
 tests/embed.js
+tests/paint-editor.js
 __pycache__/
 *.pyc

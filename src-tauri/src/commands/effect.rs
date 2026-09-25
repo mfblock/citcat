@@ -172,10 +172,14 @@ fn build_effects_library() -> Vec<EffectPreset> {
             name: "Pulse".to_string(),
             category: EffectCategory::Emphasis,
             duration_ms: 800,
+            // Proportional, not absolute: dim to half of whatever the object
+            // already is and come back. An absolute 1.0 -> 0.5 -> 1.0 snapped a
+            // deliberately translucent object to fully opaque before pulsing.
+            // Scale also keeps the result inside 0..1 for any base in 0..1.
             keyframes: vec![
-                Keyframe::new(0, "transform.opacity", KeyframeValue::Number(1.0), Easing::EaseInOut),
-                Keyframe::new(400, "transform.opacity", KeyframeValue::Number(0.5), Easing::EaseInOut),
-                Keyframe::new(800, "transform.opacity", KeyframeValue::Number(1.0), Easing::EaseInOut),
+                Keyframe::new(0, "transform.opacity", KeyframeValue::Scale(1.0), Easing::EaseInOut),
+                Keyframe::new(400, "transform.opacity", KeyframeValue::Scale(0.5), Easing::EaseInOut),
+                Keyframe::new(800, "transform.opacity", KeyframeValue::Scale(1.0), Easing::EaseInOut),
             ],
             applies_to: all_types(),
         },
@@ -198,9 +202,11 @@ fn build_effects_library() -> Vec<EffectPreset> {
             name: "Spin".to_string(),
             category: EffectCategory::Motion,
             duration_ms: 1000,
+            // One full turn from wherever the object already points. An absolute
+            // 0 -> 360 snapped a pre-rotated object upright before spinning.
             keyframes: vec![
-                Keyframe::new(0, "transform.rotation", KeyframeValue::Number(0.0), Easing::Linear),
-                Keyframe::new(1000, "transform.rotation", KeyframeValue::Number(360.0), Easing::Linear),
+                Keyframe::new(0, "transform.rotation", KeyframeValue::Offset(0.0), Easing::Linear),
+                Keyframe::new(1000, "transform.rotation", KeyframeValue::Offset(360.0), Easing::Linear),
             ],
             applies_to: all_types(),
         },
@@ -657,23 +663,153 @@ mod tests {
         assert_eq!(got, c);
     }
 
+    #[test]
+    fn test_gradients_pass_through_untouched() {
+        // Gradient is a concrete runtime value, not a template kind: there is
+        // nothing about the target object to resolve it against, so it must
+        // survive `effect_apply` byte for byte.
+        use crate::model::{Gradient, GradientStop, GradientType};
+        let t = obj_transform();
+        let g = KeyframeValue::Gradient(Gradient {
+            gradient_type: GradientType::Linear,
+            angle: 45.0,
+            stops: vec![
+                GradientStop { offset: 0.0, color: "#ff0000".into() },
+                GradientStop { offset: 1.0, color: "#0000ff80".into() },
+            ],
+        });
+        let got = resolve_template_value(&g, "style.fill_gradient", "custom-x", &t, 1920.0, 1080.0);
+        assert_eq!(got, g);
+    }
+
     // ---- The resolved output must be runtime-safe ----
 
     #[test]
     fn test_every_builtin_resolves_to_runtime_safe_values() {
-        // The JS runtime understands Number, Color and Bool only. No built-in
-        // may leak an Offset or Scale onto an object's keyframes.
+        // The JS runtime understands Number, Color, Bool and Gradient. No
+        // built-in may leak a template-only Offset or Scale onto an object's
+        // keyframes -- those exist to be resolved away, right here.
         let t = obj_transform();
         for e in build_effects_library() {
             for kf in &e.keyframes {
                 let got = resolve_template_value(&kf.value, &kf.property, &e.id, &t, 1920.0, 1080.0);
                 assert!(
-                    matches!(
-                        got,
-                        KeyframeValue::Number(_) | KeyframeValue::Color(_) | KeyframeValue::Bool(_)
-                    ),
+                    !matches!(got, KeyframeValue::Offset(_) | KeyframeValue::Scale(_)),
                     "effect '{}' property '{}' resolved to a template-only value: {:?}",
                     e.id, kf.property, got
+                );
+            }
+        }
+    }
+
+    // ---- Spin and Pulse were absolute, so they discarded the object's own
+    //      rotation and opacity before animating ----
+
+    #[test]
+    fn test_spin_turns_from_the_objects_current_rotation() {
+        let mut t = obj_transform();
+        t.rotation = 45.0;
+        let r = values_for(&apply("spin", &t), "transform.rotation");
+
+        assert_eq!(r.len(), 2, "expected two rotation keyframes, got {:?}", r);
+        assert_eq!(
+            r[0].1, 45.0,
+            "spin must start where the object already points, not snap to 0 (got {})",
+            r[0].1
+        );
+        assert_eq!(
+            r[1].1, 405.0,
+            "spin must turn a full 360 from 45 degrees, not end at 360 (got {})",
+            r[1].1
+        );
+    }
+
+    #[test]
+    fn test_spin_on_an_unrotated_object_is_unchanged() {
+        // The common case must still behave exactly as before the conversion.
+        let mut t = obj_transform();
+        t.rotation = 0.0;
+        let r = values_for(&apply("spin", &t), "transform.rotation");
+        assert_eq!(r[0].1, 0.0);
+        assert_eq!(r[1].1, 360.0);
+    }
+
+    #[test]
+    fn test_pulse_returns_to_the_objects_own_opacity() {
+        let mut t = obj_transform();
+        t.opacity = 0.4;
+        let o = values_for(&apply("pulse", &t), "transform.opacity");
+
+        assert_eq!(o.len(), 3, "expected three opacity keyframes, got {:?}", o);
+        assert!(
+            (o[0].1 - 0.4).abs() < 1e-9,
+            "pulse must start at the object's own opacity, not snap to 1.0 (got {})",
+            o[0].1
+        );
+        assert!(
+            (o[2].1 - 0.4).abs() < 1e-9,
+            "pulse must return to the object's own opacity (got {})",
+            o[2].1
+        );
+        assert!(
+            o[1].1 < o[0].1,
+            "pulse must dip below its starting opacity ({} -> {})",
+            o[0].1,
+            o[1].1
+        );
+    }
+
+    #[test]
+    fn test_pulse_never_leaves_the_legal_opacity_range() {
+        // Scale keeps the result inside 0..1 for any base in 0..1, which an
+        // Offset would not: 0.9 + 0.5 would render as an ignored globalAlpha.
+        for base in [0.0, 0.05, 0.4, 0.9, 1.0] {
+            let mut t = obj_transform();
+            t.opacity = base;
+            for (_, v) in values_for(&apply("pulse", &t), "transform.opacity") {
+                assert!(
+                    (0.0..=1.0).contains(&v),
+                    "pulse on an object at opacity {} produced {}, outside 0..1",
+                    base,
+                    v
+                );
+            }
+        }
+    }
+
+    #[test]
+    fn test_pulse_on_a_fully_opaque_object_is_unchanged() {
+        let mut t = obj_transform();
+        t.opacity = 1.0;
+        let o = values_for(&apply("pulse", &t), "transform.opacity");
+        assert_eq!(o[0].1, 1.0);
+        assert!((o[1].1 - 0.5).abs() < 1e-9, "got {}", o[1].1);
+        assert_eq!(o[2].1, 1.0);
+    }
+
+    #[test]
+    fn test_no_builtin_effect_respects_only_the_origin() {
+        // Generalises the two bugs above: applying an effect to an object that
+        // sits away from the origin, is already rotated and is translucent must
+        // not produce values that ignore those. Checked per property against the
+        // object's own base, so a future absolute regression is caught here.
+        let mut t = obj_transform();
+        t.rotation = 45.0;
+        t.opacity = 0.4;
+
+        for e in build_effects_library() {
+            let resolved = apply(&e.id, &t);
+
+            // Rotation: nothing should resolve to a bare 0 or 360 when the
+            // object is at 45 degrees.
+            for (time, v) in values_for(&resolved, "transform.rotation") {
+                assert!(
+                    v != 0.0 && v != 360.0,
+                    "effect '{}' keyframe at {}ms resolved rotation to {}, \
+                     ignoring the object's own 45 degrees",
+                    e.id,
+                    time,
+                    v
                 );
             }
         }
@@ -851,16 +987,13 @@ mod tests {
     #[test]
     fn test_plugin_effects_also_resolve_to_runtime_safe_values() {
         // Same guarantee as the built-ins: nothing template-only may reach an
-        // object's keyframes, so the JS runtime needs no new value handling.
+        // object's keyframes.
         let t = obj_transform();
         for e in full_effects_library() {
             for kf in &e.keyframes {
                 let got = resolve_template_value(&kf.value, &kf.property, &e.id, &t, 1920.0, 1080.0);
                 assert!(
-                    matches!(
-                        got,
-                        KeyframeValue::Number(_) | KeyframeValue::Color(_) | KeyframeValue::Bool(_)
-                    ),
+                    !matches!(got, KeyframeValue::Offset(_) | KeyframeValue::Scale(_)),
                     "effect '{}' property '{}' resolved to {:?}, which the runtime cannot read",
                     e.id, kf.property, got
                 );

@@ -126,17 +126,12 @@ var CitCatCanvas = (function () {
         return;
       }
     }
-    if (bg.gradient && bg.gradient.stops && bg.gradient.stops.length >= 2) {
-      var grad;
-      if (bg.gradient.gradient_type === "Radial") {
-        grad = ctx.createRadialGradient(stageWidth / 2, stageHeight / 2, 0, stageWidth / 2, stageHeight / 2, Math.max(stageWidth, stageHeight) / 2);
-      } else {
-        grad = ctx.createLinearGradient(0, 0, 0, stageHeight);
-      }
-      for (var i = 0; i < bg.gradient.stops.length; i++) {
-        grad.addColorStop(bg.gradient.stops[i].offset, bg.gradient.stops[i].color);
-      }
-      ctx.fillStyle = grad;
+    if (CitCatRuntime.isPaintableGradient(bg.gradient)) {
+      // Same builder the export engine uses, so the editor and the output
+      // cannot disagree about angle or stop handling.
+      ctx.fillStyle = CitCatRuntime.buildCanvasGradient(
+        ctx, bg.gradient, { x: 0, y: 0, w: stageWidth, h: stageHeight }
+      );
       ctx.fillRect(0, 0, stageWidth, stageHeight);
       return;
     }
@@ -320,7 +315,7 @@ var CitCatCanvas = (function () {
     var t = obj.transform;
     var s = obj.style;
     ctx.font = s.font_weight + " " + s.font_size + "px " + s.font_family;
-    ctx.fillStyle = s.fill;
+    ctx.fillStyle = CitCatRuntime.gradientFillStyle(ctx, s, CitCatRuntime.boxOf(t)) || s.fill;
     ctx.textBaseline = "top";
 
     var align = s.text_align || "Left";
@@ -412,25 +407,27 @@ var CitCatCanvas = (function () {
     var t = obj.transform;
     var s = obj.style;
     var r = s.border_radius || 0;
+    var box = CitCatRuntime.boxOf(t);
+    var fill = CitCatRuntime.gradientFillStyle(ctx, s, box);
 
     if (r > 0) {
       roundRect(ctx, t.x, t.y, t.width, t.height, r);
-      if (s.fill && s.fill !== "transparent") {
-        ctx.fillStyle = s.fill;
+      if (fill) {
+        ctx.fillStyle = fill;
         ctx.fill();
       }
       if (s.stroke_width > 0) {
-        ctx.strokeStyle = s.stroke;
+        ctx.strokeStyle = CitCatRuntime.gradientStrokeStyle(ctx, s, box);
         ctx.lineWidth = s.stroke_width;
         ctx.stroke();
       }
     } else {
-      if (s.fill && s.fill !== "transparent") {
-        ctx.fillStyle = s.fill;
+      if (fill) {
+        ctx.fillStyle = fill;
         ctx.fillRect(t.x, t.y, t.width, t.height);
       }
       if (s.stroke_width > 0) {
-        ctx.strokeStyle = s.stroke;
+        ctx.strokeStyle = CitCatRuntime.gradientStrokeStyle(ctx, s, box);
         ctx.lineWidth = s.stroke_width;
         ctx.strokeRect(t.x, t.y, t.width, t.height);
       }
@@ -450,12 +447,14 @@ var CitCatCanvas = (function () {
       0,
       Math.PI * 2
     );
-    if (s.fill && s.fill !== "transparent") {
-      ctx.fillStyle = s.fill;
+    var ellBox = CitCatRuntime.boxOf(t);
+    var ellFill = CitCatRuntime.gradientFillStyle(ctx, s, ellBox);
+    if (ellFill) {
+      ctx.fillStyle = ellFill;
       ctx.fill();
     }
     if (s.stroke_width > 0) {
-      ctx.strokeStyle = s.stroke;
+      ctx.strokeStyle = CitCatRuntime.gradientStrokeStyle(ctx, s, ellBox);
       ctx.lineWidth = s.stroke_width;
       ctx.stroke();
     }
@@ -555,12 +554,13 @@ var CitCatCanvas = (function () {
     var t = obj.transform;
     var s = obj.style;
 
+    var btnBox = CitCatRuntime.boxOf(t);
     roundRect(ctx, t.x, t.y, t.width, t.height, s.border_radius || 8);
-    ctx.fillStyle = s.fill;
+    ctx.fillStyle = CitCatRuntime.gradientFillStyle(ctx, s, btnBox) || s.fill;
     ctx.fill();
 
     if (s.stroke_width > 0) {
-      ctx.strokeStyle = s.stroke;
+      ctx.strokeStyle = CitCatRuntime.gradientStrokeStyle(ctx, s, btnBox);
       ctx.lineWidth = s.stroke_width;
       ctx.stroke();
     }

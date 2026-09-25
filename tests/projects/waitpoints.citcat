@@ -10,7 +10,7 @@
   },
   "scenes": [
     {
-      "id": "f6f65248-1f2f-49d5-92ae-fb5e2ca94eae",
+      "id": "c47b5342-9da0-43ca-a95a-9cf8e38b5a51",
       "name": "Timer",
       "duration_ms": 5000,
       "background": {
@@ -18,7 +18,7 @@
       },
       "objects": [
         {
-          "id": "98a160cf-5fb7-481d-bc79-5d1cb6c3cf88",
+          "id": "53b47fdd-2121-47b6-b2fc-3f0a3d81cacf",
           "name": "Label",
           "object_type": "Text",
           "transform": {
@@ -54,7 +54,7 @@
       "sort_order": 0,
       "wait_points": [
         {
-          "id": "c0b235d2-03d8-4ace-84e2-bbab26003fd0",
+          "id": "b434e023-a7ab-4c78-9633-d23181065b62",
           "time_ms": 300,
           "resume_on": {
             "type": "Timer",
@@ -64,7 +64,7 @@
       ]
     },
     {
-      "id": "584b3edc-b702-43b3-b21d-4f32f2721e1b",
+      "id": "3c8a89ca-4b6c-4bbd-b595-adc23bea655d",
       "name": "AnyClick",
       "duration_ms": 5000,
       "background": {
@@ -72,7 +72,7 @@
       },
       "objects": [
         {
-          "id": "b754e082-f759-49fb-9e7f-b6f9539dfd10",
+          "id": "9af99384-cb6c-465a-88cf-80bf8e2c298c",
           "name": "Label",
           "object_type": "Text",
           "transform": {
@@ -108,7 +108,7 @@
       "sort_order": 1,
       "wait_points": [
         {
-          "id": "5a3675cb-fc6b-46b1-a4e1-7cb05351d50d",
+          "id": "476adbc1-d981-44b0-ad3f-37e5c3f5e7fd",
           "time_ms": 300,
           "resume_on": {
             "type": "AnyClick"
@@ -117,7 +117,7 @@
       ]
     },
     {
-      "id": "ccdd506f-9fb6-4399-aa7f-378e1bdec527",
+      "id": "44030bc6-c2fa-4e57-ae25-8a96cc0f346c",
       "name": "ClickTarget",
       "duration_ms": 5000,
       "background": {
@@ -125,7 +125,7 @@
       },
       "objects": [
         {
-          "id": "712e7acf-688b-4bcb-9ff3-cedc1416a254",
+          "id": "2077552e-299c-4de5-a627-56a66bae37e2",
           "name": "Target",
           "object_type": "Rect",
           "transform": {
@@ -156,7 +156,7 @@
           "data_bindings": []
         },
         {
-          "id": "e11b158f-46c3-469c-8ac8-330f0ace656e",
+          "id": "af14b070-7951-4bf6-8dff-c7b06486c89b",
           "name": "Decoy",
           "object_type": "Rect",
           "transform": {
@@ -192,17 +192,17 @@
       "sort_order": 2,
       "wait_points": [
         {
-          "id": "4e0b5e44-3949-4b3c-9a74-96ab73fbafac",
+          "id": "4d8e30c8-8376-4148-9307-bbda959f9b61",
           "time_ms": 300,
           "resume_on": {
             "type": "Click",
-            "object_id": "712e7acf-688b-4bcb-9ff3-cedc1416a254"
+            "object_id": "2077552e-299c-4de5-a627-56a66bae37e2"
           }
         }
       ]
     },
     {
-      "id": "d11e632d-64e7-43cb-a5eb-a019f4f854fd",
+      "id": "0eed40df-39f9-4db5-881d-120129147eb7",
       "name": "ClickOrTimer",
       "duration_ms": 6000,
       "background": {
@@ -210,7 +210,7 @@
       },
       "objects": [
         {
-          "id": "399166dd-2043-4288-bbfa-a4dd93a27783",
+          "id": "71c2b6ce-1d08-45f0-a1ca-3cfe6474e1da",
           "name": "Label",
           "object_type": "Text",
           "transform": {
@@ -246,7 +246,7 @@
       "sort_order": 3,
       "wait_points": [
         {
-          "id": "947d2345-ccf3-4402-b5c7-75156766da57",
+          "id": "2864bafa-ec52-4fa6-80de-e6925ba0ee85",
           "time_ms": 300,
           "resume_on": {
             "type": "ClickOrTimer",
@@ -257,7 +257,7 @@
       ]
     },
     {
-      "id": "6b1f57c7-2e41-48b1-b158-d81bec447b53",
+      "id": "36368c90-d5df-49ea-a363-347945242507",
       "name": "GotoOnResume",
       "duration_ms": 5000,
       "background": {
@@ -265,7 +265,7 @@
       },
       "objects": [
         {
-          "id": "fdf02a67-5954-420b-8b03-03a7036f2ab3",
+          "id": "bbc2b167-4f78-4ca2-b48d-66d0024e15e3",
           "name": "NavBtn",
           "object_type": "Rect",
           "transform": {
@@ -294,13 +294,13 @@
           "keyframes": [],
           "events": [
             {
-              "id": "595ca4b5-1a3a-45ab-9046-bcdc94b93f4b",
+              "id": "fc2d0d4e-c3c0-496a-96b5-b004c9b44ac1",
               "trigger": {
                 "type": "Click"
               },
               "action": {
                 "type": "GotoScene",
-                "scene_id": "6d079e32-3096-4f74-a763-1200f7d68e4e"
+                "scene_id": "2f56abd9-7720-4887-b138-7a2ba0969d79"
               }
             }
           ],
@@ -312,17 +312,17 @@
       "sort_order": 4,
       "wait_points": [
         {
-          "id": "07885998-068f-4060-8537-159eeb21dc61",
+          "id": "b7e2b669-b61f-4299-b47b-00c0c17a75dc",
           "time_ms": 300,
           "resume_on": {
             "type": "Click",
-            "object_id": "fdf02a67-5954-420b-8b03-03a7036f2ab3"
+            "object_id": "bbc2b167-4f78-4ca2-b48d-66d0024e15e3"
           }
         }
       ]
     },
     {
-      "id": "6d079e32-3096-4f74-a763-1200f7d68e4e",
+      "id": "2f56abd9-7720-4887-b138-7a2ba0969d79",
       "name": "Landing",
       "duration_ms": 9000,
       "background": {
@@ -330,7 +330,7 @@
       },
       "objects": [
         {
-          "id": "32cd4dc3-bc96-4c5d-932e-6eaafb2fb04c",
+          "id": "54b001a8-6242-4122-9f90-526e16b7e5ac",
           "name": "Label",
           "object_type": "Text",
           "transform": {
@@ -367,7 +367,7 @@
       "wait_points": []
     },
     {
-      "id": "a5d607c2-9250-476a-b95d-5a246ac6a69d",
+      "id": "40caba76-2efc-4a5c-85f1-e4b55ebfa0af",
       "name": "TwoWaits",
       "duration_ms": 6000,
       "background": {
@@ -375,7 +375,7 @@
       },
       "objects": [
         {
-          "id": "b3fb35e9-a928-4593-bc39-f71e22ee1b82",
+          "id": "c0a44be6-51a3-4fad-890f-a41101d25103",
           "name": "Label",
           "object_type": "Text",
           "transform": {
@@ -411,14 +411,14 @@
       "sort_order": 6,
       "wait_points": [
         {
-          "id": "e27f1661-288f-4f09-ad89-95d4ec64ee98",
+          "id": "96c18526-43aa-41c6-89be-a4ab2fb2401e",
           "time_ms": 1400,
           "resume_on": {
             "type": "AnyClick"
           }
         },
         {
-          "id": "719a9c7e-b1ff-49b9-b490-9ff57d74d43b",
+          "id": "3746534b-dd43-42ce-9434-1c2a4120854e",
           "time_ms": 300,
           "resume_on": {
             "type": "AnyClick"
@@ -427,7 +427,7 @@
       ]
     },
     {
-      "id": "1e926156-ef42-4c74-86ae-5dddde3b2fe7",
+      "id": "b28bd673-13ed-417e-af90-a0edc9adb487",
       "name": "WaitAtZero",
       "duration_ms": 4000,
       "background": {
@@ -435,7 +435,7 @@
       },
       "objects": [
         {
-          "id": "b821ce1b-5166-4dc9-b87e-6a18db022e27",
+          "id": "541cae9f-7960-466f-9ba6-57838a4af4cb",
           "name": "Label",
           "object_type": "Text",
           "transform": {
@@ -471,7 +471,7 @@
       "sort_order": 7,
       "wait_points": [
         {
-          "id": "6787028b-c456-4fea-8aae-4cadc741a02a",
+          "id": "90dcd088-14e8-40f4-8b63-bf44f2a0fb48",
           "time_ms": 0,
           "resume_on": {
             "type": "Timer",

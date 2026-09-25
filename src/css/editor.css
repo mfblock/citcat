@@ -170,15 +170,223 @@ body {
   padding: 12px;
 }
 
+/* No object selected: the scene itself is what you are editing, so this is a
+   real panel now rather than a centred placeholder. */
 #props-empty {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
+  display: block;
+}
+
+.props-scene-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.props-hint {
+  font-size: 11px;
   color: var(--text-muted);
+  padding: 6px 10px;
+  line-height: 1.4;
+}
+
+.props-empty-hint {
   font-style: italic;
   text-align: center;
+  padding-top: 16px;
 }
+
+.bg-image-grid .bg-image-path {
+  flex: 1;
+  font-size: 11px;
+  color: var(--text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ---- Paint editor: solid / linear / radial ---- */
+
+.paint-editor {
+  border-bottom: 1px solid var(--border);
+  padding: 8px 10px;
+}
+
+.paint-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.paint-title {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--text-secondary);
+}
+
+.paint-modes {
+  display: flex;
+  gap: 2px;
+}
+
+.paint-mode-btn {
+  padding: 2px 7px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg-input);
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 10px;
+}
+
+.paint-mode-btn:hover { background: var(--bg-hover); }
+
+.paint-mode-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+/* Chequerboard behind the preview, so a transparent stop reads as transparent
+   rather than as the panel colour. */
+.paint-preview {
+  height: 18px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  margin-bottom: 6px;
+  background-color: #fff;
+  background-image:
+    linear-gradient(45deg, #bbb 25%, transparent 25%, transparent 75%, #bbb 75%),
+    linear-gradient(45deg, #bbb 25%, transparent 25%, transparent 75%, #bbb 75%);
+  background-size: 10px 10px;
+  background-position: 0 0, 5px 5px;
+}
+
+.swatch-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.swatch-row input[type="color"] {
+  width: 44px;
+  height: 26px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg-input);
+  cursor: pointer;
+  padding: 2px;
+  flex-shrink: 0;
+}
+
+.alpha-slider {
+  flex: 1;
+  min-width: 40px;
+  accent-color: var(--accent);
+}
+
+.swatch-label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.paint-angle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.paint-angle small {
+  color: var(--text-muted);
+  font-size: 10px;
+}
+
+.paint-angle input {
+  width: 64px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text-primary);
+  padding: 3px 5px;
+  font-size: 11px;
+}
+
+.paint-stops {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.paint-stop {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.paint-stop input[type="color"] {
+  width: 32px;
+  height: 22px;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  background: var(--bg-input);
+  cursor: pointer;
+  padding: 1px;
+  flex-shrink: 0;
+}
+
+.paint-stop .alpha-slider { min-width: 32px; }
+
+.paint-stop-offset {
+  width: 48px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  color: var(--text-primary);
+  padding: 2px 4px;
+  font-size: 11px;
+  flex-shrink: 0;
+}
+
+.paint-stop-btns {
+  display: flex;
+  gap: 1px;
+  flex-shrink: 0;
+}
+
+.paint-stop-btns button {
+  width: 18px;
+  height: 20px;
+  border: none;
+  border-radius: 3px;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 11px;
+  line-height: 1;
+}
+
+.paint-stop-btns button:hover:not(:disabled) {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.paint-stop-btns button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.paint-add-stop { margin-top: 6px; }
+
+.paint-stop-warn { padding: 4px 0 0; }
 
 .prop-name-input {
   width: 100%;

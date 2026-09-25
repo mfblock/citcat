@@ -10,6 +10,8 @@ Run:  python3 tests/run.py            (all suites)
 import asyncio
 import http.server
 import json
+import os
+import re
 import socketserver
 import threading
 from pathlib import Path
@@ -22,6 +24,84 @@ PROJECTS = TESTS / "projects"
 class _Quiet(http.server.SimpleHTTPRequestHandler):
     def log_message(self, *a):
         pass
+
+    def send_head(self):
+        """Serve byte ranges.
+
+        SimpleHTTPRequestHandler ignores the Range header. Chromium then reports
+        a video as `seekable [[0,0]]` and silently drops every currentTime
+        assignment, so seeking appears broken when only the server is. A data:
+        URI -- what the single-file export actually ships -- seeks fine, so
+        without this the harness fails the engine for a fault it does not have.
+        """
+        rng = self.headers.get("Range")
+        if not rng:
+            return super().send_head()
+
+        path = self.translate_path(self.path)
+        try:
+            f = open(path, "rb")
+        except OSError:
+            self.send_error(404)
+            return None
+
+        try:
+            size = os.fstat(f.fileno()).st_size
+            m = re.match(r"bytes=(\d*)-(\d*)$", rng.strip())
+            if not m:
+                self.send_error(400, "malformed Range")
+                f.close()
+                return None
+
+            start_s, end_s = m.groups()
+            if start_s:
+                start = int(start_s)
+                end = int(end_s) if end_s else size - 1
+            else:
+                # suffix form: bytes=-N means the last N bytes
+                start = max(0, size - int(end_s))
+                end = size - 1
+            end = min(end, size - 1)
+
+            if start >= size or start > end:
+                self.send_response(416)
+                self.send_header("Content-Range", f"bytes */{size}")
+                self.end_headers()
+                f.close()
+                return None
+
+            self.send_response(206)
+            self.send_header("Content-Type", self.guess_type(path))
+            self.send_header("Content-Range", f"bytes {start}-{end}/{size}")
+            self.send_header("Content-Length", str(end - start + 1))
+            self.send_header("Accept-Ranges", "bytes")
+            self.end_headers()
+            f.seek(start)
+            self._range_remaining = end - start + 1
+            return _Capped(f, end - start + 1)
+        except Exception:
+            f.close()
+            raise
+
+
+class _Capped:
+    """A read-only file view that stops after n bytes, for copyfile()."""
+
+    def __init__(self, f, n):
+        self._f = f
+        self._left = n
+
+    def read(self, amt=-1):
+        if self._left <= 0:
+            return b""
+        if amt is None or amt < 0 or amt > self._left:
+            amt = self._left
+        data = self._f.read(amt)
+        self._left -= len(data)
+        return data
+
+    def close(self):
+        self._f.close()
 
 
 def start_server():

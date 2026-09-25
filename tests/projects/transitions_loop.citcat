@@ -10,7 +10,7 @@
   },
   "scenes": [
     {
-      "id": "2342a224-c124-43a5-bb83-76e11792ff0d",
+      "id": "8bc7346a-8ca4-47a8-981b-d4967e0cc237",
       "name": "LoopA",
       "duration_ms": 400,
       "background": {
@@ -18,7 +18,7 @@
       },
       "objects": [
         {
-          "id": "4aac3994-7c25-43e4-a3a7-5ec6bc79f9f2",
+          "id": "89a52735-265b-45c1-8936-a5f0b58b2c62",
           "name": "Label",
           "object_type": "Text",
           "transform": {
@@ -49,13 +49,16 @@
           "data_bindings": []
         }
       ],
-      "transition_in": null,
+      "transition_in": {
+        "kind": "Crossfade",
+        "duration_ms": 400
+      },
       "transition_out": null,
       "sort_order": 0,
       "wait_points": []
     },
     {
-      "id": "a76cb97c-f966-4330-8d01-3680af7b79fc",
+      "id": "912d5a6c-9798-4f19-a1e9-255a19cdf679",
       "name": "LoopB",
       "duration_ms": 400,
       "background": {
@@ -63,7 +66,7 @@
       },
       "objects": [
         {
-          "id": "f9932d57-0321-4254-b8d4-5b7747f121c3",
+          "id": "0e9503ef-4fe3-42fd-85e6-63ee7428c412",
           "name": "Label",
           "object_type": "Text",
           "transform": {

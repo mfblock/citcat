@@ -1,7 +1,7 @@
 {
   "version": "1.0",
   "meta": {
-    "name": "Transition tests",
+    "name": "Transition precedence tests",
     "width": 1920,
     "height": 1080,
     "fps": 30,
@@ -10,15 +10,15 @@
   },
   "scenes": [
     {
-      "id": "818b1779-d6c6-49a7-ae00-997981ba14bb",
-      "name": "Cut",
-      "duration_ms": 500,
+      "id": "0cdac0b9-b4c3-4a86-a56e-f2ce2e07e634",
+      "name": "NoneSet",
+      "duration_ms": 400,
       "background": {
-        "fill": "#202020"
+        "fill": "#101010"
       },
       "objects": [
         {
-          "id": "e26674ae-1a23-4cc3-8cfa-3dabb79b4adb",
+          "id": "da95dfc3-0a9a-491f-a9c7-d927d2ee2be6",
           "name": "Label",
           "object_type": "Text",
           "transform": {
@@ -40,7 +40,7 @@
             "line_height": 1.4,
             "border_radius": 0.0
           },
-          "content": "Cut",
+          "content": "NoneSet",
           "z_index": 0,
           "visible": true,
           "locked": false,
@@ -50,23 +50,20 @@
         }
       ],
       "transition_in": null,
-      "transition_out": {
-        "kind": "Cut",
-        "duration_ms": 400
-      },
+      "transition_out": null,
       "sort_order": 0,
       "wait_points": []
     },
     {
-      "id": "d3138747-e031-4dae-bb35-97c966c0a735",
-      "name": "Crossfade",
-      "duration_ms": 500,
+      "id": "749b9782-551f-4b10-99bb-056c997b8fd1",
+      "name": "OutOnly",
+      "duration_ms": 400,
       "background": {
         "fill": "#ff0000"
       },
       "objects": [
         {
-          "id": "3f18e24a-b741-4e20-8522-030223c3cf62",
+          "id": "370fd121-d869-4796-886f-3ae8584a38d4",
           "name": "Label",
           "object_type": "Text",
           "transform": {
@@ -88,7 +85,7 @@
             "line_height": 1.4,
             "border_radius": 0.0
           },
-          "content": "Crossfade",
+          "content": "OutOnly",
           "z_index": 0,
           "visible": true,
           "locked": false,
@@ -100,21 +97,21 @@
       "transition_in": null,
       "transition_out": {
         "kind": "Crossfade",
-        "duration_ms": 700
+        "duration_ms": 600
       },
       "sort_order": 1,
       "wait_points": []
     },
     {
-      "id": "06331ee9-3792-41df-84d6-3c58536ecb87",
-      "name": "WipeLeft",
+      "id": "a6a98e38-edbc-482b-9813-7361c322bd4a",
+      "name": "InTarget",
       "duration_ms": 400,
       "background": {
         "fill": "#0000ff"
       },
       "objects": [
         {
-          "id": "60047cab-605e-4f43-9bad-8f62d10a5bfa",
+          "id": "6433f012-c193-4d2d-aa8a-95140262944b",
           "name": "Label",
           "object_type": "Text",
           "transform": {
@@ -136,7 +133,7 @@
             "line_height": 1.4,
             "border_radius": 0.0
           },
-          "content": "WipeLeft",
+          "content": "InTarget",
           "z_index": 0,
           "visible": true,
           "locked": false,
@@ -146,23 +143,20 @@
         }
       ],
       "transition_in": null,
-      "transition_out": {
-        "kind": "WipeLeft",
-        "duration_ms": 500
-      },
+      "transition_out": null,
       "sort_order": 2,
       "wait_points": []
     },
     {
-      "id": "9133cb7a-1026-44d4-b2d3-cc10697db891",
-      "name": "WipeRight",
+      "id": "a3c11ef2-1faf-4853-ae04-46609f0079ca",
+      "name": "BothSet",
       "duration_ms": 400,
       "background": {
         "fill": "#00ff00"
       },
       "objects": [
         {
-          "id": "6b25e15e-cf6b-4adb-a7d0-ac44e6e1516e",
+          "id": "0962b2f2-b658-4fe6-bb3a-db5f62f4ab72",
           "name": "Label",
           "object_type": "Text",
           "transform": {
@@ -184,7 +178,7 @@
             "line_height": 1.4,
             "border_radius": 0.0
           },
-          "content": "WipeRight",
+          "content": "BothSet",
           "z_index": 0,
           "visible": true,
           "locked": false,
@@ -193,24 +187,27 @@
           "data_bindings": []
         }
       ],
-      "transition_in": null,
-      "transition_out": {
-        "kind": "WipeRight",
+      "transition_in": {
+        "kind": "WipeLeft",
         "duration_ms": 500
+      },
+      "transition_out": {
+        "kind": "Crossfade",
+        "duration_ms": 1500
       },
       "sort_order": 3,
       "wait_points": []
     },
     {
-      "id": "352d8514-7263-4ab8-af9d-1f0badd93f4a",
-      "name": "SlideLeft",
+      "id": "23ce73dc-bcd6-4d2e-8000-0759767c9404",
+      "name": "InWins",
       "duration_ms": 400,
       "background": {
         "fill": "#ffff00"
       },
       "objects": [
         {
-          "id": "ce320868-0101-4f20-a96c-1f064e475b81",
+          "id": "ca9b764b-f242-4158-a58c-0adcb2f8e99a",
           "name": "Label",
           "object_type": "Text",
           "transform": {
@@ -232,7 +229,7 @@
             "line_height": 1.4,
             "border_radius": 0.0
           },
-          "content": "SlideLeft",
+          "content": "InWins",
           "z_index": 0,
           "visible": true,
           "locked": false,
@@ -241,24 +238,27 @@
           "data_bindings": []
         }
       ],
-      "transition_in": null,
-      "transition_out": {
+      "transition_in": {
         "kind": "SlideLeft",
-        "duration_ms": 500
+        "duration_ms": 400
+      },
+      "transition_out": {
+        "kind": "Crossfade",
+        "duration_ms": 1500
       },
       "sort_order": 4,
       "wait_points": []
     },
     {
-      "id": "681839d1-def0-4e69-ab21-83ce0743020a",
-      "name": "SlideRight",
+      "id": "864502aa-e0d0-4766-b5be-2cbf95f2c63d",
+      "name": "CutIn",
       "duration_ms": 400,
       "background": {
         "fill": "#ff00ff"
       },
       "objects": [
         {
-          "id": "7560ae41-ed3c-48c5-8c47-37b5007e24b0",
+          "id": "0f5fda95-0403-41cc-b5a5-1b89f02ebb1b",
           "name": "Label",
           "object_type": "Text",
           "transform": {
@@ -280,7 +280,7 @@
             "line_height": 1.4,
             "border_radius": 0.0
           },
-          "content": "SlideRight",
+          "content": "CutIn",
           "z_index": 0,
           "visible": true,
           "locked": false,
@@ -289,24 +289,24 @@
           "data_bindings": []
         }
       ],
-      "transition_in": null,
-      "transition_out": {
-        "kind": "SlideRight",
+      "transition_in": {
+        "kind": "Cut",
         "duration_ms": 500
       },
+      "transition_out": null,
       "sort_order": 5,
       "wait_points": []
     },
     {
-      "id": "46e8393a-3575-4d70-9a77-db461cb5099e",
-      "name": "Last",
-      "duration_ms": 600,
+      "id": "43e8e030-84fd-4bcf-ad96-4977c416b0f8",
+      "name": "End",
+      "duration_ms": 400,
       "background": {
         "fill": "#00ffff"
       },
       "objects": [
         {
-          "id": "20024a8a-e127-45ad-ae6e-aa93fe059620",
+          "id": "6bababea-4db0-43fd-83a8-078441d4536a",
           "name": "Label",
           "object_type": "Text",
           "transform": {
@@ -328,7 +328,7 @@
             "line_height": 1.4,
             "border_radius": 0.0
           },
-          "content": "Last",
+          "content": "End",
           "z_index": 0,
           "visible": true,
           "locked": false,

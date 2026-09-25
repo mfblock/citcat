@@ -578,6 +578,15 @@ var CitCatApp = (function () {
     });
   }
 
+  function updateSceneBackground(background) {
+    var scene = getActiveScene();
+    if (!scene) return;
+    pushUndo("scene background");
+    scene.background = background;
+    invoke("scene_update", { sceneId: scene.id, background: background });
+    requestRender();
+  }
+
   function updateSceneTransition(sceneId, transitionIn, transitionOut) {
     var args = { sceneId: sceneId };
     if (transitionIn !== undefined) args.transitionIn = transitionIn;
@@ -1642,6 +1651,7 @@ var CitCatApp = (function () {
     deleteScene: deleteScene,
     renameScene: renameScene,
     updateSceneTransition: updateSceneTransition,
+    updateSceneBackground: updateSceneBackground,
     newProject: newProject,
     saveProject: saveProject,
     openProject: openProject,

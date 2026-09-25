@@ -374,6 +374,14 @@ fn parse_easing(s: &str) -> Easing {
 }
 
 fn parse_keyframe_value(v: &Value) -> KeyframeValue {
+    // A fully tagged value wins: `{"type":"Gradient","value":{…}}` and friends
+    // round-trip exactly. Without this, anything that is not a bare number,
+    // bool or string collapsed to Number(0.0) -- so an agent could send a
+    // gradient and silently get a zero.
+    if let Ok(kv) = serde_json::from_value::<KeyframeValue>(v.clone()) {
+        return kv;
+    }
+    // Shorthand, for agents writing the common cases by hand.
     match v {
         Value::Number(n) => KeyframeValue::Number(n.as_f64().unwrap_or(0.0)),
         Value::Bool(b) => KeyframeValue::Bool(*b),

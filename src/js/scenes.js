@@ -27,9 +27,14 @@ var CitCatScenes = (function () {
 
       var nameSpan = document.createElement("span");
       nameSpan.className = "scene-thumb-name";
+      // Show how this scene is entered. transition_in governs the boundary into
+      // it; transition_out only describes how it leaves, and is the fallback the
+      // next scene uses when it declares no transition_in of its own.
       var label = scene.name;
-      if (scene.transition_out && scene.transition_out.kind !== "Cut") {
-        label += " [" + scene.transition_out.kind + "]";
+      if (scene.transition_in && scene.transition_in.kind !== "Cut") {
+        label += " [→ " + scene.transition_in.kind + "]";
+      } else if (scene.transition_out && scene.transition_out.kind !== "Cut") {
+        label += " [" + scene.transition_out.kind + " →]";
       }
       nameSpan.textContent = label;
       item.appendChild(nameSpan);
@@ -135,7 +140,7 @@ var CitCatScenes = (function () {
     header.textContent = "Transition Out";
     menu.appendChild(header);
 
-    var transitions = ["Cut", "Crossfade", "WipeLeft", "WipeRight", "SlideLeft", "SlideRight"];
+    var transitions = ["Cut", "Crossfade", "WipeLeft", "WipeRight", "WipeUp", "WipeDown", "SlideLeft", "SlideRight"];
     for (var i = 0; i < transitions.length; i++) {
       (function (kind) {
         var item = document.createElement("div");

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>CitCat paint-editor harness</title></head>
+<body>
+<div id="host"></div>
+<script>
+  // Same shim as page.html: keep the module API rather than letting runtime.js
+  // swap itself for the standalone constructor.
+  window.__TAURI__ = { __harness: true };
+</script>
+<script src="runtime.js"></script>
+<script src="paint-editor.js"></script>
+<script>
+  delete window.__TAURI__;
+  window.__errors = [];
+  window.addEventListener('error', e => window.__errors.push(String(e.message)));
+
+  // Last payload the control emitted, so a test can assert what the editor
+  // would have written to the model.
+  window.__emitted = null;
+  window.__emitCount = 0;
+
+  window.__mount = function (opts) {
+    const host = document.getElementById('host');
+    host.innerHTML = '';
+    window.__emitted = null;
+    window.__emitCount = 0;
+    window.__ctl = CitCatPaintEditor.create(host, Object.assign({
+      label: 'Fill',
+      onChange: function (p) { window.__emitted = p; window.__emitCount++; },
+    }, opts || {}));
+    return true;
+  };
+
+  window.__set = function (color, gradient) {
+    window.__ctl.set(color, gradient);
+    return true;
+  };
+
+  window.__clickMode = function (name) {
+    const btns = document.querySelectorAll('#host .paint-mode-btn');
+    for (const b of btns) {
+      if (b.textContent === name) { b.click(); return true; }
+    }
+    return false;
+  };
+
+  window.__activeMode = function () {
+    const b = document.querySelector('#host .paint-mode-btn.active');
+    return b ? b.textContent : null;
+  };
+
+  window.__stopCount = function () {
+    return document.querySelectorAll('#host .paint-stop').length;
+  };
+
+  window.__addStop = function () {
+    document.querySelector('#host .paint-add-stop').click();
+    return true;
+  };
+
+  // Drive a stop's inputs the way a person would, so the test exercises the
+  // listeners rather than the internal state object.
+  window.__setStop = function (i, hex, alphaPct, offset) {
+    const row = document.querySelectorAll('#host .paint-stop')[i];
+    if (!row) return false;
+    const col = row.querySelector('input[type=color]');
+    const alpha = row.querySelector('.alpha-slider');
+    const off = row.querySelector('.paint-stop-offset');
+    if (hex !== null) { col.value = hex; col.dispatchEvent(new Event('input')); }
+    if (alphaPct !== null) { alpha.value = alphaPct; alpha.dispatchEvent(new Event('input')); }
+    if (offset !== null) { off.value = offset; off.dispatchEvent(new Event('input')); }
+    return true;
+  };
+
+  window.__setSolid = function (hex, alphaPct) {
+    const row = document.querySelector('#host .paint-solid');
+    const col = row.querySelector('input[type=color]');
+    const alpha = row.querySelector('.alpha-slider');
+    if (hex !== null) { col.value = hex; col.dispatchEvent(new Event('input')); }
+    if (alphaPct !== null) { alpha.value = alphaPct; alpha.dispatchEvent(new Event('input')); }
+    return true;
+  };
+
+  window.__setAngle = function (deg) {
+    const el = document.querySelector('#host .paint-angle input');
+    el.value = deg;
+    el.dispatchEvent(new Event('input'));
+    return true;
+  };
+
+  window.__angleVisible = function () {
+    const el = document.querySelector('#host .paint-angle');
+    return el ? !el.hidden : false;
+  };
+
+  window.__moveStop = function (i, dir) {
+    const row = document.querySelectorAll('#host .paint-stop')[i];
+    const btns = row.querySelectorAll('.paint-stop-btns button');
+    (dir < 0 ? btns[0] : btns[1]).click();
+    return true;
+  };
+
+  window.__removeStop = function (i) {
+    const row = document.querySelectorAll('#host .paint-stop')[i];
+    row.querySelectorAll('.paint-stop-btns button')[2].click();
+    return true;
+  };
+
+  window.__warnShown = function () {
+    return !!document.querySelector('#host .paint-stop-warn');
+  };
+
+  window.__helpers = function (str) {
+    return CitCatPaintEditor.splitColor(str);
+  };
+  window.__join = function (hex, a) {
+    return CitCatPaintEditor.joinColor(hex, a);
+  };
+  window.__preview = function (g) {
+    return CitCatPaintEditor.previewCss(g);
+  };
+</script>
+</body>
+</html>

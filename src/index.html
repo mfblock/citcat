@@ -86,7 +86,24 @@
       <div id="v-splitter" class="splitter splitter-v"></div>
       <div id="properties-panel">
         <div id="props-empty">
-          <p>Select an object to edit its properties</p>
+          <div class="props-header">
+            <span class="props-scene-title">Scene background</span>
+          </div>
+          <details class="props-section" open>
+            <summary>Background</summary>
+            <div class="paint-editor" id="bg-paint"></div>
+            <div class="props-grid bg-image-grid">
+              <label class="full-width">Image
+                <div class="slider-row">
+                  <span class="bg-image-path" id="bg-image-path">(none)</span>
+                  <button type="button" class="small-btn" id="btn-bg-image">Choose</button>
+                  <button type="button" class="small-btn" id="btn-bg-image-clear">×</button>
+                </div>
+              </label>
+            </div>
+            <p class="props-hint">An image covers the gradient; the gradient covers the flat colour.</p>
+          </details>
+          <p class="props-hint props-empty-hint">Select an object to edit its properties.</p>
         </div>
         <div id="props-content" hidden>
           <div class="props-header">
@@ -112,9 +129,9 @@
 
           <details class="props-section" open>
             <summary>Style</summary>
+            <div class="paint-editor" id="fill-paint"></div>
+            <div class="paint-editor" id="stroke-paint"></div>
             <div class="props-grid">
-              <label>Fill<input type="color" id="prop-fill" /></label>
-              <label>Stroke<input type="color" id="prop-stroke" /></label>
               <label>Stroke W<input type="number" id="prop-stroke-width" step="0.5" min="0" /></label>
               <label id="label-border-radius">Radius<input type="number" id="prop-border-radius" step="1" min="0" /></label>
             </div>
@@ -366,7 +383,12 @@
                 <label>X<input type="number" id="filter-shadow-x" value="2" step="1" /></label>
                 <label>Y<input type="number" id="filter-shadow-y" value="2" step="1" /></label>
                 <label>Blur<input type="number" id="filter-shadow-blur" value="4" step="1" min="0" /></label>
-                <label>Color<input type="color" id="filter-shadow-color" value="#000000" /></label>
+                <label class="swatch-label">Color
+                  <div class="swatch-row">
+                    <input type="color" id="filter-shadow-color" value="#000000" />
+                    <input type="range" class="alpha-slider" id="filter-shadow-alpha" min="0" max="100" value="100" title="Alpha" />
+                  </div>
+                </label>
               </div>
             </div>
           </details>
@@ -567,6 +589,7 @@
   <script src="js/canvas-interaction.js"></script>
   <script src="js/runtime.js"></script>
   <script src="js/timeline.js"></script>
+  <script src="js/paint-editor.js"></script>
   <script src="js/properties.js"></script>
   <script src="js/toolbar.js"></script>
   <script src="js/scenes.js"></script>

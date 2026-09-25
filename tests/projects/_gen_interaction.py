@@ -287,23 +287,60 @@ def build_transitions():
         ("SlideRight",  400, "#ff00ff", transition("SlideRight", 500)),
         ("Last",        600, "#00ffff", None),
     ]
+    # Each scene declares its kind as transition_out and no scene declares a
+    # transition_in, so every boundary here exercises exactly one kind via the
+    # fallback arm. Precedence between the two fields is covered separately by
+    # build_transitions_precedence().
     scenes = []
     for i, (name, dur, bg, t_out) in enumerate(specs):
         objs = [obj(uid(), "Label", "Text", tf(800, 500, 400, 100),
                     st=style(fill="#ffffff", font_size=40.0), content=name)]
-        # scene 1 also declares a transition_in, to see whether it is honoured
-        t_in = transition("Crossfade", 400) if i == 1 else None
-        scenes.append(scene(uid(), name, dur, objs, i, bg=bg, t_in=t_in, t_out=t_out))
+        scenes.append(scene(uid(), name, dur, objs, i, bg=bg, t_out=t_out))
     return project("Transition tests", scenes)
 
 
 def build_transitions_loop():
+    # LoopA declares a transition_in. It is never entered from a previous scene
+    # in the normal sense -- only by wrapping from LoopB -- so this is the fixture
+    # that proves the loop boundary consults scene 0's transition_in.
+    specs = [
+        ("LoopA", "#111133", transition("Crossfade", 400)),
+        ("LoopB", "#331111", None),
+    ]
     scenes = []
-    for i, (name, bg) in enumerate([("LoopA", "#111133"), ("LoopB", "#331111")]):
+    for i, (name, bg, t_in) in enumerate(specs):
         objs = [obj(uid(), "Label", "Text", tf(800, 500, 400, 100),
                     st=style(fill="#ffffff", font_size=40.0), content=name)]
-        scenes.append(scene(uid(), name, 400, objs, i, bg=bg))
+        scenes.append(scene(uid(), name, 400, objs, i, bg=bg, t_in=t_in))
     return project("Transition loop test", scenes, loop=True)
+
+
+def build_transitions_precedence():
+    """One boundary per case, so which field wins is never ambiguous.
+
+    boundary 0->1  neither field set                 -> hard cut, no hold
+    boundary 1->2  only scene 1's transition_out     -> fallback arm plays
+    boundary 2->3  only scene 3's transition_in      -> transition_in plays
+    boundary 3->4  both set, different kind+duration -> transition_in wins
+    boundary 4->5  scene 5's transition_in is Cut    -> hard cut, does NOT
+                                                        inherit scene 4's out
+    """
+    specs = [
+        # name,        dur, bg,        t_in,                          t_out
+        ("NoneSet",    400, "#101010", None,                          None),
+        ("OutOnly",    400, "#ff0000", None,                          transition("Crossfade", 600)),
+        ("InTarget",   400, "#0000ff", None,                          None),
+        ("BothSet",    400, "#00ff00", transition("WipeLeft", 500),   transition("Crossfade", 1500)),
+        ("InWins",     400, "#ffff00", transition("SlideLeft", 400),  transition("Crossfade", 1500)),
+        ("CutIn",      400, "#ff00ff", transition("Cut", 500),        None),
+        ("End",        400, "#00ffff", None,                          None),
+    ]
+    scenes = []
+    for i, (name, dur, bg, t_in, t_out) in enumerate(specs):
+        objs = [obj(uid(), "Label", "Text", tf(800, 500, 400, 100),
+                    st=style(fill="#ffffff", font_size=40.0), content=name)]
+        scenes.append(scene(uid(), name, dur, objs, i, bg=bg, t_in=t_in, t_out=t_out))
+    return project("Transition precedence tests", scenes)
 
 
 # =================================================================== validate
@@ -345,6 +382,7 @@ def main():
         "waitpoints": build_waitpoints(),
         "transitions": build_transitions(),
         "transitions_loop": build_transitions_loop(),
+        "transitions_precedence": build_transitions_precedence(),
     }
     all_problems = []
     for name, proj in builds.items():

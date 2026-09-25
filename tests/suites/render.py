@@ -109,6 +109,32 @@ async def run(page, port, load_project):
         f"got {objs['Logo']['content'][:40]!r}",
     )
 
+    # ---------- opacity outside 0..1 ----------
+    # Canvas does not clamp globalAlpha -- it *ignores* an out-of-range value and
+    # silently keeps whatever the previous object left behind. Nothing upstream
+    # constrains opacity, so the renderer has to.
+    await rt.seek(4, 0)
+    await _settle(rt)
+
+    normal = await rt.sample(250, 450)
+    over = await rt.sample(750, 450)
+    under = await rt.sample(1250, 450)
+
+    rt.check(
+        normal["g"] > 200,
+        "an object at opacity 1.0 paints fully",
+        f"got {normal}",
+    )
+    rt.near(
+        over["g"], normal["g"], 6,
+        "opacity above 1.0 paints the same as 1.0 rather than being ignored",
+    )
+    rt.check(
+        under["g"] < 40,
+        "opacity below 0 paints nothing rather than inheriting the previous alpha",
+        f"got {under}; an ignored globalAlpha would leave this object visible",
+    )
+
     errs = await rt.console_errors()
     rt.check(not errs, "no console errors", str(errs))
     return rt

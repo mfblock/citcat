@@ -187,6 +187,115 @@
       "transition_out": null,
       "sort_order": 0,
       "wait_points": []
+    },
+    {
+      "id": "beb00652-7ad7-4c2e-a7fb-58d4dc1bdcf9",
+      "name": "OpacityClamp",
+      "duration_ms": 2000,
+      "background": {
+        "fill": "#000000",
+        "gradient": null,
+        "image": null
+      },
+      "objects": [
+        {
+          "id": "b5d8e40e-5daf-4a76-842a-acb521e21197",
+          "name": "Normal",
+          "object_type": "Rect",
+          "transform": {
+            "x": 100.0,
+            "y": 300.0,
+            "width": 300.0,
+            "height": 300.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#00ff00",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        },
+        {
+          "id": "a27178a9-5c38-4083-a727-e80c9cd6ec3d",
+          "name": "Over",
+          "object_type": "Rect",
+          "transform": {
+            "x": 600.0,
+            "y": 300.0,
+            "width": 300.0,
+            "height": 300.0,
+            "rotation": 0.0,
+            "opacity": 1.8
+          },
+          "style": {
+            "fill": "#00ff00",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        },
+        {
+          "id": "25cb877d-2261-45ef-ad54-170db3c6cd9a",
+          "name": "Under",
+          "object_type": "Rect",
+          "transform": {
+            "x": 1100.0,
+            "y": 300.0,
+            "width": 300.0,
+            "height": 300.0,
+            "rotation": 0.0,
+            "opacity": -0.5
+          },
+          "style": {
+            "fill": "#00ff00",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0
+          },
+          "content": "",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [],
+          "data_bindings": []
+        }
+      ],
+      "transition_in": null,
+      "transition_out": null,
+      "sort_order": 4,
+      "wait_points": []
     }
   ],
   "effects_library": [],

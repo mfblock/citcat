@@ -58,7 +58,11 @@ def _is_oscillation(kfs):
 def parse_rust_effects():
     """Pull the built-in effect definitions out of commands/effect.rs.
 
-    Returns {effect_id: [(time_ms, property, number_literal_or_None, easing)]}.
+    Returns {effect_id: [(time_ms, property, literal_or_None, easing, kind)]}.
+
+    The literal is parsed for every numeric value kind -- Number, Offset and
+    Scale -- so a check can reason about whether a property actually varies
+    regardless of how the effect expresses it.
     """
     src = (ROOT / "src-tauri" / "src" / "commands" / "effect.rs").read_text()
     body = src.split("fn build_effects_library()", 1)[-1].split("\nfn load_plugin_effects", 1)[0]
@@ -76,12 +80,12 @@ def parse_rust_effects():
         ):
             t, prop, kind, raw, easing = m.groups()
             num = None
-            if kind == "Number":
+            if kind in ("Number", "Offset", "Scale"):
                 try:
                     num = float(raw.strip())
                 except ValueError:
                     num = None
-            kfs.append((int(t), prop, num, easing))
+            kfs.append((int(t), prop, num, easing, kind))
         if kfs:
             effects[eid] = kfs
     return effects
@@ -259,32 +263,38 @@ async def run(page, port, load_project):
              f"found {len(lib)} effects: {sorted(lib)}")
 
     for eid, kfs in sorted(lib.items()):
-        props = {p for _, p, _, _ in kfs}
+        props = {p for _, p, _, _, _ in kfs}
         unknown = props - KNOWN_PROPS
         rt.check(not unknown, f"built-in '{eid}' only animates properties the runtime reads",
                  f"runtime ignores: {sorted(unknown)}")
-        bad_easings = {e for _, _, _, e in kfs} - EASINGS
+        bad_easings = {e for _, _, _, e, _ in kfs} - EASINGS
         rt.check(not bad_easings, f"built-in '{eid}' uses valid easings",
                  f"unknown: {sorted(bad_easings)}")
+        bad_kinds = {k for _, _, _, _, k in kfs} - VALUE_KINDS
+        rt.check(not bad_kinds, f"built-in '{eid}' uses known value kinds",
+                 f"unknown: {sorted(bad_kinds)}")
 
     # An effect that animates a property must give the resolver two values it
-    # can tell apart. resolve_effect_value() branches on the literal template
-    # value, so two identical literals collapse to one resolved value and the
-    # property never changes.
+    # can tell apart, whatever kind it uses. With Number the old resolver
+    # branched on the literal, so two identical literals collapsed to one
+    # resolved value; with Offset and Scale identical literals are simply the
+    # same value. Either way the property never changes and the effect is a
+    # no-op -- which is exactly how scale-up and scale-down shipped broken.
     for eid, kfs in sorted(lib.items()):
         by_prop = {}
-        for t, prop, num, _ in kfs:
+        for t, prop, num, _, kind in kfs:
             if num is not None:
-                by_prop.setdefault(prop, []).append((t, num))
+                by_prop.setdefault(prop, []).append((t, num, kind))
         for prop, entries in sorted(by_prop.items()):
             if len(entries) < 2:
                 continue
-            values = {v for _, v in entries}
+            values = {v for _, v, _ in entries}
+            kinds = {k for _, _, k in entries}
             rt.check(
                 len(values) > 1,
                 f"built-in '{eid}' gives the resolver distinguishable {prop} values",
-                f"all {len(entries)} keyframes use {values.pop()}, so "
-                f"resolve_effect_value() cannot tell start from end",
+                f"all {len(entries)} keyframes use {values.pop()} "
+                f"(kind {'/'.join(sorted(kinds))}), so the property never changes",
             )
 
     # ============================= 3. plugins =============================

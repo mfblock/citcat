@@ -69,6 +69,7 @@ async def transition_state(rt):
             if (!t) return null;
             return {
                 kind: t.kind,
+                source: t.source,
                 progress: t.progress,
                 hasOutgoing: !!t.outgoingScene,
                 hasIncoming: !!t.incomingScene,
@@ -76,6 +77,23 @@ async def transition_state(rt):
                 incomingName: t.incomingScene ? t.incomingScene.name : null,
             };
         }"""
+    )
+
+
+async def boundary_transition(rt, scene_index):
+    """Which transition governs the boundary leaving scene_index, or None.
+
+    Reads the resolution directly, so the precedence rule can be asserted
+    without racing a hold that may only last a few hundred milliseconds.
+    """
+    return await rt.page.evaluate(
+        "(i) => window.CitCatRuntime.getBoundaryTransition(i)", scene_index
+    )
+
+
+async def next_scene_index(rt, scene_index):
+    return await rt.page.evaluate(
+        "(i) => window.CitCatRuntime.getNextSceneIndex(i)", scene_index
     )
 
 
