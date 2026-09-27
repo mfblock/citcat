@@ -4179,7 +4179,48 @@
               "easing": "EaseIn"
             }
           ],
-          "events": [],
+          "events": [
+            {
+              "id": "f7085e56-ac92-4692-82ea-bcee21bee61d",
+              "trigger": {
+                "type": "Click"
+              },
+              "action": {
+                "type": "PlayAnimation",
+                "object_id": "54fe8552-8e5e-4cab-83eb-2f932d1abc9d"
+              }
+            },
+            {
+              "id": "95592162-8af2-40f6-bed1-b445de32b565",
+              "trigger": {
+                "type": "Click"
+              },
+              "action": {
+                "type": "PlayAnimation",
+                "object_id": "34dd33dc-fc35-448b-893d-f7143e851415"
+              }
+            },
+            {
+              "id": "65a5bfac-7cd7-43b3-9286-0713eec47a6d",
+              "trigger": {
+                "type": "Click"
+              },
+              "action": {
+                "type": "PlayAnimation",
+                "object_id": "258b22e3-c4e0-46d8-a01b-b721bc5270ee"
+              }
+            },
+            {
+              "id": "6bf9ddad-3e09-4f1f-bbc9-060172c31a70",
+              "trigger": {
+                "type": "Click"
+              },
+              "action": {
+                "type": "PlayAnimation",
+                "object_id": "313483db-0ab4-4912-9d1e-9488045c5cf5"
+              }
+            }
+          ],
           "data_bindings": [],
           "condition": null,
           "motion_path": null,
@@ -4388,6 +4429,16 @@
                   "type": "Color",
                   "value": "#ef4444"
                 }
+              }
+            },
+            {
+              "id": "76a327fb-c494-4d2d-9b51-f30f1311344c",
+              "trigger": {
+                "type": "Click"
+              },
+              "action": {
+                "type": "PauseAnimation",
+                "object_id": "54fe8552-8e5e-4cab-83eb-2f932d1abc9d"
               }
             }
           ],
@@ -4600,6 +4651,16 @@
                   "value": "#22c55e"
                 }
               }
+            },
+            {
+              "id": "64ae52ed-57f6-487b-bee1-976213aa1eb2",
+              "trigger": {
+                "type": "Click"
+              },
+              "action": {
+                "type": "PauseAnimation",
+                "object_id": "34dd33dc-fc35-448b-893d-f7143e851415"
+              }
             }
           ],
           "data_bindings": [],
@@ -4811,6 +4872,16 @@
                   "value": "#3b82f6"
                 }
               }
+            },
+            {
+              "id": "cb4f0d6e-f7e5-4ba8-b1dc-cbd5f16b9fd1",
+              "trigger": {
+                "type": "Click"
+              },
+              "action": {
+                "type": "PauseAnimation",
+                "object_id": "258b22e3-c4e0-46d8-a01b-b721bc5270ee"
+              }
             }
           ],
           "data_bindings": [],
@@ -5021,6 +5092,16 @@
                   "type": "Color",
                   "value": "#f59e0b"
                 }
+              }
+            },
+            {
+              "id": "019d6a20-0e0e-4a0d-bc2c-371fd6f2a791",
+              "trigger": {
+                "type": "Click"
+              },
+              "action": {
+                "type": "PauseAnimation",
+                "object_id": "313483db-0ab4-4912-9d1e-9488045c5cf5"
               }
             }
           ],
@@ -5830,7 +5911,7 @@
             "fill_gradient": null,
             "stroke_gradient": null
           },
-          "content": "touch an orb",
+          "content": "touch an orb \u2014 tap the centre to release",
           "z_index": 15,
           "visible": true,
           "locked": false,

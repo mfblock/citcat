@@ -1,6 +1,6 @@
-product_name,category,description,price,weight,dimensions,material,color
-"Industrial Washer X500","Heavy Duty","High-capacity industrial washing machine for commercial laundry operations. Handles up to 50kg per cycle with energy-efficient water recycling.","€12,450","850 kg","1200×1100×1400 mm","Stainless Steel 304","Silver Grey"
-"EcoSpin Pro 300","Energy Efficient","Next-generation eco-friendly washer with heat pump technology. 40% less energy than standard models.","€8,900","620 kg","1050×1000×1300 mm","Stainless Steel 316","Arctic White"
-"TurboPress T800","Flatwork","Industrial flatwork ironer for hotel and hospital linens. 800mm roller width, steam heated.","€15,200","1100 kg","2400×900×1200 mm","Chrome Steel","Metallic Blue"
-"QuickDry QD200","Tumble Dryer","Commercial tumble dryer with moisture sensing. 20kg capacity, reverse tumble action.","€6,750","380 kg","900×850×1100 mm","Galvanized Steel","Charcoal"
-"FoldMaster FM5","Folder","Automatic towel and linen folder. 5 fold patterns, up to 600 pieces/hour.","€22,800","450 kg","3200×1400×1500 mm","Aluminum Frame","Pearl White"
+"product_name","category","description","price_eur","sku","tier","stock","lead_time","image_file","weight","dimensions","material","color"
+"Industrial Washer X500","Heavy Duty","High-capacity industrial washing machine for commercial laundry operations. Handles up to 50kg per cycle with energy-efficient water recycling.",12450.0,"LW-X500-EU","premium",3,"","x500.png","850 kg","1200×1100×1400 mm","Stainless Steel 304","Silver Grey"
+"EcoSpin Pro 300","Energy Efficient","Next-generation eco-friendly washer with heat pump technology. 40% less energy than standard models.",8900.0,"LW-ES300-EU","premium",64,"","ecospin.png","620 kg","1050×1000×1300 mm","Stainless Steel 316","Arctic White"
+"TurboPress T800","Flatwork","Industrial flatwork ironer for hotel and hospital linens. 800mm roller width, steam heated.",15200.0,"LW-T800-EU","standard",12,"6-8 weeks","turbopress.png","1100 kg","2400×900×1200 mm","Chrome Steel","Metallic Blue"
+"QuickDry QD200","Tumble Dryer","Commercial tumble dryer with moisture sensing and energy recovery. 20kg capacity, reverse tumble action.",6750.0,"LW-QD200-EU","standard",128,"","quickdry.png","380 kg","900×850×1100 mm","Galvanized Steel","Charcoal"
+"FoldMaster FM5","Folder","Automatic towel and linen folder. 5 fold patterns, up to 600 pieces/hour.",22800.0,"LW-FM5-EU","premium",2,"10-12 weeks","foldmaster.png","450 kg","3200×1400×1500 mm","Aluminum Frame","Pearl White"

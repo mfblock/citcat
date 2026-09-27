@@ -271,6 +271,8 @@
                     <option value="GotoScene">Go to Scene</option>
                     <option value="ToggleVisible">Toggle Visible</option>
                     <option value="SetProperty">Set Property</option>
+                    <option value="PauseAnimation">Pause Animation</option>
+                    <option value="PlayAnimation">Play Animation</option>
                   </select>
                 </label>
               </div>
@@ -408,22 +410,24 @@
 
     <div id="h-splitter" class="splitter splitter-h"></div>
     <div id="bottom-area">
-      <div id="left-bottom-panels">
-        <div id="scenes-panel">
-          <div class="panel-header">Scenes</div>
-          <div id="scene-list"></div>
-          <button id="btn-add-scene" class="small-btn" type="button">+ Add</button>
-        </div>
+      <div id="scenes-strip">
+        <div class="strip-label">Scenes</div>
+        <div id="scene-list" role="listbox" aria-label="Scenes" tabindex="0"></div>
+      </div>
+
+      <div id="bottom-main">
         <div id="layers-panel">
           <div class="panel-header">Layers</div>
           <div id="layers-list"></div>
         </div>
-      </div>
 
-      <div id="timeline-panel">
-        <div class="panel-header">Timeline</div>
-        <div id="timeline-content">
-          <p class="placeholder-text">Timeline (Phase 2)</p>
+        <div id="layers-splitter" class="splitter splitter-v"></div>
+
+        <div id="timeline-panel">
+          <div class="panel-header">Timeline</div>
+          <div id="timeline-content">
+            <p class="placeholder-text">Timeline (Phase 2)</p>
+          </div>
         </div>
       </div>
     </div>

@@ -32,9 +32,11 @@ SUITES = [
     "media",
     "mediasync",
     "render",
+    "scenestrip",
     "gradients",
     "embed",
     "painteditor",
+    "objectclock",
     "coverage",
 ]
 

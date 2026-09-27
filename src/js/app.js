@@ -533,6 +533,10 @@ var CitCatApp = (function () {
   }
 
   function switchScene(sceneId) {
+    // Re-rendering on a click that changes nothing tears down and rebuilds the
+    // scene strip, which loses keyboard focus and destroys the node a
+    // double-click is about to land on.
+    if (sceneId === activeSceneId) return;
     activeSceneId = sceneId;
     selectedObjectId = null;
     playheadMs = 0;

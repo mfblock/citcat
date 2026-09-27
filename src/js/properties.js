@@ -372,8 +372,7 @@ var CitCatProperties = (function () {
     document.getElementById("event-action-type").addEventListener("change", function () {
       var val = this.value;
       document.getElementById("event-target-scene-row").hidden = val !== "GotoScene";
-      document.getElementById("event-target-object-row").hidden =
-        val !== "ToggleVisible" && val !== "SetProperty";
+      document.getElementById("event-target-object-row").hidden = !actionTargetsObject(val);
       document.getElementById("event-set-prop-row").hidden = val !== "SetProperty";
     });
   }
@@ -411,14 +410,13 @@ var CitCatProperties = (function () {
       var actionType = ev.action.type;
       document.getElementById("event-action-type").value = actionType;
       document.getElementById("event-target-scene-row").hidden = actionType !== "GotoScene";
-      document.getElementById("event-target-object-row").hidden =
-        actionType !== "ToggleVisible" && actionType !== "SetProperty";
+      document.getElementById("event-target-object-row").hidden = !actionTargetsObject(actionType);
       document.getElementById("event-set-prop-row").hidden = actionType !== "SetProperty";
 
       if (actionType === "GotoScene") {
         sceneSelect.value = ev.action.scene_id;
       }
-      if (actionType === "ToggleVisible" || actionType === "SetProperty") {
+      if (actionTargetsObject(actionType)) {
         objectSelect.value = ev.action.object_id;
       }
       if (actionType === "SetProperty") {
@@ -446,13 +444,24 @@ var CitCatProperties = (function () {
     return { type: type };
   }
 
+  // Every action that targets an object rather than a scene. Kept in one place:
+  // this predicate was duplicated three times, which is how PlayAnimation and
+  // PauseAnimation came to be missing from the form but present in the model.
+  var OBJECT_TARGET_ACTIONS = ["ToggleVisible", "SetProperty", "PlayAnimation", "PauseAnimation"];
+
+  function actionTargetsObject(type) {
+    return OBJECT_TARGET_ACTIONS.indexOf(type) !== -1;
+  }
+
   function buildAction() {
     var type = document.getElementById("event-action-type").value;
     switch (type) {
       case "GotoScene":
         return { type: "GotoScene", scene_id: document.getElementById("event-target-scene").value };
       case "ToggleVisible":
-        return { type: "ToggleVisible", object_id: document.getElementById("event-target-object").value };
+      case "PlayAnimation":
+      case "PauseAnimation":
+        return { type: type, object_id: document.getElementById("event-target-object").value };
       case "SetProperty":
         var val = document.getElementById("event-set-value").value;
         var numVal = parseFloat(val);
@@ -561,8 +570,12 @@ var CitCatProperties = (function () {
         return "Toggle " + (obj ? obj.name : "?");
       case "SetProperty":
         return "Set " + (action.property || "?");
-      case "PlayAnimation": return "Play anim";
-      case "PauseAnimation": return "Pause anim";
+      case "PlayAnimation":
+      case "PauseAnimation":
+        var animObjs = CitCatApp.getSceneObjects();
+        var animObj = animObjs.find(function (o) { return o.id === action.object_id; });
+        return (action.type === "PlayAnimation" ? "Play " : "Pause ") +
+               (animObj ? animObj.name : "?");
       default: return action.type;
     }
   }

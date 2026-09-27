@@ -392,10 +392,16 @@ var CitCatRuntime = (function () {
     return out;
   }
 
-  function resolveObjectAtTime(obj, timeMs) {
+  // timeMs drives the object's animation; stageTimeMs drives its lifespan.
+  // They differ only when PauseAnimation has given the object its own clock:
+  // appear_at_ms / disappear_at_ms are scene-level staging -- when a thing
+  // belongs on screen -- so a paused object still leaves at its authored
+  // moment. stageTimeMs defaults to timeMs, so every other caller is unchanged.
+  function resolveObjectAtTime(obj, timeMs, stageTimeMs) {
+    if (stageTimeMs === undefined || stageTimeMs === null) stageTimeMs = timeMs;
     var hiddenByLifespan =
-      (obj.appear_at_ms !== null && obj.appear_at_ms !== undefined && timeMs < obj.appear_at_ms) ||
-      (obj.disappear_at_ms !== null && obj.disappear_at_ms !== undefined && timeMs > obj.disappear_at_ms);
+      (obj.appear_at_ms !== null && obj.appear_at_ms !== undefined && stageTimeMs < obj.appear_at_ms) ||
+      (obj.disappear_at_ms !== null && obj.disappear_at_ms !== undefined && stageTimeMs > obj.disappear_at_ms);
 
     var resolved = {
       id: obj.id,
@@ -511,9 +517,56 @@ var CitCatRuntime = (function () {
     firedSceneEnds: {},
     hoveredObjectIds: {},
     runtimeVisibility: {},
+    // PauseAnimation gives an object its own clock. Keyed by object id:
+    //   offset   ms this object has spent paused, so it lags the scene by that
+    //   pausedAt scene time it froze at, or null while it is running
+    // A resumed object continues from where it froze rather than catching up --
+    // catching up would put it exactly where it would have been anyway, which
+    // makes the pause pointless.
+    objectClocks: {},
+    // Hit testing memoises on time; a pause changes object time without moving
+    // scene time, so the cache needs to know the clocks moved.
+    clockEpoch: 0,
     canvas: null,
     interactive: false,
   };
+
+  function objectClock(objId) {
+    var c = eventState.objectClocks[objId];
+    if (!c) {
+      c = { offset: 0, pausedAt: null };
+      eventState.objectClocks[objId] = c;
+    }
+    return c;
+  }
+
+  // Scene time -> this object's own time.
+  function objectTimeFor(objId, sceneTimeMs) {
+    var c = eventState.objectClocks[objId];
+    if (!c) return sceneTimeMs;
+    if (c.pausedAt !== null) return c.pausedAt - c.offset;
+    return sceneTimeMs - c.offset;
+  }
+
+  function isObjectPaused(objId) {
+    var c = eventState.objectClocks[objId];
+    return !!(c && c.pausedAt !== null);
+  }
+
+  function pauseObjectAnimation(objId) {
+    var c = objectClock(objId);
+    if (c.pausedAt !== null) return;          // already paused
+    c.pausedAt = state.currentTimeMs;
+    eventState.clockEpoch++;
+  }
+
+  function playObjectAnimation(objId) {
+    var c = eventState.objectClocks[objId];
+    if (!c || c.pausedAt === null) return;    // never paused
+    c.offset += state.currentTimeMs - c.pausedAt;
+    c.pausedAt = null;
+    eventState.clockEpoch++;
+  }
 
   function initEvents(canvasEl, interactive) {
     eventState.canvas = canvasEl;
@@ -533,6 +586,8 @@ var CitCatRuntime = (function () {
     eventState.firedSceneEnds = {};
     eventState.hoveredObjectIds = {};
     eventState.runtimeVisibility = {};
+    eventState.objectClocks = {};
+    eventState.clockEpoch++;
     eventState.canvas = null;
     eventState.interactive = false;
   }
@@ -542,28 +597,34 @@ var CitCatRuntime = (function () {
     eventState.firedSceneEnds = {};
     eventState.hoveredObjectIds = {};
     eventState.runtimeVisibility = {};
+    eventState.objectClocks = {};
+    eventState.clockEpoch++;
   }
 
   // Hit testing has to see the objects as they are actually drawn: lifespan
   // applied, visible keyframes applied, transforms interpolated. Resolving the
   // whole scene per mousemove would be wasteful, so memoise on scene+time —
   // every pointer event between two frames shares one resolve.
-  var hitCache = { sceneIndex: -1, timeMs: -1, objects: null };
+  var hitCache = { sceneIndex: -1, timeMs: -1, epoch: -1, objects: null };
 
   function resolvedObjectsForHitTest() {
     var scene = getCurrentScene();
     if (!scene) return [];
     if (hitCache.objects &&
         hitCache.sceneIndex === state.currentSceneIndex &&
-        hitCache.timeMs === state.currentTimeMs) {
+        hitCache.timeMs === state.currentTimeMs &&
+        hitCache.epoch === eventState.clockEpoch) {
       return hitCache.objects;
     }
     var out = [];
     for (var i = 0; i < scene.objects.length; i++) {
-      out.push(resolveObjectAtTime(scene.objects[i], state.currentTimeMs));
+      var o = scene.objects[i];
+      out.push(resolveObjectAtTime(
+        o, objectTimeFor(o.id, state.currentTimeMs), state.currentTimeMs));
     }
     hitCache.sceneIndex = state.currentSceneIndex;
     hitCache.timeMs = state.currentTimeMs;
+    hitCache.epoch = eventState.clockEpoch;
     hitCache.objects = out;
     return out;
   }
@@ -736,12 +797,11 @@ var CitCatRuntime = (function () {
         break;
 
       case "PlayAnimation":
-        // In this context, "play" means the object's keyframes animate normally
-        // (they already do during playback, so this is a no-op for now;
-        // per-object pause/play state can be added as a refinement)
+        if (action.object_id) playObjectAnimation(action.object_id);
         break;
 
       case "PauseAnimation":
+        if (action.object_id) pauseObjectAnimation(action.object_id);
         break;
 
       case "SetProperty":
@@ -1070,7 +1130,11 @@ var CitCatRuntime = (function () {
     if (!scene) return null;
     var objects = [];
     for (var i = 0; i < scene.objects.length; i++) {
-      objects.push(resolveObjectAtTime(scene.objects[i], timeMs));
+      var o = scene.objects[i];
+      // Object clocks are reset on every scene change, so an object belonging
+      // to some other scene -- the incoming or outgoing side of a transition --
+      // simply has no clock and resolves at scene time.
+      objects.push(resolveObjectAtTime(o, objectTimeFor(o.id, timeMs), timeMs));
     }
     return {
       id: scene.id,
@@ -1226,13 +1290,17 @@ var CitCatRuntime = (function () {
 
     var VIDEO_DRIFT_S = 0.15;
 
-    function syncVideo(obj, v, sceneTimeMs) {
+    // objTimeMs is the object's own clock, so a PauseAnimation freezes its
+    // video at the frame it was showing rather than letting the scene clock
+    // drag it onward.
+    function syncVideo(obj, v, objTimeMs) {
       if (v.readyState < 1) return;
-      var want = videoTargetSeconds(obj, sceneTimeMs);
+      var want = videoTargetSeconds(obj, objTimeMs);
       var past = obj.video_trim_end_ms != null &&
-                 (obj.video_trim_end_ms - (obj.video_trim_start_ms || 0)) < sceneTimeMs;
+                 (obj.video_trim_end_ms - (obj.video_trim_start_ms || 0)) < objTimeMs;
+      var running = state.isPlaying && !isObjectPaused(obj.id);
 
-      if (!state.isPlaying || past) {
+      if (!running || past) {
         if (!v.paused) v.pause();
         if (canSeek(v) && Math.abs(v.currentTime - want) > 0.01) v.currentTime = want;
         return;
@@ -1492,7 +1560,7 @@ var CitCatRuntime = (function () {
             var frame = null;
             if (isGif(obj.content)) {
               var g = loadGif(obj.content);
-              if (!g.failed) frame = gifFrameAt(g, state.currentTimeMs);
+              if (!g.failed) frame = gifFrameAt(g, objectTimeFor(obj.id, state.currentTimeMs));
             }
             if (frame) {
               ctx.drawImage(frame, t.x, t.y, t.width, t.height);
@@ -1507,7 +1575,7 @@ var CitCatRuntime = (function () {
         case "Video":
           if (obj.content) {
             var vid = loadVideo(obj);
-            syncVideo(obj, vid, state.currentTimeMs);
+            syncVideo(obj, vid, objectTimeFor(obj.id, state.currentTimeMs));
             if (vid.readyState >= 2) {
               ctx.drawImage(vid, t.x, t.y, t.width, t.height);
             } else {
@@ -1599,7 +1667,9 @@ var CitCatRuntime = (function () {
             aud.loop = !!obj.audio_loop;
             aud.volume = obj.audio_volume !== undefined && obj.audio_volume !== null
               ? clamp01(obj.audio_volume) : 1.0;
-            if (state.isPlaying && aud.paused) {
+            if (isObjectPaused(obj.id)) {
+              if (!aud.paused) aud.pause();
+            } else if (state.isPlaying && aud.paused) {
               var ap = aud.play();
               if (ap && ap.catch) ap.catch(function () {});
             }
@@ -1795,6 +1865,12 @@ var CitCatRuntime = (function () {
     isWaiting: isWaiting,
     getWaitingAtMs: getWaitingAtMs,
     state: state,
+    // Per-object clocks (PlayAnimation / PauseAnimation). Exported so a test
+    // can pin the rule directly instead of inferring it from what got painted.
+    objectTimeFor: objectTimeFor,
+    isObjectPaused: isObjectPaused,
+    pauseObjectAnimation: pauseObjectAnimation,
+    playObjectAnimation: playObjectAnimation,
     // Shared with src/js/canvas.js, the editor's separate renderer, so the two
     // cannot disagree about colours or gradient geometry.
     parseColor: parseColor,

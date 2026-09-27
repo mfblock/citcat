@@ -1,7 +1,7 @@
 {
   "version": "1.0",
   "meta": {
-    "name": "Product Showcase",
+    "name": "Product Showcase (SQLite)",
     "width": 1920,
     "height": 1080,
     "fps": 30,
@@ -1519,9 +1519,9 @@
   ],
   "effects_library": [],
   "data_source": {
-    "source_type": "Csv",
-    "connection": "sample-products.csv",
-    "table": "data",
+    "source_type": "Sqlite",
+    "connection": "products.sqlite",
+    "table": "products",
     "preview_row": 0
   },
   "export_settings": {

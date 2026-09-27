@@ -3,6 +3,7 @@ const Splitters = (() => {
   const mainArea = document.getElementById('main-area');
   const hSplitter = document.getElementById('h-splitter');
   const vSplitter = document.getElementById('v-splitter');
+  const lSplitter = document.getElementById('layers-splitter');
 
   let dragging = null;
   let startPos = 0;
@@ -32,6 +33,19 @@ const Splitters = (() => {
     });
   }
 
+  // The layers column grows to the right, so its delta is the plain one --
+  // unlike the properties panel, which is anchored to the right edge.
+  function initLayersSplitter() {
+    if (!lSplitter) return;
+    lSplitter.addEventListener('mousedown', (e) => {
+      e.preventDefault();
+      dragging = 'layers';
+      startPos = e.clientX;
+      startSize = document.getElementById('layers-panel').getBoundingClientRect().width;
+      document.body.style.cursor = 'col-resize';
+    });
+  }
+
   function onMouseMove(e) {
     if (!dragging) return;
     e.preventDefault();
@@ -44,6 +58,11 @@ const Splitters = (() => {
       const delta = startPos - e.clientX;
       const newWidth = Math.max(200, Math.min(600, startSize + delta));
       mainArea.style.setProperty('--props-width', newWidth + 'px');
+    } else if (dragging === 'layers') {
+      const delta = e.clientX - startPos;
+      const newWidth = Math.max(120, Math.min(420, startSize + delta));
+      document.getElementById('bottom-main')
+        .style.setProperty('--layers-width', newWidth + 'px');
     }
 
     if (typeof CitCatCanvas !== 'undefined' && CitCatCanvas.resize) {
@@ -63,6 +82,7 @@ const Splitters = (() => {
   function init() {
     initHorizontalSplitter();
     initVerticalSplitter();
+    initLayersSplitter();
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   }

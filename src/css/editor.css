@@ -537,51 +537,91 @@ body {
 }
 
 /* Bottom area */
+/* Scenes are a horizontal sequence -- the coarse version of the same axis the
+   timeline below them uses -- so they run across the full width as a filmstrip.
+   Stacked in a narrow column the thumbnails were too small to recognise a scene
+   by, and layers had no room left. */
 #bottom-area {
-  display: grid;
-  grid-template-columns: 160px 1fr;
+  display: flex;
+  flex-direction: column;
   border-top: 1px solid var(--border);
-}
-
-#left-bottom-panels {
-  display: flex;
-  flex-direction: column;
-  background: var(--bg-panel);
-  border-right: 1px solid var(--border);
   overflow: hidden;
+  /* A grid item defaults to min-height:auto, so without this the strip plus the
+     timeline's intrinsic height push the whole area past its track and off the
+     bottom of the window. */
+  min-height: 0;
 }
 
-/* Scenes panel */
-#scenes-panel {
+#scenes-strip {
   display: flex;
-  flex-direction: column;
-  overflow-y: auto;
+  align-items: stretch;
   flex: 0 0 auto;
-  max-height: 50%;
+  height: 116px;
+  background: var(--bg-panel);
   border-bottom: 1px solid var(--border);
+}
+
+#scenes-strip .strip-label {
+  flex: 0 0 auto;
+  width: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--text-secondary);
+  background: var(--bg-toolbar);
+  border-right: 1px solid var(--border);
+}
+
+#bottom-main {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: var(--layers-width, 190px) 5px 1fr;
+  /* An implicit auto row would be sized by the timeline's intrinsic height and
+     spill past the panel, taking the splitter off-screen with it. */
+  grid-template-rows: minmax(0, 1fr);
+}
+
+#bottom-main > * {
+  min-height: 0;
+  min-width: 0;
 }
 
 /* Layers panel */
 #layers-panel {
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
-  flex: 1;
+  overflow: hidden;
+  background: var(--bg-panel);
 }
 
 #layers-list {
   flex: 1;
   overflow-y: auto;
+  min-height: 0;
+}
+
+#layers-list:empty::after {
+  content: "No objects in this scene";
+  display: block;
+  padding: 14px 10px;
+  font-size: 11px;
+  font-style: italic;
+  color: var(--text-muted);
 }
 
 .layer-row {
   display: flex;
   align-items: center;
-  gap: 2px;
-  padding: 3px 6px;
+  gap: 5px;
+  padding: 6px 8px;
   cursor: pointer;
   border-bottom: 1px solid var(--border);
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .layer-row:hover {
@@ -601,10 +641,16 @@ body {
   border: none;
   color: var(--text-muted);
   cursor: pointer;
-  font-size: 11px;
-  padding: 1px 3px;
+  font-size: 12px;
+  padding: 2px 3px;
   border-radius: 3px;
   line-height: 1;
+  flex: 0 0 auto;
+}
+
+.layer-icon-btn:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
 }
 
 .layer-icon-btn:hover {
@@ -615,8 +661,9 @@ body {
 .layer-type-icon {
   font-size: 10px;
   color: var(--text-muted);
-  min-width: 14px;
+  min-width: 15px;
   text-align: center;
+  flex: 0 0 auto;
 }
 
 .layer-name {
@@ -662,7 +709,20 @@ body {
 
 #scene-list {
   flex: 1;
-  overflow-y: auto;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  outline: none;
+}
+
+#scene-list::-webkit-scrollbar { height: 8px; }
+#scene-list::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
 }
 
 .scene-item {
@@ -725,6 +785,7 @@ body {
   background: var(--bg-panel);
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 #timeline-content {
@@ -1287,38 +1348,164 @@ body {
 
 /* Scene thumbnails */
 .scene-item-thumb {
+  position: relative;
+  flex: 0 0 auto;
+  width: 148px;
   display: flex;
   flex-direction: column;
-  align-items: center;
   padding: 4px;
   cursor: pointer;
   border-radius: 6px;
   border: 2px solid transparent;
+  background: var(--bg-card, rgba(255, 255, 255, 0.03));
+  outline: none;
 }
 
+.scene-item-thumb:hover {
+  background: var(--bg-hover);
+}
+
+/* The active scene is the most important state in this strip, so it gets the
+   accent border, a tinted ground and a filled index chip -- readable at a
+   glance without hunting. */
 .scene-item-thumb.active {
   border-color: var(--accent);
-  background: rgba(59, 130, 246, 0.1);
+  background: rgba(59, 130, 246, 0.16);
+}
+
+.scene-item-thumb:focus-visible {
+  border-color: var(--accent-bright, #93c5fd);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.35);
 }
 
 .scene-item-thumb img {
   width: 100%;
+  height: 79px;
+  object-fit: cover;
   border-radius: 3px;
-  background: #fff;
+  background: #000;
+  display: block;
+}
+
+.scene-item-thumb .scene-thumb-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 4px;
+  min-width: 0;
+}
+
+.scene-item-thumb .scene-index {
+  flex: 0 0 auto;
+  min-width: 15px;
+  height: 15px;
+  padding: 0 3px;
+  border-radius: 3px;
+  background: var(--bg-input);
+  color: var(--text-muted);
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 15px;
+  text-align: center;
+}
+
+.scene-item-thumb.active .scene-index {
+  background: var(--accent);
+  color: #fff;
 }
 
 .scene-item-thumb .scene-thumb-name {
-  font-size: 10px;
+  flex: 1;
+  font-size: 11px;
   color: var(--text-secondary);
-  margin-top: 2px;
-  max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
+.scene-item-thumb.active .scene-thumb-name {
+  color: var(--text-primary);
+}
+
+/* Transition into this scene, shown on the thumbnail rather than crammed into
+   the name, where it used to push the name into an ellipsis. */
+.scene-item-thumb .scene-trans-badge {
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  padding: 1px 5px;
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.66);
+  color: var(--accent-bright, #93c5fd);
+  font-size: 9px;
+  font-weight: 600;
+  pointer-events: none;
+}
+
+.scene-item-thumb .scene-delete {
+  position: absolute;
+  right: 6px;
+  top: 6px;
+  opacity: 0;
+  width: 17px;
+  height: 17px;
+  border: none;
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.7);
+  color: var(--danger);
+  cursor: pointer;
+  font-size: 13px;
+  line-height: 1;
+  padding: 0;
+}
+
+.scene-item-thumb:hover .scene-delete,
+.scene-item-thumb:focus-within .scene-delete {
+  opacity: 1;
+}
+
 .scene-item-thumb.dragging {
   opacity: 0.4;
+}
+
+/* A horizontal strip needs an edge marker, not the top border the vertical
+   list used -- that read as "above" where the axis means "before". */
+.scene-item-thumb.drop-before::after,
+.scene-item-thumb.drop-after::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--accent);
+}
+
+.scene-item-thumb.drop-before::after { left: -6px; }
+.scene-item-thumb.drop-after::after { right: -6px; }
+
+/* A peer of the scene tiles rather than a floating button: same vertical band,
+   so the strip reads as one row. */
+.scene-add-tile {
+  flex: 0 0 auto;
+  align-self: stretch;
+  width: 46px;
+  margin: 6px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed var(--border);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.scene-add-tile:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(59, 130, 246, 0.08);
 }
 
 /* Filters section */

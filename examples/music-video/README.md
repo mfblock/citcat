@@ -1,20 +1,55 @@
 # Music Video / Lyric Video Example
 
-Demonstrates CitCat's multimedia and subtitle features for lyric videos.
+A two-scene lyric piece — *Midnight Rain* — built to exercise CitCat's
+atmospheric and timing features: layered imagery, colour filters, subtitles and
+media trimming.
+
+## Files
+
+| | |
+|---|---|
+| `lyric-video.citcat` | the project |
+| `assets/` | skyline, rain, grain, and a short clip |
+
+The assets are generated, not stock footage — run `_gen_assets.py` to rebuild
+them. The whole set is about 60 KB.
+
+## Run it
+
+Open `lyric-video.citcat` and press Play. The project's export format is set to
+MP4, which is what a lyric video is for; that path needs `ffmpeg` on your PATH.
+HTML5 export works too, if you want it on a page.
 
 ## What it demonstrates
 
-- **Subtitles** — SRT-style subtitle track burned into the Canvas
-- **Motion paths** — floating particles following curved bezier paths
-- **Object filters** — blur and drop shadow for atmospheric effects
-- **Object lifespan** — lyric lines appear and disappear on beat
-- **Audio objects** — background music track (reference, no actual file needed)
-- **Transitions** — Crossfade between verse and chorus
-- **Keyframe animation** — spin, pulse, opacity effects
+**Layered composition.** The Verse scene uses a background *image* — a night
+skyline — with a separate rain layer over it, pulled to monochrome so the colour
+in the frame comes from the city and the lyrics rather than from the weather.
 
-## How to use
+**Colour filters, used as grading rather than as a demo.**
 
-1. Open `lyric-video.citcat` in CitCat
-2. Press Play to see the lyric animation
-3. Export as MP4 for a real music video (requires ffmpeg)
-4. Or export as HTML5 for a web-based lyric experience
+| layer | treatment | why |
+|---|---|---|
+| Rain Layer | `grayscale` `brightness` `contrast` | rain reads as texture, not colour |
+| Street Reflection | `blur` `saturate` | a sign smeared in a wet street |
+| Particle 2 | `hue_rotate` animated 0→300° | the ambient glow is never the same colour twice |
+| Film Grain | `sepia` `contrast` | the chorus feels projected, archival |
+| Ring 1 | `hue_rotate` animated 0→360° | the ring cycles with the music |
+| titles | `drop_shadow` | legibility over a busy frame |
+
+Filters are keyframeable — the two `hue_rotate` animations are ordinary
+keyframes on `filters.hue_rotate`.
+
+**Video trimming.** `Street Reflection` plays seconds 1–3 of a four-second clip.
+The trim is the edit: `video_trim_start_ms` and `video_trim_end_ms` pick the
+window, so the source does not have to be cut beforehand.
+
+**Subtitles.** An SRT-style track on each scene, burned into the Canvas.
+
+**Motion paths.** The three particles drift along curved bezier paths.
+
+**Object lifespan.** Lyric lines appear and disappear on the beat via
+`appear_at_ms` / `disappear_at_ms`, rather than being faded by hand.
+
+**Audio.** A background music object. The referenced file is not shipped — point
+it at your own track, or leave it; the visuals run either way.

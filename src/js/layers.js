@@ -82,6 +82,10 @@ var CitCatLayers = (function () {
           row.classList.add("drag-over");
         });
 
+        // Without this a cancelled drag left the highlight behind, because
+        // cleanup only ran on a successful drop.
+        row.addEventListener("dragend", cleanup);
+
         container.appendChild(row);
       })(objects[i]);
     }
@@ -97,6 +101,7 @@ var CitCatLayers = (function () {
       case "Audio": return "\u{1F50A}";
       case "Button": return "⎕";
       case "Hotspot": return "⬚";
+      case "Svg": return "◆";
       default: return "?";
     }
   }
