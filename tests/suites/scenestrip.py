@@ -229,6 +229,44 @@ async def run(page, port, load_project):
 
     rt.check(not errors, "no page errors", str(errors[:3]))
 
+    # ---------- bottom-area minimum height ----------
+    # Regression for the stale-constant defect Mirjam found on the real screen:
+    # --bottom-height's 200px default predated the 116px filmstrip (leaving
+    # Layers+Timeline a sliver), and splitters.js's drag floor was a second
+    # hard-coded number (100) smaller than the filmstrip itself, so dragging
+    # to the floor could clip the filmstrip too.
+    errors.clear()
+    await _open(page, _with_scenes(5))
+
+    strip_default = await page.locator("#scenes-strip").bounding_box()
+    rt.near(strip_default["height"], 116, 3,
+            "at the default bottom-height the filmstrip has its full height")
+    layers_default = await page.locator("#layers-panel").bounding_box()
+    rt.check(layers_default["height"] >= 138,
+              "the default bottom-height leaves Layers/Timeline a usable "
+              "working height, not a sliver",
+              "%.0f px" % layers_default["height"])
+
+    hsp = await page.locator("#h-splitter").bounding_box()
+    app_box = await page.locator("#app").bounding_box()
+    await page.mouse.move(hsp["x"] + hsp["width"] / 2, hsp["y"] + hsp["height"] / 2)
+    await page.mouse.down()
+    # Drag well past the floor -- all the way to the bottom of the window.
+    await page.mouse.move(hsp["x"] + hsp["width"] / 2, app_box["height"], steps=8)
+    await page.mouse.up()
+    await asyncio.sleep(0.3)
+
+    bottom = await page.locator("#bottom-area").bounding_box()
+    strip = await page.locator("#scenes-strip").bounding_box()
+    rt.near(strip["height"], 116, 3,
+            "dragging the splitter to the floor never clips the filmstrip itself")
+    rt.check(bottom["height"] >= strip["height"] + 138,
+              "the bottom area cannot be dragged below the filmstrip's own "
+              "live height plus a usable Layers/Timeline minimum",
+              "bottom=%.0f strip=%.0f" % (bottom["height"], strip["height"]))
+    rt.check(not errors, "no page errors dragging the bottom-area splitter to its floor",
+              str(errors[:3]))
+
     # ---------- a crowded strip still behaves ----------
     errors.clear()
     await _open(page, _with_scenes(12))

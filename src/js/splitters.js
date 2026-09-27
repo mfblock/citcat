@@ -4,10 +4,23 @@ const Splitters = (() => {
   const hSplitter = document.getElementById('h-splitter');
   const vSplitter = document.getElementById('v-splitter');
   const lSplitter = document.getElementById('layers-splitter');
+  const filmstripEl = document.getElementById('scenes-strip');
+
+  // Layers+Timeline need at least this much room below the filmstrip to be
+  // usable (one panel header + a handful of layer rows), independent of
+  // whatever height the filmstrip itself happens to have.
+  const MIN_LAYERS_TIMELINE_HEIGHT = 140;
 
   let dragging = null;
   let startPos = 0;
   let startSize = 0;
+
+  // Read live rather than hard-coding the filmstrip's height, so this floor
+  // can't go stale a third time if #scenes-strip's own CSS height changes.
+  function minBottomHeight() {
+    const filmstripHeight = filmstripEl ? filmstripEl.getBoundingClientRect().height : 0;
+    return filmstripHeight + MIN_LAYERS_TIMELINE_HEIGHT;
+  }
 
   function initHorizontalSplitter() {
     if (!hSplitter) return;
@@ -52,7 +65,7 @@ const Splitters = (() => {
 
     if (dragging === 'h') {
       const delta = startPos - e.clientY;
-      const newHeight = Math.max(100, Math.min(window.innerHeight - 200, startSize + delta));
+      const newHeight = Math.max(minBottomHeight(), Math.min(window.innerHeight - 200, startSize + delta));
       app.style.setProperty('--bottom-height', newHeight + 'px');
     } else if (dragging === 'v') {
       const delta = startPos - e.clientX;

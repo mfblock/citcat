@@ -34,7 +34,7 @@ body {
 
 #app {
   display: grid;
-  grid-template-rows: 48px 1fr 5px var(--bottom-height, 200px);
+  grid-template-rows: 48px 1fr 5px var(--bottom-height, 256px);
   height: 100vh;
   width: 100vw;
 }
