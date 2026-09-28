@@ -54,6 +54,16 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
 
+      - name: Install npm dependencies
+        run: npm install
+
+      - name: Run tests
+        run: cargo test --manifest-path src-tauri/Cargo.toml
+
+      # Must run AFTER the tests: the arm64 -dev packages are not
+      # co-installable with their amd64 counterparts, so apt removes the
+      # amd64 ones (libwebkit2gtk-4.1-dev, libsoup-3.0-dev, ...) and the
+      # native test build would then fail to find them via pkg-config.
       - name: Install Linux ARM64 cross-compilation toolchain
         if: matrix.target == 'aarch64-unknown-linux-gnu'
         run: |
@@ -75,12 +85,6 @@ jobs:
             libwebkit2gtk-4.1-dev:arm64 \
             libappindicator3-dev:arm64 \
             librsvg2-dev:arm64
-
-      - name: Install npm dependencies
-        run: npm install
-
-      - name: Run tests
-        run: cargo test --manifest-path src-tauri/Cargo.toml
 
       - name: Build Tauri app
         uses: tauri-apps/tauri-action@v0
