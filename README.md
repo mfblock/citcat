@@ -33,7 +33,8 @@ Prerequisites: [Rust](https://rustup.rs) (1.70+), [Node.js](https://nodejs.org) 
 ```bash
 cd citcat
 npm install
-npm run tauri dev     # development mode
+npm run dev           # development mode (does not steal keyboard focus)
+npm run tauri dev     # development mode, window takes focus
 npm run tauri build   # production build
 ```
 
