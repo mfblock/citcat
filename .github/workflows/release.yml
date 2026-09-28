@@ -90,15 +90,6 @@ jobs:
             libappindicator3-dev:arm64 \
             librsvg2-dev:arm64
 
-      # The AppImage bundler runs aarch64 tooling (linuxdeploy-aarch64,
-      # linuxdeploy-plugin-appimage-aarch64) on this x86_64 runner, which
-      # fails with "Exec format error" without binfmt/QEMU emulation.
-      - name: Set up QEMU for the ARM64 AppImage tooling
-        if: matrix.target == 'aarch64-unknown-linux-gnu'
-        uses: docker/setup-qemu-action@v3
-        with:
-          platforms: arm64
-
       - name: Build Tauri app
         uses: tauri-apps/tauri-action@v0
         env:
@@ -109,8 +100,6 @@ jobs:
           CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER: ${{ matrix.target == 'aarch64-unknown-linux-gnu' && 'aarch64-linux-gnu-gcc' || '' }}
           CC_aarch64_unknown_linux_gnu: ${{ matrix.target == 'aarch64-unknown-linux-gnu' && 'aarch64-linux-gnu-gcc' || '' }}
           CXX_aarch64_unknown_linux_gnu: ${{ matrix.target == 'aarch64-unknown-linux-gnu' && 'aarch64-linux-gnu-g++' || '' }}
-          # AppImage tooling can't rely on FUSE inside the runner.
-          APPIMAGE_EXTRACT_AND_RUN: 1
         with:
           # Empty on manual runs, which makes tauri-action build only and
           # skip creating a release.
@@ -122,10 +111,14 @@ jobs:
             - **macOS Intel** — `.dmg`
             - **Windows** — `.msi` installer
             - **Linux x64** — `.deb` / `.AppImage`
-            - **Linux ARM64** — `.deb` / `.AppImage`
+            - **Linux ARM64** — `.deb` / `.rpm`
           releaseDraft: false
           prerelease: false
-          args: --target ${{ matrix.target }}
+          # Linux ARM64 ships .deb and .rpm but no AppImage: the AppImage
+          # bundler executes aarch64 tooling (linuxdeploy-aarch64) on the
+          # x86_64 runner, which fails both natively ("Exec format error")
+          # and under binfmt/QEMU ("failed to run linuxdeploy").
+          args: ${{ matrix.target == 'aarch64-unknown-linux-gnu' && '--target aarch64-unknown-linux-gnu --bundles deb,rpm' || format('--target {0}', matrix.target) }}
 
       - name: Upload bundles as run artifacts (manual runs)
         if: github.event_name == 'workflow_dispatch'
