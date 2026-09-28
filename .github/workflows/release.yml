@@ -4,6 +4,10 @@ on:
   push:
     tags:
       - 'v*'
+  # Manual runs build every target and upload the bundles as run
+  # artifacts WITHOUT creating a release, so the matrix can be tested
+  # without cutting a version.
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -86,6 +90,15 @@ jobs:
             libappindicator3-dev:arm64 \
             librsvg2-dev:arm64
 
+      # The AppImage bundler runs aarch64 tooling (linuxdeploy-aarch64,
+      # linuxdeploy-plugin-appimage-aarch64) on this x86_64 runner, which
+      # fails with "Exec format error" without binfmt/QEMU emulation.
+      - name: Set up QEMU for the ARM64 AppImage tooling
+        if: matrix.target == 'aarch64-unknown-linux-gnu'
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: arm64
+
       - name: Build Tauri app
         uses: tauri-apps/tauri-action@v0
         env:
@@ -96,9 +109,13 @@ jobs:
           CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER: ${{ matrix.target == 'aarch64-unknown-linux-gnu' && 'aarch64-linux-gnu-gcc' || '' }}
           CC_aarch64_unknown_linux_gnu: ${{ matrix.target == 'aarch64-unknown-linux-gnu' && 'aarch64-linux-gnu-gcc' || '' }}
           CXX_aarch64_unknown_linux_gnu: ${{ matrix.target == 'aarch64-unknown-linux-gnu' && 'aarch64-linux-gnu-g++' || '' }}
+          # AppImage tooling can't rely on FUSE inside the runner.
+          APPIMAGE_EXTRACT_AND_RUN: 1
         with:
-          tagName: ${{ github.ref_name }}
-          releaseName: 'CitCat ${{ github.ref_name }}'
+          # Empty on manual runs, which makes tauri-action build only and
+          # skip creating a release.
+          tagName: ${{ startsWith(github.ref, 'refs/tags/v') && github.ref_name || '' }}
+          releaseName: ${{ startsWith(github.ref, 'refs/tags/v') && format('CitCat {0}', github.ref_name) || '' }}
           releaseBody: |
             Download CitCat for your platform:
             - **macOS ARM64** (Apple Silicon) — `.dmg`
@@ -109,3 +126,11 @@ jobs:
           releaseDraft: false
           prerelease: false
           args: --target ${{ matrix.target }}
+
+      - name: Upload bundles as run artifacts (manual runs)
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/upload-artifact@v4
+        with:
+          name: citcat-${{ matrix.target }}
+          path: src-tauri/target/${{ matrix.target }}/release/bundle/**
+          if-no-files-found: warn
