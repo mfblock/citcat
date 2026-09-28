@@ -58,7 +58,11 @@ jobs:
         if: matrix.target == 'aarch64-unknown-linux-gnu'
         run: |
           sudo dpkg --add-architecture arm64
-          sudo sed -i 's/^deb http/deb [arch=amd64] http/; s/^deb-src http/deb-src [arch=amd64] http/' /etc/apt/sources.list
+          # GitHub's ubuntu-22.04 runner sources.list uses mixed schemes
+          # (mirror+file:, http:, https: for security.ubuntu.com) rather
+          # than a uniform "deb http" prefix, so restrict by the deb/deb-src
+          # keyword itself rather than assuming a URL scheme.
+          sudo sed -i -E 's/^deb(-src)? /deb\1 [arch=amd64] /' /etc/apt/sources.list
           sudo tee /etc/apt/sources.list.d/arm64.list > /dev/null <<'EOF'
           deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports jammy main restricted universe multiverse
           deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports jammy-updates main restricted universe multiverse
