@@ -179,6 +179,7 @@ mod tests {
     fn shipped_project_files() -> Vec<&'static str> {
         vec![
             "templates/demo-showcase.citcat",
+            "templates/landing-showreel.citcat",
             "examples/product-catalogue/product-showcase.citcat",
             "examples/interactive-training/safety-training.citcat",
             "examples/music-video/lyric-video.citcat",
