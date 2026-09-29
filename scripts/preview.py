@@ -19,29 +19,30 @@ import json
 import socketserver
 import sys
 import threading
+import urllib.parse
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 
 PAGE = """<!DOCTYPE html><html><head><meta charset="utf-8">
-<style>html,body{margin:0;background:#000}canvas{display:block}</style></head><body>
+{base_tag}<style>html,body{{margin:0;background:#000}}canvas{{display:block}}</style></head><body>
 <canvas id="stage"></canvas>
 <script>
   // runtime.js swaps the module for a standalone constructor when __TAURI__ is
   // absent. Keep the module API by faking the flag, then drop it.
-  window.__TAURI__ = { __preview: true };
+  window.__TAURI__ = {{ __preview: true }};
 </script>
 <script src="/src/js/runtime.js"></script>
 <script>
   delete window.__TAURI__;
-  window.__load = function (project) {
+  window.__load = function (project) {{
     var R = window.CitCatRuntime, c = document.getElementById('stage');
     c.width = project.meta.width; c.height = project.meta.height;
     R.stop(); R.setProject(project); R.renderStandalone(c, null);
-    return { w: c.width, h: c.height, scenes: project.scenes.map(function (s) {
-      return { name: s.name, duration: s.duration_ms }; }) };
-  };
-  window.__seek = function (i, ms) { window.CitCatRuntime.seekTo(i, ms); };
+    return {{ w: c.width, h: c.height, scenes: project.scenes.map(function (s) {{
+      return {{ name: s.name, duration: s.duration_ms }}; }}) }};
+  }};
+  window.__seek = function (i, ms) {{ window.CitCatRuntime.seekTo(i, ms); }};
 </script></body></html>
 """
 
@@ -52,7 +53,18 @@ class _Quiet(http.server.SimpleHTTPRequestHandler):
 
     def do_GET(self):
         if self.path.startswith("/__preview"):
-            body = PAGE.encode()
+            # A project's Image/Video/Audio/Svg `content` is a path relative to
+            # the *project file's own folder* (that's how a folder export and
+            # the editor resolve it -- see examples/*/README.md). The page is
+            # always served from "/__preview" though, so a plain relative path
+            # in the DOM would resolve against server root instead and silently
+            # 404. A <base> tag pointed at the project's folder fixes that
+            # without disturbing the root-absolute "/src/js/runtime.js" load.
+            parsed = urllib.parse.urlsplit(self.path)
+            qs = urllib.parse.parse_qs(parsed.query)
+            base_dir = (qs.get("base") or [""])[0]
+            base_tag = f'<base href="/{base_dir}/">' if base_dir else ""
+            body = PAGE.format(base_tag=base_tag).encode()
             self.send_response(200)
             self.send_header("Content-Type", "text/html; charset=utf-8")
             self.send_header("Content-Length", str(len(body)))
@@ -106,10 +118,18 @@ async def main():
     except ImportError:
         sys.exit("playwright is not installed: pip3 install playwright")
 
-    # Serve the project's own folder so relative asset paths resolve the way
-    # they will in a folder export, and mount the repo for runtime.js.
+    # Serve the whole repo (runtime.js needs to load from /src/js/), and tell
+    # the page the project's own folder via ?base= so relative asset paths in
+    # the project resolve the way they do in a folder export.
     httpd, port = serve(ROOT)
     base = f"http://127.0.0.1:{port}"
+
+    base_qs = ""
+    try:
+        rel = project_path.parent.relative_to(ROOT)
+        base_qs = "?base=" + urllib.parse.quote(rel.as_posix())
+    except ValueError:
+        pass  # project lives outside the repo; relative assets won't resolve
 
     async with async_playwright() as p:
         browser = await p.chromium.launch()
@@ -117,7 +137,7 @@ async def main():
         errors = []
         page.on("pageerror", lambda e: errors.append(str(e)))
 
-        await page.goto(f"{base}/__preview", wait_until="load")
+        await page.goto(f"{base}/__preview{base_qs}", wait_until="load")
         info = await page.evaluate("p => window.__load(p)", project)
 
         moments = parse_at(args.at) if args.at else [
