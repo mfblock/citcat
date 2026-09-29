@@ -32,3 +32,6 @@ tests/embed.js
 tests/paint-editor.js
 __pycache__/
 *.pyc
+
+# Preview frames rendered by scripts/preview.py
+preview/
