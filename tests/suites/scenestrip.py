@@ -267,6 +267,71 @@ async def run(page, port, load_project):
     rt.check(not errors, "no page errors dragging the bottom-area splitter to its floor",
               str(errors[:3]))
 
+    # ---------- Fix 3 regression: keyboard nav is reachable after a real click ----------
+    # Regression found by Mouser: the click handler switched scenes but never
+    # called .focus() on the tile, so the keyboard nav (wired correctly below)
+    # was unreachable via the documented flow of click-a-tile-then-arrow-keys.
+    # Playwright's .focus() (used above) bypasses the click handler entirely,
+    # which is exactly why that coverage didn't catch this -- this block uses
+    # a real .click() instead.
+    errors.clear()
+    await _open(page, _with_scenes(5))
+
+    await page.locator(".scene-item-thumb").nth(0).click()
+    await asyncio.sleep(0.4)
+    rt.equal(await page.evaluate("() => document.activeElement.dataset.sceneId"),
+             "scene-0", "clicking a tile gives it real DOM focus, not just the active class")
+
+    await page.keyboard.press("ArrowRight")
+    rt.equal(await page.evaluate(
+        "() => document.activeElement.querySelector('.scene-thumb-name')?.textContent"),
+        "The Dance", "ArrowRight after a plain click moves focus (was unreachable before the fix)")
+
+    await page.keyboard.press("F2")
+    await asyncio.sleep(0.3)
+    rt.equal(await page.locator(".scene-rename-input").count(), 1,
+             "F2 after click-then-arrow opens rename (was unreachable before the fix)")
+    await page.keyboard.press("Escape")
+    await asyncio.sleep(0.2)
+    rt.equal(await page.locator(".scene-rename-input").count(), 0,
+             "Escape cleanly abandons the rename opened via click+keyboard")
+    rt.check(not errors, "no page errors during click-then-keyboard-nav", str(errors[:3]))
+
+    # ---------- Fix 4 regression: rename commit via Enter actually closes ----------
+    # Regression found by Mouser: commit() (the blur/Enter path) called
+    # CitCatApp.renameScene() but never removed the <input> itself, so
+    # render()'s own guard -- bail out while a .scene-rename-input is still in
+    # the DOM, meant to protect an *open* rename from being clobbered mid-edit
+    # -- blocked the cleanup commit() depended on. The tile stayed stuck
+    # showing an open, never-closing rename box, and the whole strip's
+    # re-render froze with it (a later click did nothing visible), even
+    # though switching scenes still worked underneath. Only Escape (which
+    # does an explicit input.replaceWith(nameSpan)) recovered correctly
+    # before this fix.
+    errors.clear()
+    await _open(page, _with_scenes(5))
+
+    await page.locator(".scene-item-thumb").nth(0).locator(".scene-thumb-name").dblclick()
+    await asyncio.sleep(0.3)
+    rt.equal(await page.locator(".scene-rename-input").count(), 1,
+             "double-click opens the rename input")
+    await page.locator(".scene-rename-input").fill("Renamed Scene")
+    await page.locator(".scene-rename-input").press("Enter")
+    await asyncio.sleep(0.4)
+    rt.equal(await page.locator(".scene-rename-input").count(), 0,
+             "committing via Enter removes the <input> (was stuck open before the fix)")
+    rt.equal(await page.locator(".scene-item-thumb").nth(0).locator(".scene-thumb-name").inner_text(),
+             "Renamed Scene", "the committed name shows on the tile")
+
+    # A frozen render() would leave this click doing nothing visible.
+    await page.locator(".scene-item-thumb").nth(2).click()
+    await asyncio.sleep(0.4)
+    rt.equal(await page.locator(".scene-item-thumb.active .scene-thumb-name").inner_text(),
+             "The Product",
+             "a scene switch right after a committed rename still re-renders "
+             "(was frozen by the leftover rename input before the fix)")
+    rt.check(not errors, "no page errors committing a rename via Enter", str(errors[:3]))
+
     # ---------- a crowded strip still behaves ----------
     errors.clear()
     await _open(page, _with_scenes(12))

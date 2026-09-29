@@ -202,6 +202,7 @@ var CitCatScenes = (function () {
 
       item.addEventListener("click", function (e) {
         if (e.target === deleteBtn) return;
+        item.focus();
         CitCatApp.switchScene(scene.id);
       });
 
@@ -300,6 +301,12 @@ var CitCatScenes = (function () {
       if (done) return;
       done = true;
       var newName = input.value.trim() || scene.name;
+      // Explicit swap-back, same as the Escape path below: render()'s guard
+      // bails out for as long as a .scene-rename-input is in the DOM, so if
+      // this input isn't removed here, the next render() never runs and the
+      // whole strip's re-render stays frozen even after the rename "closes".
+      nameSpan.textContent = newName;
+      input.replaceWith(nameSpan);
       CitCatApp.renameScene(scene.id, newName);
     }
 

@@ -40,15 +40,25 @@ var CitCatToolbar = (function () {
     });
 
     window.addEventListener("keydown", function (e) {
-      if (document.activeElement.tagName === "INPUT" || document.activeElement.tagName === "TEXTAREA" || document.activeElement.tagName === "SELECT") return;
+      if (document.activeElement.tagName === "INPUT" || document.activeElement.tagName === "TEXTAREA" || document.activeElement.tagName === "SELECT" || document.activeElement.isContentEditable) return;
       switch (e.key.toLowerCase()) {
         case "v":
-          if (!e.ctrlKey && !e.metaKey) setTool("select");
+          if (e.ctrlKey || e.metaKey) {
+            e.preventDefault();
+            CitCatApp.pasteObject && CitCatApp.pasteObject();
+          } else {
+            setTool("select");
+          }
           break;
         case "t": setTool("text"); break;
         case "r": setTool("rect"); break;
         case "e":
-          if (!e.ctrlKey && !e.metaKey) setTool("ellipse");
+          if (e.ctrlKey || e.metaKey) {
+            e.preventDefault();
+            document.getElementById("btn-export").click();
+          } else {
+            setTool("ellipse");
+          }
           break;
         case "i": setTool("image"); break;
         case "b": setTool("button"); break;
@@ -91,12 +101,6 @@ var CitCatToolbar = (function () {
             CitCatApp.openProject();
           }
           break;
-        case "e":
-          if (e.ctrlKey || e.metaKey) {
-            e.preventDefault();
-            document.getElementById("btn-export").click();
-          }
-          break;
         case "z":
           if (e.ctrlKey || e.metaKey) {
             e.preventDefault();
@@ -119,17 +123,17 @@ var CitCatToolbar = (function () {
             CitCatApp.copySelected && CitCatApp.copySelected();
           }
           break;
-        case "v":
-          if (e.ctrlKey || e.metaKey) {
-            e.preventDefault();
-            CitCatApp.pasteObject && CitCatApp.pasteObject();
-          }
-          break;
         case "0":
           if (e.ctrlKey || e.metaKey) {
             e.preventDefault();
             CitCatCanvas.centerStage();
             CitCatApp.requestRender();
+          }
+          break;
+        default:
+          if (e.key === "Tab") break; // preserve focus navigation / accessibility
+          if (!e.ctrlKey && !e.metaKey && !e.altKey) {
+            e.preventDefault();
           }
           break;
       }
