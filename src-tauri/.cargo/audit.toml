@@ -1,0 +1,13 @@
+[advisories]
+ignore = ["RUSTSEC-2024-0429"]
+# glib VariantStrIter unsoundness (RUSTSEC-2024-0429), "unsound" not a direct
+# vulnerability. Pulled in transitively via wry/webkit2gtk-rs/gtk-rs 0.18.x,
+# Linux-only (.deb/.rpm targets), fixed upstream in glib 0.20.0. No available
+# Tauri 2.x/wry/webkit2gtk-rs release reaches glib >=0.20 as of 2026-09-30 —
+# the whole gtk-rs 0.18 binding generation is pinned by wry itself, not by
+# citcat's Cargo.toml. citcat's own code and its full dependency chain
+# (checked: muda, tao, wry, webkit2gtk, gtk, gdk, gio) never call
+# glib::Variant::array_iter_str(), the only entry point into the affected
+# VariantStrIter iterator impls — vulnerable path is unreachable in this build.
+# Revisit at next bimonthly review: check whether wry/webkit2gtk-rs has bumped
+# past gtk-rs 0.18 (`cargo info wry`, `cargo info webkit2gtk`).
