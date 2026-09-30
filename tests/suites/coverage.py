@@ -58,6 +58,306 @@ ENGINE_IGNORES = {
 }
 
 
+# ------------------------------------------------------- FO demo-content gate
+#
+# `templates/demo-showcase.citcat` and `templates/landing-showreel.citcat`
+# are the two files CitCat ships to show itself off. Video/GIF/SVG sat broken
+# in both for the project's whole life because no shipped project used them,
+# so nobody noticed (fixed in 31d1161 + eee8d7c). The fix does not survive on
+# its own: the same silent gap can reopen for the next capability the model
+# grows. `_teams/citcat/design/demo-content/FO-demo-content.md` is the
+# standing document -- every ObjectType variant and every headline capability
+# answered `yes -> <file>` or `no, because ...`, never left blank -- and this
+# section is what makes "never left blank" a fact instead of a promise.
+
+# The FO lives in the workshop's team folder (_teams/citcat/), a sibling of
+# this git repo (_teams/citcat/citcat/) rather than inside it -- same place
+# as _teams/citcat/knowledge/data-model.md, per the development-method.md
+# convention. This suite is local-only (GitHub Actions runs only `cargo
+# test`, never tests/run.py -- see .github/workflows/release.yml), so
+# reaching one directory above the repo root is safe: Patch/Vet always run
+# it from inside the full workshop checkout.
+FO_PATH = ROOT.parent / "design" / "demo-content" / "FO-demo-content.md"
+FO_DEMO_FILES = {
+    "demo-showcase.citcat": ROOT / "templates" / "demo-showcase.citcat",
+    "landing-showreel.citcat": ROOT / "templates" / "landing-showreel.citcat",
+}
+
+# Every Option<T>/Vec<T> field on these structs is a candidate "capability"
+# the FO must account for. Mapped to the FO section key that covers it.
+FO_CAPABILITY_SCAN_STRUCTS = ("SceneObject", "Scene", "Background", "Project", "Style")
+
+FO_CAPABILITY_MAP = {
+    ("Style", "fill_gradient"): "gradients",
+    ("Style", "stroke_gradient"): "gradients",
+    ("Background", "gradient"): "gradients",
+    ("SceneObject", "motion_path"): "motion-paths",
+    ("SceneObject", "filters"): "filters",
+    ("SceneObject", "data_bindings"): "data-binding",
+    ("SceneObject", "condition"): "data-binding",
+    ("Scene", "transition_in"): "transitions",
+    ("Scene", "transition_out"): "transitions",
+    ("Scene", "wait_points"): "wait-points",
+    ("Scene", "subtitle_track"): "subtitles",
+    ("Project", "effects_library"): "effects-library-presets",
+    ("Project", "data_source"): "data-binding",
+}
+
+# Fields the scan deliberately does not require an FO line for, with the
+# reason -- authoring/timing detail already proven live by the
+# model-liveness layers above, not one of the named headline capabilities.
+# Removing an entry here without adding it to FO_CAPABILITY_MAP fails the
+# scan below exactly like a genuinely new field would.
+FO_FIELD_EXCLUDED = {
+    ("SceneObject", "keyframes"):
+        "animation as a mechanism is proven live by the layer-3 liveness "
+        "checks above; this document tracks named capabilities, not the "
+        "existence of keyframes themselves",
+    ("SceneObject", "events"):
+        "interactivity is proven live by the click_trace check above; not "
+        "one of the named headline capabilities",
+    ("SceneObject", "video_trim_start_ms"):
+        "media authoring detail, not a headline capability -- Video/Audio "
+        "as object types are tracked in the ObjectType table",
+    ("SceneObject", "video_trim_end_ms"): "media authoring detail, see video_trim_start_ms",
+    ("SceneObject", "video_muted"): "media authoring detail, see video_trim_start_ms",
+    ("SceneObject", "audio_volume"): "media authoring detail, see video_trim_start_ms",
+    ("SceneObject", "audio_loop"): "media authoring detail, see video_trim_start_ms",
+    ("SceneObject", "text_wrap"): "text authoring detail, not a headline capability",
+    ("SceneObject", "appear_at_ms"): "timing/lifespan detail, not a headline capability",
+    ("SceneObject", "disappear_at_ms"): "timing/lifespan detail, see appear_at_ms",
+    ("Background", "image"):
+        "a styling variant of Background, proven live by the m_bg_image "
+        "mutation above; the same picture-on-screen proof as ObjectType::"
+        "Image, already tracked in the ObjectType table",
+    ("Scene", "objects"):
+        "the scene graph itself, not an optional capability -- every scene "
+        "has an object list by construction; this document tracks named "
+        "capabilities objects can carry, not the existence of objects",
+    ("Project", "scenes"):
+        "the project graph itself, not an optional capability -- see "
+        "Scene.objects above for the same reasoning one level up",
+}
+
+# Enum variants that must be *named* somewhere inside their capability's FO
+# section -- so a brand-new variant (bezier easing, say) fails this gate
+# until someone demos it or writes a reason, even if the capability as a
+# whole already says yes.
+FO_ENUM_CAPABILITY = {
+    "TransitionKind": "transitions",
+    "Easing": "keyframe-easing",
+    "GradientType": "gradients",
+    "BindTransform": "data-binding",
+    "ConditionOp": "data-binding",
+    "ResumeCondition": "wait-points",
+    "EffectCategory": "effects-library-presets",
+    "DataSourceType": "data-binding",
+}
+
+# KeyframeValue variants split across two capabilities; Number/Color/Bool are
+# base animation plumbing (same call, same reason as SceneObject.keyframes
+# in FO_FIELD_EXCLUDED above), not a headline capability on their own.
+FO_KEYFRAME_VALUE_MAP = {"Gradient": "gradients", "Offset": "effects-library-presets",
+                          "Scale": "effects-library-presets"}
+FO_KEYFRAME_VALUE_EXCLUDED = {"Number", "Color", "Bool"}
+
+FO_OT_ROW_RE = re.compile(r"^\|\s*`(\w+)`\s*\|\s*(yes|no)([^|]*)\|\s*$", re.MULTILINE)
+FO_SECTION_RE = re.compile(r"^###\s+.*?`([a-z0-9-]+)`\s*$", re.MULTILINE)
+
+
+def parse_fo():
+    """Pull the object-type table and capability sections out of the FO doc."""
+    if not FO_PATH.exists():
+        return None, None, f"{FO_PATH} does not exist"
+    text = FO_PATH.read_text()
+
+    object_types = {}
+    for m in FO_OT_ROW_RE.finditer(text):
+        variant, yn, rest = m.groups()
+        object_types[variant] = (yn, rest)
+
+    headings = list(FO_SECTION_RE.finditer(text))
+    sections = {}
+    for i, m in enumerate(headings):
+        key = m.group(1)
+        start = m.end()
+        end = headings[i + 1].start() if i + 1 < len(headings) else len(text)
+        body = text[start:end]
+        ans = re.search(r"\*\*Answer:\*\*\s*(yes|no)([^\n]*)", body)
+        sections[key] = {
+            "body": body,
+            "answer": ans.group(1) if ans else None,
+            "detail": ans.group(2).strip() if ans else "",
+        }
+    return object_types, sections, None
+
+
+def fo_cited_files(text):
+    if "both" in text:
+        return list(FO_DEMO_FILES)
+    return [name for name in FO_DEMO_FILES if name in text]
+
+
+def _fo_objects(project):
+    for s in project["scenes"]:
+        yield from s["objects"]
+
+
+# One genuine JSON-content check per capability. Applied to whichever file(s)
+# the FO's Answer line cites, never guessed.
+FO_CAPABILITY_CHECKS = {
+    "gradients": lambda p: (
+        any(o["style"].get("fill_gradient") or o["style"].get("stroke_gradient")
+            for o in _fo_objects(p))
+        or any(s["background"].get("gradient") for s in p["scenes"])
+    ),
+    "colour-alpha": lambda p: any(
+        len((o["style"].get(k) or "").lstrip("#")) == 8
+        for o in _fo_objects(p) for k in ("fill", "stroke")
+    ),
+    "animated-gif": lambda p: any(
+        isinstance(o.get("content"), str) and o["content"].lower().endswith(".gif")
+        for o in _fo_objects(p)
+    ),
+    "keyframe-easing": lambda p: any(
+        k["easing"] != "Linear" for o in _fo_objects(p) for k in o.get("keyframes", [])
+    ),
+    "motion-paths": lambda p: any(o.get("motion_path") for o in _fo_objects(p)),
+    "filters": lambda p: any(o.get("filters") for o in _fo_objects(p)),
+    "transitions": lambda p: any(
+        s.get("transition_in") or s.get("transition_out") for s in p["scenes"]
+    ),
+    "subtitles": lambda p: any(s.get("subtitle_track") for s in p["scenes"]),
+    "wait-points": lambda p: any(s.get("wait_points") for s in p["scenes"]),
+    "data-binding": lambda p: (
+        p.get("data_source") is not None
+        or any(o.get("data_bindings") or o.get("condition") for o in _fo_objects(p))
+    ),
+    "effects-library-presets": lambda p: bool(p.get("effects_library")),
+}
+
+
+def fo_gate(rt, structs, enums):
+    object_types, sections, err = parse_fo()
+    rt.check(err is None, f"{FO_PATH.relative_to(ROOT.parent)} exists and parses", err or "")
+    if err is not None:
+        return
+
+    demo_json = {}
+    for name, path in FO_DEMO_FILES.items():
+        rt.check(path.exists(), f"{name} exists at {path}")
+        if path.exists():
+            demo_json[name] = json.loads(path.read_text())
+
+    # ObjectType: one line per variant, growth-proof by construction since it
+    # is read straight from the parsed model, not hand-copied.
+    for variant in enums.get("ObjectType", {"variants": []})["variants"]:
+        rt.check(
+            variant in object_types,
+            f"FO-demo-content.md answers ObjectType::{variant}",
+            "new or renamed object type with no yes/no line in the Object "
+            "types table -- demo it, or add `no, because ...`",
+        )
+        if variant not in object_types:
+            continue
+        yn, rest = object_types[variant]
+        if yn == "yes":
+            cited = fo_cited_files(rest)
+            ok = bool(cited) and any(
+                f in demo_json and any(o["object_type"] == variant for o in _fo_objects(demo_json[f]))
+                for f in cited
+            )
+            rt.check(
+                ok,
+                f"ObjectType::{variant} is genuinely present in the file(s) the FO cites",
+                f"FO says yes -> {rest.strip()!r}, but no cited demo file's JSON "
+                f"actually contains an object of this type",
+            )
+
+    # Headline capabilities: each needs an answered section, and a `yes`
+    # needs to be true of the cited file(s), not merely asserted.
+    for key, check_fn in FO_CAPABILITY_CHECKS.items():
+        rt.check(
+            key in sections,
+            f"FO-demo-content.md has a `{key}` capability section",
+            "missing entirely -- add a `### ... `<key>`` heading with an "
+            "**Answer:** line",
+        )
+        if key not in sections:
+            continue
+        sec = sections[key]
+        rt.check(
+            sec["answer"] in ("yes", "no"),
+            f"`{key}` section has a yes/no Answer",
+            "blank or unparseable **Answer:** line blocks the gate",
+        )
+        if sec["answer"] == "yes":
+            cited = fo_cited_files(sec["detail"])
+            ok = bool(cited) and any(f in demo_json and check_fn(demo_json[f]) for f in cited)
+            rt.check(
+                ok,
+                f"`{key}` is genuinely exercised by the file(s) the FO cites",
+                f"FO says yes -> {sec['detail']!r}, but no cited demo file's "
+                f"JSON actually shows it",
+            )
+
+    # Growth guard 1: a struct field with no capability mapping and no
+    # documented exclusion is exactly "new capability, nobody decided yet".
+    for sname in FO_CAPABILITY_SCAN_STRUCTS:
+        for f in structs.get(sname, {"fields": []})["fields"]:
+            kind, _inner = unwrap(f["type"])
+            if kind not in ("opt", "vec"):
+                continue
+            fkey = (sname, f["name"])
+            rt.check(
+                fkey in FO_CAPABILITY_MAP or fkey in FO_FIELD_EXCLUDED,
+                f"{sname}.{f['name']} is mapped to an FO capability or excluded with a reason",
+                f"new optional/collection field with no FO_CAPABILITY_MAP entry "
+                f"and no FO_FIELD_EXCLUDED reason in coverage.py -- when v0.2 "
+                f"adds a capability like this, add a yes/no line to "
+                f"FO-demo-content.md and map or exclude the field here",
+            )
+
+    # Growth guard 2: a new enum variant with no mention in its capability's
+    # FO section -- the "v0.2 adds bezier easing" case from the brief.
+    for ename, key in FO_ENUM_CAPABILITY.items():
+        body = sections.get(key, {}).get("body", "")
+        for v in enums.get(ename, {"variants": []})["variants"]:
+            rt.check(
+                re.search(rf"\b{re.escape(v)}\b", body) is not None,
+                f"{ename}::{v} is named in the FO's `{key}` section",
+                f"new/unmentioned variant -- this check fails until someone "
+                f"demos it or writes why not, in FO-demo-content.md's `{key}` section",
+            )
+
+    for v in enums.get("KeyframeValue", {"variants": []})["variants"]:
+        if v in FO_KEYFRAME_VALUE_EXCLUDED:
+            continue
+        key = FO_KEYFRAME_VALUE_MAP.get(v)
+        rt.check(
+            key is not None,
+            f"KeyframeValue::{v} is mapped to an FO capability or excluded",
+            "new KeyframeValue variant with no mapping in coverage.py's "
+            "FO_KEYFRAME_VALUE_MAP/_EXCLUDED",
+        )
+        if key:
+            body = sections.get(key, {}).get("body", "")
+            rt.check(
+                re.search(rf"\b{re.escape(v)}\b", body) is not None,
+                f"KeyframeValue::{v} is named in the FO's `{key}` section",
+                f"new/unmentioned variant -- add a line to FO-demo-content.md's `{key}` section",
+            )
+
+    body = sections.get("filters", {}).get("body", "")
+    for f in structs.get("ObjectFilters", {"fields": []})["fields"]:
+        rt.check(
+            re.search(rf"\b{re.escape(f['name'])}\b", body) is not None,
+            f"ObjectFilters.{f['name']} is named in the FO's `filters` section",
+            f"new/unmentioned filter field -- add a line to "
+            f"FO-demo-content.md's `filters` section",
+        )
+
+
 # ----------------------------------------------------------------- layer 1
 
 def _balanced(src, open_idx):
@@ -691,6 +991,9 @@ async def run(page, port, load_project):
             True,
             f"{key} is identity/authoring metadata, not covered by liveness",
         )
+
+    # ---------------- FO demo-content gate: nothing silently omitted -------
+    fo_gate(rt, structs, enums)
 
     errs = await rt.console_errors()
     rt.check(not errs, "no console errors", str(errs))
