@@ -112,6 +112,16 @@ jobs:
             - **Windows** — `.msi` installer
             - **Linux x64** — `.deb` / `.AppImage`
             - **Linux ARM64** — `.deb` / `.rpm`
+
+            **macOS will say CitCat is damaged. It isn't.** These builds carry no
+            paid Apple signature and macOS reports that as damage. Right-click →
+            Open does *not* get past it. Move CitCat to Applications, then run once:
+
+            ```
+            xattr -dr com.apple.quarantine /Applications/CitCat.app
+            ```
+
+            **Windows**: SmartScreen may warn — More info → Run anyway.
           releaseDraft: false
           prerelease: false
           # Linux ARM64 ships .deb and .rpm but no AppImage: the AppImage

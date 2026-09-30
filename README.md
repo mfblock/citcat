@@ -26,6 +26,32 @@ The output is self-contained HTML5 (Canvas + JS) that runs in any browser.
 - **Templates** — save and load project templates
 - **Demo project** — loads on startup showcasing all features
 
+## Installing
+
+### macOS — it will say CitCat is damaged
+
+It isn't. These builds carry no paid Apple signature, and macOS reports that as
+damage rather than as an unknown developer. **Right-click → Open does not get
+past it** — the dialog comes back with only "Move to Trash".
+
+Move CitCat to Applications, then run once:
+
+```bash
+xattr -dr com.apple.quarantine /Applications/CitCat.app
+```
+
+That clears the download flag macOS attaches to the file. Same step many
+unsigned open-source Mac apps need. A Developer ID signature would remove it,
+which needs a paid Apple Developer Program membership.
+
+### Windows
+
+SmartScreen may warn about an unknown publisher: **More info → Run anyway**.
+
+### Linux
+
+No extra step. `.deb` and `.rpm` for x86_64 and arm64.
+
 ## Getting started
 
 Prerequisites: [Rust](https://rustup.rs) (1.70+), [Node.js](https://nodejs.org) (18+).

@@ -358,8 +358,25 @@
   .download h2 { font-size: 2rem; font-weight: 800; margin-bottom: 16px; letter-spacing: -0.02em; }
   .download > .container > p { color: var(--text-dim); font-size: 1.05rem; max-width: 560px; margin: 0 auto 32px; line-height: 1.7; }
   .dl-grid { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
-  .dl-note { font-size: 13px; color: var(--text-muted); margin-top: 8px; }
+  .dl-note {
+    font-size: 13px; color: var(--text-muted); margin: 28px auto 0;
+    max-width: 620px; text-align: left; line-height: 1.7;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 20px 24px;
+  }
   .dl-note a { color: var(--accent); }
+  .dl-note p { margin-bottom: 10px; }
+  .dl-note p:last-child { margin-bottom: 0; }
+  .dl-note strong { color: var(--text); }
+  .dl-cmd {
+    background: var(--bg-deep); border: 1px solid var(--border);
+    border-radius: 6px; padding: 10px 12px; margin: 12px 0;
+    overflow-x: auto; font-size: 12px;
+  }
+  .dl-cmd code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    color: var(--accent-bright); white-space: pre;
+  }
   .dl-status {
     display: inline-block; margin-bottom: 24px; padding: 10px 18px;
     border-radius: var(--radius-sm); border: 1px solid rgba(167,139,250,0.2);
@@ -720,11 +737,28 @@
       </a>
     </div>
 
-    <p class="dl-note">
-      Unsigned builds — macOS: right-click &rarr; Open on first launch.
-      All downloads come from <a href="https://github.com/mfblock/citcat/releases" rel="noopener">GitHub Releases</a>.
-      <a href="manual.html">Read the manual</a>.
-    </p>
+    <div class="dl-note">
+      <p><strong>macOS will say CitCat is damaged. It isn't.</strong></p>
+      <p>
+        These builds carry no paid Apple signature, and macOS reports that as
+        damage rather than as an unknown developer. Right-click&nbsp;&rarr;&nbsp;Open
+        does <em>not</em> get past it. Run this once after moving CitCat to
+        Applications:
+      </p>
+      <pre class="dl-cmd"><code>xattr -dr com.apple.quarantine /Applications/CitCat.app</code></pre>
+      <p>
+        That clears the download flag macOS attaches to the file. It is the same
+        step many unsigned open-source Mac apps need.
+      </p>
+      <p>
+        Windows may warn about an unknown publisher — choose More info &rarr; Run anyway.
+        Linux needs no extra step.
+      </p>
+      <p>
+        All downloads come from <a href="https://github.com/mfblock/citcat/releases" rel="noopener">GitHub Releases</a>.
+        <a href="manual.html">Read the manual</a>.
+      </p>
+    </div>
   </div>
 </section>
 

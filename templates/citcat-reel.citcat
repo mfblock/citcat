@@ -1,0 +1,5299 @@
+{
+  "version": "1.0",
+  "meta": {
+    "name": "CitCat Reel",
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "created": "2026-09-29T00:00:00Z",
+    "modified": "2026-09-29T00:00:00Z"
+  },
+  "scenes": [
+    {
+      "id": "d9f00895-6975-4edb-9482-13239a352eaf",
+      "name": "Mark",
+      "duration_ms": 5200,
+      "background": {
+        "fill": "#07030f",
+        "gradient": {
+          "gradient_type": "Radial",
+          "angle": 0.0,
+          "stops": [
+            {
+              "offset": 0.0,
+              "color": "#170b30"
+            },
+            {
+              "offset": 1.0,
+              "color": "#07030f"
+            }
+          ]
+        }
+      },
+      "objects": [
+        {
+          "id": "7fe3d719-50e5-493c-b701-fa9da053ff8e",
+          "name": "Glow",
+          "object_type": "Ellipse",
+          "transform": {
+            "x": 430.0,
+            "y": 290.0,
+            "width": 420.0,
+            "height": 420.0,
+            "rotation": 0.0,
+            "opacity": 0.0
+          },
+          "style": {
+            "fill": "#7c3aed",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0,
+            "fill_gradient": {
+              "gradient_type": "Radial",
+              "angle": 0.0,
+              "stops": [
+                {
+                  "offset": 0.0,
+                  "color": "#7c3aedaa"
+                },
+                {
+                  "offset": 1.0,
+                  "color": "#7c3aed00"
+                }
+              ]
+            },
+            "stroke_gradient": null
+          },
+          "content": "",
+          "z_index": 1,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "67d8e561-b430-4998-a075-84ea5a45a40c",
+              "time_ms": 0,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "2a72b310-08e8-40fd-8072-2b4242191f8c",
+              "time_ms": 1400,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.55
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "3ad39c71-f526-4697-8fbe-75d24e872ad9",
+              "time_ms": 2600,
+              "property": "transform.width",
+              "value": {
+                "type": "Number",
+                "value": 420.0
+              },
+              "easing": "EaseInOut"
+            },
+            {
+              "id": "18bb0be7-9b13-4355-acb0-b38e46397c93",
+              "time_ms": 2600,
+              "property": "transform.height",
+              "value": {
+                "type": "Number",
+                "value": 420.0
+              },
+              "easing": "EaseInOut"
+            },
+            {
+              "id": "6d3db625-0107-41b5-b5e5-060eb67235f9",
+              "time_ms": 2600,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 430.0
+              },
+              "easing": "EaseInOut"
+            },
+            {
+              "id": "ca9437b7-eefd-40e0-96d6-b93d7bf46896",
+              "time_ms": 2600,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 290.0
+              },
+              "easing": "EaseInOut"
+            },
+            {
+              "id": "17a6cc35-0423-43c0-96ad-f763b3409913",
+              "time_ms": 3900,
+              "property": "transform.width",
+              "value": {
+                "type": "Number",
+                "value": 470.0
+              },
+              "easing": "EaseInOut"
+            },
+            {
+              "id": "893fe20c-5e0e-4523-8f4c-b5e548f280f8",
+              "time_ms": 3900,
+              "property": "transform.height",
+              "value": {
+                "type": "Number",
+                "value": 470.0
+              },
+              "easing": "EaseInOut"
+            },
+            {
+              "id": "e5f4ff9b-a622-4f4a-a6f8-ea0c4bbf6ca9",
+              "time_ms": 3900,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 405.0
+              },
+              "easing": "EaseInOut"
+            },
+            {
+              "id": "1bf0e6a7-0eb2-4842-8f83-bfe139f8fe1b",
+              "time_ms": 3900,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 265.0
+              },
+              "easing": "EaseInOut"
+            },
+            {
+              "id": "88eb69e8-da7a-4742-978d-1fd33cbeaa68",
+              "time_ms": 4900,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "EaseIn"
+            }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "filters": {
+            "blur": 46.0
+          }
+        },
+        {
+          "id": "5cf25e99-4605-406f-8b2f-5cdafaa64b0c",
+          "name": "Mark",
+          "object_type": "Svg",
+          "transform": {
+            "x": 640.0,
+            "y": 500.0,
+            "width": 0.0,
+            "height": 0.0,
+            "rotation": -18.0,
+            "opacity": 0.0
+          },
+          "style": {
+            "fill": "#7c3aed",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0,
+            "fill_gradient": null,
+            "stroke_gradient": null
+          },
+          "content": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 200\"><defs><linearGradient id=\"g\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\"><stop offset=\"0\" stop-color=\"#a78bfa\"/><stop offset=\"1\" stop-color=\"#7c3aed\"/></linearGradient></defs><path d=\"M40 72 L70 18 L86 72 Z\" fill=\"url(#g)\"/><path d=\"M160 72 L130 18 L114 72 Z\" fill=\"url(#g)\"/><rect x=\"34\" y=\"64\" width=\"132\" height=\"112\" rx=\"42\" fill=\"url(#g)\"/><circle cx=\"76\" cy=\"122\" r=\"9\" fill=\"#07030f\"/><circle cx=\"124\" cy=\"122\" r=\"9\" fill=\"#07030f\"/></svg>",
+          "z_index": 5,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "2fca2406-00f3-4d7d-8555-62b26e3d482c",
+              "time_ms": 0,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "3876253e-d18f-421c-9367-0584b303272e",
+              "time_ms": 250,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 1.0
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "4e7d48e2-f8a8-41d8-b074-44a9f27eef3c",
+              "time_ms": 0,
+              "property": "transform.width",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "ee89d1f1-6fc3-44cf-82b3-39b6b891d1b6",
+              "time_ms": 0,
+              "property": "transform.height",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "d5f168bd-a150-432e-a43a-6d486a397f9a",
+              "time_ms": 0,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 640.0
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "282717eb-d5f8-4c2c-a986-bc57ec72276a",
+              "time_ms": 0,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 500.0
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "9dd84583-fb57-4648-80f7-3c15b24ea276",
+              "time_ms": 750,
+              "property": "transform.width",
+              "value": {
+                "type": "Number",
+                "value": 360.0
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "fa1e4569-266b-4b17-a8ee-33605ff8d9f7",
+              "time_ms": 750,
+              "property": "transform.height",
+              "value": {
+                "type": "Number",
+                "value": 360.0
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "5afd6a13-80b2-4d32-bcda-54dbbf6c9747",
+              "time_ms": 750,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 460.0
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "f0c6ea8b-f2f1-45c9-b044-b1d90c6321fe",
+              "time_ms": 750,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 320.0
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "c95222cd-451e-4fc7-a861-81f8e7addace",
+              "time_ms": 0,
+              "property": "transform.rotation",
+              "value": {
+                "type": "Number",
+                "value": -18.0
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "8f1b394f-e3ff-490a-9d59-0005575f65ed",
+              "time_ms": 750,
+              "property": "transform.rotation",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "a4346006-e491-4080-8004-2984ff977fa5",
+              "time_ms": 2200,
+              "property": "transform.rotation",
+              "value": {
+                "type": "Number",
+                "value": 3.0
+              },
+              "easing": "EaseInOut"
+            },
+            {
+              "id": "65dc803a-fb3c-4e8f-8db8-2d5d3f9d14d4",
+              "time_ms": 3400,
+              "property": "transform.rotation",
+              "value": {
+                "type": "Number",
+                "value": -3.0
+              },
+              "easing": "EaseInOut"
+            },
+            {
+              "id": "76950ffc-597b-4431-b71f-de69a781ed01",
+              "time_ms": 4600,
+              "property": "transform.rotation",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "EaseInOut"
+            },
+            {
+              "id": "bfa99e41-d004-4d08-b8f4-a007d617e5a4",
+              "time_ms": 4850,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 1.0
+              },
+              "easing": "EaseIn"
+            },
+            {
+              "id": "0b976165-345a-4017-b8c2-b2a73338b0b3",
+              "time_ms": 5200,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "EaseIn"
+            }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null
+        },
+        {
+          "id": "123f9034-3699-4fd0-8312-c5ba1fa45978",
+          "name": "Wordmark",
+          "object_type": "Text",
+          "transform": {
+            "x": 950.0,
+            "y": 430.0,
+            "width": 560.0,
+            "height": 150.0,
+            "rotation": 0.0,
+            "opacity": 0.0
+          },
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 128,
+            "font_weight": 800,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0,
+            "fill_gradient": null,
+            "stroke_gradient": null
+          },
+          "content": "CitCat",
+          "z_index": 10,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "e9931e25-3587-41e0-95d8-e8c3a660ef72",
+              "time_ms": 900,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "7a1d2d97-329e-4752-9299-13553276a0b4",
+              "time_ms": 1500,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 1.0
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "f3e335a4-3774-4655-8711-71ab8bf1a730",
+              "time_ms": 900,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 950.0
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "270ca210-c426-4a76-8838-69e3ba126c9b",
+              "time_ms": 1500,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 900.0
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "7b77e5fe-cd99-4107-a021-5915c482c550",
+              "time_ms": 4900,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 1.0
+              },
+              "easing": "EaseIn"
+            },
+            {
+              "id": "b787e4d3-c859-47ce-883d-518bdb0742a3",
+              "time_ms": 5200,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "EaseIn"
+            }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "filters": {
+            "drop_shadow": {
+              "offset_x": 0,
+              "offset_y": 6,
+              "blur": 26,
+              "color": "#7c3aed80"
+            }
+          }
+        },
+        {
+          "id": "5e135071-4273-4d9e-87cd-4ece349a74ab",
+          "name": "Tagline",
+          "object_type": "Text",
+          "transform": {
+            "x": 905.0,
+            "y": 585.0,
+            "width": 560.0,
+            "height": 40.0,
+            "rotation": 0.0,
+            "opacity": 0.0
+          },
+          "style": {
+            "fill": "#b8a6f0",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 26,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0,
+            "fill_gradient": null,
+            "stroke_gradient": null
+          },
+          "content": "a visual content engine",
+          "z_index": 10,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "5acd42fe-3538-41be-827b-9dafeeb7d8ce",
+              "time_ms": 1550,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "a1478b92-27cd-48bc-8f0d-6c34c5a0ce1e",
+              "time_ms": 2100,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 1.0
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "f1d3f88b-5aea-400f-bcd2-1880ac1a6626",
+              "time_ms": 4900,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 1.0
+              },
+              "easing": "EaseIn"
+            },
+            {
+              "id": "73242570-eaa4-409c-92a3-6bf7db4ff0ac",
+              "time_ms": 5200,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "EaseIn"
+            }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null
+        },
+        {
+          "id": "795c20ab-a695-4f6f-96e7-7a6f3c110318",
+          "name": "Pad",
+          "object_type": "Audio",
+          "transform": {
+            "x": 0.0,
+            "y": 0.0,
+            "width": 10.0,
+            "height": 10.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#7c3aed",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0,
+            "fill_gradient": null,
+            "stroke_gradient": null
+          },
+          "content": "assets/citcat-reel/pad.mp3",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "922d6824-1c77-45be-a0e1-9b3354a36ee1",
+              "time_ms": 0,
+              "property": "audio_volume",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "c3a2a8d3-3dc9-43d2-8024-e662ce4ca02e",
+              "time_ms": 1200,
+              "property": "audio_volume",
+              "value": {
+                "type": "Number",
+                "value": 0.9
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "df91546c-ac88-45af-a804-69f2297b23fc",
+              "time_ms": 4600,
+              "property": "audio_volume",
+              "value": {
+                "type": "Number",
+                "value": 0.9
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "7114b47d-5cce-4c59-aa8a-83c669ff6b7d",
+              "time_ms": 5200,
+              "property": "audio_volume",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "EaseIn"
+            }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "audio_volume": 0.0,
+          "audio_loop": false
+        }
+      ],
+      "transition_in": null,
+      "transition_out": null,
+      "sort_order": 0,
+      "wait_points": [],
+      "subtitle_track": null
+    },
+    {
+      "id": "08141528-4b43-4b04-b08b-241227bc8502",
+      "name": "Flow",
+      "duration_ms": 6000,
+      "background": {
+        "fill": "#07030f",
+        "gradient": {
+          "gradient_type": "Linear",
+          "angle": 160,
+          "stops": [
+            {
+              "offset": 0.0,
+              "color": "#170b30"
+            },
+            {
+              "offset": 1.0,
+              "color": "#07030f"
+            }
+          ]
+        }
+      },
+      "objects": [
+        {
+          "id": "cada9009-37f6-4da6-a973-59163e0407a6",
+          "name": "Flow",
+          "object_type": "Video",
+          "transform": {
+            "x": 0.0,
+            "y": 0.0,
+            "width": 1920.0,
+            "height": 1080.0,
+            "rotation": 0.0,
+            "opacity": 0.0
+          },
+          "style": {
+            "fill": "#7c3aed",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0,
+            "fill_gradient": null,
+            "stroke_gradient": null
+          },
+          "content": "assets/citcat-reel/flow.mp4",
+          "z_index": 1,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "e98640c3-1502-4d3e-b7f6-c1215bce3650",
+              "time_ms": 0,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "0bde3341-44cd-484a-8b47-3debac8403ef",
+              "time_ms": 1000,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.62
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "2b039ad6-1b7d-4886-9a4b-bd7c5a649486",
+              "time_ms": 5300,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.62
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "3f81396f-9932-49dc-8ed7-2d926f5adce2",
+              "time_ms": 6000,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "EaseIn"
+            },
+            {
+              "id": "c6ee291e-d2ae-46a0-b32d-091bd2c3ed2f",
+              "time_ms": 0,
+              "property": "filters.saturate",
+              "value": {
+                "type": "Number",
+                "value": 1.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "98cec256-809c-4013-b1c6-3fc74478e509",
+              "time_ms": 3000,
+              "property": "filters.saturate",
+              "value": {
+                "type": "Number",
+                "value": 1.55
+              },
+              "easing": "EaseInOut"
+            },
+            {
+              "id": "14665155-e073-494f-bdf4-58036a7f0e64",
+              "time_ms": 6000,
+              "property": "filters.saturate",
+              "value": {
+                "type": "Number",
+                "value": 1.1
+              },
+              "easing": "EaseInOut"
+            },
+            {
+              "id": "aeffcf2c-ca2c-437b-a469-def0669406d2",
+              "time_ms": 0,
+              "property": "filters.hue_rotate",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "06b29683-ffed-40f0-8e50-e6a46cf76de6",
+              "time_ms": 6000,
+              "property": "filters.hue_rotate",
+              "value": {
+                "type": "Number",
+                "value": 35.0
+              },
+              "easing": "Linear"
+            }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "video_trim_start_ms": 1500,
+          "video_muted": true
+        },
+        {
+          "id": "3388ac02-90b7-4654-988f-586f4749b730",
+          "name": "Ring",
+          "object_type": "Ellipse",
+          "transform": {
+            "x": 1240.0,
+            "y": 640.0,
+            "width": 520.0,
+            "height": 520.0,
+            "rotation": -20.0,
+            "opacity": 0.0
+          },
+          "style": {
+            "fill": "transparent",
+            "stroke": "#a78bfa",
+            "stroke_width": 2.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0,
+            "fill_gradient": null,
+            "stroke_gradient": null
+          },
+          "content": "",
+          "z_index": 3,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "ed9c6a12-c615-47da-aba2-58c99f87aeec",
+              "time_ms": 300,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "9ded7bd0-1e50-4d38-a0da-d1623043ca82",
+              "time_ms": 1200,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.5
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "f7ae2d8d-6833-4608-86bb-4cd5291cb804",
+              "time_ms": 300,
+              "property": "transform.rotation",
+              "value": {
+                "type": "Number",
+                "value": -20.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "bc22cd8b-da58-4751-9f54-a766f58da766",
+              "time_ms": 6000,
+              "property": "transform.rotation",
+              "value": {
+                "type": "Number",
+                "value": 40.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "7d87eb40-e802-4a0c-846d-8f7031658c4a",
+              "time_ms": 5300,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.5
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "02cd00f2-1fe9-4023-9421-3723a720b82a",
+              "time_ms": 6000,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "EaseIn"
+            }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null
+        },
+        {
+          "id": "e1a273e9-3b41-40c4-b31b-c834b881cae6",
+          "name": "Spark",
+          "object_type": "Ellipse",
+          "transform": {
+            "x": 180.0,
+            "y": 860.0,
+            "width": 22.0,
+            "height": 22.0,
+            "rotation": 0.0,
+            "opacity": 0.0
+          },
+          "style": {
+            "fill": "#f97316",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0,
+            "fill_gradient": null,
+            "stroke_gradient": null
+          },
+          "content": "",
+          "z_index": 5,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "1e4f4343-7f5b-45cd-b43f-f8cc2c8c87e3",
+              "time_ms": 600,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "4bdfa5f4-86f1-4868-a591-3d2e1894010b",
+              "time_ms": 1000,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.9
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "09c8c608-24dd-448d-b65a-7be689358130",
+              "time_ms": 4600,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.9
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "d1985b39-ddc5-424a-9a7c-29126c6a4fea",
+              "time_ms": 5200,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "EaseIn"
+            },
+            {
+              "id": "fceb3dba-e3a1-4378-96c4-7c0fee1bd66c",
+              "time_ms": 700,
+              "property": "_path_progress",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "EaseInOut"
+            },
+            {
+              "id": "43802a8b-172c-4454-9734-2c84510ff84b",
+              "time_ms": 5000,
+              "property": "_path_progress",
+              "value": {
+                "type": "Number",
+                "value": 1.0
+              },
+              "easing": "EaseInOut"
+            }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": {
+            "id": "36ab3a18-4686-4069-aa7a-28f447d6e9c6",
+            "points": [
+              {
+                "x": 190,
+                "y": 870,
+                "control_in": null,
+                "control_out": {
+                  "x": 420,
+                  "y": 560
+                }
+              },
+              {
+                "x": 900,
+                "y": 300,
+                "control_in": {
+                  "x": 620,
+                  "y": 340
+                },
+                "control_out": {
+                  "x": 1180,
+                  "y": 260
+                }
+              },
+              {
+                "x": 1720,
+                "y": 210,
+                "control_in": {
+                  "x": 1420,
+                  "y": 180
+                },
+                "control_out": null
+              }
+            ]
+          },
+          "filters": {
+            "blur": 1.0
+          }
+        },
+        {
+          "id": "9583e37f-1eca-4f0a-8e0a-4ccb7ae59015",
+          "name": "Caption",
+          "object_type": "Text",
+          "transform": {
+            "x": 120.0,
+            "y": 900.0,
+            "width": 700.0,
+            "height": 60.0,
+            "rotation": 0.0,
+            "opacity": 0.0
+          },
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 30,
+            "font_weight": 300,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0,
+            "fill_gradient": null,
+            "stroke_gradient": null
+          },
+          "content": "everything on the stage moves",
+          "z_index": 10,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "350a3f6c-a1cf-44c5-9c0f-9f11e8141ada",
+              "time_ms": 1600,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "dece6126-9066-4c1a-8aaf-63624af0e2c1",
+              "time_ms": 2200,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.75
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "f7d48ea7-0715-432e-bf5b-f8116dee813b",
+              "time_ms": 5300,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.75
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "95e9b551-b9f6-4477-ba0e-d049da37ac30",
+              "time_ms": 5900,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "EaseIn"
+            }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null
+        }
+      ],
+      "transition_in": {
+        "kind": "Crossfade",
+        "duration_ms": 700
+      },
+      "transition_out": null,
+      "sort_order": 1,
+      "wait_points": [],
+      "subtitle_track": null
+    },
+    {
+      "id": "c937f179-e602-41b0-a856-395af4b1173b",
+      "name": "Frame",
+      "duration_ms": 7000,
+      "background": {
+        "fill": "#07030f",
+        "gradient": {
+          "gradient_type": "Linear",
+          "angle": 135,
+          "stops": [
+            {
+              "offset": 0.0,
+              "color": "#130826"
+            },
+            {
+              "offset": 1.0,
+              "color": "#07030f"
+            }
+          ]
+        }
+      },
+      "objects": [
+        {
+          "id": "b8198994-385e-4345-a54b-3a69d7568002",
+          "name": "Canvas mock",
+          "object_type": "Image",
+          "transform": {
+            "x": 2020.0,
+            "y": 190.0,
+            "width": 780.0,
+            "height": 546.0,
+            "rotation": 4.0,
+            "opacity": 0.0
+          },
+          "style": {
+            "fill": "#7c3aed",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0,
+            "fill_gradient": null,
+            "stroke_gradient": null
+          },
+          "content": "assets/citcat-reel/canvas-mock.png",
+          "z_index": 5,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "291b2570-fb0c-4546-afaf-8bc8e3fd177e",
+              "time_ms": 200,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "d8c8dd0a-8df4-43fa-8004-434acf674587",
+              "time_ms": 900,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 1.0
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "dfa3ee09-901e-4b4f-b1f4-588e914e3ef9",
+              "time_ms": 200,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 2020.0
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "9326e2f1-c404-4e10-a9cf-b288e57a0f69",
+              "time_ms": 900,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1080.0
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "cc17ca85-6f57-44b8-ba7d-690994f17b34",
+              "time_ms": 200,
+              "property": "transform.rotation",
+              "value": {
+                "type": "Number",
+                "value": 4.0
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "c311e474-c0f6-45b9-adfc-1e2d2ba6ed3f",
+              "time_ms": 900,
+              "property": "transform.rotation",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "5e923d63-45b3-4077-a1ed-825b3f1f5d4a",
+              "time_ms": 900,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 190.0
+              },
+              "easing": "EaseInOut"
+            },
+            {
+              "id": "2fbe1d3f-37b5-4e1e-b758-00c8ab173b88",
+              "time_ms": 3900,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 165.0
+              },
+              "easing": "EaseInOut"
+            },
+            {
+              "id": "0fd58d30-35fc-4058-ba2f-a92d0cd41815",
+              "time_ms": 6900,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 190.0
+              },
+              "easing": "EaseInOut"
+            },
+            {
+              "id": "a8a5c712-3afa-4a4b-bb9f-7ba017df2e26",
+              "time_ms": 6300,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 1.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "18d585e9-2bf7-44c0-8645-5fdc5e01854b",
+              "time_ms": 6900,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "EaseIn"
+            }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "filters": {
+            "drop_shadow": {
+              "offset_x": 0,
+              "offset_y": 24,
+              "blur": 50,
+              "color": "#00000090"
+            }
+          }
+        },
+        {
+          "id": "7c142cef-5732-458a-bdc1-d0be39beea43",
+          "name": "Chip 1",
+          "object_type": "Ellipse",
+          "transform": {
+            "x": 1180.0,
+            "y": 260.0,
+            "width": 46.0,
+            "height": 46.0,
+            "rotation": 0.0,
+            "opacity": 0.0
+          },
+          "style": {
+            "fill": "#f97316",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0,
+            "fill_gradient": null,
+            "stroke_gradient": null
+          },
+          "content": "",
+          "z_index": 6,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "d7be0fb1-1846-41d4-953b-1dee924704cb",
+              "time_ms": 1400,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "7df510be-bf33-4551-a1e5-b62c9675ad81",
+              "time_ms": 1750,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.85
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "916c43c6-176e-4fa9-89c3-264be5d6b807",
+              "time_ms": 1400,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1180.0
+              },
+              "easing": "EaseInOut"
+            },
+            {
+              "id": "8b881082-5ed5-4565-a59b-71cdf737dd82",
+              "time_ms": 3000,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 700.0
+              },
+              "easing": "EaseInOut"
+            },
+            {
+              "id": "3d80dbed-1516-45e7-b648-f688e8048f16",
+              "time_ms": 1400,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 260.0
+              },
+              "easing": "EaseInOut"
+            },
+            {
+              "id": "f823130b-0f4c-458c-8661-392ccbe46aef",
+              "time_ms": 3000,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 130.0
+              },
+              "easing": "EaseInOut"
+            },
+            {
+              "id": "16ae2c10-0726-4446-a5f7-6c5b077f6307",
+              "time_ms": 1400,
+              "property": "transform.rotation",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "EaseInOut"
+            },
+            {
+              "id": "8866fcbb-44a1-44c1-a7c6-2ef834ce8a1e",
+              "time_ms": 3000,
+              "property": "transform.rotation",
+              "value": {
+                "type": "Number",
+                "value": 26.0
+              },
+              "easing": "EaseInOut"
+            },
+            {
+              "id": "014d5895-1b5e-436b-b5c6-23ceb7e2509c",
+              "time_ms": 3000,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.85
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "bd459ae4-6a2d-4a4d-9782-53bbae83f157",
+              "time_ms": 3800,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "EaseIn"
+            }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null
+        },
+        {
+          "id": "34f0f7ab-1b76-4e95-9adf-909f088c222b",
+          "name": "Chip 2",
+          "object_type": "Rect",
+          "transform": {
+            "x": 1280.0,
+            "y": 560.0,
+            "width": 60.0,
+            "height": 60.0,
+            "rotation": 0.0,
+            "opacity": 0.0
+          },
+          "style": {
+            "fill": "#3b82f6",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 14,
+            "fill_gradient": null,
+            "stroke_gradient": null
+          },
+          "content": "",
+          "z_index": 6,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "6d11ac31-e463-43e3-88a3-4b95e19f5ac7",
+              "time_ms": 1900,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "cffa37aa-106d-49a4-bcf6-5717cc12b20a",
+              "time_ms": 2250,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.85
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "fc90eb44-f9cb-46b8-9e7a-fa6daf4211e9",
+              "time_ms": 1900,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1280.0
+              },
+              "easing": "EaseInOut"
+            },
+            {
+              "id": "65134f13-66e1-475b-a716-a5cc92d9164c",
+              "time_ms": 3500,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 760.0
+              },
+              "easing": "EaseInOut"
+            },
+            {
+              "id": "dec006ae-d068-47b2-bc3a-717cffb18418",
+              "time_ms": 1900,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 560.0
+              },
+              "easing": "EaseInOut"
+            },
+            {
+              "id": "e85d4c80-07b9-4ea3-a638-0cc058ca5fe5",
+              "time_ms": 3500,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 780.0
+              },
+              "easing": "EaseInOut"
+            },
+            {
+              "id": "8aa4eb34-5371-4a51-a5a1-0a6770a84912",
+              "time_ms": 1900,
+              "property": "transform.rotation",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "EaseInOut"
+            },
+            {
+              "id": "9346a49a-56f8-432a-b579-d601d7054750",
+              "time_ms": 3500,
+              "property": "transform.rotation",
+              "value": {
+                "type": "Number",
+                "value": -18.0
+              },
+              "easing": "EaseInOut"
+            },
+            {
+              "id": "70a3bdf9-9df5-4ad8-81ea-77a265cae603",
+              "time_ms": 3500,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.85
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "20114d9c-6a4f-4e07-879e-72eb6aee43a0",
+              "time_ms": 4300,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "EaseIn"
+            }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null
+        },
+        {
+          "id": "3cdb4bf0-1ee7-4668-89a0-ee684629b5b0",
+          "name": "Chip 3",
+          "object_type": "Ellipse",
+          "transform": {
+            "x": 1620.0,
+            "y": 430.0,
+            "width": 30.0,
+            "height": 30.0,
+            "rotation": 0.0,
+            "opacity": 0.0
+          },
+          "style": {
+            "fill": "#a78bfa",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0,
+            "fill_gradient": null,
+            "stroke_gradient": null
+          },
+          "content": "",
+          "z_index": 6,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "7ee0cc80-df20-47f3-a776-555dcd133657",
+              "time_ms": 2300,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "d1872acd-6302-469f-a9a6-5dfbc93a5103",
+              "time_ms": 2650,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.85
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "302813eb-a5c5-4571-86e3-04e11da2a368",
+              "time_ms": 2300,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1620.0
+              },
+              "easing": "EaseInOut"
+            },
+            {
+              "id": "6709edbd-7404-48b2-8345-d6481a2c1175",
+              "time_ms": 3900,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1780.0
+              },
+              "easing": "EaseInOut"
+            },
+            {
+              "id": "c7b04248-2d78-4c3f-ad3e-5ed10f3376bb",
+              "time_ms": 2300,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 430.0
+              },
+              "easing": "EaseInOut"
+            },
+            {
+              "id": "8673dbc0-db59-4200-8dc2-1e75087ba57d",
+              "time_ms": 3900,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 780.0
+              },
+              "easing": "EaseInOut"
+            },
+            {
+              "id": "2ea35046-0fcd-4a25-bae4-ac0102db9448",
+              "time_ms": 2300,
+              "property": "transform.rotation",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "EaseInOut"
+            },
+            {
+              "id": "5b2c27d4-9872-45c5-aed9-0573f2c4d4c2",
+              "time_ms": 3900,
+              "property": "transform.rotation",
+              "value": {
+                "type": "Number",
+                "value": 40.0
+              },
+              "easing": "EaseInOut"
+            },
+            {
+              "id": "dd1071fc-f0ef-4713-bc28-6192deca133c",
+              "time_ms": 3900,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.85
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "b53d7208-9ab8-4c1b-93f5-27a51787a5fd",
+              "time_ms": 4700,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "EaseIn"
+            }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null
+        },
+        {
+          "id": "4b0b7127-8cd0-4043-b903-9585db89cab3",
+          "name": "Tap hint",
+          "object_type": "Ellipse",
+          "transform": {
+            "x": 1355.0,
+            "y": 300.0,
+            "width": 110.0,
+            "height": 110.0,
+            "rotation": 0.0,
+            "opacity": 0.0
+          },
+          "style": {
+            "fill": "#f97316",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0,
+            "fill_gradient": null,
+            "stroke_gradient": null
+          },
+          "content": "",
+          "z_index": 7,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "c4334ca5-81c8-4b53-8190-bee47f6d28ae",
+              "time_ms": 3200,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.35
+              },
+              "easing": "EaseInOut"
+            },
+            {
+              "id": "269d7501-2fad-400e-84a8-167b726ed894",
+              "time_ms": 3900,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.8
+              },
+              "easing": "EaseInOut"
+            },
+            {
+              "id": "9cabb9b2-1669-4271-84f6-9dc93d2bb2d4",
+              "time_ms": 4600,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.35
+              },
+              "easing": "EaseInOut"
+            },
+            {
+              "id": "3789f26f-63a8-4cea-a634-638b0409bb9a",
+              "time_ms": 5300,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.8
+              },
+              "easing": "EaseInOut"
+            },
+            {
+              "id": "17945b39-a372-48b1-ac3d-c05f7e57cf76",
+              "time_ms": 6000,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.35
+              },
+              "easing": "EaseInOut"
+            },
+            {
+              "id": "dbb2c31b-54e2-4e51-ab30-37c451ae7f7f",
+              "time_ms": 6300,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.35
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "d1b3ce2b-8c20-43ae-9942-e523eeff40d8",
+              "time_ms": 6900,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "EaseIn"
+            }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "filters": {
+            "blur": 10.0
+          }
+        },
+        {
+          "id": "cc3b7fd0-20fc-408e-93e8-975bb6b59932",
+          "name": "Tap target",
+          "object_type": "Hotspot",
+          "transform": {
+            "x": 1310.0,
+            "y": 260.0,
+            "width": 200.0,
+            "height": 200.0,
+            "rotation": 0.0,
+            "opacity": 0.0
+          },
+          "style": {
+            "fill": "transparent",
+            "stroke": "transparent",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0,
+            "fill_gradient": null,
+            "stroke_gradient": null
+          },
+          "content": "",
+          "z_index": 8,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "8199c26e-6a5d-4800-a6f3-3f34cdaeec01",
+              "time_ms": 0,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 1.0
+              },
+              "easing": "Linear"
+            }
+          ],
+          "events": [
+            {
+              "id": "1d8aff47-617f-4bdd-acb3-9a2c52ccdb18",
+              "trigger": {
+                "type": "Click"
+              },
+              "action": {
+                "type": "GotoScene",
+                "scene_id": "f0a3f3cd-d960-4e9e-b2f5-f9d55a5e502c"
+              }
+            }
+          ],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "appear_at_ms": 1400
+        },
+        {
+          "id": "3a5494b2-dff0-44f2-b608-a7011c76cd40",
+          "name": "Continue 1",
+          "object_type": "Button",
+          "transform": {
+            "x": 120.0,
+            "y": 900.0,
+            "width": 160.0,
+            "height": 56.0,
+            "rotation": 0.0,
+            "opacity": 0.0
+          },
+          "style": {
+            "fill": "#7c3aed",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 22,
+            "font_weight": 600,
+            "text_align": "Center",
+            "line_height": 1.4,
+            "border_radius": 28.0,
+            "fill_gradient": null,
+            "stroke_gradient": null
+          },
+          "content": "\u2192",
+          "z_index": 12,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "71ead05f-e27f-4c80-845b-7b7d5edafa03",
+              "time_ms": 2200,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "3586f8a6-f40c-4e21-bf0a-2ab3808a5064",
+              "time_ms": 2700,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 1.0
+              },
+              "easing": "EaseOut"
+            }
+          ],
+          "events": [
+            {
+              "id": "010d14a5-ea2a-4c64-bbc0-b23c399c37f2",
+              "trigger": {
+                "type": "Click"
+              },
+              "action": {
+                "type": "GotoScene",
+                "scene_id": "f0a3f3cd-d960-4e9e-b2f5-f9d55a5e502c"
+              }
+            }
+          ],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "appear_at_ms": 2200
+        }
+      ],
+      "transition_in": {
+        "kind": "WipeUp",
+        "duration_ms": 600
+      },
+      "transition_out": null,
+      "sort_order": 2,
+      "wait_points": [],
+      "subtitle_track": null
+    },
+    {
+      "id": "f0a3f3cd-d960-4e9e-b2f5-f9d55a5e502c",
+      "name": "Play",
+      "duration_ms": 7500,
+      "background": {
+        "fill": "#07030f",
+        "gradient": {
+          "gradient_type": "Radial",
+          "angle": 0.0,
+          "stops": [
+            {
+              "offset": 0.0,
+              "color": "#1a0a35"
+            },
+            {
+              "offset": 1.0,
+              "color": "#07030f"
+            }
+          ]
+        }
+      },
+      "objects": [
+        {
+          "id": "279d2c17-6d21-401a-95a4-85a16649e376",
+          "name": "Badge",
+          "object_type": "Svg",
+          "transform": {
+            "x": 770.0,
+            "y": 410.0,
+            "width": 0.0,
+            "height": 0.0,
+            "rotation": 0.0,
+            "opacity": 0.0
+          },
+          "style": {
+            "fill": "#7c3aed",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0,
+            "fill_gradient": null,
+            "stroke_gradient": null
+          },
+          "content": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 200\"><defs><linearGradient id=\"g\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\"><stop offset=\"0\" stop-color=\"#a78bfa\"/><stop offset=\"1\" stop-color=\"#7c3aed\"/></linearGradient></defs><path d=\"M40 72 L70 18 L86 72 Z\" fill=\"url(#g)\"/><path d=\"M160 72 L130 18 L114 72 Z\" fill=\"url(#g)\"/><rect x=\"34\" y=\"64\" width=\"132\" height=\"112\" rx=\"42\" fill=\"url(#g)\"/><circle cx=\"76\" cy=\"122\" r=\"9\" fill=\"#07030f\"/><circle cx=\"124\" cy=\"122\" r=\"9\" fill=\"#07030f\"/></svg>",
+          "z_index": 6,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "d319b2ce-d741-4300-96dc-df481a112b5b",
+              "time_ms": 0,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "75d856fc-8435-4569-93f3-7d75931ccb19",
+              "time_ms": 500,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 1.0
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "6cf435a9-b1db-4d77-b69b-52333c0766f2",
+              "time_ms": 0,
+              "property": "transform.width",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "fbe9e6b5-28c1-462b-b360-662fe5edf139",
+              "time_ms": 0,
+              "property": "transform.height",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "75a8eddf-faa4-4a91-af1f-870034d2655a",
+              "time_ms": 0,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 900.0
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "b241d0a2-cf28-48cd-a5f0-82f96002ff96",
+              "time_ms": 0,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 540.0
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "f11e6905-92f6-40b7-93b4-1b66b1bd9e46",
+              "time_ms": 650,
+              "property": "transform.width",
+              "value": {
+                "type": "Number",
+                "value": 260.0
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "4f33f349-822c-4420-a3f0-7a244cf89774",
+              "time_ms": 650,
+              "property": "transform.height",
+              "value": {
+                "type": "Number",
+                "value": 260.0
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "4fdb1f9b-e401-4834-98e9-45ba0c35b86a",
+              "time_ms": 650,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 770.0
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "4d990f27-e908-4320-9b99-dbf35fb9c84b",
+              "time_ms": 650,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 410.0
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "3975cc42-a28e-4fed-b342-04c986090c19",
+              "time_ms": 6300,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 1.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "937c0515-fe12-469e-bde0-f16808ccb0c6",
+              "time_ms": 6900,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "EaseIn"
+            }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null
+        },
+        {
+          "id": "e7c09e1c-2ffa-4ab1-8d9d-401698dc6e81",
+          "name": "Badge glow",
+          "object_type": "Ellipse",
+          "transform": {
+            "x": 710.0,
+            "y": 350.0,
+            "width": 380.0,
+            "height": 380.0,
+            "rotation": 0.0,
+            "opacity": 0.0
+          },
+          "style": {
+            "fill": "#7c3aed",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0,
+            "fill_gradient": {
+              "gradient_type": "Radial",
+              "angle": 0.0,
+              "stops": [
+                {
+                  "offset": 0.0,
+                  "color": "#7c3aed99"
+                },
+                {
+                  "offset": 1.0,
+                  "color": "#7c3aed00"
+                }
+              ]
+            },
+            "stroke_gradient": null
+          },
+          "content": "",
+          "z_index": 2,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "4efb25c0-0a3d-4949-af46-a6b317fa7575",
+              "time_ms": 0,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "5942ea0a-2c7c-4543-b5b0-9ede6456596b",
+              "time_ms": 900,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.6
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "e51f9e73-5fc1-44eb-b22d-3d7ff31f9877",
+              "time_ms": 6300,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.6
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "e97f1ce8-fb39-4d33-b5d6-ef1338929113",
+              "time_ms": 6900,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "EaseIn"
+            }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "filters": {
+            "blur": 50.0
+          }
+        },
+        {
+          "id": "4c6903c9-2cfe-413f-8c44-207b45a5cd26",
+          "name": "Orbit 1",
+          "object_type": "Ellipse",
+          "transform": {
+            "x": 1178.0,
+            "y": 518.0,
+            "width": 44.0,
+            "height": 44.0,
+            "rotation": 0.0,
+            "opacity": 0.0
+          },
+          "style": {
+            "fill": "#a78bfa",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0,
+            "fill_gradient": null,
+            "stroke_gradient": null
+          },
+          "content": "",
+          "z_index": 4,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "2b7bc1fa-cfb3-4c17-9b28-50e55e3b2b4a",
+              "time_ms": 700,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "745e4ea0-35aa-4afb-b10f-9a8c852ea629",
+              "time_ms": 1200,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.85
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "a897b6b1-a4f8-4229-8502-ba078f7226c2",
+              "time_ms": 6300,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.85
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "70516a48-de68-4ca6-b621-b76930ba0f64",
+              "time_ms": 6900,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "EaseIn"
+            },
+            {
+              "id": "5bbe6cbe-7594-4c30-ae85-58af230b361a",
+              "time_ms": 900,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1178.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "49ac1968-28f7-4696-ab64-7f921c940487",
+              "time_ms": 1117,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1167.7777478867206
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "7ffc5bc7-6f41-4de4-b609-244f967d7593",
+              "time_ms": 1333,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1137.8076211353316
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "e7aede67-dc27-469f-a91b-8f60657fac3a",
+              "time_ms": 1550,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1090.1320343559642
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "65aa133d-c74a-49c7-b324-171a38605055",
+              "time_ms": 1767,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1028.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "c7bb82b5-fbc4-4a46-be25-014d12ec807b",
+              "time_ms": 1983,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 955.6457135307562
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "fa668525-ad31-4adc-ab63-05ace2c7187f",
+              "time_ms": 2200,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 878.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "ed039be3-97c6-4da4-9bcd-78488a10a450",
+              "time_ms": 2417,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 800.3542864692438
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "7a70d2e5-8707-4aa9-86fd-1fc20d6b6284",
+              "time_ms": 2633,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 728.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "3555d930-6736-48a4-a740-b5d1c856a5d4",
+              "time_ms": 2850,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 665.8679656440357
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "e21c361d-b216-4a8c-b02e-54f17ba8b516",
+              "time_ms": 3067,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 618.1923788646684
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "e240451a-e28a-420e-8edb-4df2d76ce5ba",
+              "time_ms": 3283,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 588.2222521132795
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "c101dbab-65af-43c8-bbb6-f8767e2276ac",
+              "time_ms": 3500,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 578.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "969c9833-5760-4527-9d81-c785d463ecc9",
+              "time_ms": 3717,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 588.2222521132794
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "7f314c33-081a-42b6-89d0-a282eb93538d",
+              "time_ms": 3933,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 618.1923788646684
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "e48abfaa-36c2-40e0-a54d-166bdd303e88",
+              "time_ms": 4150,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 665.8679656440357
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "294efd38-4873-4f11-ac86-deedca4adf61",
+              "time_ms": 4367,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 727.9999999999999
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "5e1ab200-9041-49e0-b2bb-28a7fc10c25f",
+              "time_ms": 4583,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 800.3542864692438
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "58fbf200-4946-43f5-a32a-738abd23670d",
+              "time_ms": 4800,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 878.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "b9c6908f-c94c-453c-88b9-fb25baec4da4",
+              "time_ms": 5017,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 955.6457135307561
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "cc62611f-3273-4e37-a54e-20ddcf232322",
+              "time_ms": 5233,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1028.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "b225f18d-27a6-4a18-8775-39461f67b5bf",
+              "time_ms": 5450,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1090.1320343559642
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "3c08e09f-70ee-4d85-92d9-0352420f3a3f",
+              "time_ms": 5667,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1137.8076211353314
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "8deebad7-a876-453a-a328-307989f22fb9",
+              "time_ms": 5883,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1167.7777478867206
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "ac1bb668-ac93-4cf9-b0a5-433ed1160ceb",
+              "time_ms": 6100,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1178.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "e26e8ca9-0424-4cd7-9003-50bfa6c7b242",
+              "time_ms": 900,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 518.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "e7672e6b-2aa3-441e-8892-98b5cf1fc0bc",
+              "time_ms": 1117,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 566.1403423890689
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "dd2f063f-1449-478f-aa96-fc4fd642a01b",
+              "time_ms": 1333,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 611.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "9d189b2f-8f80-4f52-8fb3-0e2323d0ab38",
+              "time_ms": 1550,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 649.5218613006978
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "43758aad-f541-4063-8b07-3ca8df7e7b34",
+              "time_ms": 1767,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 679.0807251039056
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "7f7a8837-88fc-4402-8273-7ff2ad3cb3d3",
+              "time_ms": 1983,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 697.6622036897667
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "504bba56-20eb-4d13-a8ef-615c5b1b8fd7",
+              "time_ms": 2200,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 704.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "1e6523ff-a37f-4cf5-a4a0-6a2ff73b9c16",
+              "time_ms": 2417,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 697.6622036897667
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "de569428-0e3f-4c96-bff0-61a0e3faf994",
+              "time_ms": 2633,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 679.0807251039056
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "01e476e2-0c58-468c-9237-cebbfda6507e",
+              "time_ms": 2850,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 649.5218613006979
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "1a9ba3b3-93e0-498c-9aca-0dea45cbb483",
+              "time_ms": 3067,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 611.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "234b92e8-d6bc-4717-bf41-69136a46bbdd",
+              "time_ms": 3283,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 566.1403423890689
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "49828a81-80bd-4d57-b36c-27cbc1dbaf09",
+              "time_ms": 3500,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 518.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "0d68112c-ebc7-4732-9eff-7aed7541d144",
+              "time_ms": 3717,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 469.8596576109312
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "756a2d6c-29d5-4b0b-9cf2-22e4e080df79",
+              "time_ms": 3933,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 425.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "68663648-26c1-4123-83da-53fca8288890",
+              "time_ms": 4150,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 386.4781386993022
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "58a878be-b873-487d-abe9-9c9b30d49d0c",
+              "time_ms": 4367,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 356.91927489609446
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "7bb889f2-ae39-4825-97a8-8571a9544433",
+              "time_ms": 4583,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 338.33779631023333
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "bd7f224a-e521-4907-bd2b-f760421325ea",
+              "time_ms": 4800,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 332.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "15cf7458-55d2-4baf-9b68-10b21ad79c55",
+              "time_ms": 5017,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 338.3377963102333
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "82a5551c-9897-4ce8-a44a-f52315ab9879",
+              "time_ms": 5233,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 356.9192748960944
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "128a04a8-b83f-46ae-ba27-5230818f22ad",
+              "time_ms": 5450,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 386.4781386993021
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "90a6656b-093d-4001-bad8-541bb6a0c372",
+              "time_ms": 5667,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 424.9999999999999
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "6d46a387-4994-4296-8ef1-0c4a04680a0b",
+              "time_ms": 5883,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 469.85965761093115
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "f3d14391-f24c-49c5-82f9-2d9a4811b9b1",
+              "time_ms": 6100,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 518.0
+              },
+              "easing": "Linear"
+            }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null
+        },
+        {
+          "id": "a0494351-b819-46e4-afcc-6f680426fd2c",
+          "name": "Orbit 2",
+          "object_type": "Ellipse",
+          "transform": {
+            "x": 1223.0,
+            "y": 523.0,
+            "width": 34.0,
+            "height": 34.0,
+            "rotation": 0.0,
+            "opacity": 0.0
+          },
+          "style": {
+            "fill": "#f97316",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0,
+            "fill_gradient": null,
+            "stroke_gradient": null
+          },
+          "content": "",
+          "z_index": 4,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "97a564f4-dbf3-422b-a9c2-5689e8601d39",
+              "time_ms": 700,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "8e006156-3aac-4012-b311-03a39a447b1b",
+              "time_ms": 1200,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.85
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "a0069513-8c0a-4005-a614-f5a122910d05",
+              "time_ms": 6300,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.85
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "7bb5d8d8-7eef-400a-a917-656d7aa2722b",
+              "time_ms": 6900,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "EaseIn"
+            },
+            {
+              "id": "780b72dc-2a3a-4030-86a8-de50e289fc19",
+              "time_ms": 900,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 829.8122818863214
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "3e0c722b-625f-459f-876a-b564d6185f46",
+              "time_ms": 1154,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 744.7095413542279
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "472061d7-4eab-45db-b2a3-068152eeee27",
+              "time_ms": 1408,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 669.0310670430551
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "33658243-5f48-4221-b68b-95a28d3b3f69",
+              "time_ms": 1662,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 607.9342219125178
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "54125066-52d0-4bee-99c3-0b1e24d05c68",
+              "time_ms": 1917,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 565.5826549909514
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "2ed1375f-d089-446a-81f5-3e44d9baba09",
+              "time_ms": 2171,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 544.862555574787
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "204ffad4-e92e-453b-a105-36ea425e1d47",
+              "time_ms": 2425,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 547.1859641976532
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "c71022a7-2321-4a63-9c65-bc2b7f49572a",
+              "time_ms": 2679,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 572.3945444015158
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "55854b8f-38a7-4de8-ac8c-73f32b36444c",
+              "time_ms": 2933,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 618.7703731046299
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "27fdcded-e399-4977-8f81-dd950a21e81f",
+              "time_ms": 3188,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 683.153014220559
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "2246d574-a4ce-4861-bb93-821b42e60d93",
+              "time_ms": 3442,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 761.1548971545981
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "127b5881-dcad-4f12-b65b-ac5fa8e90f76",
+              "time_ms": 3696,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 847.4603224889979
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "6b5b7f68-9f8b-414e-9588-9e9abc96a076",
+              "time_ms": 3950,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 936.1877181136784
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "b244ab91-7a4e-4bd9-a99a-555e970a8104",
+              "time_ms": 4204,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1021.2904586457719
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "a3c58c7e-239f-4080-a6f1-c491566e9106",
+              "time_ms": 4458,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1096.9689329569446
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "d4fd3d55-f11d-407c-b027-074a26e30fe3",
+              "time_ms": 4712,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1158.0657780874822
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "7d1726c7-bf9c-42b4-8853-c97b8f0ac71f",
+              "time_ms": 4967,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1200.4173450090484
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "cf6d6278-3009-4545-866a-2b3ac82af695",
+              "time_ms": 5221,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1221.1374444252128
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "2a616bf4-cb53-4762-9cf0-679b67cf6c0d",
+              "time_ms": 5475,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1218.8140358023468
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "8e9854a8-790b-4b92-88d2-5c45c9de9bfb",
+              "time_ms": 5729,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1193.6054555984842
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "6946a6fa-0762-48aa-a335-361b34ecb7c7",
+              "time_ms": 5983,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1147.22962689537
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "e670c58d-d864-4730-8518-8e6c5c81faf3",
+              "time_ms": 6238,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1082.846985779441
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "44309ad2-6993-43f4-8ed4-fdf6cc13fb5e",
+              "time_ms": 6492,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1004.8451028454023
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "a4ffd701-2bab-4c54-96f4-9a97a950268e",
+              "time_ms": 6746,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 918.5396775110022
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "0d325d87-0871-492b-87e1-68d2fa6d7322",
+              "time_ms": 7000,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 829.8122818863213
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "16d42f83-7b1e-482c-802a-54dccfbac8c6",
+              "time_ms": 900,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 731.204702197455
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "3926caad-2865-491c-bcba-e387b9d55473",
+              "time_ms": 1154,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 715.5753824710603
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "628387a8-9db8-48f5-96f1-60e5b7689cd8",
+              "time_ms": 1408,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 686.8223686751294
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "3d503eee-e573-4583-9fdd-50ef93b210b3",
+              "time_ms": 1662,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 646.9051311832534
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "ceeb6fd1-5597-4131-8f2e-103e5ae85cda",
+              "time_ms": 1917,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 598.5439637641493
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "9184e303-9c39-4ac0-951f-1a0563ac7035",
+              "time_ms": 2171,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 545.0346000568213
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "3c608859-b74f-4f8d-9886-3bc44dadbcae",
+              "time_ms": 2425,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 490.0236147695194
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "b7f0f437-3add-4bea-898a-08c754110163",
+              "time_ms": 2679,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 437.2599156396212
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "9acc491f-6c20-41b8-b6bb-aa6415380584",
+              "time_ms": 2933,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 390.33926156669423
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "8c023de6-f319-4b46-baf7-6137aaf52716",
+              "time_ms": 3188,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 352.45921758576105
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "84dc677a-6756-4254-8b7f-cdc24ed515b2",
+              "time_ms": 3442,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 326.20124609438983
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "f6719f4f-f0b0-411c-8415-4a1f06110949",
+              "time_ms": 3696,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 313.35478445636795
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "0a388ea1-1b2b-412a-bb20-2f4c6b54dd66",
+              "time_ms": 3950,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 314.79529780254495
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "fe45b476-c420-41dc-8ab0-d46f005db790",
+              "time_ms": 4204,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 330.4246175289397
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "2349a59b-d092-4cbe-ad84-497e99f085cb",
+              "time_ms": 4458,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 359.17763132487056
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "f0a30e40-4d10-4d2c-b2f3-9c7256c34d5b",
+              "time_ms": 4712,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 399.0948688167466
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "76c42dfc-cf09-4064-8288-76acea66da74",
+              "time_ms": 4967,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 447.4560362358506
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "e1e90994-8ee4-4586-8c1c-9c41cb1f7357",
+              "time_ms": 5221,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 500.9653999431787
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "f162b36d-990c-4035-bc6a-e814dd553831",
+              "time_ms": 5475,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 555.9763852304807
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "8d16b727-842a-4ca0-b44d-a1a80072acf2",
+              "time_ms": 5729,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 608.7400843603785
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "13a965ff-c879-48b0-8f0a-f71bdcbb80f1",
+              "time_ms": 5983,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 655.6607384333058
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "7f4cbac0-f374-4a84-8a2f-768ba07056c1",
+              "time_ms": 6238,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 693.540782414239
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "88e8afe1-25a1-4920-a87e-7093efc679ff",
+              "time_ms": 6492,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 719.79875390561
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "0a793219-207d-494e-b1d1-91dd5d745662",
+              "time_ms": 6746,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 732.645215543632
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "58713b80-ac4e-4bbb-bcbf-afd70899d60c",
+              "time_ms": 7000,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 731.204702197455
+              },
+              "easing": "Linear"
+            }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null
+        },
+        {
+          "id": "0782714d-ed13-441c-88fb-dbeccad071d8",
+          "name": "Orbit 3",
+          "object_type": "Ellipse",
+          "transform": {
+            "x": 1266.0,
+            "y": 526.0,
+            "width": 28.0,
+            "height": 28.0,
+            "rotation": 0.0,
+            "opacity": 0.0
+          },
+          "style": {
+            "fill": "#3b82f6",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0,
+            "fill_gradient": null,
+            "stroke_gradient": null
+          },
+          "content": "",
+          "z_index": 4,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "c859fb6b-d093-41d5-9831-84c1034749b4",
+              "time_ms": 700,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "d80d4d4c-7a59-4bc6-bbce-3b72b96d7730",
+              "time_ms": 1200,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.85
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "095325f5-46b9-4ac6-8fdd-8ce6ddedafb2",
+              "time_ms": 6300,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.85
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "6e299511-9145-4069-ac99-7b6b1da5257f",
+              "time_ms": 6900,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "EaseIn"
+            },
+            {
+              "id": "6dce648c-2496-4298-81a3-b035219f0cae",
+              "time_ms": 900,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 524.5985238078417
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "c4ad7109-a5c2-4ec1-9f9f-3311d62c2305",
+              "time_ms": 1188,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 567.3051841807389
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "c5b4d761-cfd1-4661-9aae-5ad3035431fe",
+              "time_ms": 1475,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 631.7303695836339
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "f3b8ccf0-0e03-49ac-b5ce-b39ea0ff03f7",
+              "time_ms": 1762,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 713.4836100989725
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "1835f22a-a69a-473c-941a-abc1c64d45d1",
+              "time_ms": 2050,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 806.9935574892517
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "6028146c-7d79-48c3-9657-490a808d1cdb",
+              "time_ms": 2338,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 905.8876633723187
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "1bec8274-e820-45b4-b346-5cda0b3ceaf9",
+              "time_ms": 2625,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1003.42645786248
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "b9d1c7cc-1420-41bc-aaaa-20d94c1f9b9a",
+              "time_ms": 2913,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1092.9628333057103
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "823c0a92-5694-4d00-a92c-9bc2a5abfcfd",
+              "time_ms": 3200,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1168.3950336814098
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "7417557c-dfff-46f3-a094-ed44f40778bb",
+              "time_ms": 3488,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1224.5824791915798
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "fb5b5c2f-14cb-42f7-a8c7-face4920daae",
+              "time_ms": 3775,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1257.6960882788462
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "db658392-d84c-489d-bcfb-c243edb66ee9",
+              "time_ms": 4062,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1265.479223206738
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "78bd7bed-7c0f-45cf-a482-f970f9b26bec",
+              "time_ms": 4350,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1247.4014761921585
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "814813c2-4703-4c8d-bd27-1473d0f48757",
+              "time_ms": 4637,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1204.6948158192613
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "2f430291-950b-4d66-ab5c-4262312bde33",
+              "time_ms": 4925,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1140.269630416366
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "b2ac4a13-8289-4f15-bb75-9e789ef3b32c",
+              "time_ms": 5212,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1058.5163899010277
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "121f5733-d12a-4198-a2ac-bfe9e07f16b1",
+              "time_ms": 5500,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 965.0064425107485
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "346f62ee-377e-45c3-a5c9-64aac4877451",
+              "time_ms": 5788,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 866.1123366276813
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "71203c8d-ed7f-4a5d-ba29-fb8e42e3d09f",
+              "time_ms": 6075,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 768.5735421375201
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "f3f1037c-b340-43b8-83c9-80df124d07b0",
+              "time_ms": 6362,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 679.0371666942899
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "64187c9b-9bb7-4bcf-bbab-b215aa757153",
+              "time_ms": 6650,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 603.60496631859
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "330378f5-7857-4edc-bf3d-4c097b8f2076",
+              "time_ms": 6938,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 547.4175208084201
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "b161f3df-efd4-436b-a26c-db8c32c13439",
+              "time_ms": 7225,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 514.3039117211538
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "000cdc5d-b8d5-4979-88d2-dfa6cfa966af",
+              "time_ms": 7512,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 506.5207767932619
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "9f2acb27-6620-4d26-8301-96fdac5bd838",
+              "time_ms": 7800,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 524.5985238078416
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "468bb97e-a4f0-433c-9039-4e47e69dd888",
+              "time_ms": 900,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 453.19559612526234
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "5e233a64-5389-4583-8e85-cd867825c48b",
+              "time_ms": 1188,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 397.68304335045957
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "fbf286cb-07d4-42ae-af3f-0c5b77b521bf",
+              "time_ms": 1475,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 350.9150791175259
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "28faf439-74aa-4d56-95b1-0ed86cdf27be",
+              "time_ms": 1762,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 316.0788629012204
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "0020af10-6c55-4599-a244-b5912d2413af",
+              "time_ms": 2050,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 295.54842526711536
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "255ebc5c-dbf0-4ef3-9a60-6f9c077ed8da",
+              "time_ms": 2338,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 290.7228816118224
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "3e35b2b6-cf71-4f4e-b182-59b30ff20676",
+              "time_ms": 2625,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 301.93108476086184
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "76fc28ef-bf4a-42d4-b89f-64cc2195b2e8",
+              "time_ms": 2913,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 328.40921419205813
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "876d3b6d-9aff-4944-9901-6e94ad89a0bc",
+              "time_ms": 3200,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 368.352829141853
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "c6aa0b01-335d-4b28-b6a2-a45e0d2c4b02",
+              "time_ms": 3488,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 419.0398382613629
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "e43bb615-17ce-4588-98dd-b66f24a3c7ba",
+              "time_ms": 3775,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 477.016005643336
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "1da48aa8-9446-4cd3-89e6-845dc12f9df8",
+              "time_ms": 4062,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 538.3303512908376
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "21b51c63-21eb-4e46-944c-c8cdef560ebc",
+              "time_ms": 4350,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 598.8044038747375
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "b3ba27c8-ae7b-4b27-b99e-962d396cd993",
+              "time_ms": 4637,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 654.3169566495403
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "5e283c39-fa58-4603-adc3-595fdcc2505b",
+              "time_ms": 4925,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 701.0849208824743
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "36b776b1-8730-4db1-87b2-b8a6fbcc2275",
+              "time_ms": 5212,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 735.9211370987796
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "e40c65b3-eb8c-465a-abd9-08084bf55244",
+              "time_ms": 5500,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 756.4515747328846
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "38719244-33f0-4ebb-8134-4b501e460a13",
+              "time_ms": 5788,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 761.2771183881775
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "6a8fafdc-172f-4c12-b29a-5a19da54fcda",
+              "time_ms": 6075,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 750.0689152391382
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "6f22005c-ed32-4284-8b5f-3525fe022dfd",
+              "time_ms": 6362,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 723.590785807942
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "0b04b4d4-66ee-460b-88fd-4ad36ab70921",
+              "time_ms": 6650,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 683.6471708581469
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "80f80897-9648-44e4-9764-e46da88ff2e6",
+              "time_ms": 6938,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 632.9601617386371
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "a15a720c-8458-4a64-8324-e9dc76184ac4",
+              "time_ms": 7225,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 574.9839943566641
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "e712c4b9-2793-4025-8767-5ce71a3af313",
+              "time_ms": 7512,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 513.6696487091624
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "e32efc6c-f482-46e3-abb2-c78af3d33c3d",
+              "time_ms": 7800,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 453.19559612526245
+              },
+              "easing": "Linear"
+            }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null
+        },
+        {
+          "id": "760c7717-0ab7-4135-9ed6-6dba8dee992f",
+          "name": "Orbit 4",
+          "object_type": "Ellipse",
+          "transform": {
+            "x": 1308.0,
+            "y": 528.0,
+            "width": 24.0,
+            "height": 24.0,
+            "rotation": 0.0,
+            "opacity": 0.0
+          },
+          "style": {
+            "fill": "#7c3aed",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0,
+            "fill_gradient": null,
+            "stroke_gradient": null
+          },
+          "content": "",
+          "z_index": 4,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "9c3c952f-4490-4e1e-bd8a-02439975c547",
+              "time_ms": 700,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "f87e75d0-24f6-479b-85ef-466230ce0f69",
+              "time_ms": 1200,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.85
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "a234f9a7-20af-4b81-bdbb-95044d8165d7",
+              "time_ms": 6300,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.85
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "152c636b-0b6b-4018-879b-0e46a401d099",
+              "time_ms": 6900,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "EaseIn"
+            },
+            {
+              "id": "057e033e-f7f6-4066-b187-5280dab8e561",
+              "time_ms": 900,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1017.7871376374778
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "1e7be12d-3558-40bf-921d-be7d815a83d7",
+              "time_ms": 1221,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1116.7483947063113
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "11becd02-9d0c-489e-8270-4652551ceddc",
+              "time_ms": 1542,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1200.1208267005056
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "b1141c76-2a13-46b6-b1d9-01db439c1e32",
+              "time_ms": 1862,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1262.2227401591144
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "b5b631e6-8e27-4bb9-91c3-bc470467c47f",
+              "time_ms": 2183,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1298.8219923081983
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "c52d5a48-6740-4147-b71a-227f2b92c5b9",
+              "time_ms": 2504,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1307.424404596921
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "2ddfdf1e-91ff-4de8-b412-d68ea3559149",
+              "time_ms": 2825,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1287.4437368439644
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "376ccc73-9d4f-4839-ac1d-99a7bc14b914",
+              "time_ms": 3146,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1240.2416385370782
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "7ed33c72-2245-433a-a3de-27530ee9d321",
+              "time_ms": 3467,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1169.0348546707207
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "0a213ebf-321e-47a7-90da-9bdcf6bec2cb",
+              "time_ms": 3788,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1078.6760098906097
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "22192c2b-722a-4a36-9f9b-91ee0d5a43c0",
+              "time_ms": 4108,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 975.3229101434588
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "5f0c8868-ed67-4d69-89df-b51299d2138c",
+              "time_ms": 4429,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 866.0188983779636
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "c662ebbb-295c-4b6d-b789-91a27f642229",
+              "time_ms": 4750,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 758.2128623625222
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "c5c0b321-380a-4600-b61a-e7c0bfcba2dd",
+              "time_ms": 5071,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 659.2516052936888
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "9a013844-6bc8-46ad-aad8-39087f11cba4",
+              "time_ms": 5392,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 575.8791732994947
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "e49829a1-de92-4a3d-b483-435896dfe555",
+              "time_ms": 5712,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 513.7772598408853
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "8652e927-4217-4ca2-b24a-116056f9c81d",
+              "time_ms": 6033,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 477.1780076918017
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "da60cf9a-ef91-4452-b2bf-79128474fa55",
+              "time_ms": 6354,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 468.575595403079
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "a6d3f8fb-ccd3-464b-ad9b-eb507f83954b",
+              "time_ms": 6675,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 488.55626315603547
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "5f5d66b1-7bd9-40b5-bba1-a0de39c02ae9",
+              "time_ms": 6996,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 535.7583614629218
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "6ae2ce8d-81a9-4773-b2c3-086c016ff935",
+              "time_ms": 7317,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 606.9651453292798
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "1a2b8b57-7ef9-421f-832e-07f6265ff3db",
+              "time_ms": 7638,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 697.3239901093898
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "1c6d7f5e-151a-4e8d-9b15-8c80434f59eb",
+              "time_ms": 7958,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 800.6770898565411
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "4ec49150-1f7c-461a-a56d-921ba8c84d6c",
+              "time_ms": 8279,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 909.9811016220364
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "2b056d75-bff5-4cee-b125-783d2f8058f0",
+              "time_ms": 8600,
+              "property": "transform.x",
+              "value": {
+                "type": "Number",
+                "value": 1017.7871376374778
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "1569afab-76c6-4123-a661-42ce1b89afc3",
+              "time_ms": 900,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 280.344883156742
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "98171636-b5ad-406d-bb76-0c9207085318",
+              "time_ms": 1221,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 309.61018410701155
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "63cc1b61-34ce-414c-8558-0960244d6240",
+              "time_ms": 1542,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 353.75839010415336
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "d407a45e-bde9-46ee-8756-979ee186018f",
+              "time_ms": 1862,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 409.780873867822
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "24e664cb-4802-4896-b432-cddde9e24db9",
+              "time_ms": 2183,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 473.8597957110553
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "1814e571-2d5a-4901-b4c9-d11246999e56",
+              "time_ms": 2504,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 541.6282830056626
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "76da3669-d268-49c7-b407-4f8a4086972e",
+              "time_ms": 2825,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 608.4680253352362
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "395963d7-f4ad-4a53-843c-84ef69bdb122",
+              "time_ms": 3146,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 669.8240047179129
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "22e72111-efd7-43d9-a9c3-48e2aa9f67b3",
+              "time_ms": 3467,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 721.5149125543132
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "9e2354d7-3ba9-4f4c-b339-54e681f40170",
+              "time_ms": 3788,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 760.0180988986509
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "36cdbd7c-8ef2-4561-bd0e-03a64fc46b10",
+              "time_ms": 4108,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 782.709635231083
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "60348d07-4f4f-441b-9324-51214f1b27a7",
+              "time_ms": 4429,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 788.0431308500911
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "5adcc508-c63d-428e-a277-af5398b6787f",
+              "time_ms": 4750,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 775.6551168432579
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "81f37887-c218-4d82-bf7d-a96aab9021b5",
+              "time_ms": 5071,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 746.3898158929885
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "2744d993-01d4-4158-b635-6389874eddcc",
+              "time_ms": 5392,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 702.2416098958469
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "b5d4a58e-be55-4706-8d82-bbc8b0cd3e83",
+              "time_ms": 5712,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 646.2191261321778
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "69921384-9242-47cd-b402-4206e4d7b9f6",
+              "time_ms": 6033,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 582.1402042889449
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "007d628e-8aa1-4f4a-8900-38525c76dfaf",
+              "time_ms": 6354,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 514.3717169943375
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "5add03e4-bd7e-416f-bde6-a4281ed2dce5",
+              "time_ms": 6675,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 447.53197466476377
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "ea9dc693-5b26-49ce-870e-b1b180d2e47f",
+              "time_ms": 6996,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 386.1759952820871
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "8420435c-a9e7-491d-a04d-24d0289e8a41",
+              "time_ms": 7317,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 334.4850874456864
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "4d34ba77-4486-4568-9631-cb39a0a48232",
+              "time_ms": 7638,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 295.9819011013492
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "3293eba6-4ea6-4644-9164-970d02b3cc58",
+              "time_ms": 7958,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 273.290364768917
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "4f0faf51-d5a0-42d8-9b2d-a38a822bcc19",
+              "time_ms": 8279,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 267.956869149909
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "290b4b4d-9719-4a89-8cef-03f8107c184b",
+              "time_ms": 8600,
+              "property": "transform.y",
+              "value": {
+                "type": "Number",
+                "value": 280.34488315674196
+              },
+              "easing": "Linear"
+            }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null
+        },
+        {
+          "id": "9c682e83-49f6-4575-b14c-82d08619febc",
+          "name": "Find it",
+          "object_type": "Hotspot",
+          "transform": {
+            "x": 1150.0,
+            "y": 300.0,
+            "width": 220.0,
+            "height": 220.0,
+            "rotation": 0.0,
+            "opacity": 0.0
+          },
+          "style": {
+            "fill": "transparent",
+            "stroke": "transparent",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0,
+            "fill_gradient": null,
+            "stroke_gradient": null
+          },
+          "content": "",
+          "z_index": 8,
+          "visible": true,
+          "locked": false,
+          "keyframes": [],
+          "events": [
+            {
+              "id": "6d67e16e-a8bf-40eb-b7e5-e789ed5ef484",
+              "trigger": {
+                "type": "HoverEnter"
+              },
+              "action": {
+                "type": "SetProperty",
+                "object_id": "dba0da55-e017-4e28-9c49-5a9182a3be4c",
+                "property": "transform.opacity",
+                "value": {
+                  "type": "Number",
+                  "value": 0.85
+                }
+              }
+            },
+            {
+              "id": "e914947e-939c-4631-b297-6967d65a4e67",
+              "trigger": {
+                "type": "HoverLeave"
+              },
+              "action": {
+                "type": "SetProperty",
+                "object_id": "dba0da55-e017-4e28-9c49-5a9182a3be4c",
+                "property": "transform.opacity",
+                "value": {
+                  "type": "Number",
+                  "value": 0.0
+                }
+              }
+            }
+          ],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "appear_at_ms": 1500
+        },
+        {
+          "id": "dba0da55-e017-4e28-9c49-5a9182a3be4c",
+          "name": "Secret",
+          "object_type": "Text",
+          "transform": {
+            "x": 1400.0,
+            "y": 860.0,
+            "width": 420.0,
+            "height": 50.0,
+            "rotation": 0.0,
+            "opacity": 0.0
+          },
+          "style": {
+            "fill": "#b8a6f0",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24,
+            "font_weight": 400,
+            "text_align": "Right",
+            "line_height": 1.4,
+            "border_radius": 0.0,
+            "fill_gradient": null,
+            "stroke_gradient": null
+          },
+          "content": "the timeline is the whole idea",
+          "z_index": 9,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "eab6d790-1b61-4fb4-9618-f9ea775eab77",
+              "time_ms": 0,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null
+        },
+        {
+          "id": "7d4c63bf-e171-413b-9926-18037bce3cc3",
+          "name": "Hint",
+          "object_type": "Text",
+          "transform": {
+            "x": 1150.0,
+            "y": 970.0,
+            "width": 260.0,
+            "height": 34.0,
+            "rotation": 0.0,
+            "opacity": 0.0
+          },
+          "style": {
+            "fill": "#6b6478",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 18,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0,
+            "fill_gradient": null,
+            "stroke_gradient": null
+          },
+          "content": "something is listening \u2197",
+          "z_index": 9,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "6bb1c526-52ea-4cc6-913d-043a5de0c19c",
+              "time_ms": 2200,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "6ff23f42-20de-4b4e-a619-ec5d28b509eb",
+              "time_ms": 2800,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.6
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "15917405-7509-4e92-a41b-9186eac8b332",
+              "time_ms": 6300,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.6
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "4da3a81c-0433-4abe-98c3-91d3929f852c",
+              "time_ms": 6900,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "EaseIn"
+            }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null
+        },
+        {
+          "id": "380c8ecd-9219-4a64-bad4-07f06f1fa6ba",
+          "name": "Chime",
+          "object_type": "Audio",
+          "transform": {
+            "x": 0.0,
+            "y": 0.0,
+            "width": 10.0,
+            "height": 10.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#7c3aed",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0,
+            "fill_gradient": null,
+            "stroke_gradient": null
+          },
+          "content": "assets/citcat-reel/chime.mp3",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "43a4ae02-1bd2-4e4a-92da-6df09456493e",
+              "time_ms": 1500,
+              "property": "audio_volume",
+              "value": {
+                "type": "Number",
+                "value": 0.8
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "efe49f90-d652-487b-ac02-9440cf39d25e",
+              "time_ms": 1520,
+              "property": "audio_volume",
+              "value": {
+                "type": "Number",
+                "value": 0.8
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "5b569266-262a-45d1-95b5-f9a805cfbe41",
+              "time_ms": 2900,
+              "property": "audio_volume",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "appear_at_ms": 1500,
+          "audio_volume": 0.0
+        },
+        {
+          "id": "845821b4-b6f0-40e3-8658-ade6a43670bc",
+          "name": "Continue 2",
+          "object_type": "Button",
+          "transform": {
+            "x": 1660.0,
+            "y": 970.0,
+            "width": 160.0,
+            "height": 56.0,
+            "rotation": 0.0,
+            "opacity": 0.0
+          },
+          "style": {
+            "fill": "#7c3aed",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 22,
+            "font_weight": 600,
+            "text_align": "Center",
+            "line_height": 1.4,
+            "border_radius": 28.0,
+            "fill_gradient": null,
+            "stroke_gradient": null
+          },
+          "content": "\u2192",
+          "z_index": 12,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "f6668749-ebd5-4b9c-9380-b971c411ea98",
+              "time_ms": 3200,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "9d5f9dfe-f372-4594-af5c-c7ee0be70652",
+              "time_ms": 3700,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 1.0
+              },
+              "easing": "EaseOut"
+            }
+          ],
+          "events": [
+            {
+              "id": "fbc7b29f-fea8-42f6-8f0e-7b33a077f66c",
+              "trigger": {
+                "type": "Click"
+              },
+              "action": {
+                "type": "GotoScene",
+                "scene_id": "967312d4-dc4e-49f2-befb-0468eb540167"
+              }
+            }
+          ],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "appear_at_ms": 3200
+        }
+      ],
+      "transition_in": {
+        "kind": "Crossfade",
+        "duration_ms": 500
+      },
+      "transition_out": null,
+      "sort_order": 3,
+      "wait_points": [
+        {
+          "id": "186d8530-9b4f-4c32-8d1b-416d438bf834",
+          "time_ms": 7000,
+          "resume_on": {
+            "type": "ClickOrTimer",
+            "object_id": null,
+            "delay_ms": 500
+          }
+        }
+      ],
+      "subtitle_track": null
+    },
+    {
+      "id": "967312d4-dc4e-49f2-befb-0468eb540167",
+      "name": "Close",
+      "duration_ms": 6000,
+      "background": {
+        "fill": "#07030f",
+        "gradient": {
+          "gradient_type": "Radial",
+          "angle": 0.0,
+          "stops": [
+            {
+              "offset": 0.0,
+              "color": "#170b30"
+            },
+            {
+              "offset": 1.0,
+              "color": "#07030f"
+            }
+          ]
+        }
+      },
+      "objects": [
+        {
+          "id": "182f21ed-ee06-4409-a8ac-dab0ce6863fc",
+          "name": "Mark reprise",
+          "object_type": "Svg",
+          "transform": {
+            "x": 760.0,
+            "y": 210.0,
+            "width": 150.0,
+            "height": 150.0,
+            "rotation": 0.0,
+            "opacity": 0.0
+          },
+          "style": {
+            "fill": "#7c3aed",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0,
+            "fill_gradient": null,
+            "stroke_gradient": null
+          },
+          "content": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 200\"><defs><linearGradient id=\"g\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\"><stop offset=\"0\" stop-color=\"#a78bfa\"/><stop offset=\"1\" stop-color=\"#7c3aed\"/></linearGradient></defs><path d=\"M40 72 L70 18 L86 72 Z\" fill=\"url(#g)\"/><path d=\"M160 72 L130 18 L114 72 Z\" fill=\"url(#g)\"/><rect x=\"34\" y=\"64\" width=\"132\" height=\"112\" rx=\"42\" fill=\"url(#g)\"/><circle cx=\"76\" cy=\"122\" r=\"9\" fill=\"#07030f\"/><circle cx=\"124\" cy=\"122\" r=\"9\" fill=\"#07030f\"/></svg>",
+          "z_index": 5,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "f893ee20-3b63-43ec-9d49-6a55c6943e78",
+              "time_ms": 0,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "7fdd7ff2-328b-4cad-94ed-b106ed93be36",
+              "time_ms": 500,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 1.0
+              },
+              "easing": "EaseOut"
+            }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null
+        },
+        {
+          "id": "3415edd0-59dc-44c7-a3bf-742c44ca8f78",
+          "name": "Wordmark 2",
+          "object_type": "Text",
+          "transform": {
+            "x": 930.0,
+            "y": 240.0,
+            "width": 500.0,
+            "height": 100.0,
+            "rotation": 0.0,
+            "opacity": 0.0
+          },
+          "style": {
+            "fill": "#ffffff",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 86,
+            "font_weight": 800,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0,
+            "fill_gradient": null,
+            "stroke_gradient": null
+          },
+          "content": "CitCat",
+          "z_index": 10,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "547f2844-9a29-480f-9432-0b711faa7658",
+              "time_ms": 200,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "66163618-3c70-495f-8ea7-c600c93d8484",
+              "time_ms": 700,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 1.0
+              },
+              "easing": "EaseOut"
+            }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "filters": {
+            "drop_shadow": {
+              "offset_x": 0,
+              "offset_y": 0,
+              "blur": 22,
+              "color": "#7c3aed"
+            }
+          }
+        },
+        {
+          "id": "c2283d64-fa1d-4701-bd0a-dd3c0acb2c83",
+          "name": "Lines",
+          "object_type": "Text",
+          "transform": {
+            "x": 760.0,
+            "y": 460.0,
+            "width": 400.0,
+            "height": 160.0,
+            "rotation": 0.0,
+            "opacity": 0.0
+          },
+          "style": {
+            "fill": "#b8a6f0",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 28,
+            "font_weight": 400,
+            "text_align": "Center",
+            "line_height": 1.7,
+            "border_radius": 0.0,
+            "fill_gradient": null,
+            "stroke_gradient": null
+          },
+          "content": "design once.\nconnect data.\nrender at scale.",
+          "z_index": 10,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "4d33ec43-0290-4391-a352-bfa725c34dd5",
+              "time_ms": 900,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "f7cbb121-101e-4027-82ca-010fa8d92f86",
+              "time_ms": 1500,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 1.0
+              },
+              "easing": "EaseOut"
+            }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null
+        },
+        {
+          "id": "81aba62a-1356-4576-a9eb-ba2ea07babbd",
+          "name": "GitHub",
+          "object_type": "Text",
+          "transform": {
+            "x": 660.0,
+            "y": 940.0,
+            "width": 600.0,
+            "height": 30.0,
+            "rotation": 0.0,
+            "opacity": 0.0
+          },
+          "style": {
+            "fill": "#6b6478",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 17,
+            "font_weight": 400,
+            "text_align": "Center",
+            "line_height": 1.4,
+            "border_radius": 0.0,
+            "fill_gradient": null,
+            "stroke_gradient": null
+          },
+          "content": "github.com/mfblock/citcat",
+          "z_index": 11,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "4bd3a43c-d889-4695-a725-66d686344a85",
+              "time_ms": 2200,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "9bb38d98-ed8d-4c6a-99a3-49f204ebf430",
+              "time_ms": 2700,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.75
+              },
+              "easing": "EaseOut"
+            }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "appear_at_ms": 2200
+        },
+        {
+          "id": "76e2c2ee-e51d-441d-9fd4-232232d3fb7e",
+          "name": "Replay",
+          "object_type": "Button",
+          "transform": {
+            "x": 830.0,
+            "y": 780.0,
+            "width": 260.0,
+            "height": 56.0,
+            "rotation": 0.0,
+            "opacity": 0.0
+          },
+          "style": {
+            "fill": "#7c3aed",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 20,
+            "font_weight": 600,
+            "text_align": "Center",
+            "line_height": 1.4,
+            "border_radius": 28.0,
+            "fill_gradient": null,
+            "stroke_gradient": null
+          },
+          "content": "\u21ba replay",
+          "z_index": 12,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "c97d996d-33a6-46fb-9aaa-f6def57c6fcb",
+              "time_ms": 1800,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "80046880-f487-44a2-b7ca-ab7db39d2eb5",
+              "time_ms": 2300,
+              "property": "transform.opacity",
+              "value": {
+                "type": "Number",
+                "value": 1.0
+              },
+              "easing": "EaseOut"
+            }
+          ],
+          "events": [
+            {
+              "id": "ab09401d-ec69-4d7b-9e9a-bd2cc247d751",
+              "trigger": {
+                "type": "Click"
+              },
+              "action": {
+                "type": "GotoScene",
+                "scene_id": "d9f00895-6975-4edb-9482-13239a352eaf"
+              }
+            }
+          ],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "appear_at_ms": 1800
+        },
+        {
+          "id": "6d096298-986d-4262-9573-669ff674a6d0",
+          "name": "Outro pad",
+          "object_type": "Audio",
+          "transform": {
+            "x": 0.0,
+            "y": 0.0,
+            "width": 10.0,
+            "height": 10.0,
+            "rotation": 0.0,
+            "opacity": 1.0
+          },
+          "style": {
+            "fill": "#7c3aed",
+            "stroke": "#000000",
+            "stroke_width": 0.0,
+            "font_family": "system-ui",
+            "font_size": 24.0,
+            "font_weight": 400,
+            "text_align": "Left",
+            "line_height": 1.4,
+            "border_radius": 0.0,
+            "fill_gradient": null,
+            "stroke_gradient": null
+          },
+          "content": "assets/citcat-reel/pad.mp3",
+          "z_index": 0,
+          "visible": true,
+          "locked": false,
+          "keyframes": [
+            {
+              "id": "7ca60fae-0d0a-46e8-b3a2-9331af1b2436",
+              "time_ms": 0,
+              "property": "audio_volume",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "84dd162d-27b6-44b3-ad4d-765d45154dcf",
+              "time_ms": 1200,
+              "property": "audio_volume",
+              "value": {
+                "type": "Number",
+                "value": 0.7
+              },
+              "easing": "EaseOut"
+            },
+            {
+              "id": "8dddeb66-ea62-47bb-adc9-e634cf63249a",
+              "time_ms": 4600,
+              "property": "audio_volume",
+              "value": {
+                "type": "Number",
+                "value": 0.7
+              },
+              "easing": "Linear"
+            },
+            {
+              "id": "3c7ea456-4dec-4c15-aad4-ee0a22fc64af",
+              "time_ms": 6000,
+              "property": "audio_volume",
+              "value": {
+                "type": "Number",
+                "value": 0.0
+              },
+              "easing": "EaseIn"
+            }
+          ],
+          "events": [],
+          "data_bindings": [],
+          "condition": null,
+          "motion_path": null,
+          "audio_volume": 0.0
+        }
+      ],
+      "transition_in": {
+        "kind": "Crossfade",
+        "duration_ms": 800
+      },
+      "transition_out": null,
+      "sort_order": 4,
+      "wait_points": [],
+      "subtitle_track": null
+    }
+  ],
+  "effects_library": [],
+  "data_source": null,
+  "export_settings": {
+    "format": "Html",
+    "single_file": true,
+    "autoplay": true,
+    "loop_playback": false
+  }
+}
