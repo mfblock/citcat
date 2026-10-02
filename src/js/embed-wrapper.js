@@ -196,10 +196,36 @@
           if (!r.ok) throw new Error("HTTP " + r.status);
           return r.json();
         })
+        .then(function (proj) {
+          self._resolveAssetPaths(proj, src);
+          return proj;
+        })
         .catch(function (e) {
           self._fail("could not load " + src + ": " + e.message);
           return null;
         });
+    }
+
+    // A project's Image/Video/Audio `content` is a path relative to the
+    // project manifest's OWN location (the same convention html.rs's folder
+    // exporter ships assets under — alongside the exported project.json),
+    // never relative to the embedding page. Left unresolved, the browser
+    // resolves it against document.baseURI instead, which only ever worked
+    // by coincidence when a page embedded exactly one project whose assets
+    // happened to sit at a matching site-root path. Rewritten in place, once,
+    // right after fetch -- Svg is excluded: its `content` is inline markup,
+    // not a path.
+    _resolveAssetPaths(proj, src) {
+      var base = new URL(".", new URL(src, document.baseURI));
+      for (var s = 0; s < proj.scenes.length; s++) {
+        var objs = proj.scenes[s].objects;
+        for (var i = 0; i < objs.length; i++) {
+          var o = objs[i];
+          if (o.object_type === "Image" || o.object_type === "Video" || o.object_type === "Audio") {
+            o.content = new URL(o.content, base).href;
+          }
+        }
+      }
     }
 
     _fail(message) {

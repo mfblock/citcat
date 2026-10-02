@@ -56,39 +56,46 @@ cp "$ROOT/docs/embed.js"      "$OUT/embed.js"
 cp "$ROOT/docs/player.html"   "$OUT/player.html"
 
 # ---- Gallery page: all 8 demo projects ----
-# Spec: _teams/citcat/design/gallery-page/FO-gallery-page.md. docs/gallery.html
-# is a static sibling of index.html (same relative-path base, see below), so
-# the six native <citcat-player> tiles' project JSON and asset folders land at
-# the SAME relative locations the editor/export already use -- a Image/Video/
-# Audio/Svg object's `content` path is resolved by the browser against the
-# PAGE's own location, never against the JSON's fetch URL, so gallery.html
-# must sit at site root for these to resolve (exactly like demo-showcase.json
-# and landing-showreel-assets/ already do for index.html above).
+# Spec: _teams/citcat/design/gallery-page/FO-gallery-page.md §8. embed-wrapper.js
+# now resolves a project's Image/Video/Audio `content` paths against the
+# project MANIFEST's own fetch URL (project-relative), not the page's -- see
+# src/js/embed-wrapper.js's _resolveAssetPaths. So each native tile gets its
+# own real folder here, mirroring that project's own source directory exactly
+# (the same shape a folder export already produces), instead of the old flat
+# site-root asset duplication (which only worked by single-project coincidence
+# and already shared one flat /assets/ between lyric-video and future
+# projects -- a latent filename collision).
 mkdir -p "$OUT/gallery-assets"
 
-# Each .citcat file already IS the wire JSON <citcat-player> fetches (same
-# convention as demo-showcase.json above) -- just copy, no conversion step.
-cp "$ROOT/templates/landing-showreel.citcat"                     "$OUT/gallery-assets/landing-showreel.json"
-cp "$ROOT/templates/demo-showcase.citcat"                        "$OUT/gallery-assets/demo-showcase.json"
-cp "$ROOT/templates/citcat-reel.citcat"                          "$OUT/gallery-assets/citcat-reel.json"
-cp "$ROOT/examples/presentation/company-intro.citcat"            "$OUT/gallery-assets/company-intro.json"
-cp "$ROOT/examples/interactive-training/safety-training.citcat"  "$OUT/gallery-assets/safety-training.json"
-cp "$ROOT/examples/music-video/lyric-video.citcat"                "$OUT/gallery-assets/lyric-video.json"
+# $1 = project .citcat file   $2 = project name (folder + json basename)
+# $3 = asset dir relative to the project's own folder (optional)
+stage_gallery_project() {
+  local project="$1" name="$2" rel_assets="${3:-}"
+  local dest="$OUT/gallery-assets/$name"
+  mkdir -p "$dest"
+  # Each .citcat file already IS the wire JSON <citcat-player> fetches (same
+  # convention as demo-showcase.json above) -- just copy, no conversion step.
+  cp "$project" "$dest/$name.json"
+  if [ -n "$rel_assets" ]; then
+    mkdir -p "$dest/$rel_assets"
+    find "$(dirname "$project")/$rel_assets" -maxdepth 1 -type f ! -name '_*' \
+         -exec cp {} "$dest/$rel_assets/" \;
+  fi
+}
 
-# citcat-reel's own asset folder: ambient pad/chime, hand-drawn SVG mark (inline
-# in the project, not a file), mock canvas still, trimmed video. Mara's file —
-# see the commit that added templates/citcat-reel.citcat for the full story.
-mkdir -p "$OUT/assets/citcat-reel"
-find "$ROOT/templates/assets/citcat-reel" -maxdepth 1 -type f ! -name '_*' \
-     -exec cp {} "$OUT/assets/citcat-reel/" \;
-
+stage_gallery_project "$ROOT/templates/landing-showreel.citcat"                    "landing-showreel"  "landing-showreel-assets"
+stage_gallery_project "$ROOT/templates/demo-showcase.citcat"                       "demo-showcase"
+# citcat-reel: ambient pad/chime, hand-drawn SVG mark (inline in the project,
+# not a file), mock canvas still, trimmed video. Mara's file -- see the commit
+# that added templates/citcat-reel.citcat for the full story.
+stage_gallery_project "$ROOT/templates/citcat-reel.citcat"                         "citcat-reel"       "assets/citcat-reel"
+stage_gallery_project "$ROOT/examples/presentation/company-intro.citcat"           "company-intro"
+stage_gallery_project "$ROOT/examples/interactive-training/safety-training.citcat" "safety-training"
 # lyric-video's own asset folder (skyline/rain/grain stills + a short clip).
 # Its background-music object points at midnight-rain.mp3, which
 # examples/music-video/README.md says plainly is not shipped -- "the visuals
 # run either way" -- a documented absence, not a build gap.
-mkdir -p "$OUT/assets"
-find "$ROOT/examples/music-video/assets" -maxdepth 1 -type f ! -name '_*' \
-     -exec cp {} "$OUT/assets/" \;
+stage_gallery_project "$ROOT/examples/music-video/lyric-video.citcat"              "lyric-video"       "assets"
 
 # demo-showcase, company-intro and safety-training carry no external assets —
 # shapes, text and buttons only.
@@ -176,9 +183,6 @@ cat > "$OUT/_headers" <<'HEADERS'
   Cache-Control: public, max-age=31536000, immutable
 
 /landing-showreel-assets/*
-  Cache-Control: public, max-age=86400
-
-/assets/*
   Cache-Control: public, max-age=86400
 
 /gallery-assets/*
