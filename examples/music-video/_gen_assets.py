@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate the lyric-video example's image and video assets.
+"""Generate the lyric-video example's image, video and audio assets.
 
 Committed as generated rather than as stock footage, so the example stays small
 and reproducible.
@@ -79,6 +79,34 @@ def grain():
     return img
 
 
+def midnight_rain_audio():
+    """A moody ambient drone plus band-passed noise standing in for rain,
+    matching the Verse/Chorus mood and the project's own 20s runtime (12s +
+    8s). Same ffmpeg-oscillator technique as
+    templates/assets/citcat-reel/_gen_assets.py's pad_audio -- three detuned
+    sines (A2/C3/E3, a plain A-minor drone) plus filtered pink noise for the
+    rain texture. No licensed or found music.
+    """
+    out = OUT / "midnight-rain.mp3"
+    dur = 20
+    filt = (
+        f"sine=f=110:d={dur},volume=0.14[a];"
+        f"sine=f=130.81:d={dur},volume=0.10[b];"
+        f"sine=f=164.81:d={dur},volume=0.08[c];"
+        f"anoisesrc=color=pink:amplitude=0.5:duration={dur}[n];"
+        f"[n]highpass=f=2500,lowpass=f=9000,volume=0.10[rain];"
+        f"[a][b][c][rain]amix=inputs=4:normalize=0,"
+        f"afade=t=in:st=0:d=3,afade=t=out:st={dur - 4}:d=4"
+    )
+    subprocess.run(
+        [FFMPEG, "-y", "-loglevel", "error", "-f", "lavfi", "-i",
+         f"anullsrc=r=44100:cl=mono:d={dur}",
+         "-filter_complex", filt,
+         "-q:a", "4", str(out)],
+        check=True)
+    return out
+
+
 def clip():
     """A 4s colour-cycling clip, so a trim window is visibly a window.
 
@@ -119,6 +147,9 @@ def main():
 
     v = clip()
     print(f"  {v.name}")
+
+    a = midnight_rain_audio()
+    print(f"  {a.name}")
 
     total = sum(f.stat().st_size for f in OUT.iterdir() if f.is_file())
     print(f"wrote assets to {OUT} ({total / 1024:.1f} KB)")

@@ -808,7 +808,7 @@
             "line_height": 1.4,
             "border_radius": 0.0
           },
-          "content": "midnight-rain.mp3",
+          "content": "assets/midnight-rain.mp3",
           "z_index": 1,
           "visible": true,
           "locked": false,

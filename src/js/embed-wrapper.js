@@ -215,15 +215,26 @@
     // happened to sit at a matching site-root path. Rewritten in place, once,
     // right after fetch -- Svg is excluded: its `content` is inline markup,
     // not a path.
+    //
+    // Scene.background.image is the same kind of path and needs the same
+    // rewrite -- missed in the original fix because background isn't a
+    // SceneObject and this loop only walked `scenes[s].objects`. Caught while
+    // shipping lyric-video.citcat's Verse background (examples/music-video)
+    // to the gallery: without this, a background image resolves against the
+    // page again, the exact bug this function exists to fix.
     _resolveAssetPaths(proj, src) {
       var base = new URL(".", new URL(src, document.baseURI));
       for (var s = 0; s < proj.scenes.length; s++) {
-        var objs = proj.scenes[s].objects;
+        var scene = proj.scenes[s];
+        var objs = scene.objects;
         for (var i = 0; i < objs.length; i++) {
           var o = objs[i];
           if (o.object_type === "Image" || o.object_type === "Video" || o.object_type === "Audio") {
             o.content = new URL(o.content, base).href;
           }
+        }
+        if (scene.background && scene.background.image) {
+          scene.background.image = new URL(scene.background.image, base).href;
         }
       }
     }
