@@ -51,7 +51,11 @@ while IFS= read -r -d '' file; do
   want="$(expected_type "$rel")"
   [ -z "$want" ] && continue
   url="$BASE_URL/gallery-assets/$rel"
-  got="$(curl -sS -o /dev/null -D - "$url" | tr -d '\r' | awk -F': ' 'tolower($1)=="content-type"{print tolower($2)}' | head -1)"
+  # -L: Cloudflare Pages 308-redirects a bare *.html request to its
+  # extensionless clean URL (e.g. product-showcase.html -> product-showcase)
+  # before serving it -- the same thing a browser's iframe follows
+  # transparently. Follow it so that's not reported as a false failure.
+  got="$(curl -sS -L -o /dev/null -D - "$url" | tr -d '\r' | awk -F': ' 'tolower($1)=="content-type"{t=tolower($2)} END{print t}')"
   checked=$((checked + 1))
   case "$got" in
     "$want"*) echo "ok    $rel  ($got)" ;;
